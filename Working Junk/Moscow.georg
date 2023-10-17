@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE database SYSTEM "file:///System/Library/DTDs/CoreData.dtd">
+
+<database>
+    <databaseInfo>
+        <version>134481920</version>
+        <UUID>AE7C7486-1C74-4AB7-9AEC-C5EDE7124435</UUID>
+        <nextObjectID>102</nextObjectID>
+        <metadata>
+            <plist version="1.0">
+                <dict>
+                    <key>NSPersistenceFrameworkVersion</key>
+                    <integer>1251</integer>
+                    <key>NSStoreModelVersionHashes</key>
+                    <dict>
+                        <key>MapCenter</key>
+                        <data>
+		1tU2EZ/8r9g/W1+MWfMXHOFYRjKiksRpHFJcYQk+Emk=
+		</data>
+                    </dict>
+                    <key>NSStoreModelVersionHashesDigest</key>
+                    <string>ycSlWEHu2gBUk7mPwOeBuc+MlpTvhMYsAKJjsMzZwXKkB1OF04BoDZEVTOd5iaKUEsAoGFmSHXUz2mIGVxQI8g==</string>
+                    <key>NSStoreModelVersionHashesVersion</key>
+                    <integer>3</integer>
+                    <key>NSStoreModelVersionIdentifiers</key>
+                    <array>
+                        <string></string>
+                    </array>
+                </dict>
+            </plist>
+        </metadata>
+    </databaseInfo>
+    <object type="MAPCENTER" id="z102">
+        <attribute name="longitude" type="double">0</attribute>
+        <attribute name="latitude" type="double">0</attribute>
+    </object>
+</database>

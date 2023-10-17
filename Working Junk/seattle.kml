@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Seattle and its 80km Circle</name>
+    <description>Representation of Seattle and a circle around it</description>
+
+    <!-- Seattle Location -->
+    <Placemark>
+      <name>Seattle</name>
+      <Point>
+        <coordinates>-122.3321,47.6062,0</coordinates>
+      </Point>
+    </Placemark>
+
+    <!-- Circle around Seattle - For simplicity, representing it as a description -->
+    <Placemark>
+      <name>80km Circle</name>
+      <description>This Placemark represents an 80km circle around Seattle. A precise polygon would require numerous coordinates to approximate the circle.</description>
+      <Point>
+        <coordinates>-122.3321,47.6062,0</coordinates>
+      </Point>
+    </Placemark>
+
+  </Document>
+</kml>

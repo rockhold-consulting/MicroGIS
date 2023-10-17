@@ -14,6 +14,7 @@
 		2ECCEAFB2A9436C0005785FA /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF92A9436C0005785FA /* Document.xcdatamodeld */; };
 		2ECCEB002A9436C4005785FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECCEAFE2A9436C4005785FA /* Main.storyboard */; };
 		2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0D11C2A983E6E0018E70D /* Assets.xcassets */; };
+		2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF33E652ADF0077004C750F /* GeoFeatures */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		2ECCEAFF2A9436C4005785FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2ECCEB012A9436C4005785FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ECCEB022A9436C4005785FA /* Georg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Georg.entitlements; sourceTree = "<group>"; };
+		2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeoFeatures; sourceTree = "<group>"; };
 		2EF0D1192A9828740018E70D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2EF0D11A2A9829690018E70D /* COPYING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
 		2EF0D11B2A9829690018E70D /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
@@ -37,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,11 +49,13 @@
 		2ECCEAE72A9436C0005785FA = {
 			isa = PBXGroup;
 			children = (
+				2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */,
 				2EF0D11A2A9829690018E70D /* COPYING.md */,
 				2EF0D11B2A9829690018E70D /* LICENSE.md */,
 				2EF0D1192A9828740018E70D /* README.md */,
 				2ECCEAF22A9436C0005785FA /* src */,
 				2ECCEAF12A9436C0005785FA /* Products */,
+				2EF33E642ADF0077004C750F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,6 +83,13 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		2EF33E642ADF0077004C750F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -94,6 +106,9 @@
 			dependencies = (
 			);
 			name = Georg;
+			packageProductDependencies = (
+				2EF33E652ADF0077004C750F /* GeoFeatures */,
+			);
 			productName = DocbasedApp;
 			productReference = 2ECCEAF02A9436C0005785FA /* Georg.app */;
 			productType = "com.apple.product-type.application";
@@ -106,7 +121,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					2ECCEAEF2A9436C0005785FA = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -174,6 +189,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -203,9 +219,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -234,6 +252,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -263,9 +282,11 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -293,6 +314,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYU6NE7WY6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -306,6 +328,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -324,6 +347,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MYU6NE7WY6;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -337,6 +361,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -367,6 +392,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2EF33E652ADF0077004C750F /* GeoFeatures */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GeoFeatures;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2ECCEAF92A9436C0005785FA /* Document.xcdatamodeld */ = {
