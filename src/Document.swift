@@ -23,16 +23,12 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
 class Document: NSPersistentDocument {
 
     var contentViewController: ViewController!
-
-    override init() {
-        super.init()
-        // Add your subclass-specific initialization here.
-    }
-
+    
     override class var autosavesInPlace: Bool { return true }
         
     override func makeWindowControllers() {
@@ -55,5 +51,36 @@ class Document: NSPersistentDocument {
         storeOptions: [String : Any]? = nil
     ) throws {
         try super.configurePersistentStoreCoordinator(for: url, ofType: fileType, modelConfiguration: configuration, storeOptions: storeOptions)
+    }
+    
+    @IBAction
+    func importKML(_ sender: Any?) {
+        
+        guard let docWindow = self.windowControllers.first?.window else {
+            return
+        }
+        guard let ctx = managedObjectContext else {
+            return
+        }
+        
+        let geojsonFileType = UTType(filenameExtension: "geojson", conformingTo: .json)!
+        
+        let openPanel = NSOpenPanel()
+        openPanel.allowedContentTypes = [geojsonFileType]
+        openPanel.allowsMultipleSelection = false
+        openPanel.canChooseDirectories = false
+        openPanel.canCreateDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.beginSheetModal(for: docWindow) { (result) -> Void in
+            if result == .OK {
+                do {
+                    try GeorgLayer.makeLayer(dataURL: openPanel.url,
+                                             context: ctx)
+                }
+                catch {
+                    Swift.print("ERROR")
+                }
+            }
+        }
     }
 }

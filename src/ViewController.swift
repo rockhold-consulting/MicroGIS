@@ -26,17 +26,22 @@ import Cocoa
 import MapKit
 
 class ViewController: NSViewController, MKMapViewDelegate {
-
-    @IBOutlet weak var mapView: MKMapView!
+    
+    @IBOutlet weak var mapView: MKMapView! {
+        didSet {
+            updateMapViewCenter()
+        }
+    }
     
     var mapCenter: MapCenter? = nil
+        
+    var layers: [GeorgLayer]? = nil
             
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         if let mv = mapView, let mc = mapCenter {
-            mv.setCenter(CLLocationCoordinate2D(latitude: CLLocationDegrees(mc.latitude), longitude: CLLocationDegrees(mc.longitude)), animated: false)
+            mv.setCenter(mc.coordinate, animated: false)
         }
     }
 
@@ -48,27 +53,51 @@ class ViewController: NSViewController, MKMapViewDelegate {
             guard let countOfContents = result.finalResult?.count else { return }
             
             if countOfContents == 0, let mc = (NSEntityDescription.insertNewObject(forEntityName: "MapCenter", into: moc) as? MapCenter) {
-                mc.longitude = 0.0
-                mc.latitude = 0.0
+                
+                mc.coordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
+                mapCenter = mc
+                updateMapViewCenter()
             }
         }
         didSet {
-            if let result = try? (representedObject as? NSManagedObjectContext)?.execute(MapCenter.fetchRequest()) as? NSAsynchronousFetchResult<MapCenter> {
-                if let mc = result.finalResult?[0], let mv = mapView {
-                    mapCenter = mc
-                    mv.setCenter(CLLocationCoordinate2D(latitude: CLLocationDegrees(mc.latitude), longitude: CLLocationDegrees(mc.longitude)), animated: false)
-                }
+            guard let context = representedObject as? NSManagedObjectContext else {
+                return
+            }
+            if let result = try? context.execute(MapCenter.fetchRequest()) as? NSAsynchronousFetchResult<MapCenter>, let mc = result.finalResult?[0] {
+                mapCenter = mc
+                updateMapViewCenter()
+            }
+//            if let result = try? context.execute(GeorgLayer.fetchRequest()) as? NSAsynchronousFetchResult<GeorgLayer>, let doc_layers = result.finalResult {
+//                layers = doc_layers
+//            }
+
+        }
+    }
+    
+    private func updateMapViewCenter() {
+        DispatchQueue.main.async() { [self] in
+            if let mv = mapView, let mc = mapCenter {
+                mv.setCenter(mc.coordinate, animated: false)
             }
         }
     }
 
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         let cntr = mapView.centerCoordinate
-        if let mc = mapCenter {
-            mc.longitude = Double(cntr.longitude)
-            mc.latitude = Double(cntr.latitude)
+        DispatchQueue.main.async() { [self] in
+            if let mc = mapCenter {
+                mc.coordinate = cntr
+            }
         }
     }
-
+    
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        
+//    }
+    
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        
+//    }
+    
 }
 
