@@ -1,13 +1,12 @@
 //
-//  GeorgAnnotation.swift
+//  CLLocationCoordinate2D+Codable.swift
 //  Georg
 //
-//  Created by Michael Rockhold on 11/5/23.
+//  Created by Michael Rockhold on 11/14/23.
 //
 
 import Foundation
 import CoreLocation
-import MapKit
 
 extension CLLocationCoordinate2D: Codable {
     enum CodingKeys: CodingKey {
@@ -28,17 +27,9 @@ extension CLLocationCoordinate2D: Codable {
     }
 }
 
-extension GeorgAnnotation: MKAnnotation {
-    
-    public var coordinate: CLLocationCoordinate2D {
-        get {
-            return coordinateObj!.coordinate
-        }
-    }
-    public convenience init(context: NSManagedObjectContext, annotation: MKAnnotation) {
-        self.init(context: context)
-        coordinateObj = GeorgCoordinate(context:context, coordinate: annotation.coordinate)
-        title = annotation.title ?? nil
-        subtitle = annotation.subtitle ?? nil
-    }
-}
+//extension CLLocationCoordinate2D {
+//    public init(geoCoordinate gc: GeoCoordinate) {
+//        self.init(latitude: gc.latitude, longitude: gc.longitude)
+//    }
+//}
+

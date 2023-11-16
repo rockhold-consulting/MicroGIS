@@ -35,7 +35,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     var mapCenter: MapCenter? = nil
         
-    var layers: [GeorgLayer]? = nil
+    var layers: [GeoLayer]? = nil
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
                 mapCenter = mc
                 updateMapViewCenter()
             }
-//            if let result = try? context.execute(GeorgLayer.fetchRequest()) as? NSAsynchronousFetchResult<GeorgLayer>, let doc_layers = result.finalResult {
+//            if let result = try? context.execute(GeoLayer.fetchRequest()) as? NSAsynchronousFetchResult<GeoLayer>, let doc_layers = result.finalResult {
 //                layers = doc_layers
 //            }
 

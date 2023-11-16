@@ -1,49 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="22G313" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
-    <entity name="GeorgAnnotation" representedClassName="GeorgAnnotation" isAbstract="YES" syncable="YES" codeGenerationType="class">
-        <attribute name="canOverlay" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="isOverlay" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
-        <attribute name="subtitle" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <relationship name="coordinateObj" maxCount="1" deletionRule="Nullify" destinationEntity="GeorgCoordinate"/>
+    <entity name="GeoFeature" representedClassName="GeoFeature" syncable="YES" codeGenerationType="class">
+        <relationship name="annotations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GeoFeatureAnnotation" inverseName="owner" inverseEntity="GeoFeatureAnnotation"/>
+        <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoFeatureOverlay" inverseName="owner" inverseEntity="GeoFeatureOverlay"/>
+        <relationship name="owner" maxCount="1" deletionRule="Cascade" destinationEntity="GeoLayer" inverseName="features" inverseEntity="GeoLayer"/>
     </entity>
-    <entity name="GeorgCircle" representedClassName="GeorgCircle" parentEntity="GeorgShape" syncable="YES" codeGenerationType="class">
-        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="GeoFeatureAnnotation" representedClassName="GeoFeatureAnnotation" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoFeature" inverseName="annotations" inverseEntity="GeoFeature"/>
     </entity>
-    <entity name="GeorgCoordinate" representedClassName="GeorgCoordinate" syncable="YES" codeGenerationType="class">
-        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="GeoFeatureOverlay" representedClassName="GeoFeatureOverlay" syncable="YES" codeGenerationType="class">
+        <attribute name="geoInfo" optional="YES" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoFeature" inverseName="overlays" inverseEntity="GeoFeature"/>
     </entity>
-    <entity name="GeorgGeodesicPolyline" representedClassName="GeorgGeodesicPolyline" parentEntity="GeorgPolyline" syncable="YES" codeGenerationType="class"/>
-    <entity name="GeorgGeoFeature" representedClassName="GeorgGeoFeature" parentEntity="ShapeOwner" syncable="YES" codeGenerationType="class">
-        <relationship name="layer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeorgLayer" inverseName="features" inverseEntity="GeorgLayer"/>
-    </entity>
-    <entity name="GeorgLayer" representedClassName="GeorgLayer" parentEntity="ShapeOwner" syncable="YES" codeGenerationType="class">
+    <entity name="GeoLayer" representedClassName="GeoLayer" syncable="YES" codeGenerationType="class">
         <attribute name="zindex" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
-        <relationship name="features" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeorgGeoFeature" inverseName="layer" inverseEntity="GeorgGeoFeature"/>
+        <relationship name="annotations" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GeoLayerAnnotation" inverseName="owner" inverseEntity="GeoLayerAnnotation"/>
+        <relationship name="features" toMany="YES" deletionRule="Cascade" destinationEntity="GeoFeature" inverseName="owner" inverseEntity="GeoFeature"/>
+        <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoLayerOverlay" inverseName="owner" inverseEntity="GeoLayerOverlay"/>
     </entity>
-    <entity name="GeorgMultiPoint" representedClassName="GeorgMultiPoint" isAbstract="YES" parentEntity="GeorgShape" syncable="YES" codeGenerationType="class">
-        <relationship name="coordinates" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeorgCoordinate"/>
+    <entity name="GeoLayerAnnotation" representedClassName="GeoLayerAnnotation" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoLayer" inverseName="annotations" inverseEntity="GeoLayer"/>
     </entity>
-    <entity name="GeorgMultiPolygon" representedClassName="GeorgMultiPolygon" parentEntity="GeorgShape" syncable="YES" codeGenerationType="class">
-        <relationship name="polygons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeorgPolygon"/>
-    </entity>
-    <entity name="GeorgMultiPolyline" representedClassName="GeorgMultiPolyline" parentEntity="GeorgShape" syncable="YES" codeGenerationType="class">
-        <relationship name="polylines" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeorgPolyline"/>
-    </entity>
-    <entity name="GeorgPointAnnotation" representedClassName="GeorgPointAnnotation" parentEntity="GeorgShape" syncable="YES" codeGenerationType="class"/>
-    <entity name="GeorgPolygon" representedClassName="GeorgPolygon" parentEntity="GeorgMultiPoint" syncable="YES" codeGenerationType="class">
-        <relationship name="interiorPolygons" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeorgPolygon"/>
-    </entity>
-    <entity name="GeorgPolyline" representedClassName="GeorgPolyline" parentEntity="GeorgMultiPoint" syncable="YES" codeGenerationType="class"/>
-    <entity name="GeorgShape" representedClassName="GeorgShape" isAbstract="YES" parentEntity="GeorgAnnotation" syncable="YES" codeGenerationType="class">
-        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ShapeOwner" inverseName="shapes" inverseEntity="ShapeOwner"/>
+    <entity name="GeoLayerOverlay" representedClassName="GeoLayerOverlay" syncable="YES" codeGenerationType="class">
+        <attribute name="geoInfo" optional="YES" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoLayer" inverseName="overlays" inverseEntity="GeoLayer"/>
     </entity>
     <entity name="MapCenter" representedClassName="MapCenter" syncable="YES" codeGenerationType="class">
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-    </entity>
-    <entity name="ShapeOwner" representedClassName="ShapeOwner" syncable="YES" codeGenerationType="class">
-        <relationship name="shapes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeorgShape" inverseName="owner" inverseEntity="GeorgShape"/>
     </entity>
 </model>

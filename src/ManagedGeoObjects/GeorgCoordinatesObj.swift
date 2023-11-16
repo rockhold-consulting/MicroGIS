@@ -36,7 +36,7 @@ public class GeorgCoordinatesObj : NSObject, NSSecureCoding {
     public var coordinates: [CLLocationCoordinate2D] = []
 }
 
-class GeorgCoordinatesObjTransformer: NSSecureUnarchiveFromDataTransformer {
+class CoordinateAttributeTransformner: NSSecureUnarchiveFromDataTransformer {
     override class func allowsReverseTransformation() -> Bool { return true }
     override class func transformedValueClass() -> AnyClass { return GeorgCoordinatesObj.self }
     override class var allowedTopLevelClasses: [AnyClass] { return [GeorgCoordinatesObj.self] }

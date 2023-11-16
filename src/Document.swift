@@ -74,7 +74,7 @@ class Document: NSPersistentDocument {
         openPanel.beginSheetModal(for: docWindow) { (result) -> Void in
             if result == .OK {
                 do {
-                    try GeorgLayer.makeLayer(dataURL: openPanel.url,
+                    try GeoLayer.makeLayer(dataURL: openPanel.url,
                                              context: ctx)
                 }
                 catch {
