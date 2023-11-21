@@ -11,12 +11,10 @@ import MapKit
 
 extension MKPolygon {
     convenience init(fromGeoObj g: GeoPolygon) {
-        if let ip = g.interiorPolygons {
-            if ip.count > 0 {
-                self.init(coordinates: g.coordinates, count: g.coordinates.count, interiorPolygons: ip.map({ MKPolygon(coordinates: $0.coordinates, count: $0.coordinates.count) }))
-            } else {
-                self.init(coordinates: g.coordinates, count: g.coordinates.count)
-            }
+        if g.interiorPolygons.count > 0 {
+            self.init(coordinates: g.coordinates,
+                          count: g.coordinates.count,
+                          interiorPolygons: g.interiorPolygons.map({ MKPolygon(fromGeoObj: $0) }))
         } else {
             self.init(coordinates: g.coordinates, count: g.coordinates.count)
         }
@@ -25,16 +23,16 @@ extension MKPolygon {
 
 public class GeoPolygon: GeoMultiPoint {
     
-    let interiorPolygons: [GeoPolygon]?
+    let interiorPolygons: [GeoPolygon]
     
     public init(coordinate c: CLLocationCoordinate2D,
                          boundingMapRect bmr: MKMapRect,
                          coordinates cs: [CLLocationCoordinate2D],
-                         interiorPolygons ip: [GeoPolygon]?,
+                         interiorPolygons ip: [GeoPolygon],
                          title t: String? = nil,
                          subtitle st: String? = nil) {
         
-        interiorPolygons = ip ?? nil
+        interiorPolygons = ip
         super.init(coordinate: c, boundingMapRect: bmr, coordinates: cs, title: t, subtitle: st)
     }
     
@@ -42,7 +40,7 @@ public class GeoPolygon: GeoMultiPoint {
         self.init(coordinate: polygon.coordinate,
                   boundingMapRect: polygon.boundingMapRect,
                   coordinates: polygon.coordinates,
-                  interiorPolygons: polygon.interiorPolygons?.map({ GeoPolygon(polygon: $0) }),
+                  interiorPolygons: polygon.interiorPolygons?.map({ GeoPolygon(polygon: $0) }) ?? [GeoPolygon](),
                   title: polygon.title,
                   subtitle: polygon.subtitle)
     }
@@ -52,20 +50,22 @@ public class GeoPolygon: GeoMultiPoint {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case interiorPolygons
+        case interiorPolygons = "geopolygon_interiorpolygons"
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        interiorPolygons = try container.decode([GeoPolygon].self, forKey: .interiorPolygons)
-        try super.init(from: container.superDecoder())
+    public override class var supportsSecureCoding: Bool { true }
+
+    public required init?(coder: NSCoder) {
+        guard let ip = coder.decodeArrayOfObjects(ofClass: GeoPolygon.self,
+                                                            forKey: CodingKeys.interiorPolygons.rawValue) else {
+            return nil
+        }
+        interiorPolygons = ip
+        super.init(coder: coder)
     }
-    
-    // Encodable
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(interiorPolygons, forKey: .interiorPolygons)
-        try super.encode(to: container.superEncoder())
+
+    public override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(interiorPolygons, forKey: CodingKeys.interiorPolygons.rawValue)
     }
 }

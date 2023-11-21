@@ -25,28 +25,31 @@ public final class GeoCircle: GeoOverlayShape {
     }
     
     convenience init(circle: MKCircle) {
-        self.init(coordinate: circle.coordinate, boundingMapRect: circle.boundingMapRect, radius: circle.radius, title: circle.title, subtitle: circle.subtitle)
+        self.init(coordinate: circle.coordinate,
+                  boundingMapRect: circle.boundingMapRect,
+                  radius: circle.radius,
+                  title: circle.title,
+                  subtitle: circle.subtitle)
     }
 
     func makeMKCircle() -> MKCircle {
         return MKCircle(fromGeoObj: self)
     }
+        
+    // NSCoding/NSSecureCoding
+    public override class var supportsSecureCoding: Bool { true }
     
     private enum CodingKeys: String, CodingKey {
-        case radius
+        case radius = "geocircle_radius"
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        radius = try container.decode(CLLocationDistance.self, forKey: .radius)
-        try super.init(from: container.superDecoder())
+    public required init?(coder: NSCoder) {
+        radius = coder.decodeDouble(forKey: CodingKeys.radius.rawValue)
+        super.init(coder: coder)
     }
     
-    // Encodable
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(radius, forKey: .radius)
-        try super.encode(to: container.superEncoder())
+    public override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(radius, forKey: CodingKeys.radius.rawValue)
     }
 }

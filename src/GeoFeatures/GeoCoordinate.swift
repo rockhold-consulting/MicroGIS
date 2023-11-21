@@ -9,6 +9,12 @@ import Foundation
 import CoreLocation
 import CoreData
 
+extension CLLocationCoordinate2D {
+    var geocoordinate: GeoCoordinate {
+        return GeoCoordinate(locationCoordinate: self)
+    }
+}
+
 public class GeoCoordinate: NSObject, NSSecureCoding {
 
     let latitude: CLLocationDegrees
@@ -19,7 +25,7 @@ public class GeoCoordinate: NSObject, NSSecureCoding {
         longitude = lng
     }
     
-    convenience init(coordinate c: CLLocationCoordinate2D) {
+    convenience init(locationCoordinate c: CLLocationCoordinate2D) {
         self.init(latitude: c.latitude, longitude: c.longitude)
     }
 
@@ -40,7 +46,7 @@ public class GeoCoordinate: NSObject, NSSecureCoding {
         coder.encode(longitude, forKey: CodingKeys.longitude.rawValue)
     }
     
-    public var coordinate: CLLocationCoordinate2D {
+    public var locationCoordinate: CLLocationCoordinate2D {
         get {
             return CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
         }

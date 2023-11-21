@@ -48,18 +48,18 @@ extension GeoLayer {
             
             for shape in mkFeature.geometry {
                 if let geoInfo = try geoObjectFactory.createGeoObject(from: shape) {
-                    _ = GeoFeatureOverlay(context: ctx, owner: feature, geoInfo: GeoInfoWrapper(geoInfo: geoInfo))
+                    _ = GeoFeatureOverlay(context: ctx, owner: feature, geoInfo: geoInfo)
                 }
             }
                    
         case let overlay as MKOverlay:
             if let geoInfo = try geoObjectFactory.createGeoObject(from: overlay) {
-                _ = GeoLayerOverlay(context: ctx, owner: self, geoInfo: GeoInfoWrapper(geoInfo: geoInfo))
+                _ = GeoLayerOverlay(context: ctx, owner: self, geoInfo: geoInfo)
             }
             
         case let annotation as MKAnnotation:
             if let geoInfo = try geoObjectFactory.createGeoObject(from: annotation) {
-                _ = GeoLayerAnnotation(context: ctx, owner: self, geoInfo: GeoInfoWrapper(geoInfo: geoInfo))
+                _ = GeoLayerAnnotation(context: ctx, owner: self, geoInfo: geoInfo)
             }
             
         default:

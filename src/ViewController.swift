@@ -35,7 +35,11 @@ class ViewController: NSViewController, MKMapViewDelegate {
     
     var mapCenter: MapCenter? = nil
         
-    var layers: [GeoLayer]? = nil
+    var layers: [GeoLayer]? = nil {
+        didSet {
+            self.loadLayersIntoMapView()
+        }
+    }
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +71,9 @@ class ViewController: NSViewController, MKMapViewDelegate {
                 mapCenter = mc
                 updateMapViewCenter()
             }
-//            if let result = try? context.execute(GeoLayer.fetchRequest()) as? NSAsynchronousFetchResult<GeoLayer>, let doc_layers = result.finalResult {
-//                layers = doc_layers
-//            }
+            if let result = try? context.execute(GeoLayer.fetchRequest()) as? NSAsynchronousFetchResult<GeoLayer>, let doc_layers = result.finalResult {
+                layers = doc_layers
+            }
 
         }
     }
@@ -91,13 +95,42 @@ class ViewController: NSViewController, MKMapViewDelegate {
         }
     }
     
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        
-//    }
+    private func loadLayersIntoMapView() {
+        guard let ls = self.layers else {
+            return
+        }
+        for layer in ls {
+            
+            if let annotations = layer.annotations?.allObjects as? [any MKAnnotation] {
+                if annotations.count > 0 {
+                    self.mapView.addAnnotations(annotations)
+                }
+            }
+            
+            if let features = layer.features?.allObjects {
+                for f in features {
+                    if let feature = f as? GeoFeature, let overlays = feature.overlays?.allObjects as? [any MKOverlay] {
+                        if overlays.count > 0 {
+                            self.mapView.addOverlays(overlays)
+                        }
+                    }
+                }
+            }
+        }
+    }
     
-//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        print("rendererForOverlay")
+        return MKOverlayRenderer(overlay: overlay)
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        print("viewForAnnotation")
+        return nil
+//        let annotationObj = annotation as! NSManagedObject
 //        
-//    }
+//        return MKAnnotationView(annotation: annotation, reuseIdentifier: anno)
+    }
     
 }
 

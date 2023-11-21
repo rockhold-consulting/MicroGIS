@@ -12,6 +12,7 @@
 		2E3305AD2AF9566000F5F6F5 /* GeoMultiPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3305AC2AF9566000F5F6F5 /* GeoMultiPolygon.swift */; };
 		2E3305B32AF99E7F00F5F6F5 /* GeoMultiPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3305B22AF99E7F00F5F6F5 /* GeoMultiPolyline.swift */; };
 		2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E59AB302A95B6DA0064F50E /* WindowController.swift */; };
+		2E6090FD2B0AD565007697E6 /* GeoCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */; };
 		2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF32A9436C0005785FA /* AppDelegate.swift */; };
 		2ECCEAF62A9436C0005785FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF52A9436C0005785FA /* ViewController.swift */; };
 		2ECCEAF82A9436C0005785FA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF72A9436C0005785FA /* Document.swift */; };
@@ -144,6 +145,7 @@
 				2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */,
 				2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */,
 				2EDAC99B2B056655001DBF88 /* GeoObjectFactory.swift */,
+				2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */,
 			);
 			path = GeoFeatures;
 			sourceTree = "<group>";
@@ -158,7 +160,6 @@
 				2EDAC99D2B05A5A3001DBF88 /* GeoLayerOverlay.swift */,
 				2EDAC99F2B05A5B7001DBF88 /* GeoFeatureOverlay.swift */,
 				2EDAC97E2AFD95E7001DBF88 /* MapCenter.swift */,
-				2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */,
 			);
 			path = "Entity Classes";
 			sourceTree = "<group>";
@@ -262,6 +263,7 @@
 				2EDAC9842AFEF515001DBF88 /* GeoGeodesicPolyline.swift in Sources */,
 				2EDAC9922B02EC99001DBF88 /* GeoFeatureAnnotation.swift in Sources */,
 				2ECCEAF62A9436C0005785FA /* ViewController.swift in Sources */,
+				2E6090FD2B0AD565007697E6 /* GeoCoordinate.swift in Sources */,
 				2EDAC9962B04297E001DBF88 /* GeoOverlayShape.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
 				2EDAC9862AFEF568001DBF88 /* GeoPolyline.swift in Sources */,

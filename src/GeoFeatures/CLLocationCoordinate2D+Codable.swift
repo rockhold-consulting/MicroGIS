@@ -26,10 +26,3 @@ extension CLLocationCoordinate2D: Codable {
         try container.encode(longitude, forKey: .longitude)
     }
 }
-
-//extension CLLocationCoordinate2D {
-//    public init(geoCoordinate gc: GeoCoordinate) {
-//        self.init(latitude: gc.latitude, longitude: gc.longitude)
-//    }
-//}
-

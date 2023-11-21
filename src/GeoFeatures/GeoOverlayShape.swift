@@ -8,56 +8,40 @@
 import Foundation
 import MapKit
 
-extension MKMapRect: Codable {
-    private enum CodingKeys: String, CodingKey {
-        case X
-        case Y
-        case W
-        case H
-    }
-
-    public init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        let x = try values.decode(Double.self, forKey: .X)
-        let y = try values.decode(Double.self, forKey: .Y)
-        let w = try values.decode(Double.self, forKey: .W)
-        let h = try values.decode(Double.self, forKey: .H)
-        self.init(x: x, y: y, width: w, height: h)
-    }
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.origin.x, forKey: .X)
-        try container.encode(self.origin.y, forKey: .Y)
-        try container.encode(self.size.width, forKey: .W)
-        try container.encode(self.size.height, forKey: .H)
-    }
-}
-
-public class GeoOverlayShape: GeoObject {
+public class GeoOverlayShape: GeoObject, MKOverlay {
     
-    let boundingMapRect: MKMapRect
+    public let boundingMapRect: MKMapRect
     
     init(coordinate c: CLLocationCoordinate2D, boundingMapRect bmr: MKMapRect, title t: String? = nil, subtitle st: String? = nil) {
         boundingMapRect = bmr
         super.init(coordinate: c, title: t, subtitle: st)
     }
 
+    // NSCoding/NSSecureCoding
+
+    public override class var supportsSecureCoding: Bool { true }
+
     private enum CodingKeys: String, CodingKey {
-        case boundingMapRect
+        case x = "geooverlayshape_boundingmaprect_x"
+        case y = "geooverlayshape_boundingmaprect_y"
+        case w = "geooverlayshape_boundingmaprect_w"
+        case h = "geooverlayshape_boundingmaprect_h"
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        boundingMapRect = try container.decode(MKMapRect.self, forKey: .boundingMapRect)
-        try super.init(from: container.superDecoder())
+    public required init?(coder: NSCoder) {
+        let x = coder.decodeDouble(forKey: CodingKeys.x.rawValue)
+        let y = coder.decodeDouble(forKey: CodingKeys.y.rawValue)
+        let w = coder.decodeDouble(forKey: CodingKeys.w.rawValue)
+        let h = coder.decodeDouble(forKey: CodingKeys.h.rawValue)
+        boundingMapRect = MKMapRect(x: x, y: y, width: w, height: h)
+        super.init(coder: coder)
     }
     
-    // Encodable
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(boundingMapRect, forKey: .boundingMapRect)
-        try super.encode(to: container.superEncoder())
+    public override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(boundingMapRect.origin.x, forKey: CodingKeys.x.rawValue)
+        coder.encode(boundingMapRect.origin.x, forKey: CodingKeys.y.rawValue)
+        coder.encode(boundingMapRect.size.width, forKey: CodingKeys.w.rawValue)
+        coder.encode(boundingMapRect.size.height, forKey: CodingKeys.h.rawValue)
     }
-
 }

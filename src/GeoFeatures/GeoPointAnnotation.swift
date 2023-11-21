@@ -19,8 +19,9 @@ public class GeoPointAnnotation: GeoObject {
         self.init(coordinate: pointAnnotation.coordinate, title: pointAnnotation.title!)
     }
     
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
+    public override class var supportsSecureCoding: Bool { true }
+    
+    public required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
 }

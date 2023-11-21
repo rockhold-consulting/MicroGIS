@@ -6,11 +6,11 @@
         <relationship name="owner" maxCount="1" deletionRule="Cascade" destinationEntity="GeoLayer" inverseName="features" inverseEntity="GeoLayer"/>
     </entity>
     <entity name="GeoFeatureAnnotation" representedClassName="GeoFeatureAnnotation" isAbstract="YES" syncable="YES" codeGenerationType="class">
-        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoObjectTransformer" customClassName="GeoObject"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoFeature" inverseName="annotations" inverseEntity="GeoFeature"/>
     </entity>
     <entity name="GeoFeatureOverlay" representedClassName="GeoFeatureOverlay" syncable="YES" codeGenerationType="class">
-        <attribute name="geoInfo" optional="YES" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoObjectTransformer" customClassName="GeoObject"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoFeature" inverseName="overlays" inverseEntity="GeoFeature"/>
     </entity>
     <entity name="GeoLayer" representedClassName="GeoLayer" syncable="YES" codeGenerationType="class">
@@ -20,11 +20,11 @@
         <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoLayerOverlay" inverseName="owner" inverseEntity="GeoLayerOverlay"/>
     </entity>
     <entity name="GeoLayerAnnotation" representedClassName="GeoLayerAnnotation" isAbstract="YES" syncable="YES" codeGenerationType="class">
-        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoObjectTransformer" customClassName="GeoObject"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoLayer" inverseName="annotations" inverseEntity="GeoLayer"/>
     </entity>
     <entity name="GeoLayerOverlay" representedClassName="GeoLayerOverlay" syncable="YES" codeGenerationType="class">
-        <attribute name="geoInfo" optional="YES" attributeType="Transformable" valueTransformerName="GeoInfoWrapperTransformer" customClassName="GeoInfoWrapper"/>
+        <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoObjectTransformer" customClassName="GeoObject"/>
         <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoLayer" inverseName="overlays" inverseEntity="GeoLayer"/>
     </entity>
     <entity name="MapCenter" representedClassName="MapCenter" syncable="YES" codeGenerationType="class">

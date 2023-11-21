@@ -19,7 +19,12 @@ public class GeoMultiPolygon: GeoOverlayShape {
     
     let polygons: [GeoPolygon]
     
-    init(coordinate c: CLLocationCoordinate2D, boundingMapRect bmr: MKMapRect, polygons ps: [GeoPolygon], title t: String? = nil, subtitle st: String? = nil) {
+    init(coordinate c: CLLocationCoordinate2D,
+         boundingMapRect bmr: MKMapRect,
+         polygons ps: [GeoPolygon],
+         title t: String? = nil,
+         subtitle st: String? = nil) {
+        
         polygons = ps
         super.init(coordinate: c, boundingMapRect: bmr, title: t, subtitle: st)
     }
@@ -36,21 +41,25 @@ public class GeoMultiPolygon: GeoOverlayShape {
         return MKMultiPolygon(fromGeoObj: self)
     }
     
+    public override class var supportsSecureCoding: Bool { true }
+    
     private enum CodingKeys: String, CodingKey {
-        case polygons
-    }
-
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        polygons = try container.decode([GeoPolygon].self, forKey: .polygons)
-        try super.init(from: container.superDecoder())
+        case polygons = "geomultipolygon_polygons"
     }
     
-    // Encodable
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(polygons, forKey: .polygons)
-        try super.encode(to: container.superEncoder())
+    public required init?(coder: NSCoder) {
+        if let polygonArray = coder.decodeArrayOfObjects(ofClass: GeoPolygon.self,
+                                                         forKey: CodingKeys.polygons.rawValue) {
+            polygons = polygonArray.map { $0 } // TODO: tell me why again am I doing this
+        }
+        else {
+            polygons = [GeoPolygon]()
+        }
+        super.init(coder: coder)
+    }
+    
+    public override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(polygons, forKey: CodingKeys.polygons.rawValue)
     }
 }

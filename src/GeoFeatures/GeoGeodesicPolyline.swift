@@ -16,20 +16,9 @@ extension MKGeodesicPolyline {
 
 public class GeoGeodesicPolyline: GeoPolyline {
     
-    override init(coordinate c: CLLocationCoordinate2D, boundingMapRect bmr: MKMapRect, coordinates cs: [CLLocationCoordinate2D], title t: String? = nil, subtitle st: String? = nil) {
-        super.init(coordinate: c, boundingMapRect: bmr, coordinates: cs, title: t, subtitle: st)
-    }
-
-    convenience init(geodesicPolyline: MKGeodesicPolyline) {
-        self.init(coordinate: geodesicPolyline.coordinate, boundingMapRect: geodesicPolyline.boundingMapRect, coordinates: geodesicPolyline.coordinates, title: geodesicPolyline.title, subtitle: geodesicPolyline.subtitle)
-    }
-
     func makeMKGeodesicPolyline() -> MKGeodesicPolyline {
         return MKGeodesicPolyline(fromGeoObj: self)
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-    }
+    public override class var supportsSecureCoding: Bool { true }
 }

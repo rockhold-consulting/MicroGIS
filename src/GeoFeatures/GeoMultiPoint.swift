@@ -11,10 +11,12 @@ import MapKit
 
 extension MKMultiPoint {
     var coordinates: [CLLocationCoordinate2D] {
+        
         var coords = [CLLocationCoordinate2D]()
-        coords.reserveCapacity(self.pointCount)
-        let rng = NSRange(location: 0, length: self.pointCount)
-        self.getCoordinates(&coords, range: rng)
+        let points = self.points()
+        for p in 0..<self.pointCount {
+            coords.append(points[p].coordinate)
+        }
         return coords
     }
 }
@@ -23,26 +25,40 @@ public class GeoMultiPoint: GeoOverlayShape {
     
     let coordinates: [CLLocationCoordinate2D]
     
-    init(coordinate c: CLLocationCoordinate2D, boundingMapRect bmr: MKMapRect, coordinates cs: [CLLocationCoordinate2D], title t: String? = nil, subtitle st: String? = nil) {
+    init(coordinate c: CLLocationCoordinate2D,
+         boundingMapRect bmr: MKMapRect,
+         coordinates cs: [CLLocationCoordinate2D],
+         title t: String? = nil,
+         subtitle st: String? = nil) {
+        
         coordinates = cs
         super.init(coordinate: c, boundingMapRect: bmr, title: t, subtitle: st)
     }
     
+    // NSCoding/NSSecureCoding
+    public override class var supportsSecureCoding: Bool { true }
+    
     private enum CodingKeys: String, CodingKey {
-        case coordinates
+        case coordinates = "geomultipoint_coordinates"
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        coordinates = try container.decode([CLLocationCoordinate2D].self, forKey: .coordinates)
-        try super.init(from: container.superDecoder())
+    public required init?(coder: NSCoder) {
+        if let coordinateArray = coder.decodeArrayOfObjects(ofClass: GeoCoordinate.self,
+                                                            forKey: CodingKeys.coordinates.rawValue) {
+            coordinates = coordinateArray.map { $0.locationCoordinate }
+        }
+        else {
+            coordinates = [CLLocationCoordinate2D]()
+        }
+        super.init(coder: coder)
     }
     
-    // Encodable
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(coordinates, forKey: .coordinates)
-        try super.encode(to: container.superEncoder())
+    public override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        var coordinateArray = NSMutableArray()
+        coordinates.forEach {
+            coordinateArray.add($0.geocoordinate)
+        }
+        coder.encode(coordinateArray, forKey: CodingKeys.coordinates.rawValue)
     }
 }

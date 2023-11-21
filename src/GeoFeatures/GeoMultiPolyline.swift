@@ -25,7 +25,7 @@ public class GeoMultiPolyline: GeoOverlayShape {
     }
     
     convenience init(multiPolyline: MKMultiPolyline) {
-        self.init(coordinate: multiPolyline.coordinate, 
+        self.init(coordinate: multiPolyline.coordinate,
                   boundingMapRect: multiPolyline.boundingMapRect,
                   polylines: multiPolyline.polylines.map({ GeoPolyline(polyline: $0) }),
                   title: multiPolyline.title,
@@ -36,21 +36,25 @@ public class GeoMultiPolyline: GeoOverlayShape {
         return MKMultiPolyline(fromGeoObj: self)
     }
     
+    public override class var supportsSecureCoding: Bool { true }
+    
     private enum CodingKeys: String, CodingKey {
-        case polylines
+        case polylines = "geomultipolyline_polylines"
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        polylines = try container.decode([GeoPolyline].self, forKey: .polylines)
-        try super.init(from: container.superDecoder())
+    public required init?(coder: NSCoder) {
+        if let polylineArray = coder.decodeArrayOfObjects(ofClass: GeoPolyline.self,
+                                                          forKey: CodingKeys.polylines.rawValue) {
+            polylines = polylineArray.map { $0 }
+        }
+        else {
+            polylines = [GeoPolyline]()
+        }
+        super.init(coder: coder)
     }
-    
-    // Encodable
-    public override func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(polylines, forKey: .polylines)
-        try super.encode(to: container.superEncoder())
+
+    public override func encode(with coder: NSCoder) {
+        super.encode(with: coder)
+        coder.encode(polylines, forKey: CodingKeys.polylines.rawValue)
     }
 }

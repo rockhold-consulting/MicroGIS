@@ -19,7 +19,7 @@ class GeoObjectFactory {
             return GeoPolyline(polyline: polyline)
 
         case let geodesicPolyline as MKGeodesicPolyline:
-            return GeoGeodesicPolyline(geodesicPolyline: geodesicPolyline)
+            return GeoGeodesicPolyline(polyline: geodesicPolyline)
 
         case let pointAnnotation as MKPointAnnotation:
             return GeoPointAnnotation(pointAnnotation: pointAnnotation)

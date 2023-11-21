@@ -10,7 +10,7 @@ import MapKit
 
 extension GeoLayerOverlay: MKOverlay {
     
-    public convenience init(context: NSManagedObjectContext, owner: GeoLayer, geoInfo: GeoInfoWrapper) {
+    public convenience init(context: NSManagedObjectContext, owner: GeoLayer, geoInfo: GeoObject) {
         self.init(context: context)
         self.geoInfo = geoInfo
         self.owner = owner
@@ -18,19 +18,19 @@ extension GeoLayerOverlay: MKOverlay {
     }
     
     public var coordinate: CLLocationCoordinate2D {
-        return self.geoInfo?.geoInfo.coordinate ?? CLLocationCoordinate2D()
+        return self.geoInfo!.coordinate
     }
     
     public var title: String? {
-        return self.geoInfo?.geoInfo.title
+        return self.geoInfo!.title
     }
     
     public var subtitle: String? {
-        return self.geoInfo?.geoInfo.subtitle
+        return self.geoInfo!.subtitle
     }
 
     public var boundingMapRect: MKMapRect {
-        return (self.geoInfo!.geoInfo as! MKOverlay).boundingMapRect
+        return (self.geoInfo as? MKOverlay)!.boundingMapRect
     }
 
 }

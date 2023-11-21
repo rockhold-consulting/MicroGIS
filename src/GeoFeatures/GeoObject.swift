@@ -7,42 +7,43 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
-public class GeoObject: Codable {
+public class GeoObject: NSObject, MKAnnotation, NSSecureCoding {
     
-    let coordinate: CLLocationCoordinate2D
-    let title: String?
-    let subtitle: String?
+    public let coordinate: CLLocationCoordinate2D
+    public let title: String?
+    public let subtitle: String?
     
     init(coordinate c: CLLocationCoordinate2D, title t: String? = nil, subtitle st: String? = nil) {
         self.coordinate = c
         self.title = t ?? nil
         self.subtitle = st ?? nil
+        super.init()
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case coordinate
-        case title
-        case subtitle
+    // NSSecureCoding
+    public class var supportsSecureCoding: Bool { true }
+
+    // NSCoding
+    enum CodingKeys: String, CodingKey {
+        case coordinate = "geoobject_coordinate"
+        case title = "geoobject_title"
+        case subtitle = "geoobject_subtitle"
     }
 
-    // Decodable
-    public required init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        coordinate = try values.decode(CLLocationCoordinate2D.self, forKey: .coordinate)
-        title = try? values.decode(String.self, forKey: .title)
-        subtitle = try? values.decode(String.self, forKey: .subtitle)
+    public required init?(coder: NSCoder) {
+        let geocoordinate = coder.decodeObject(of: GeoCoordinate.self, 
+                                               forKey: CodingKeys.coordinate.rawValue)!
+        coordinate = geocoordinate.locationCoordinate
+        title = coder.decodeObject(of: NSString.self,  forKey: CodingKeys.title.rawValue) as String?
+        subtitle = coder.decodeObject(of: NSString.self, forKey: CodingKeys.subtitle.rawValue) as String?
+        super.init()
     }
     
-    // Encodable
-    public func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(coordinate, forKey: .coordinate)
-        if let t = title {
-            try? container.encode(t, forKey: .title)
-        }
-        if let st = subtitle {
-            try? container.encode(st, forKey: .subtitle)
-        }
+    public func encode(with coder: NSCoder) {
+        coder.encode(coordinate.geocoordinate, forKey: CodingKeys.coordinate.rawValue)
+        coder.encode(title, forKey: CodingKeys.title.rawValue)
+        coder.encode(subtitle, forKey: CodingKeys.subtitle.rawValue)
     }
 }
