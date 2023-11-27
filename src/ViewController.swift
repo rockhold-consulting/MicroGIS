@@ -25,7 +25,16 @@
 import Cocoa
 import MapKit
 
-class ViewController: NSViewController, MKMapViewDelegate {
+protocol GeoInfoOwner {
+    var geoInfo: GeoObject? { get }
+}
+
+extension GeoLayerAnnotation: GeoInfoOwner {}
+extension GeoLayerOverlay: GeoInfoOwner {}
+extension GeoFeatureAnnotation: GeoInfoOwner {}
+extension GeoFeatureOverlay: GeoInfoOwner {}
+
+class ViewController: NSViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
     
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
@@ -34,12 +43,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
     }
     
     var mapCenter: MapCenter? = nil
-        
-    var layers: [GeoLayer]? = nil {
-        didSet {
-            self.loadLayersIntoMapView()
-        }
-    }
+    var fetchedFeatureOverlayResultsController: NSFetchedResultsController<GeoFeatureOverlay>?
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,10 +75,22 @@ class ViewController: NSViewController, MKMapViewDelegate {
                 mapCenter = mc
                 updateMapViewCenter()
             }
-            if let result = try? context.execute(GeoLayer.fetchRequest()) as? NSAsynchronousFetchResult<GeoLayer>, let doc_layers = result.finalResult {
-                layers = doc_layers
+            
+            let req = GeoFeatureOverlay.fetchRequest()
+            req.sortDescriptors = [NSSortDescriptor(key: "owner.owner.zindex", ascending: true)]
+            fetchedFeatureOverlayResultsController = NSFetchedResultsController(
+                fetchRequest: req,
+                managedObjectContext: context,
+                sectionNameKeyPath: nil,
+                cacheName: nil)
+            fetchedFeatureOverlayResultsController?.delegate = self
+            do {
+                try fetchedFeatureOverlayResultsController?.performFetch()
+                loadOverlays(overlays: fetchedFeatureOverlayResultsController?.fetchedObjects)
             }
-
+            catch {
+                fatalError("Failed to fetch entities: \(error)")
+            }
         }
     }
     
@@ -85,7 +101,7 @@ class ViewController: NSViewController, MKMapViewDelegate {
             }
         }
     }
-
+    
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         let cntr = mapView.centerCoordinate
         DispatchQueue.main.async() { [self] in
@@ -94,36 +110,47 @@ class ViewController: NSViewController, MKMapViewDelegate {
             }
         }
     }
-    
-    private func loadLayersIntoMapView() {
-        guard let ls = self.layers else {
+        
+    func loadOverlays(overlays optoverlays: [GeoFeatureOverlay]?) {
+        guard let overlays = optoverlays else {
             return
         }
-        for layer in ls {
-            
-            if let annotations = layer.annotations?.allObjects as? [any MKAnnotation] {
-                if annotations.count > 0 {
-                    self.mapView.addAnnotations(annotations)
-                }
-            }
-            
-            if let features = layer.features?.allObjects {
-                for f in features {
-                    if let feature = f as? GeoFeature, let overlays = feature.overlays?.allObjects as? [any MKOverlay] {
-                        if overlays.count > 0 {
-                            self.mapView.addOverlays(overlays)
-                        }
-                    }
-                }
-            }
-        }
+        self.mapView.addOverlays(overlays)
     }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        loadOverlays(overlays: fetchedFeatureOverlayResultsController?.fetchedObjects)
+    }
+    
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, 
+//                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+//                    atSectionIndex sectionIndex: Int,
+//                    for type: NSFetchedResultsChangeType) {
+//        print("controller.didChange.atSectionIndex.for")
+//    }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        print("rendererForOverlay")
-        return MKOverlayRenderer(overlay: overlay)
+        guard let infoOwner = overlay as? GeoInfoOwner else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        let info = infoOwner.geoInfo!
+        
+        switch info {
+        case let multipolygon as GeoMultiPolygon:
+            let renderer = MKMultiPolygonRenderer(multiPolygon: multipolygon.makeMKMultiPolygon())
+            renderer.fillColor = NSColor.red
+            return renderer
+            
+        case let multipolyline as GeoMultiPolyline:
+            let renderer = MKMultiPolylineRenderer(multiPolyline: multipolyline.makeMKMultiPolyline())
+            renderer.fillColor = NSColor.blue
+            return renderer
+            
+        default:
+            return MKOverlayRenderer(overlay: overlay)
+        }
     }
-    
+        
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         print("viewForAnnotation")
         return nil

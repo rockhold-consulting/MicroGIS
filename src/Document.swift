@@ -71,7 +71,7 @@ class Document: NSPersistentDocument {
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = false
         openPanel.canChooseFiles = true
-        openPanel.beginSheetModal(for: docWindow) { (result) -> Void in
+        openPanel.beginSheetModal(for: docWindow) { [self] (result) -> Void in
             if result == .OK {
                 do {
                     try GeoLayer.makeLayer(dataURL: openPanel.url,

@@ -441,6 +441,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				WARNING_CFLAGS = "-Wdeprecated-declarations";
 			};
 			name = Debug;
 		};
@@ -475,6 +476,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+				WARNING_CFLAGS = "-Wdeprecated-declarations";
 			};
 			name = Release;
 		};
