@@ -68,4 +68,11 @@ public class GeoPolygon: GeoMultiPoint {
         super.encode(with: coder)
         coder.encode(interiorPolygons, forKey: CodingKeys.interiorPolygons.rawValue)
     }
+    
+    public override var pinGlyph: String { return "♇" }
+
+    public override func makeOverlayRenderer() -> MKOverlayRenderer {
+        return MKPolygonRenderer(overlay: makeMKPolygon())
+    }
+
 }

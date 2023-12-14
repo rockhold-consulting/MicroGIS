@@ -62,4 +62,11 @@ public class GeoMultiPolygon: GeoOverlayShape {
         super.encode(with: coder)
         coder.encode(polygons, forKey: CodingKeys.polygons.rawValue)
     }
+    
+    public override var pinGlyph: String { return "♇♇" }
+
+    public override func makeOverlayRenderer() -> MKOverlayRenderer {
+        return MKMultiPolygonRenderer(overlay: makeMKMultiPolygon())
+    }
+
 }

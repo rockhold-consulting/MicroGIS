@@ -57,4 +57,10 @@ public class GeoMultiPolyline: GeoOverlayShape {
         super.encode(with: coder)
         coder.encode(polylines, forKey: CodingKeys.polylines.rawValue)
     }
+    
+    public override var pinGlyph: String { return "⨳⨳" }
+
+    public override func makeOverlayRenderer() -> MKOverlayRenderer {
+        return MKMultiPolylineRenderer(overlay: makeMKMultiPolyline())
+    }
 }

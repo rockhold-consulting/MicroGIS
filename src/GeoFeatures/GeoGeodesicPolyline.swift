@@ -21,4 +21,11 @@ public class GeoGeodesicPolyline: GeoPolyline {
     }
 
     public override class var supportsSecureCoding: Bool { true }
+    
+    public override var pinGlyph: String { return "⨴" }
+
+    public override func makeOverlayRenderer() -> MKOverlayRenderer {
+        return MKPolylineRenderer(overlay: makeMKGeodesicPolyline())
+    }
+
 }

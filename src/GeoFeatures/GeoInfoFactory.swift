@@ -1,5 +1,5 @@
 //
-//  GeoObjectFactory.swift
+//  GeoInfoFactory.swift
 //  Georg
 //
 //  Created by Michael Rockhold on 11/15/23.
@@ -8,10 +8,10 @@
 import Foundation
 import MapKit
 
-class GeoObjectFactory {
+class GeoInfoFactory {
         
-    func createGeoObject(from mkObject: MKAnnotation) -> GeoObject? {
-        switch mkObject {
+    func createGeoInfo(from mkOverlay: MKOverlay) -> GeoObject? {
+        switch mkOverlay {
         case let circle as MKCircle:
             return GeoCircle(circle: circle)
 
@@ -20,9 +20,6 @@ class GeoObjectFactory {
 
         case let geodesicPolyline as MKGeodesicPolyline:
             return GeoGeodesicPolyline(polyline: geodesicPolyline)
-
-        case let pointAnnotation as MKPointAnnotation:
-            return GeoPointAnnotation(pointAnnotation: pointAnnotation)
 
         case let multiPolyline as MKMultiPolyline:
             return GeoMultiPolyline(multiPolyline: multiPolyline)
@@ -34,7 +31,7 @@ class GeoObjectFactory {
             return GeoPolygon(polygon: polygon)
 
         default:
-            print("warning: unhandled class of decoded MKGeo shape \(mkObject)")
+            print("warning: unhandled class of decoded MKGeo shape \(mkOverlay)")
             return nil
         }
     }

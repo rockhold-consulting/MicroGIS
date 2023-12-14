@@ -25,16 +25,7 @@
 import Cocoa
 import MapKit
 
-protocol GeoInfoOwner {
-    var geoInfo: GeoObject? { get }
-}
-
-extension GeoLayerAnnotation: GeoInfoOwner {}
-extension GeoLayerOverlay: GeoInfoOwner {}
-extension GeoFeatureAnnotation: GeoInfoOwner {}
-extension GeoFeatureOverlay: GeoInfoOwner {}
-
-class ViewController: NSViewController, MKMapViewDelegate, NSFetchedResultsControllerDelegate {
+class ViewController: NSViewController {
     
     @IBOutlet weak var mapView: MKMapView! {
         didSet {
@@ -42,17 +33,35 @@ class ViewController: NSViewController, MKMapViewDelegate, NSFetchedResultsContr
         }
     }
     
+    static let geoPointReuseIdentifier = NSStringFromClass(GeoPointAnnotation.self)
+    static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
+    
     var mapCenter: MapCenter? = nil
-    var fetchedFeatureOverlayResultsController: NSFetchedResultsController<GeoFeatureOverlay>?
-            
+    var fetchedGeoOverlayResultsController: NSFetchedResultsController<GeoOverlay>?
+    
+    let annotationImage = NSImage(systemSymbolName: "mappin.circle", // or bubble.middle.bottom
+                                  accessibilityDescription: "Map pin inside a circle")!
+    
+    let clusterAnnotationImage = NSImage(systemSymbolName: "seal",
+                                         accessibilityDescription: "star-like shape")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        registerMapAnnotationViews()
+        
         if let mv = mapView, let mc = mapCenter {
             mv.setCenter(mc.coordinate, animated: false)
         }
     }
-
+    
+    private func registerMapAnnotationViews() {
+        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.geoPointReuseIdentifier)
+        
+        mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.clusterAnnotationReuseIdentifier)
+        
+    }
+    
     override var representedObject: Any? {
         willSet {
             if representedObject != nil { return }
@@ -76,17 +85,18 @@ class ViewController: NSViewController, MKMapViewDelegate, NSFetchedResultsContr
                 updateMapViewCenter()
             }
             
-            let req = GeoFeatureOverlay.fetchRequest()
-            req.sortDescriptors = [NSSortDescriptor(key: "owner.owner.zindex", ascending: true)]
-            fetchedFeatureOverlayResultsController = NSFetchedResultsController(
-                fetchRequest: req,
+            let overlayReq = GeoOverlay.fetchRequest()
+            overlayReq.sortDescriptors = [NSSortDescriptor(key: "feature.layer.zindex", ascending: true)]
+            fetchedGeoOverlayResultsController = NSFetchedResultsController(
+                fetchRequest: overlayReq,
                 managedObjectContext: context,
                 sectionNameKeyPath: nil,
                 cacheName: nil)
-            fetchedFeatureOverlayResultsController?.delegate = self
+            fetchedGeoOverlayResultsController?.delegate = self
+            
             do {
-                try fetchedFeatureOverlayResultsController?.performFetch()
-                loadOverlays(overlays: fetchedFeatureOverlayResultsController?.fetchedObjects)
+                try fetchedGeoOverlayResultsController?.performFetch()
+                load(overlays: fetchedGeoOverlayResultsController?.fetchedObjects)
             }
             catch {
                 fatalError("Failed to fetch entities: \(error)")
@@ -101,6 +111,38 @@ class ViewController: NSViewController, MKMapViewDelegate, NSFetchedResultsContr
             }
         }
     }
+        
+    func load(overlays optoverlays: [GeoOverlay]?) {
+        guard let overlays = optoverlays else { return }
+        
+        load(geoPointAnnotations: overlays.filter { $0.geoInfo! is GeoPointAnnotation } as! [GeoPointAnnotation])
+        
+        load(otherOverlays: overlays.filter { $0.geoInfo!.conforms(to: MKOverlay.self) })
+    }
+    
+    private func load(geoPointAnnotations gpas: [GeoPointAnnotation]) {
+        guard !gpas.isEmpty else { return }
+        Task(priority: .background) {
+            await MainActor.run {
+                self.mapView.addAnnotations(gpas)
+            }
+        }
+    }
+    
+    private func load(otherOverlays: [MKOverlay]) {
+        guard !otherOverlays.isEmpty else { return }
+        self.mapView.addOverlays(otherOverlays, level: .aboveRoads)
+    }
+}
+
+extension ViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        load(overlays: fetchedGeoOverlayResultsController?.fetchedObjects)
+    }
+}
+
+extension ViewController: MKMapViewDelegate {
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         let cntr = mapView.centerCoordinate
@@ -110,54 +152,114 @@ class ViewController: NSViewController, MKMapViewDelegate, NSFetchedResultsContr
             }
         }
     }
-        
-    func loadOverlays(overlays optoverlays: [GeoFeatureOverlay]?) {
-        guard let overlays = optoverlays else {
-            return
-        }
-        self.mapView.addOverlays(overlays)
-    }
-    
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        loadOverlays(overlays: fetchedFeatureOverlayResultsController?.fetchedObjects)
-    }
-    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, 
-//                    didChange sectionInfo: NSFetchedResultsSectionInfo,
-//                    atSectionIndex sectionIndex: Int,
-//                    for type: NSFetchedResultsChangeType) {
-//        print("controller.didChange.atSectionIndex.for")
-//    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let infoOwner = overlay as? GeoInfoOwner else {
-            return MKOverlayRenderer(overlay: overlay)
-        }
-        let info = infoOwner.geoInfo!
-        
-        switch info {
-        case let multipolygon as GeoMultiPolygon:
-            let renderer = MKMultiPolygonRenderer(multiPolygon: multipolygon.makeMKMultiPolygon())
-            renderer.fillColor = NSColor.red
-            return renderer
-            
-        case let multipolyline as GeoMultiPolyline:
-            let renderer = MKMultiPolylineRenderer(multiPolyline: multipolyline.makeMKMultiPolyline())
-            renderer.fillColor = NSColor.blue
-            return renderer
-            
-        default:
-            return MKOverlayRenderer(overlay: overlay)
-        }
-    }
-        
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        print("viewForAnnotation")
-        return nil
-//        let annotationObj = annotation as! NSManagedObject
-//        
-//        return MKAnnotationView(annotation: annotation, reuseIdentifier: anno)
-    }
-    
-}
 
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let geoOverlay = overlay as? GeoOverlay, let info = geoOverlay.geoInfo as? GeoOverlayShape else {
+            return MKOverlayRenderer(overlay: overlay)
+        }
+        
+        return applyStyle(to: info.makeOverlayRenderer(), for: geoOverlay.feature)
+    }
+    
+    // TODO: this is where the style engine goes :)
+    private func applyStyle(to overlayRenderer: MKOverlayRenderer, for feature: GeoFeature?) -> MKOverlayRenderer {
+        
+        switch overlayRenderer {
+        case let multipolygonRenderer as MKMultiPolygonRenderer:
+            multipolygonRenderer.fillColor = NSColor.red
+            multipolygonRenderer.strokeColor = NSColor.red
+            
+        case let multipolylineRenderer as MKMultiPolylineRenderer:
+            multipolylineRenderer.fillColor = NSColor.blue
+            multipolylineRenderer.strokeColor = NSColor.blue
+            
+        case let polygonRenderer as MKPolygonRenderer:
+            polygonRenderer.fillColor = NSColor.yellow
+            polygonRenderer.strokeColor = NSColor.yellow
+
+        case let polylineRenderer as MKPolylineRenderer:
+            polylineRenderer.fillColor = NSColor.green
+            polylineRenderer.strokeColor = NSColor.green
+
+        case let circleRenderer as MKCircleRenderer:
+            circleRenderer.fillColor = NSColor.orange
+            circleRenderer.strokeColor = NSColor.orange
+
+        case let gradientPolylineRenderer as MKGradientPolylineRenderer:
+            gradientPolylineRenderer.fillColor = NSColor.purple // or something
+            gradientPolylineRenderer.strokeColor = NSColor.purple // or something
+
+        case let overlayPathRenderer as MKOverlayPathRenderer:
+            overlayPathRenderer.fillColor = NSColor.black
+            overlayPathRenderer.strokeColor = NSColor.black
+
+        default:
+            break
+        }
+        
+        return overlayRenderer
+    }
+    
+    func mapView(_ mapView: MKMapView, 
+                 viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+                
+        switch annotation {
+        case let userLocation as MKUserLocation:
+            // Make a fast exit if the annotation is the `MKUserLocation`, as it's 
+            // not an annotation view we wish to customize.
+            return nil
+            
+        case let geoOverlay as GeoOverlay:
+            let annotationView = setupPointAnnotationView(for: geoOverlay, on: mapView)
+            annotationView.clusteringIdentifier = "pointcluster" // TODO: this is _very_ tempory
+            return annotationView
+            
+        case let clusterAnnotation as MKClusterAnnotation:
+            let annotationView = setupClusterAnnotationView(for: clusterAnnotation, on: mapView)
+            return annotationView
+
+        default:
+            return nil
+        }
+    }
+    
+    private func setupPointAnnotationView(for annotation: GeoOverlay, on mapView: MKMapView) -> MKAnnotationView {
+                
+        let pointAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.geoPointReuseIdentifier,
+                                                                        for: annotation)
+        
+        //            pointAnnotationView.canShowCallout = true
+        
+        // Provide the annotation view's image.
+        //            let image = #imageLiteral(resourceName: "flag")
+        pointAnnotationView.image = self.annotationImage
+        
+        //            // Provide the left image icon for the annotation.
+        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
+        
+        // Offset the flag annotation so that the flag pole rests on the map coordinate.
+        //            let offset = CGPoint(x: image.size.width / 2, y: -(image.size.height / 2) )
+        //            pointAnnotationView.centerOffset = offset
+        
+        return pointAnnotationView
+    }
+    
+    private func setupClusterAnnotationView(for annotation: MKClusterAnnotation, 
+                                            on mapView: MKMapView) -> MKAnnotationView {
+        
+        let clusterAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.clusterAnnotationReuseIdentifier,
+                                                                        for: annotation)
+        
+        //            pointAnnotationView.canShowCallout = true
+        
+        // Provide the annotation view's image.
+        //            let image = #imageLiteral(resourceName: "flag")
+        clusterAnnotationView.image = self.clusterAnnotationImage
+        
+        //            // Provide the left image icon for the annotation.
+        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
+                
+        return clusterAnnotationView
+    }
+
+}

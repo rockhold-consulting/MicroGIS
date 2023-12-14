@@ -16,50 +16,35 @@ extension GeoLayer {
         self.zindex = Int16(zindex)
     }
     
-    public class func makeLayer(dataURL: URL?, context: NSManagedObjectContext) throws {
-        
-        guard let dataURL = dataURL else {
-            // TODO: throw something
-            return
-        }
-        let decoder = MKGeoJSONDecoder()
-        let geoObjectFactory = GeoObjectFactory()
-        
-        do {
-            let countOfLayers = try context.count(for: GeoLayer.fetchRequest())
-            let layer = GeoLayer(context: context, zindex: countOfLayers)
-            
-            for mkGeoObject in try decoder.decode(try Data(contentsOf: dataURL)) {
-                try layer.add(mkGeoObject: mkGeoObject, geoObjectFactory: geoObjectFactory, context: context)
-            }
-        }
-        catch {
-            // TODO handle by removing the layer we just created
-            throw error
-        }
-    }
     
-    func add(mkGeoObject: MKGeoJSONObject, geoObjectFactory: GeoObjectFactory, context ctx: NSManagedObjectContext) throws {
+    func add(mkGeoObject: MKGeoJSONObject, geoInfoFactory: GeoInfoFactory, context ctx: NSManagedObjectContext) throws {
         
         switch mkGeoObject {
             
         case let mkFeature as MKGeoJSONFeature:
-            let feature = GeoFeature(context: ctx, owner: self) // metadata?
+            let feature = GeoFeature(context: ctx, layer: self, geoJSONFeature: mkFeature)
             
             for shape in mkFeature.geometry {
-                if let geoInfo = try geoObjectFactory.createGeoObject(from: shape) {
-                    _ = GeoFeatureOverlay(context: ctx, owner: feature, geoInfo: geoInfo)
+                switch shape {
+                case let annotation as MKPointAnnotation:
+                    _ = GeoOverlay(context: ctx, layer: nil, feature: feature, geoInfo: GeoPointAnnotation(pointAnnotation: annotation))
+
+                case let overlay as MKOverlay:
+                    if let geoInfo = geoInfoFactory.createGeoInfo(from: overlay) {
+                        _ = GeoOverlay(context: ctx, layer: nil, feature: feature, geoInfo: geoInfo)
+                    }
+                
+                default:
+                    break
                 }
             }
-                   
+               
+        case let annotation as MKPointAnnotation:
+            _ = GeoOverlay(context: ctx, layer: nil, feature: nil, geoInfo: GeoPointAnnotation(pointAnnotation: annotation))
+
         case let overlay as MKOverlay:
-            if let geoInfo = try geoObjectFactory.createGeoObject(from: overlay) {
-                _ = GeoLayerOverlay(context: ctx, owner: self, geoInfo: geoInfo)
-            }
-            
-        case let annotation as MKAnnotation:
-            if let geoInfo = try geoObjectFactory.createGeoObject(from: annotation) {
-                _ = GeoLayerAnnotation(context: ctx, owner: self, geoInfo: geoInfo)
+            if let geoInfo = geoInfoFactory.createGeoInfo(from: overlay) {
+                _ = GeoOverlay(context: ctx, layer: nil, feature: nil, geoInfo: geoInfo)
             }
             
         default:

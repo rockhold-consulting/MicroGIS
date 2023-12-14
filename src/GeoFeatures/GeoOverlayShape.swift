@@ -44,4 +44,8 @@ public class GeoOverlayShape: GeoObject, MKOverlay {
         coder.encode(boundingMapRect.size.width, forKey: CodingKeys.w.rawValue)
         coder.encode(boundingMapRect.size.height, forKey: CodingKeys.h.rawValue)
     }
+    
+    public func makeOverlayRenderer() -> MKOverlayRenderer {
+        return MKOverlayPathRenderer(overlay: self)
+    }
 }

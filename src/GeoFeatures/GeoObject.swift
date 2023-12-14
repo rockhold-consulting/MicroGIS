@@ -46,4 +46,6 @@ public class GeoObject: NSObject, MKAnnotation, NSSecureCoding {
         coder.encode(title, forKey: CodingKeys.title.rawValue)
         coder.encode(subtitle, forKey: CodingKeys.subtitle.rawValue)
     }
+        
+    public var pinGlyph: String { return "◦" }
 }

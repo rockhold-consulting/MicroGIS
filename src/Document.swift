@@ -24,13 +24,18 @@
 
 import Cocoa
 import UniformTypeIdentifiers
+import MapKit.MKGeoJSONSerialization
+import OSLog
 
 class Document: NSPersistentDocument {
-
+    
     var contentViewController: ViewController!
     
     override class var autosavesInPlace: Bool { return true }
+            
+    let logger = Logger(subsystem: "org.appel-rockhold.Georg", category: "Document")
         
+    
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
@@ -43,14 +48,19 @@ class Document: NSPersistentDocument {
             contentViewController = contentVC
         }
     }
-
+    
     override func configurePersistentStoreCoordinator(
         for url: URL,
         ofType fileType: String,
         modelConfiguration configuration: String?,
         storeOptions: [String : Any]? = nil
     ) throws {
-        try super.configurePersistentStoreCoordinator(for: url, ofType: fileType, modelConfiguration: configuration, storeOptions: storeOptions)
+                
+        let myStoreOptions = [
+            NSPersistentStoreRemoteChangeNotificationPostOptionKey: true as NSNumber,
+            NSPersistentHistoryTrackingKey: true as NSNumber
+        ]
+        try super.configurePersistentStoreCoordinator(for: url, ofType: fileType, modelConfiguration: configuration, storeOptions: myStoreOptions)
     }
     
     @IBAction
@@ -59,7 +69,7 @@ class Document: NSPersistentDocument {
         guard let docWindow = self.windowControllers.first?.window else {
             return
         }
-        guard let ctx = managedObjectContext else {
+        guard let _ = managedObjectContext else {
             return
         }
         
@@ -74,12 +84,60 @@ class Document: NSPersistentDocument {
         openPanel.beginSheetModal(for: docWindow) { [self] (result) -> Void in
             if result == .OK {
                 do {
-                    try GeoLayer.makeLayer(dataURL: openPanel.url,
-                                             context: ctx)
+                    try makeLayer(dataURL: openPanel.url)
                 }
                 catch {
-                    Swift.print("ERROR")
+                    self.logger.debug("attempting to import new layer info from GeoJSON file")
                 }
+            }
+        }
+    }
+        
+    @MainActor
+    private func makeLayer(zindex: Int) -> GeoLayer {
+        return GeoLayer(context: managedObjectContext!, zindex: zindex)
+    }
+    
+    @MainActor
+    private func addObjectToLayer(mkGeoObject: MKGeoJSONObject, layer: GeoLayer, geoInfoFactory: GeoInfoFactory) {
+        do {
+            try layer.add(mkGeoObject: mkGeoObject,
+                          geoInfoFactory: geoInfoFactory,
+                          context: managedObjectContext!)
+        }
+        catch {
+            // TODO: handle error better
+            self.logger.debug("could not add shape or feature to layer")
+        }
+    }
+    
+    public func makeLayer(dataURL: URL?) throws {
+        guard let managedObjectContext = self.managedObjectContext else {
+            return
+        }
+        
+        guard let dataURL = dataURL else {
+            // TODO: throw something
+            return
+        }
+        let decoder = MKGeoJSONDecoder()
+        let infoFactory = GeoInfoFactory()
+        
+        let countOfLayers = (try? managedObjectContext.count(for: GeoLayer.fetchRequest())) ?? 0
+                
+        Task {
+            
+            let layer = makeLayer(zindex: countOfLayers)
+            do {
+                for mkGeoObject in try decoder.decode(try Data(contentsOf: dataURL)) {
+                    
+                    addObjectToLayer(mkGeoObject: mkGeoObject,
+                                     layer: layer,
+                                     geoInfoFactory: infoFactory)
+                }
+            }
+            catch {
+                self.logger.debug("error decoding GeoJSON file")
             }
         }
     }

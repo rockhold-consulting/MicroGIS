@@ -61,4 +61,7 @@ public class GeoMultiPoint: GeoOverlayShape {
         }
         coder.encode(coordinateArray, forKey: CodingKeys.coordinates.rawValue)
     }
+    
+    public override var pinGlyph: String { return "⨸" }
+
 }

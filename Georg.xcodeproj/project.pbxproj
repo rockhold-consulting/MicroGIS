@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E3305A92AF85F3C00F5F6F5 /* GeoLayerAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3305A82AF85F3C00F5F6F5 /* GeoLayerAnnotation.swift */; };
 		2E3305AB2AF86F2C00F5F6F5 /* GeoPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3305AA2AF86F2C00F5F6F5 /* GeoPolygon.swift */; };
 		2E3305AD2AF9566000F5F6F5 /* GeoMultiPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3305AC2AF9566000F5F6F5 /* GeoMultiPolygon.swift */; };
 		2E3305B32AF99E7F00F5F6F5 /* GeoMultiPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3305B22AF99E7F00F5F6F5 /* GeoMultiPolyline.swift */; };
 		2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E59AB302A95B6DA0064F50E /* WindowController.swift */; };
 		2E6090FD2B0AD565007697E6 /* GeoCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */; };
+		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
 		2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF32A9436C0005785FA /* AppDelegate.swift */; };
 		2ECCEAF62A9436C0005785FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF52A9436C0005785FA /* ViewController.swift */; };
 		2ECCEAF82A9436C0005785FA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF72A9436C0005785FA /* Document.swift */; };
@@ -28,23 +28,21 @@
 		2EDAC98A2AFEF5C9001DBF88 /* GeoMultiPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9892AFEF5C9001DBF88 /* GeoMultiPoint.swift */; };
 		2EDAC98E2AFEF632001DBF88 /* GeoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC98D2AFEF632001DBF88 /* GeoObject.swift */; };
 		2EDAC9902AFEF6E8001DBF88 /* Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */; };
-		2EDAC9922B02EC99001DBF88 /* GeoFeatureAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9912B02EC99001DBF88 /* GeoFeatureAnnotation.swift */; };
 		2EDAC9942B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */; };
 		2EDAC9962B04297E001DBF88 /* GeoOverlayShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9952B04297E001DBF88 /* GeoOverlayShape.swift */; };
 		2EDAC99A2B055C46001DBF88 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDAC9992B055C46001DBF88 /* BinaryCodable */; };
-		2EDAC99C2B056655001DBF88 /* GeoObjectFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99B2B056655001DBF88 /* GeoObjectFactory.swift */; };
-		2EDAC99E2B05A5A3001DBF88 /* GeoLayerOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99D2B05A5A3001DBF88 /* GeoLayerOverlay.swift */; };
-		2EDAC9A02B05A5B7001DBF88 /* GeoFeatureOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99F2B05A5B7001DBF88 /* GeoFeatureOverlay.swift */; };
+		2EDAC99C2B056655001DBF88 /* GeoInfoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99B2B056655001DBF88 /* GeoInfoFactory.swift */; };
+		2EDAC9A02B05A5B7001DBF88 /* GeoOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99F2B05A5B7001DBF88 /* GeoOverlay.swift */; };
 		2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0D11C2A983E6E0018E70D /* Assets.xcassets */; };
 		2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF33E652ADF0077004C750F /* GeoFeatures */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2E3305A82AF85F3C00F5F6F5 /* GeoLayerAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLayerAnnotation.swift; sourceTree = "<group>"; };
 		2E3305AA2AF86F2C00F5F6F5 /* GeoPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPolygon.swift; sourceTree = "<group>"; };
 		2E3305AC2AF9566000F5F6F5 /* GeoMultiPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMultiPolygon.swift; sourceTree = "<group>"; };
 		2E3305B22AF99E7F00F5F6F5 /* GeoMultiPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMultiPolyline.swift; sourceTree = "<group>"; };
 		2E59AB302A95B6DA0064F50E /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeorgError.swift; sourceTree = "<group>"; };
 		2ECCEAF02A9436C0005785FA /* Georg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Georg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ECCEAF52A9436C0005785FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,12 +62,10 @@
 		2EDAC9892AFEF5C9001DBF88 /* GeoMultiPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMultiPoint.swift; sourceTree = "<group>"; };
 		2EDAC98D2AFEF632001DBF88 /* GeoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoObject.swift; sourceTree = "<group>"; };
 		2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformers.swift; sourceTree = "<group>"; };
-		2EDAC9912B02EC99001DBF88 /* GeoFeatureAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GeoFeatureAnnotation.swift; path = "src/Entity Classes/GeoFeatureAnnotation.swift"; sourceTree = SOURCE_ROOT; };
 		2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Codable.swift"; sourceTree = "<group>"; };
 		2EDAC9952B04297E001DBF88 /* GeoOverlayShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoOverlayShape.swift; sourceTree = "<group>"; };
-		2EDAC99B2B056655001DBF88 /* GeoObjectFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoObjectFactory.swift; sourceTree = "<group>"; };
-		2EDAC99D2B05A5A3001DBF88 /* GeoLayerOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLayerOverlay.swift; sourceTree = "<group>"; };
-		2EDAC99F2B05A5B7001DBF88 /* GeoFeatureOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFeatureOverlay.swift; sourceTree = "<group>"; };
+		2EDAC99B2B056655001DBF88 /* GeoInfoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoInfoFactory.swift; sourceTree = "<group>"; };
+		2EDAC99F2B05A5B7001DBF88 /* GeoOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoOverlay.swift; sourceTree = "<group>"; };
 		2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeoFeatures; sourceTree = "<group>"; };
 		2EF0D1192A9828740018E70D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2EF0D11A2A9829690018E70D /* COPYING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
@@ -125,6 +121,7 @@
 				2ECCEB012A9436C4005785FA /* Info.plist */,
 				2ECCEB022A9436C4005785FA /* Georg.entitlements */,
 				2ECCEAF92A9436C0005785FA /* Document.xcdatamodeld */,
+				2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -144,7 +141,7 @@
 				2E3305B22AF99E7F00F5F6F5 /* GeoMultiPolyline.swift */,
 				2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */,
 				2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */,
-				2EDAC99B2B056655001DBF88 /* GeoObjectFactory.swift */,
+				2EDAC99B2B056655001DBF88 /* GeoInfoFactory.swift */,
 				2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */,
 			);
 			path = GeoFeatures;
@@ -155,10 +152,7 @@
 			children = (
 				2EDAC9782AFC424C001DBF88 /* GeoLayer.swift */,
 				2EDAC9762AFC403C001DBF88 /* GeoFeature.swift */,
-				2EDAC9912B02EC99001DBF88 /* GeoFeatureAnnotation.swift */,
-				2E3305A82AF85F3C00F5F6F5 /* GeoLayerAnnotation.swift */,
-				2EDAC99D2B05A5A3001DBF88 /* GeoLayerOverlay.swift */,
-				2EDAC99F2B05A5B7001DBF88 /* GeoFeatureOverlay.swift */,
+				2EDAC99F2B05A5B7001DBF88 /* GeoOverlay.swift */,
 				2EDAC97E2AFD95E7001DBF88 /* MapCenter.swift */,
 			);
 			path = "Entity Classes";
@@ -251,23 +245,21 @@
 				2EDAC9772AFC403C001DBF88 /* GeoFeature.swift in Sources */,
 				2EDAC9792AFC424C001DBF88 /* GeoLayer.swift in Sources */,
 				2EDAC9942B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift in Sources */,
-				2EDAC99E2B05A5A3001DBF88 /* GeoLayerOverlay.swift in Sources */,
-				2EDAC99C2B056655001DBF88 /* GeoObjectFactory.swift in Sources */,
+				2EDAC99C2B056655001DBF88 /* GeoInfoFactory.swift in Sources */,
 				2ECCEAFB2A9436C0005785FA /* Document.xcdatamodeld in Sources */,
 				2EDAC9752AFC3B0C001DBF88 /* GeoCircle.swift in Sources */,
 				2E3305AD2AF9566000F5F6F5 /* GeoMultiPolygon.swift in Sources */,
-				2E3305A92AF85F3C00F5F6F5 /* GeoLayerAnnotation.swift in Sources */,
 				2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */,
 				2EDAC9902AFEF6E8001DBF88 /* Transformers.swift in Sources */,
+				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
 				2EDAC97F2AFD95E7001DBF88 /* MapCenter.swift in Sources */,
 				2EDAC9842AFEF515001DBF88 /* GeoGeodesicPolyline.swift in Sources */,
-				2EDAC9922B02EC99001DBF88 /* GeoFeatureAnnotation.swift in Sources */,
 				2ECCEAF62A9436C0005785FA /* ViewController.swift in Sources */,
 				2E6090FD2B0AD565007697E6 /* GeoCoordinate.swift in Sources */,
 				2EDAC9962B04297E001DBF88 /* GeoOverlayShape.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
 				2EDAC9862AFEF568001DBF88 /* GeoPolyline.swift in Sources */,
-				2EDAC9A02B05A5B7001DBF88 /* GeoFeatureOverlay.swift in Sources */,
+				2EDAC9A02B05A5B7001DBF88 /* GeoOverlay.swift in Sources */,
 				2E3305AB2AF86F2C00F5F6F5 /* GeoPolygon.swift in Sources */,
 				2EDAC97B2AFC4779001DBF88 /* GeoPointAnnotation.swift in Sources */,
 				2ECCEAF82A9436C0005785FA /* Document.swift in Sources */,
@@ -435,7 +427,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -470,7 +462,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg";
 				PRODUCT_NAME = "$(TARGET_NAME)";

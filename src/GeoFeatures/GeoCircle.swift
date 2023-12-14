@@ -31,18 +31,18 @@ public final class GeoCircle: GeoOverlayShape {
                   title: circle.title,
                   subtitle: circle.subtitle)
     }
-
+    
     func makeMKCircle() -> MKCircle {
         return MKCircle(fromGeoObj: self)
     }
-        
+    
     // NSCoding/NSSecureCoding
     public override class var supportsSecureCoding: Bool { true }
     
     private enum CodingKeys: String, CodingKey {
         case radius = "geocircle_radius"
     }
-
+    
     public required init?(coder: NSCoder) {
         radius = coder.decodeDouble(forKey: CodingKeys.radius.rawValue)
         super.init(coder: coder)
@@ -52,4 +52,11 @@ public final class GeoCircle: GeoOverlayShape {
         super.encode(with: coder)
         coder.encode(radius, forKey: CodingKeys.radius.rawValue)
     }
+
+    public override var pinGlyph: String { return "◉" }
+
+    public override func makeOverlayRenderer() -> MKOverlayRenderer {
+        return MKCircleRenderer(overlay: makeMKCircle())
+    }
+
 }
