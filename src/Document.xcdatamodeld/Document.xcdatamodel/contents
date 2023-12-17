@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22225" systemVersion="22G313" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G436" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
     <entity name="GeoFeature" representedClassName="GeoFeature" syncable="YES" codeGenerationType="category">
         <attribute name="identifier" optional="YES" attributeType="String"/>
         <attribute name="properties" optional="YES" attributeType="Binary"/>
@@ -15,9 +15,5 @@
         <attribute name="geoInfo" attributeType="Transformable" valueTransformerName="GeoObjectTransformer" customClassName="GeoObject"/>
         <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoFeature" inverseName="overlays" inverseEntity="GeoFeature"/>
         <relationship name="layer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoLayer" inverseName="overlays" inverseEntity="GeoLayer"/>
-    </entity>
-    <entity name="MapCenter" representedClassName="MapCenter" syncable="YES" codeGenerationType="class">
-        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
 </model>

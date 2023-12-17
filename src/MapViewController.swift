@@ -16,7 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <https:www.gnu.org/licenses/>.
 //
-//  ViewController.swift
+//  MapViewController.swift
 //  Georg
 //
 //  Created by Michael Rockhold on 8/21/23.
@@ -25,20 +25,13 @@
 import Cocoa
 import MapKit
 
-class ViewController: NSViewController {
+class MapViewController: NSViewController {
     
-    @IBOutlet weak var mapView: MKMapView! {
-        didSet {
-            updateMapViewCenter()
-        }
-    }
+    @IBOutlet weak var mapView: MKMapView!
     
     static let geoPointReuseIdentifier = NSStringFromClass(GeoPointAnnotation.self)
     static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
-    
-    var mapCenter: MapCenter? = nil
-    var fetchedGeoOverlayResultsController: NSFetchedResultsController<GeoOverlay>?
-    
+        
     let annotationImage = NSImage(systemSymbolName: "mappin.circle", // or bubble.middle.bottom
                                   accessibilityDescription: "Map pin inside a circle")!
     
@@ -47,12 +40,7 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         registerMapAnnotationViews()
-        
-        if let mv = mapView, let mc = mapCenter {
-            mv.setCenter(mc.coordinate, animated: false)
-        }
     }
     
     private func registerMapAnnotationViews() {
@@ -62,57 +50,13 @@ class ViewController: NSViewController {
         
     }
     
-    override var representedObject: Any? {
-        willSet {
-            if representedObject != nil { return }
-            guard let moc = newValue as? NSManagedObjectContext else { return }
-            guard let result = try? moc.execute(MapCenter.fetchRequest()) as? NSAsynchronousFetchResult<MapCenter> else { return }
-            guard let countOfContents = result.finalResult?.count else { return }
-            
-            if countOfContents == 0, let mc = (NSEntityDescription.insertNewObject(forEntityName: "MapCenter", into: moc) as? MapCenter) {
-                
-                mc.coordinate = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-                mapCenter = mc
-                updateMapViewCenter()
-            }
-        }
+    var viewModel: MapViewModel! {
         didSet {
-            guard let context = representedObject as? NSManagedObjectContext else {
-                return
-            }
-            if let result = try? context.execute(MapCenter.fetchRequest()) as? NSAsynchronousFetchResult<MapCenter>, let mc = result.finalResult?[0] {
-                mapCenter = mc
-                updateMapViewCenter()
-            }
-            
-            let overlayReq = GeoOverlay.fetchRequest()
-            overlayReq.sortDescriptors = [NSSortDescriptor(key: "feature.layer.zindex", ascending: true)]
-            fetchedGeoOverlayResultsController = NSFetchedResultsController(
-                fetchRequest: overlayReq,
-                managedObjectContext: context,
-                sectionNameKeyPath: nil,
-                cacheName: nil)
-            fetchedGeoOverlayResultsController?.delegate = self
-            
-            do {
-                try fetchedGeoOverlayResultsController?.performFetch()
-                load(overlays: fetchedGeoOverlayResultsController?.fetchedObjects)
-            }
-            catch {
-                fatalError("Failed to fetch entities: \(error)")
-            }
+            viewModel.loadView()
         }
     }
     
-    private func updateMapViewCenter() {
-        DispatchQueue.main.async() { [self] in
-            if let mv = mapView, let mc = mapCenter {
-                mv.setCenter(mc.coordinate, animated: false)
-            }
-        }
-    }
-        
-    func load(overlays optoverlays: [GeoOverlay]?) {
+    public func load(overlays optoverlays: [GeoOverlay]?) {
         guard let overlays = optoverlays else { return }
         
         load(geoPointAnnotations: overlays.filter { $0.geoInfo! is GeoPointAnnotation } as! [GeoPointAnnotation])
@@ -135,23 +79,10 @@ class ViewController: NSViewController {
     }
 }
 
-extension ViewController: NSFetchedResultsControllerDelegate {
+extension MapViewController: MKMapViewDelegate {
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        load(overlays: fetchedGeoOverlayResultsController?.fetchedObjects)
-    }
-}
-
-extension ViewController: MKMapViewDelegate {
-    
-    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        let cntr = mapView.centerCoordinate
-        DispatchQueue.main.async() { [self] in
-            if let mc = mapCenter {
-                mc.coordinate = cntr
-            }
-        }
-    }
+//    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+//    }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let geoOverlay = overlay as? GeoOverlay, let info = geoOverlay.geoInfo as? GeoOverlayShape else {
@@ -206,7 +137,7 @@ extension ViewController: MKMapViewDelegate {
         switch annotation {
         case let userLocation as MKUserLocation:
             // Make a fast exit if the annotation is the `MKUserLocation`, as it's 
-            // not an annotation view we wish to customize.
+            // not an annotation view we wish to customize yet.
             return nil
             
         case let geoOverlay as GeoOverlay:

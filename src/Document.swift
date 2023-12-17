@@ -29,7 +29,7 @@ import OSLog
 
 class Document: NSPersistentDocument {
     
-    var contentViewController: ViewController!
+    var contentViewController: MapViewController!
     
     override class var autosavesInPlace: Bool { return true }
             
@@ -43,8 +43,9 @@ class Document: NSPersistentDocument {
         self.addWindowController(windowController)
         
         // Set the view controller's represented object as your document.
-        if let contentVC = windowController.contentViewController as? ViewController {
-            contentVC.representedObject = managedObjectContext
+        if let contentVC = windowController.contentViewController as? MapViewController {
+            let mapViewModel = MapViewModel(context: managedObjectContext!, mapViewController: contentVC)
+            contentVC.viewModel = mapViewModel
             contentViewController = contentVC
         }
     }
