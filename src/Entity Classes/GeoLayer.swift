@@ -17,7 +17,7 @@ extension GeoLayer {
     }
     
     
-    func add(mkGeoObject: MKGeoJSONObject, geoInfoFactory: GeoInfoFactory, context ctx: NSManagedObjectContext) throws {
+    func add(mkGeoObject: MKGeoJSONObject, geometryFactory: GeometryFactory, context ctx: NSManagedObjectContext) throws {
         
         switch mkGeoObject {
             
@@ -27,11 +27,14 @@ extension GeoLayer {
             for shape in mkFeature.geometry {
                 switch shape {
                 case let annotation as MKPointAnnotation:
-                    _ = GeoOverlay(context: ctx, layer: nil, feature: feature, geoInfo: GeoPointAnnotation(pointAnnotation: annotation))
+                    _ = GeoOverlay(context: ctx, layer: nil, feature: feature,
+                                   geometry: GeoPoint(pointAnnotation: annotation))
 
                 case let overlay as MKOverlay:
-                    if let geoInfo = geoInfoFactory.createGeoInfo(from: overlay) {
-                        _ = GeoOverlay(context: ctx, layer: nil, feature: feature, geoInfo: geoInfo)
+                    if let geometry = geometryFactory.createGeometry(from: overlay) {
+                        _ = GeoOverlay(context: ctx, layer: nil,
+                                       feature: feature,
+                                       geometry: geometry)
                     }
                 
                 default:
@@ -40,11 +43,14 @@ extension GeoLayer {
             }
                
         case let annotation as MKPointAnnotation:
-            _ = GeoOverlay(context: ctx, layer: nil, feature: nil, geoInfo: GeoPointAnnotation(pointAnnotation: annotation))
+            _ = GeoOverlay(context: ctx, 
+                           layer: nil,
+                           feature: nil,
+                           geometry: GeoPoint(pointAnnotation: annotation))
 
         case let overlay as MKOverlay:
-            if let geoInfo = geoInfoFactory.createGeoInfo(from: overlay) {
-                _ = GeoOverlay(context: ctx, layer: nil, feature: nil, geoInfo: geoInfo)
+            if let geometry = geometryFactory.createGeometry(from: overlay) {
+                _ = GeoOverlay(context: ctx, layer: nil, feature: nil, geometry: geometry)
             }
             
         default:

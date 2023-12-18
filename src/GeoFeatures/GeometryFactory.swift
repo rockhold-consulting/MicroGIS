@@ -1,5 +1,5 @@
 //
-//  GeoInfoFactory.swift
+//  GeometryFactory.swift
 //  Georg
 //
 //  Created by Michael Rockhold on 11/15/23.
@@ -8,9 +8,9 @@
 import Foundation
 import MapKit
 
-class GeoInfoFactory {
+class GeometryFactory {
         
-    func createGeoInfo(from mkOverlay: MKOverlay) -> GeoObject? {
+    func createGeometry(from mkOverlay: MKOverlay) -> Geometry? {
         switch mkOverlay {
         case let circle as MKCircle:
             return GeoCircle(circle: circle)

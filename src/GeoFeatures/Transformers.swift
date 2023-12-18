@@ -7,11 +7,11 @@
 
 import Foundation
 
-class GeoObjectTransformer: NSSecureUnarchiveFromDataTransformer {
+class GeometryTransformer: NSSecureUnarchiveFromDataTransformer {
 
     override class func allowsReverseTransformation() -> Bool { return true }
-    override class func transformedValueClass() -> AnyClass { return GeoObject.self }
-    override class var allowedTopLevelClasses: [AnyClass] { return [GeoObject.self] }
+    override class func transformedValueClass() -> AnyClass { return Geometry.self }
+    override class var allowedTopLevelClasses: [AnyClass] { return [Geometry.self] }
     
     public override func transformedValue(_ value: Any?) -> Any? {
         guard let geoObjectData = value as? Data else {
@@ -21,16 +21,16 @@ class GeoObjectTransformer: NSSecureUnarchiveFromDataTransformer {
     }
     
     public override func reverseTransformedValue(_ value: Any?) -> Any? {
-        guard let geoObject = value as? GeoObject else {
-            fatalError("Wrong data type: value must be a GeoObject object; received \(type(of: value))")
+        guard let geometry = value as? Geometry else {
+            fatalError("Wrong data type: value must be a Geometry object; received \(type(of: value))")
         }
-        return super.reverseTransformedValue(geoObject)
+        return super.reverseTransformedValue(geometry)
     }
     
     /// Registers the transformer.
-    static let name = NSValueTransformerName(rawValue: String(describing: GeoObjectTransformer.self))
+    static let name = NSValueTransformerName(rawValue: String(describing: GeometryTransformer.self))
     public static func register() {
-        let transformer = GeoObjectTransformer()
+        let transformer = GeometryTransformer()
         ValueTransformer.setValueTransformer(transformer, forName: name)
     }
 }

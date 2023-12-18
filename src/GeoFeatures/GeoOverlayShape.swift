@@ -8,7 +8,7 @@
 import Foundation
 import MapKit
 
-public class GeoOverlayShape: GeoObject, MKOverlay {
+public class GeoOverlayShape: Geometry, MKOverlay {
     
     public let boundingMapRect: MKMapRect
     

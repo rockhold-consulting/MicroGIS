@@ -14,10 +14,10 @@ extension GeoOverlay: MKOverlay {
     public convenience init(context: NSManagedObjectContext, 
                             layer: GeoLayer?,
                             feature: GeoFeature?,
-                            geoInfo: GeoObject) {
+                            geometry: Geometry) {
         
         self.init(context: context)
-        self.geoInfo = geoInfo
+        self.geometry = geometry
         self.layer = layer
         self.feature = feature
         layer?.addToOverlays(self)
@@ -25,20 +25,20 @@ extension GeoOverlay: MKOverlay {
     }
 
     public var coordinate: CLLocationCoordinate2D {
-        return self.geoInfo!.coordinate
+        return self.geometry!.coordinate
     }
     
     public var title: String? {
-        return self.geoInfo!.title
+        return self.geometry!.title
     }
     
     public var subtitle: String? {
-        return self.geoInfo!.subtitle
+        return self.geometry!.subtitle
     }
 
     public var boundingMapRect: MKMapRect {
         
-        switch self.geoInfo {
+        switch self.geometry {
         case let overlay as MKOverlay:
             return overlay.boundingMapRect
             

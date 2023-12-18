@@ -21,16 +21,15 @@
 		2EDAC9752AFC3B0C001DBF88 /* GeoCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9742AFC3B0C001DBF88 /* GeoCircle.swift */; };
 		2EDAC9772AFC403C001DBF88 /* GeoFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9762AFC403C001DBF88 /* GeoFeature.swift */; };
 		2EDAC9792AFC424C001DBF88 /* GeoLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9782AFC424C001DBF88 /* GeoLayer.swift */; };
-		2EDAC97B2AFC4779001DBF88 /* GeoPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC97A2AFC4779001DBF88 /* GeoPointAnnotation.swift */; };
+		2EDAC97B2AFC4779001DBF88 /* GeoPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC97A2AFC4779001DBF88 /* GeoPoint.swift */; };
 		2EDAC9842AFEF515001DBF88 /* GeoGeodesicPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9832AFEF515001DBF88 /* GeoGeodesicPolyline.swift */; };
 		2EDAC9862AFEF568001DBF88 /* GeoPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9852AFEF568001DBF88 /* GeoPolyline.swift */; };
 		2EDAC98A2AFEF5C9001DBF88 /* GeoMultiPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9892AFEF5C9001DBF88 /* GeoMultiPoint.swift */; };
-		2EDAC98E2AFEF632001DBF88 /* GeoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC98D2AFEF632001DBF88 /* GeoObject.swift */; };
+		2EDAC98E2AFEF632001DBF88 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC98D2AFEF632001DBF88 /* Geometry.swift */; };
 		2EDAC9902AFEF6E8001DBF88 /* Transformers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */; };
 		2EDAC9942B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */; };
 		2EDAC9962B04297E001DBF88 /* GeoOverlayShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC9952B04297E001DBF88 /* GeoOverlayShape.swift */; };
-		2EDAC99A2B055C46001DBF88 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EDAC9992B055C46001DBF88 /* BinaryCodable */; };
-		2EDAC99C2B056655001DBF88 /* GeoInfoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99B2B056655001DBF88 /* GeoInfoFactory.swift */; };
+		2EDAC99C2B056655001DBF88 /* GeometryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99B2B056655001DBF88 /* GeometryFactory.swift */; };
 		2EDAC9A02B05A5B7001DBF88 /* GeoOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC99F2B05A5B7001DBF88 /* GeoOverlay.swift */; };
 		2EE770182B2FB3AF00E67B56 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */; };
 		2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0D11C2A983E6E0018E70D /* Assets.xcassets */; };
@@ -54,16 +53,16 @@
 		2EDAC9742AFC3B0C001DBF88 /* GeoCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCircle.swift; sourceTree = "<group>"; };
 		2EDAC9762AFC403C001DBF88 /* GeoFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoFeature.swift; sourceTree = "<group>"; };
 		2EDAC9782AFC424C001DBF88 /* GeoLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoLayer.swift; sourceTree = "<group>"; };
-		2EDAC97A2AFC4779001DBF88 /* GeoPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPointAnnotation.swift; sourceTree = "<group>"; };
+		2EDAC97A2AFC4779001DBF88 /* GeoPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPoint.swift; sourceTree = "<group>"; };
 		2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoCoordinate.swift; sourceTree = "<group>"; };
 		2EDAC9832AFEF515001DBF88 /* GeoGeodesicPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoGeodesicPolyline.swift; sourceTree = "<group>"; };
 		2EDAC9852AFEF568001DBF88 /* GeoPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoPolyline.swift; sourceTree = "<group>"; };
 		2EDAC9892AFEF5C9001DBF88 /* GeoMultiPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMultiPoint.swift; sourceTree = "<group>"; };
-		2EDAC98D2AFEF632001DBF88 /* GeoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoObject.swift; sourceTree = "<group>"; };
+		2EDAC98D2AFEF632001DBF88 /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
 		2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transformers.swift; sourceTree = "<group>"; };
 		2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Codable.swift"; sourceTree = "<group>"; };
 		2EDAC9952B04297E001DBF88 /* GeoOverlayShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoOverlayShape.swift; sourceTree = "<group>"; };
-		2EDAC99B2B056655001DBF88 /* GeoInfoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoInfoFactory.swift; sourceTree = "<group>"; };
+		2EDAC99B2B056655001DBF88 /* GeometryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryFactory.swift; sourceTree = "<group>"; };
 		2EDAC99F2B05A5B7001DBF88 /* GeoOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoOverlay.swift; sourceTree = "<group>"; };
 		2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeoFeatures; sourceTree = "<group>"; };
 		2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -78,7 +77,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EDAC99A2B055C46001DBF88 /* BinaryCodable in Frameworks */,
 				2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,12 +108,11 @@
 		2ECCEAF22A9436C0005785FA /* src */ = {
 			isa = PBXGroup;
 			children = (
+				2ECCEAF32A9436C0005785FA /* AppDelegate.swift */,
 				2EDAC9972B0433D3001DBF88 /* Entity Classes */,
 				2EDAC9822AFEF3FC001DBF88 /* GeoFeatures */,
-				2ECCEAF32A9436C0005785FA /* AppDelegate.swift */,
-				2ECCEAF52A9436C0005785FA /* MapViewController.swift */,
-				2ECCEAF72A9436C0005785FA /* Document.swift */,
-				2E59AB302A95B6DA0064F50E /* WindowController.swift */,
+				2EE7701A2B2FBE5300E67B56 /* Detail Views */,
+				2EE770192B2FBE1F00E67B56 /* Main Window */,
 				2EF0D11C2A983E6E0018E70D /* Assets.xcassets */,
 				2ECCEAFE2A9436C4005785FA /* Main.storyboard */,
 				2ECCEB012A9436C4005785FA /* Info.plist */,
@@ -130,8 +127,8 @@
 		2EDAC9822AFEF3FC001DBF88 /* GeoFeatures */ = {
 			isa = PBXGroup;
 			children = (
-				2EDAC98D2AFEF632001DBF88 /* GeoObject.swift */,
-				2EDAC97A2AFC4779001DBF88 /* GeoPointAnnotation.swift */,
+				2EDAC98D2AFEF632001DBF88 /* Geometry.swift */,
+				2EDAC97A2AFC4779001DBF88 /* GeoPoint.swift */,
 				2EDAC9952B04297E001DBF88 /* GeoOverlayShape.swift */,
 				2EDAC9742AFC3B0C001DBF88 /* GeoCircle.swift */,
 				2EDAC9892AFEF5C9001DBF88 /* GeoMultiPoint.swift */,
@@ -142,7 +139,7 @@
 				2E3305B22AF99E7F00F5F6F5 /* GeoMultiPolyline.swift */,
 				2EDAC9932B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift */,
 				2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */,
-				2EDAC99B2B056655001DBF88 /* GeoInfoFactory.swift */,
+				2EDAC99B2B056655001DBF88 /* GeometryFactory.swift */,
 				2EDAC98F2AFEF6E8001DBF88 /* Transformers.swift */,
 			);
 			path = GeoFeatures;
@@ -156,6 +153,23 @@
 				2EDAC99F2B05A5B7001DBF88 /* GeoOverlay.swift */,
 			);
 			path = "Entity Classes";
+			sourceTree = "<group>";
+		};
+		2EE770192B2FBE1F00E67B56 /* Main Window */ = {
+			isa = PBXGroup;
+			children = (
+				2ECCEAF72A9436C0005785FA /* Document.swift */,
+				2E59AB302A95B6DA0064F50E /* WindowController.swift */,
+			);
+			path = "Main Window";
+			sourceTree = "<group>";
+		};
+		2EE7701A2B2FBE5300E67B56 /* Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				2ECCEAF52A9436C0005785FA /* MapViewController.swift */,
+			);
+			path = "Detail Views";
 			sourceTree = "<group>";
 		};
 		2EF33E642ADF0077004C750F /* Frameworks */ = {
@@ -183,7 +197,6 @@
 			name = Georg;
 			packageProductDependencies = (
 				2EF33E652ADF0077004C750F /* GeoFeatures */,
-				2EDAC9992B055C46001DBF88 /* BinaryCodable */,
 			);
 			productName = DocbasedApp;
 			productReference = 2ECCEAF02A9436C0005785FA /* Georg.app */;
@@ -214,7 +227,6 @@
 			);
 			mainGroup = 2ECCEAE72A9436C0005785FA;
 			packageReferences = (
-				2EDAC9982B055C46001DBF88 /* XCRemoteSwiftPackageReference "BinaryCodable" */,
 			);
 			productRefGroup = 2ECCEAF12A9436C0005785FA /* Products */;
 			projectDirPath = "";
@@ -245,7 +257,7 @@
 				2EDAC9772AFC403C001DBF88 /* GeoFeature.swift in Sources */,
 				2EDAC9792AFC424C001DBF88 /* GeoLayer.swift in Sources */,
 				2EDAC9942B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift in Sources */,
-				2EDAC99C2B056655001DBF88 /* GeoInfoFactory.swift in Sources */,
+				2EDAC99C2B056655001DBF88 /* GeometryFactory.swift in Sources */,
 				2ECCEAFB2A9436C0005785FA /* Document.xcdatamodeld in Sources */,
 				2EDAC9752AFC3B0C001DBF88 /* GeoCircle.swift in Sources */,
 				2E3305AD2AF9566000F5F6F5 /* GeoMultiPolygon.swift in Sources */,
@@ -260,9 +272,9 @@
 				2EDAC9862AFEF568001DBF88 /* GeoPolyline.swift in Sources */,
 				2EDAC9A02B05A5B7001DBF88 /* GeoOverlay.swift in Sources */,
 				2E3305AB2AF86F2C00F5F6F5 /* GeoPolygon.swift in Sources */,
-				2EDAC97B2AFC4779001DBF88 /* GeoPointAnnotation.swift in Sources */,
+				2EDAC97B2AFC4779001DBF88 /* GeoPoint.swift in Sources */,
 				2ECCEAF82A9436C0005785FA /* Document.swift in Sources */,
-				2EDAC98E2AFEF632001DBF88 /* GeoObject.swift in Sources */,
+				2EDAC98E2AFEF632001DBF88 /* Geometry.swift in Sources */,
 				2EDAC98A2AFEF5C9001DBF88 /* GeoMultiPoint.swift in Sources */,
 				2E3305B32AF99E7F00F5F6F5 /* GeoMultiPolyline.swift in Sources */,
 				2EE770182B2FB3AF00E67B56 /* MapViewModel.swift in Sources */,
@@ -495,23 +507,7 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		2EDAC9982B055C46001DBF88 /* XCRemoteSwiftPackageReference "BinaryCodable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/christophhagen/BinaryCodable";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		2EDAC9992B055C46001DBF88 /* BinaryCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EDAC9982B055C46001DBF88 /* XCRemoteSwiftPackageReference "BinaryCodable" */;
-			productName = BinaryCodable;
-		};
 		2EF33E652ADF0077004C750F /* GeoFeatures */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GeoFeatures;

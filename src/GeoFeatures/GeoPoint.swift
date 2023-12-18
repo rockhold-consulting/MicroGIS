@@ -1,5 +1,5 @@
 //
-//  GeoPointAnnotation.swift
+//  GeoPoint.swift
 //  Georg
 //
 //  Created by Michael Rockhold on 11/8/23.
@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 import MapKit
 
-public class GeoPointAnnotation: GeoObject {
+public class GeoPoint: Geometry {
     
 //    init(coordinate c: CLLocationCoordinate2D, title t: String) {
 //        super.init(coordinate: c, title: t)

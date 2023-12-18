@@ -29,7 +29,7 @@ class MapViewController: NSViewController {
     
     @IBOutlet weak var mapView: MKMapView!
     
-    static let geoPointReuseIdentifier = NSStringFromClass(GeoPointAnnotation.self)
+    static let geoPointReuseIdentifier = NSStringFromClass(GeoPoint.self)
     static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
         
     let annotationImage = NSImage(systemSymbolName: "mappin.circle", // or bubble.middle.bottom
@@ -59,16 +59,16 @@ class MapViewController: NSViewController {
     public func load(overlays optoverlays: [GeoOverlay]?) {
         guard let overlays = optoverlays else { return }
         
-        load(geoPointAnnotations: overlays.filter { $0.geoInfo! is GeoPointAnnotation } as! [GeoPointAnnotation])
+        load(geoPoints: overlays.filter { $0.geometry! is GeoPoint } as! [GeoPoint])
         
-        load(otherOverlays: overlays.filter { $0.geoInfo!.conforms(to: MKOverlay.self) })
+        load(otherOverlays: overlays.filter { $0.geometry!.conforms(to: MKOverlay.self) })
     }
     
-    private func load(geoPointAnnotations gpas: [GeoPointAnnotation]) {
-        guard !gpas.isEmpty else { return }
+    private func load(geoPoints: [GeoPoint]) {
+        guard !geoPoints.isEmpty else { return }
         Task(priority: .background) {
             await MainActor.run {
-                self.mapView.addAnnotations(gpas)
+                self.mapView.addAnnotations(geoPoints)
             }
         }
     }
@@ -85,7 +85,7 @@ extension MapViewController: MKMapViewDelegate {
 //    }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let geoOverlay = overlay as? GeoOverlay, let info = geoOverlay.geoInfo as? GeoOverlayShape else {
+        guard let geoOverlay = overlay as? GeoOverlay, let info = geoOverlay.geometry as? GeoOverlayShape else {
             return MKOverlayRenderer(overlay: overlay)
         }
         

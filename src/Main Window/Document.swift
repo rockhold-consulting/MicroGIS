@@ -100,10 +100,12 @@ class Document: NSPersistentDocument {
     }
     
     @MainActor
-    private func addObjectToLayer(mkGeoObject: MKGeoJSONObject, layer: GeoLayer, geoInfoFactory: GeoInfoFactory) {
+    private func addObjectToLayer(mkGeoObject: MKGeoJSONObject, 
+                                  layer: GeoLayer,
+                                  geometryFactory: GeometryFactory) {
         do {
             try layer.add(mkGeoObject: mkGeoObject,
-                          geoInfoFactory: geoInfoFactory,
+                          geometryFactory: geometryFactory,
                           context: managedObjectContext!)
         }
         catch {
@@ -122,7 +124,7 @@ class Document: NSPersistentDocument {
             return
         }
         let decoder = MKGeoJSONDecoder()
-        let infoFactory = GeoInfoFactory()
+        let geometryFactory = GeometryFactory()
         
         let countOfLayers = (try? managedObjectContext.count(for: GeoLayer.fetchRequest())) ?? 0
                 
@@ -134,7 +136,7 @@ class Document: NSPersistentDocument {
                     
                     addObjectToLayer(mkGeoObject: mkGeoObject,
                                      layer: layer,
-                                     geoInfoFactory: infoFactory)
+                                     geometryFactory: geometryFactory)
                 }
             }
             catch {

@@ -1,5 +1,5 @@
 //
-//  GeoObject.swift
+//  Geometry.swift
 //  Georg
 //
 //  Created by Michael Rockhold on 11/10/23.
@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import MapKit
 
-public class GeoObject: NSObject, MKAnnotation, NSSecureCoding {
+public class Geometry: NSObject, MKAnnotation, NSSecureCoding {
     
     public let coordinate: CLLocationCoordinate2D
     public let title: String?
@@ -27,9 +27,9 @@ public class GeoObject: NSObject, MKAnnotation, NSSecureCoding {
 
     // NSCoding
     enum CodingKeys: String, CodingKey {
-        case coordinate = "geoobject_coordinate"
-        case title = "geoobject_title"
-        case subtitle = "geoobject_subtitle"
+        case coordinate = "geometry_coordinate"
+        case title = "geometry_title"
+        case subtitle = "geometry_subtitle"
     }
 
     public required init?(coder: NSCoder) {
