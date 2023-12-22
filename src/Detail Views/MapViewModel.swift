@@ -28,7 +28,7 @@ class MapViewModel: NSObject {
         fetchedGeoOverlayResultsController.delegate = self
     }
     
-    public func loadView() {
+    public func load() {
         
         do {
             try fetchedGeoOverlayResultsController.performFetch()

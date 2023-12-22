@@ -29,7 +29,7 @@ import OSLog
 
 class Document: NSPersistentDocument {
     
-    var contentViewController: MapViewController!
+    var contentViewController: WindowViewController!
     
     override class var autosavesInPlace: Bool { return true }
             
@@ -43,11 +43,20 @@ class Document: NSPersistentDocument {
         self.addWindowController(windowController)
         
         // Set the view controller's represented object as your document.
-        if let contentVC = windowController.contentViewController as? MapViewController {
-            let mapViewModel = MapViewModel(context: managedObjectContext!, mapViewController: contentVC)
-            contentVC.viewModel = mapViewModel
+        if let contentVC = windowController.contentViewController as? WindowViewController {
+            contentVC.representedObject = self
             contentViewController = contentVC
         }
+    }
+    
+    public func createMapViewModel(mapViewController: MapViewController) -> MapViewModel {
+        return MapViewModel(context: managedObjectContext!,
+                            mapViewController: mapViewController)
+    }
+    
+    public func createOutlineViewModel(outlineViewController: OutlineViewController) -> OutlineViewModel {
+        return OutlineViewModel(context: managedObjectContext!,
+                                treeController: outlineViewController.treeController)
     }
     
     override func configurePersistentStoreCoordinator(

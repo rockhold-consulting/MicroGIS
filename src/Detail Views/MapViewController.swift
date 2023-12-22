@@ -38,6 +38,12 @@ class MapViewController: NSViewController {
     let clusterAnnotationImage = NSImage(systemSymbolName: "seal",
                                          accessibilityDescription: "star-like shape")!
     
+    var viewModel: MapViewModel? {
+        didSet {
+            viewModel?.load()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerMapAnnotationViews()
@@ -49,13 +55,7 @@ class MapViewController: NSViewController {
         mapView.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.clusterAnnotationReuseIdentifier)
         
     }
-    
-    var viewModel: MapViewModel! {
-        didSet {
-            viewModel.loadView()
-        }
-    }
-    
+
     public func load(overlays optoverlays: [GeoOverlay]?) {
         guard let overlays = optoverlays else { return }
         

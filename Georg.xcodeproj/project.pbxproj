@@ -13,6 +13,26 @@
 		2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E59AB302A95B6DA0064F50E /* WindowController.swift */; };
 		2E6090FD2B0AD565007697E6 /* GeoCoordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDAC97C2AFCD1ED001DBF88 /* GeoCoordinate.swift */; };
 		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
+		2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443AF2B2FCB9100244326 /* SplitViewController.swift */; };
+		2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B02B2FCB9100244326 /* WindowViewController.swift */; };
+		2EC443BC2B2FCBD800244326 /* NodePasteboardWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B32B2FCBD500244326 /* NodePasteboardWriter.swift */; };
+		2EC443BD2B2FCBD800244326 /* OutlineViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B42B2FCBD600244326 /* OutlineViewController+Delegate.swift */; };
+		2EC443BE2B2FCBD800244326 /* OutlineViewController+DragDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B52B2FCBD600244326 /* OutlineViewController+DragDrop.swift */; };
+		2EC443BF2B2FCBD800244326 /* OutlineViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B62B2FCBD600244326 /* OutlineViewController+Helpers.swift */; };
+		2EC443C02B2FCBD800244326 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B72B2FCBD700244326 /* OutlineView.swift */; };
+		2EC443C12B2FCBD800244326 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B82B2FCBD700244326 /* OutlineViewController.swift */; };
+		2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B92B2FCBD700244326 /* OutlineViewController+Expansion.swift */; };
+		2EC443C32B2FCBD800244326 /* OutlineViewController+Restoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443BA2B2FCBD800244326 /* OutlineViewController+Restoration.swift */; };
+		2EC443C42B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */; };
+		2EC443C62B2FCC0F00244326 /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443C52B2FCC0E00244326 /* SeparatorView.swift */; };
+		2EC443C92B2FCC3E00244326 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443C82B2FCC3E00244326 /* Node.swift */; };
+		2EC443CC2B2FCE9900244326 /* IconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443CA2B2FCE9900244326 /* IconViewController.swift */; };
+		2EC443CD2B2FCE9900244326 /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443CB2B2FCE9900244326 /* FileViewController.swift */; };
+		2EC443CF2B2FCEA900244326 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443CE2B2FCEA900244326 /* ImageViewController.swift */; };
+		2EC443D12B314B3400244326 /* OutlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443D02B314B3400244326 /* OutlineViewModel.swift */; };
+		2EC443D32B322C1D00244326 /* DataSource.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D22B322C1C00244326 /* DataSource.plist */; };
+		2EC443D62B322C4400244326 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
+		2EC443D72B322C4400244326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D52B322C4400244326 /* Localizable.strings */; };
 		2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF32A9436C0005785FA /* AppDelegate.swift */; };
 		2ECCEAF62A9436C0005785FA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF52A9436C0005785FA /* MapViewController.swift */; };
 		2ECCEAF82A9436C0005785FA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF72A9436C0005785FA /* Document.swift */; };
@@ -42,6 +62,26 @@
 		2E3305B22AF99E7F00F5F6F5 /* GeoMultiPolyline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoMultiPolyline.swift; sourceTree = "<group>"; };
 		2E59AB302A95B6DA0064F50E /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeorgError.swift; sourceTree = "<group>"; };
+		2EC443AF2B2FCB9100244326 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		2EC443B02B2FCB9100244326 /* WindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowViewController.swift; sourceTree = "<group>"; };
+		2EC443B32B2FCBD500244326 /* NodePasteboardWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodePasteboardWriter.swift; sourceTree = "<group>"; };
+		2EC443B42B2FCBD600244326 /* OutlineViewController+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Delegate.swift"; sourceTree = "<group>"; };
+		2EC443B52B2FCBD600244326 /* OutlineViewController+DragDrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+DragDrop.swift"; sourceTree = "<group>"; };
+		2EC443B62B2FCBD600244326 /* OutlineViewController+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Helpers.swift"; sourceTree = "<group>"; };
+		2EC443B72B2FCBD700244326 /* OutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
+		2EC443B82B2FCBD700244326 /* OutlineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
+		2EC443B92B2FCBD700244326 /* OutlineViewController+Expansion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Expansion.swift"; sourceTree = "<group>"; };
+		2EC443BA2B2FCBD800244326 /* OutlineViewController+Restoration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Restoration.swift"; sourceTree = "<group>"; };
+		2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+ContextalMenu.swift"; sourceTree = "<group>"; };
+		2EC443C52B2FCC0E00244326 /* SeparatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		2EC443C82B2FCC3E00244326 /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		2EC443CA2B2FCE9900244326 /* IconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconViewController.swift; sourceTree = "<group>"; };
+		2EC443CB2B2FCE9900244326 /* FileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
+		2EC443CE2B2FCEA900244326 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		2EC443D02B314B3400244326 /* OutlineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineViewModel.swift; sourceTree = "<group>"; };
+		2EC443D22B322C1C00244326 /* DataSource.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = DataSource.plist; sourceTree = "<group>"; };
+		2EC443D42B322C4400244326 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		2EC443D52B322C4400244326 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2ECCEAF02A9436C0005785FA /* Georg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Georg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ECCEAF52A9436C0005785FA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +124,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EC443AE2B2FCB4700244326 /* Master View */ = {
+			isa = PBXGroup;
+			children = (
+				2EC443B72B2FCBD700244326 /* OutlineView.swift */,
+				2EC443C52B2FCC0E00244326 /* SeparatorView.swift */,
+				2EC443B82B2FCBD700244326 /* OutlineViewController.swift */,
+				2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */,
+				2EC443B42B2FCBD600244326 /* OutlineViewController+Delegate.swift */,
+				2EC443B52B2FCBD600244326 /* OutlineViewController+DragDrop.swift */,
+				2EC443B92B2FCBD700244326 /* OutlineViewController+Expansion.swift */,
+				2EC443B62B2FCBD600244326 /* OutlineViewController+Helpers.swift */,
+				2EC443BA2B2FCBD800244326 /* OutlineViewController+Restoration.swift */,
+				2EC443B32B2FCBD500244326 /* NodePasteboardWriter.swift */,
+				2EC443D02B314B3400244326 /* OutlineViewModel.swift */,
+			);
+			path = "Master View";
+			sourceTree = "<group>";
+		};
+		2EC443C72B2FCC2500244326 /* Tree Support */ = {
+			isa = PBXGroup;
+			children = (
+				2EC443C82B2FCC3E00244326 /* Node.swift */,
+			);
+			path = "Tree Support";
+			sourceTree = "<group>";
+		};
 		2ECCEAE72A9436C0005785FA = {
 			isa = PBXGroup;
 			children = (
@@ -109,17 +175,21 @@
 			isa = PBXGroup;
 			children = (
 				2ECCEAF32A9436C0005785FA /* AppDelegate.swift */,
+				2EE770192B2FBE1F00E67B56 /* Main Window */,
+				2EC443AE2B2FCB4700244326 /* Master View */,
+				2EE7701A2B2FBE5300E67B56 /* Detail Views */,
+				2EC443C72B2FCC2500244326 /* Tree Support */,
 				2EDAC9972B0433D3001DBF88 /* Entity Classes */,
 				2EDAC9822AFEF3FC001DBF88 /* GeoFeatures */,
-				2EE7701A2B2FBE5300E67B56 /* Detail Views */,
-				2EE770192B2FBE1F00E67B56 /* Main Window */,
 				2EF0D11C2A983E6E0018E70D /* Assets.xcassets */,
+				2EC443D22B322C1C00244326 /* DataSource.plist */,
+				2EC443D42B322C4400244326 /* InfoPlist.strings */,
+				2EC443D52B322C4400244326 /* Localizable.strings */,
 				2ECCEAFE2A9436C4005785FA /* Main.storyboard */,
 				2ECCEB012A9436C4005785FA /* Info.plist */,
 				2ECCEB022A9436C4005785FA /* Georg.entitlements */,
 				2ECCEAF92A9436C0005785FA /* Document.xcdatamodeld */,
 				2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */,
-				2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -160,6 +230,8 @@
 			children = (
 				2ECCEAF72A9436C0005785FA /* Document.swift */,
 				2E59AB302A95B6DA0064F50E /* WindowController.swift */,
+				2EC443B02B2FCB9100244326 /* WindowViewController.swift */,
+				2EC443AF2B2FCB9100244326 /* SplitViewController.swift */,
 			);
 			path = "Main Window";
 			sourceTree = "<group>";
@@ -167,7 +239,11 @@
 		2EE7701A2B2FBE5300E67B56 /* Detail Views */ = {
 			isa = PBXGroup;
 			children = (
+				2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */,
 				2ECCEAF52A9436C0005785FA /* MapViewController.swift */,
+				2EC443CB2B2FCE9900244326 /* FileViewController.swift */,
+				2EC443CA2B2FCE9900244326 /* IconViewController.swift */,
+				2EC443CE2B2FCEA900244326 /* ImageViewController.swift */,
 			);
 			path = "Detail Views";
 			sourceTree = "<group>";
@@ -242,8 +318,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EC443D72B322C4400244326 /* Localizable.strings in Resources */,
 				2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */,
+				2EC443D62B322C4400244326 /* InfoPlist.strings in Resources */,
 				2ECCEB002A9436C4005785FA /* Main.storyboard in Resources */,
+				2EC443D32B322C1D00244326 /* DataSource.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,26 +334,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EDAC9772AFC403C001DBF88 /* GeoFeature.swift in Sources */,
+				2EC443D12B314B3400244326 /* OutlineViewModel.swift in Sources */,
 				2EDAC9792AFC424C001DBF88 /* GeoLayer.swift in Sources */,
+				2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */,
 				2EDAC9942B040069001DBF88 /* CLLocationCoordinate2D+Codable.swift in Sources */,
 				2EDAC99C2B056655001DBF88 /* GeometryFactory.swift in Sources */,
+				2EC443C02B2FCBD800244326 /* OutlineView.swift in Sources */,
+				2EC443CD2B2FCE9900244326 /* FileViewController.swift in Sources */,
 				2ECCEAFB2A9436C0005785FA /* Document.xcdatamodeld in Sources */,
+				2EC443BC2B2FCBD800244326 /* NodePasteboardWriter.swift in Sources */,
 				2EDAC9752AFC3B0C001DBF88 /* GeoCircle.swift in Sources */,
 				2E3305AD2AF9566000F5F6F5 /* GeoMultiPolygon.swift in Sources */,
 				2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */,
+				2EC443BF2B2FCBD800244326 /* OutlineViewController+Helpers.swift in Sources */,
 				2EDAC9902AFEF6E8001DBF88 /* Transformers.swift in Sources */,
 				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
+				2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */,
 				2EDAC9842AFEF515001DBF88 /* GeoGeodesicPolyline.swift in Sources */,
+				2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */,
 				2ECCEAF62A9436C0005785FA /* MapViewController.swift in Sources */,
+				2EC443C62B2FCC0F00244326 /* SeparatorView.swift in Sources */,
 				2E6090FD2B0AD565007697E6 /* GeoCoordinate.swift in Sources */,
 				2EDAC9962B04297E001DBF88 /* GeoOverlayShape.swift in Sources */,
+				2EC443CF2B2FCEA900244326 /* ImageViewController.swift in Sources */,
+				2EC443C32B2FCBD800244326 /* OutlineViewController+Restoration.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
 				2EDAC9862AFEF568001DBF88 /* GeoPolyline.swift in Sources */,
+				2EC443C12B2FCBD800244326 /* OutlineViewController.swift in Sources */,
+				2EC443CC2B2FCE9900244326 /* IconViewController.swift in Sources */,
+				2EC443BE2B2FCBD800244326 /* OutlineViewController+DragDrop.swift in Sources */,
 				2EDAC9A02B05A5B7001DBF88 /* GeoOverlay.swift in Sources */,
 				2E3305AB2AF86F2C00F5F6F5 /* GeoPolygon.swift in Sources */,
 				2EDAC97B2AFC4779001DBF88 /* GeoPoint.swift in Sources */,
+				2EC443C92B2FCC3E00244326 /* Node.swift in Sources */,
 				2ECCEAF82A9436C0005785FA /* Document.swift in Sources */,
 				2EDAC98E2AFEF632001DBF88 /* Geometry.swift in Sources */,
+				2EC443C42B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift in Sources */,
+				2EC443BD2B2FCBD800244326 /* OutlineViewController+Delegate.swift in Sources */,
 				2EDAC98A2AFEF5C9001DBF88 /* GeoMultiPoint.swift in Sources */,
 				2E3305B32AF99E7F00F5F6F5 /* GeoMultiPolyline.swift in Sources */,
 				2EE770182B2FB3AF00E67B56 /* MapViewModel.swift in Sources */,
