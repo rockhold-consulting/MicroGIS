@@ -10,12 +10,11 @@ import CoreData
 
 class MapViewModel: NSObject {
     let context: NSManagedObjectContext
-    weak var mapViewController: MapViewController?
+    weak var mapViewController: MapViewController? = nil
     var fetchedGeoOverlayResultsController: NSFetchedResultsController<GeoOverlay>
 
-    init(context: NSManagedObjectContext, mapViewController: MapViewController? = nil) {
+    init(context: NSManagedObjectContext) {
         self.context = context
-        self.mapViewController = mapViewController
         
         let overlayReq = GeoOverlay.fetchRequest()
         overlayReq.sortDescriptors = [NSSortDescriptor(key: "feature.layer.zindex", ascending: true)]

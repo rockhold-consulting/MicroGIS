@@ -39,26 +39,17 @@ class Document: NSPersistentDocument {
     override func makeWindowControllers() {
         // Returns the Storyboard that contains your Document window.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! WindowController
+        let windowController = storyboard.instantiateController(identifier: NSStoryboard.SceneIdentifier("Document Window Controller")) { coder in
+            return WindowController(coder: coder, docContext: self.managedObjectContext!)
+        }
         self.addWindowController(windowController)
         
         // Set the view controller's represented object as your document.
         if let contentVC = windowController.contentViewController as? WindowViewController {
-            contentVC.representedObject = self
             contentViewController = contentVC
         }
     }
-    
-    public func createMapViewModel(mapViewController: MapViewController) -> MapViewModel {
-        return MapViewModel(context: managedObjectContext!,
-                            mapViewController: mapViewController)
-    }
-    
-    public func createOutlineViewModel(outlineViewController: OutlineViewController) -> OutlineViewModel {
-        return OutlineViewModel(context: managedObjectContext!,
-                                treeController: outlineViewController.treeController)
-    }
-    
+        
     override func configurePersistentStoreCoordinator(
         for url: URL,
         ofType fileType: String,

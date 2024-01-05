@@ -21,7 +21,6 @@ extension OutlineViewController: CustomMenuDelegate {
     enum MenuItemTags: Int {
         case removeTag = 1 // Remove item.
         case renameTag // Rename item.
-        case addPictureTag // Add a picture.
         case addGroupTag // Add a folder group.
     }
 
@@ -35,8 +34,8 @@ extension OutlineViewController: CustomMenuDelegate {
         if selectionIndexes.count > 1 {
             var nodesToRemove = [Node]()
             for item in selectionIndexes {
-                if let rowItem = outlineView.item(atRow: item),
-                	let node = OutlineViewController.node(from: rowItem) {
+                if let rowItem = outlineView.item(atRow: item) as? NSTreeNode,
+                	let node = OutlineViewModel.node(from: rowItem) {
                         nodesToRemove.append(node)
                     }
             }
@@ -44,8 +43,8 @@ extension OutlineViewController: CustomMenuDelegate {
         } else {
             // Expect the first item, the first item being a tree node and ultimately a Node class.
             guard let item = selectionIndexes.first,
-                let rowItem = outlineView.item(atRow: item),
-                let node = OutlineViewController.node(from: rowItem) else { return }
+                let rowItem = outlineView.item(atRow: item) as? NSTreeNode,
+                let node = OutlineViewModel.node(from: rowItem) else { return }
             
             switch menuItem.tag {
             case MenuItemTags.removeTag.rawValue:
@@ -58,14 +57,7 @@ extension OutlineViewController: CustomMenuDelegate {
                 if let cellView = view as? NSTableCellView {
                     view?.window?.makeFirstResponder(cellView.textField)
                 }
-                
-            case MenuItemTags.addPictureTag.rawValue:
-                // Add a picture object to the menu item's representedObject.
-                if let item = self.outlineView.item(atRow: item) as? NSTreeNode,
-                    let addToNode = OutlineViewController.node(from: item) {
-                        addPictureAtItem(addToNode)
-                }
-                
+                                
             case MenuItemTags.addGroupTag.rawValue:
                 // Add an empty group folder to the menu item's representedObject (the row number of the outline view).
                 if let rowItem = outlineView.item(atRow: item) as? NSTreeNode {
@@ -112,21 +104,21 @@ extension OutlineViewController: CustomMenuDelegate {
             // You must have a selected row.
             guard !rows.isEmpty,
                 // You must have an item at that row.
-                let item = outlineView.item(atRow: rows.first!),
+                let item = outlineView.item(atRow: rows.first!) as? NSTreeNode,
                 	// You must have a node from that item.
-                	let node = OutlineViewController.node(from: item) else { return contextMenu }
+                	let node = OutlineViewModel.node(from: item) else { return contextMenu }
             
             // The item is a non-URL file object, so you can remove or rename it.
             //
    			let removeItemFormat = NSLocalizedString("context remove string", comment: "")
-            let removeMenuItemTitle = String(format: removeItemFormat, node.title)
+            let removeMenuItemTitle = String(format: removeItemFormat, node.title ?? "node")
             contextMenu.addItem(contextMenuItem(removeMenuItemTitle,
                                                 tag: MenuItemTags.removeTag.rawValue,
                                                 representedObject: rows))
             
             if node.canChange {
                 let renameItemFormat = NSLocalizedString("context rename string", comment: "")
-                let renameMenuItemTitle = String(format: renameItemFormat, node.title)
+                let renameMenuItemTitle = String(format: renameItemFormat, node.title ?? "node")
                 contextMenu.addItem(contextMenuItem(renameMenuItemTitle,
                                                     tag: MenuItemTags.renameTag.rawValue,
                                                     representedObject: rows))
@@ -134,10 +126,6 @@ extension OutlineViewController: CustomMenuDelegate {
             
             if node.canAddTo {
                 // The item is a container you can add to.
-                contextMenu.addItem(contextMenuItem(NSLocalizedString("add picture", comment: ""),
-                                                    tag: MenuItemTags.addPictureTag.rawValue,
-                                                    representedObject: rows))
-
                 contextMenu.addItem(contextMenuItem(NSLocalizedString("add group", comment: ""),
                                                     tag: MenuItemTags.addGroupTag.rawValue,
                                                     representedObject: rows))

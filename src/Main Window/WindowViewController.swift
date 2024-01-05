@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
-
-Abstract:
-The view controller that contains the lower UI controls and the embedded child view controller (split view controller).
-*/
+ See LICENSE folder for this sample’s licensing information.
+ 
+ Abstract:
+ The view controller that contains the lower UI controls and the embedded child view controller (split view controller).
+ */
 
 import Cocoa
 
@@ -12,26 +12,19 @@ class WindowViewController: NSViewController {
     // MARK: - Properties
     
     @IBOutlet private weak var progIndicator: NSProgressIndicator!
-    
+        
     weak var mapViewController: MapViewController!
     weak var outlineViewController: OutlineViewController!
     
     // Remember the selected nodes from NSTreeController when the system calls "selectionDidChange".
     var selectedNodes: [NSTreeNode]?
     
-    override var representedObject: Any? {
-        didSet {
-            outlineViewController!.viewModel = (representedObject as! Document).createOutlineViewModel(outlineViewController: outlineViewController)
-            mapViewController!.viewModel = (representedObject as! Document).createMapViewModel(mapViewController: mapViewController)
-        }
-    }
-    
     // MARK: View Controller Lifecycle
     
     override func viewDidLoad() {
         /** Note: Keep the left split-view item from growing as the window grows by setting its holding priority to 200,
-            and the right split-view item to 199. The view with the lowest priority is the first to take on additional
-            width if the split view grows or shrinks.
+         and the right split-view item to 199. The view with the lowest priority is the first to take on additional
+         width if the split view grows or shrinks.
          */
         super.viewDidLoad()
     }
@@ -47,31 +40,20 @@ class WindowViewController: NSViewController {
         self.view.window?.toolbar = toolbar
         
         /** A notification so you know when the tree controller's selection changes.
-    		Note: Begin observing after the outline view populates so you don't receive
-     		unnecessary notifications at startup.
-		*/
-   		NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(selectionDidChange(_:)),
-            name: Notification.Name(OutlineViewController.NotificationNames.selectionChanged),
-            object: nil)
-        
-        // A notification so you know when the icon view controller finishes populating its content.
+         Note: Begin observing after the outline view populates so you don't receive
+         unnecessary notifications at startup.
+         */
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(contentReceived(_:)),
-            name: Notification.Name(IconViewController.NotificationNames.receivedContent),
+            selector: #selector(selectionDidChange(_:)),
+            name: Notification.Name(OutlineViewModel.NotificationNames.selectionChanged),
             object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(
             self,
-            name: Notification.Name(OutlineViewController.NotificationNames.selectionChanged),
-            object: nil)
-        NotificationCenter.default.removeObserver(
-            self,
-            name: Notification.Name(IconViewController.NotificationNames.receivedContent),
+            name: Notification.Name(OutlineViewModel.NotificationNames.selectionChanged),
             object: nil)
     }
     
@@ -91,20 +73,20 @@ class WindowViewController: NSViewController {
         
         // The notification's object must be the tree controller.
         guard let treeController = notification.object as? NSTreeController else { return }
-    
+        
         // Remember the selected nodes for later when the system calls NSToolbarItemValidation and NSMenuItemValidation.
         selectedNodes = treeController.selectedNodes
-    
+        
         if let currentlySelectedNodes = selectedNodes {
             if !currentlySelectedNodes.isEmpty {
                 if currentlySelectedNodes.count == 1 {
                     let selectedNode = currentlySelectedNodes[0]
-                    if let item = OutlineViewController.node(from: selectedNode as Any) {
-                        if item.isDirectory {
-                            // The user selected a directory, so this could take a while to populate the detail view controller.
-                            progIndicator.isHidden = false
-                            progIndicator.startAnimation(self)
-                        }
+                    if let item = OutlineViewModel.node(from: selectedNode) {
+                        //                        if item.isDirectory {
+                        //                            // The user selected a directory, so this could take a while to populate the detail view controller.
+                        //                            progIndicator.isHidden = false
+                        //                            progIndicator.startAnimation(self)
+                        //                        }
                     }
                 }
             }
@@ -116,22 +98,15 @@ class WindowViewController: NSViewController {
     struct NotificationNames {
         // A notification to instruct OutlineViewController to add a folder.
         static let addFolder = "AddFolderNotification"
-        // A notification to instruct OutlineViewController to add a picture.
-        static let addPicture = "AddPictureNotification"
         // A notification to instruct OutlineViewController to remove an item.
         static let removeItem = "RemoveItemNotification"
     }
-
+    
     @IBAction func addFolderAction(_: AnyObject) {
         // Post a notification to OutlineViewController to add a new folder group.
         NotificationCenter.default.post(name: Notification.Name(NotificationNames.addFolder), object: nil)
     }
-    
-    @IBAction func addPictureAction(_: AnyObject) {
-        // Post a notification to OutlineViewController to add a new picture.
-        NotificationCenter.default.post(name: Notification.Name(NotificationNames.addPicture), object: nil)
-    }
-    
+        
     @IBAction func removeAction(_: AnyObject) {
         // Post a notification to OutlineViewController to remove an item.
         NotificationCenter.default.post(name: Notification.Name(NotificationNames.removeItem), object: nil)
@@ -142,7 +117,7 @@ class WindowViewController: NSViewController {
 // MARK: - NSToolbarItemValidation
 
 extension WindowViewController: NSToolbarItemValidation {
-
+    
     // Validate the toolbar items against the currently selected nodes.
     func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         var enable = false
@@ -165,7 +140,7 @@ extension WindowViewController: NSToolbarItemValidation {
 // MARK: - NSMenuItemValidation
 
 extension WindowViewController: NSMenuItemValidation {
-
+    
     // Validate the two menu items in the Add toolbar item against the currently selected nodes.
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         var enable = false
@@ -176,14 +151,12 @@ extension WindowViewController: NSMenuItemValidation {
                 enable = false
             } else {
                 // The primary side bar is in an expanded state, allow the item to work.
-                if let selection = selectedNodes {
-                    if !selection.isEmpty {
-                        if selection.count == 1 {
-                            let selectedNode = selection[0]
-                            if let item = OutlineViewController.node(from: selectedNode as Any) {
-                                // Enable add menu items when the selection is a non-URL based node.
-                                enable = item.canAddTo
-                            }
+                if let selection = selectedNodes, !selection.isEmpty {
+                    if selection.count == 1 {
+                        let selectedNode = selection[0]
+                        if let item = OutlineViewModel.node(from: selectedNode) {
+                            // Enable add menu items when the selection is a non-URL based node.
+                            enable = item.canAddTo
                         }
                     }
                 }
@@ -201,11 +174,11 @@ private extension NSToolbarItem.Identifier {
 }
 
 extension WindowViewController: NSToolbarDelegate {
-
+    
     /** NSToolbar delegates require this function.
-        It takes an identifier and returns the matching NSToolbarItem. It also takes a parameter telling
-        whether this toolbar item is going into an actual toolbar, or whether it's going to appear
-        in a customization palette.
+     It takes an identifier and returns the matching NSToolbarItem. It also takes a parameter telling
+     whether this toolbar item is going into an actual toolbar, or whether it's going to appear
+     in a customization palette.
      */
     func toolbar(_ toolbar: NSToolbar,
                  itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier,
@@ -226,7 +199,6 @@ extension WindowViewController: NSToolbarDelegate {
             let segmentControl = NSSegmentedControl(images: [image], trackingMode: .selectOne, target: nil, action: nil)
             
             let addMenu = NSMenu(title: "Add")
-            addMenu.addItem(NSMenuItem(title: "Add Picture…", action: #selector(addPictureAction), keyEquivalent: ""))
             addMenu.addItem(NSMenuItem(title: "Add Group", action: #selector(addFolderAction), keyEquivalent: ""))
             segmentControl.setMenu(addMenu, forSegment: 0)
             segmentControl.setShowsMenuIndicator(true, forSegment: 0)
@@ -251,18 +223,18 @@ extension WindowViewController: NSToolbarDelegate {
     }
     
     /** NSToolbar delegates require this function. It returns an array holding identifiers for the default
-        set of toolbar items. The customization palette can also call it to display the default toolbar.
+     set of toolbar items. The customization palette can also call it to display the default toolbar.
      
-        Note: Because Interface Builder defines the toolbar, the system automatically adds an additional separator
-        and customized toolbar items to the default list of items.
+     Note: Because Interface Builder defines the toolbar, the system automatically adds an additional separator
+     and customized toolbar items to the default list of items.
      */
     func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         /** Note that the system adds the .toggleSideBar toolbar item to the toolbar to the far left.
-            This toolbar item hides and shows (toggle) the primary or side bar split-view item.
-            
-            For this toolbar item to work, you need to set the split-view item's NSSplitViewItem.Behavior to sideBar,
-            which is already in the storyboard. Also note that the system automatically places .addItem and .removeItem to the far right.
-        */
+         This toolbar item hides and shows (toggle) the primary or side bar split-view item.
+         
+         For this toolbar item to work, you need to set the split-view item's NSSplitViewItem.Behavior to sideBar,
+         which is already in the storyboard. Also note that the system automatically places .addItem and .removeItem to the far right.
+         */
         var toolbarItemIdentifiers = [NSToolbarItem.Identifier]()
         if #available(macOS 11.0, *) {
             toolbarItemIdentifiers.append(.toggleSidebar)
@@ -273,7 +245,7 @@ extension WindowViewController: NSToolbarDelegate {
     }
     
     /** NSToolbar delegates require this function. It returns an array holding identifiers for all allowed
-        toolbar items in this toolbar. Any not listed here aren't available in the customization palette.
+     toolbar items in this toolbar. Any not listed here aren't available in the customization palette.
      */
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return self.toolbarDefaultItemIdentifiers(toolbar)

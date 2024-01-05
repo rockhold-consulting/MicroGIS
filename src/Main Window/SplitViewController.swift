@@ -17,7 +17,7 @@ class DetailViewContainer: NSView {
 }
 
 class SplitViewController: NSSplitViewController {
-    
+
     private var verticalConstraints: [NSLayoutConstraint] = []
     private var horizontalConstraints: [NSLayoutConstraint] = []
     
@@ -34,7 +34,7 @@ class SplitViewController: NSSplitViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleSelectionChange(_:)),
-            name: Notification.Name(OutlineViewController.NotificationNames.selectionChanged),
+            name: Notification.Name(OutlineViewModel.NotificationNames.selectionChanged),
             object: nil)
         
         // This preserves the split-view divider position.

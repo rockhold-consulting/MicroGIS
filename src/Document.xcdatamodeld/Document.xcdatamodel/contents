@@ -6,12 +6,12 @@
         <relationship name="layer" maxCount="1" deletionRule="Cascade" destinationEntity="GeoLayer" inverseName="features" inverseEntity="GeoLayer"/>
         <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoOverlay" inverseName="feature" inverseEntity="GeoOverlay"/>
     </entity>
-    <entity name="GeoLayer" representedClassName="GeoLayer" syncable="YES" codeGenerationType="class">
+    <entity name="GeoLayer" representedClassName="GeoLayer" syncable="YES" codeGenerationType="category">
         <attribute name="zindex" attributeType="Integer 16" minValueString="0" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="features" toMany="YES" deletionRule="Cascade" destinationEntity="GeoFeature" inverseName="layer" inverseEntity="GeoFeature"/>
         <relationship name="overlays" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="GeoOverlay" inverseName="layer" inverseEntity="GeoOverlay"/>
     </entity>
-    <entity name="GeoOverlay" representedClassName="GeoOverlay" syncable="YES" codeGenerationType="class">
+    <entity name="GeoOverlay" representedClassName="GeoOverlay" syncable="YES" codeGenerationType="category">
         <attribute name="geometry" attributeType="Transformable" valueTransformerName="GeometryTransformer" customClassName="Geometry"/>
         <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoFeature" inverseName="overlays" inverseEntity="GeoFeature"/>
         <relationship name="layer" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoLayer" inverseName="overlays" inverseEntity="GeoLayer"/>

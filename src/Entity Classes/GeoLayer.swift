@@ -9,6 +9,34 @@ import Foundation
 import CoreData
 import MapKit
 
+@objc(GeoLayer)
+public class GeoLayer: NSManagedObject {
+
+    @objc dynamic var children: [Node]? {
+        guard let kids = self.features?.allObjects as? [Node] else {
+            return nil
+        }
+        return kids.count > 0 ? kids : nil
+    }
+    
+    @objc dynamic var isLeaf: Bool { return false }
+
+    var title: String? { return "Layer \(zindex)" }
+    
+    var identifier: String? { return "\(objectID)" }
+    
+    var isSpecialGroup: Bool { return true }
+    
+    var icon: NSImage {
+        return NSImage(systemSymbolName: "square.3.layers.3d", accessibilityDescription: "layer icon")!
+    }
+    
+    var canChange: Bool { return false }
+    
+    var canAddTo: Bool { return false }
+
+}
+
 extension GeoLayer {
     
     convenience init(context: NSManagedObjectContext, zindex: Int) {

@@ -16,7 +16,31 @@ public class GeoFeature: NSManagedObject {
     
     var info: FeatureInfo? = nil
     
-
+    @objc dynamic var children: [Node]? {
+        guard let kids = self.overlays?.allObjects as? [Node] else {
+            return nil
+        }
+        return kids.count > 1 ? kids : nil
+    }
+    
+    @objc dynamic var isLeaf: Bool {
+        guard let overlays = self.overlays else {
+            return true
+        }
+        return overlays.count > 1
+    }
+    
+    var title: String? { return "Feature [TODO]" }
+        
+    var isSpecialGroup: Bool { return false }
+    
+    var icon: NSImage {
+        return NSImage(systemSymbolName: "rectangle.3.group", accessibilityDescription: "feature icon")!
+    }
+    
+    var canChange: Bool { return false }
+    
+    var canAddTo: Bool { return false }
 }
 
 extension GeoFeature {
