@@ -12,8 +12,8 @@ import MapKit
 @objc(GeoLayer)
 public class GeoLayer: NSManagedObject {
 
-    @objc dynamic var children: [Node]? {
-        guard let kids = self.features?.allObjects as? [Node] else {
+    @objc dynamic var children: [GeoObject]? {
+        guard let kids = self.features?.allObjects as? [GeoObject] else {
             return nil
         }
         return kids.count > 0 ? kids : nil

@@ -28,7 +28,10 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        GeometryTransformer.register()
+        FeaturePropertiesTransformer.register()
+        GeoBaseInfoTransformer.register()
+        GeoShapeTransformer.register()
+
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

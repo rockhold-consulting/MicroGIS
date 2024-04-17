@@ -24,124 +24,72 @@
 
 import Cocoa
 import UniformTypeIdentifiers
-import MapKit.MKGeoJSONSerialization
 import OSLog
 
 class Document: NSPersistentDocument {
     
-    var contentViewController: WindowViewController!
-    
+    // MARK: TreeController
+    // The data source backing the NSOutlineView.
+    lazy var treeController: NSTreeController = {
+        let tc = NSTreeController()
+        tc.childrenKeyPath = "children"
+        tc.leafKeyPath = "isLeaf"
+        tc.preservesSelection = true
+        tc.selectsInsertedObjects = true
+        tc.isEditable = true
+        tc.managedObjectContext = self.managedObjectContext
+        tc.entityName = "GeoObject"
+        return tc
+    }()
+
     override class var autosavesInPlace: Bool { return true }
             
     let logger = Logger(subsystem: "org.appel-rockhold.Georg", category: "Document")
-        
-    
+
     override func makeWindowControllers() {
-        // Returns the Storyboard that contains your Document window.
+        // Returns the Storyboard that contains the main Document window.
+        // Creates a view model required by some of the various view controllers embedded in that window's hierarchy,
+        // and injects it into the root view controller
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(identifier: NSStoryboard.SceneIdentifier("Document Window Controller")) { coder in
-            return WindowController(coder: coder, docContext: self.managedObjectContext!)
-        }
+        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! WindowController
+        windowController.contentViewController?.representedObject = OutlineViewModel(document: self)
         self.addWindowController(windowController)
-        
-        // Set the view controller's represented object as your document.
-        if let contentVC = windowController.contentViewController as? WindowViewController {
-            contentViewController = contentVC
-        }
-    }
-        
-    override func configurePersistentStoreCoordinator(
-        for url: URL,
-        ofType fileType: String,
-        modelConfiguration configuration: String?,
-        storeOptions: [String : Any]? = nil
-    ) throws {
-                
-        let myStoreOptions = [
-            NSPersistentStoreRemoteChangeNotificationPostOptionKey: true as NSNumber,
-            NSPersistentHistoryTrackingKey: true as NSNumber
-        ]
-        try super.configurePersistentStoreCoordinator(for: url, ofType: fileType, modelConfiguration: configuration, storeOptions: myStoreOptions)
     }
     
     @IBAction
-    func importKML(_ sender: Any?) {
-        
+    func importFile(_ sender: Any?) {
+
         guard let docWindow = self.windowControllers.first?.window else {
             return
         }
         guard let _ = managedObjectContext else {
             return
         }
-        
-        let geojsonFileType = UTType(filenameExtension: "geojson", conformingTo: .json)!
-        
+
         let openPanel = NSOpenPanel()
-        openPanel.allowedContentTypes = [geojsonFileType]
+        openPanel.allowedContentTypes = [UTType(filenameExtension: "geojson", conformingTo: .json)!]
+        openPanel.message = NSLocalizedString("Choose File to Import Message", comment: "")
+        openPanel.prompt = NSLocalizedString("Import", comment: "")
+
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = false
         openPanel.canChooseFiles = true
-        openPanel.beginSheetModal(for: docWindow) { [self] (result) -> Void in
-            if result == .OK {
-                do {
-                    try makeLayer(dataURL: openPanel.url)
-                }
-                catch {
-                    self.logger.debug("attempting to import new layer info from GeoJSON file")
-                }
-            }
+
+        openPanel.begin { [self] (response) in
+            guard response == NSApplication.ModalResponse.OK else { return }
+            self.importGeoJSON(url: openPanel.url!)
         }
     }
-        
-    @MainActor
-    private func makeLayer(zindex: Int) -> GeoLayer {
-        return GeoLayer(context: managedObjectContext!, zindex: zindex)
+
+    @IBAction
+    func exportToFile(_: AnyObject) {
+        // TODO: implement me
     }
-    
-    @MainActor
-    private func addObjectToLayer(mkGeoObject: MKGeoJSONObject, 
-                                  layer: GeoLayer,
-                                  geometryFactory: GeometryFactory) {
-        do {
-            try layer.add(mkGeoObject: mkGeoObject,
-                          geometryFactory: geometryFactory,
-                          context: managedObjectContext!)
-        }
-        catch {
-            // TODO: handle error better
-            self.logger.debug("could not add shape or feature to layer")
-        }
-    }
-    
-    public func makeLayer(dataURL: URL?) throws {
-        guard let managedObjectContext = self.managedObjectContext else {
-            return
-        }
-        
-        guard let dataURL = dataURL else {
-            // TODO: throw something
-            return
-        }
-        let decoder = MKGeoJSONDecoder()
-        let geometryFactory = GeometryFactory()
-        
-        let countOfLayers = (try? managedObjectContext.count(for: GeoLayer.fetchRequest())) ?? 0
-                
-        Task {
-            
-            let layer = makeLayer(zindex: countOfLayers)
-            do {
-                for mkGeoObject in try decoder.decode(try Data(contentsOf: dataURL)) {
-                    
-                    addObjectToLayer(mkGeoObject: mkGeoObject,
-                                     layer: layer,
-                                     geometryFactory: geometryFactory)
-                }
-            }
-            catch {
-                self.logger.debug("error decoding GeoJSON file")
-            }
-        }
+
+    func importGeoJSON(url: URL) {
+        guard let moc = self.managedObjectContext else { return }
+        let geoObjectCreator = CoreDataGeoObjectCreator(importContext: moc)
+        GeorgMKGeoJSONFeatureSource().importLayer(from: url, creator: geoObjectCreator)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 // MARK: -
 
 extension OutlineViewController {
-    
+
     // A restorable key for the currently selected outline node on state restoration.
     private static let savedSelectionKey = "savedSelectionKey"
 
@@ -23,7 +23,7 @@ extension OutlineViewController {
 
     /// An encode state that helps save the restorable state of this view controller.
     override func encodeRestorableState(with coder: NSCoder) {
-        coder.encode(treeController.selectionIndexPaths, forKey: OutlineViewController.savedSelectionKey)
+        coder.encode(self.outlineViewModel?.treeController.selectionIndexPaths, forKey: OutlineViewController.savedSelectionKey)
         super.encodeRestorableState(with: coder)
     }
 
@@ -33,12 +33,11 @@ extension OutlineViewController {
     */
     override func restoreState(with coder: NSCoder) {
         super.restoreState(with: coder)
-        
+
         // Restore the selected indexPaths.
         if let savedSelectedIndexPaths =
             coder.decodeObject(forKey: OutlineViewController.savedSelectionKey) as? [IndexPath] {
-            treeController.setSelectionIndexPaths(savedSelectedIndexPaths)
+            self.outlineViewModel?.treeController.setSelectionIndexPaths(savedSelectedIndexPaths)
         }
     }
-    
 }

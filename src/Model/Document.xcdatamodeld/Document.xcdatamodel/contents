@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G630" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Feature" representedClassName="Feature" parentEntity="GeoObject" syncable="YES" codeGenerationType="class">
+        <attribute name="featureID" optional="YES" attributeType="String"/>
+        <attribute name="properties" optional="YES" attributeType="Transformable" valueTransformerName="FeaturePropertiesTransformer" customClassName="FeatureProperties"/>
+    </entity>
+    <entity name="Geometry" representedClassName="Geometry" parentEntity="GeoObject" syncable="YES" codeGenerationType="class">
+        <attribute name="baseInfo" attributeType="Transformable" valueTransformerName="GeoBaseInfoTransformer" customClassName="GeoBaseInfoWrapper"/>
+        <attribute name="shape" optional="YES" attributeType="Transformable" valueTransformerName="GeometryShapeTransformer" customClassName="GeoShapeWrapper"/>
+        <attribute name="shapeTypeCode" attributeType="Integer 32" usesScalarValueType="YES"/>
+        <attribute name="subtitle" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="GeoObject" representedClassName="GeoObject" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <relationship name="children" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="GeoObject" inverseName="parent" inverseEntity="GeoObject"/>
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GeoObject" inverseName="children" inverseEntity="GeoObject"/>
+    </entity>
+    <entity name="Layer" representedClassName="Layer" parentEntity="GeoObject" syncable="YES" codeGenerationType="class">
+        <attribute name="importDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+    </entity>
+</model>

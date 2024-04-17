@@ -16,7 +16,7 @@ public class GeoFeature: NSManagedObject {
     
     var info: FeatureInfo? = nil
     
-    @objc dynamic var children: [Node]? {
+    @objc dynamic var children: [GeoObject]? {
         guard let kids = self.overlays?.allObjects as? [Node] else {
             return nil
         }

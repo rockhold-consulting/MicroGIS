@@ -11,16 +11,23 @@ import Cocoa
     This allows the delegate to determine the contextual menu for the outline view.
  */
 protocol CustomMenuDelegate: AnyObject {
-    
+
     // Construct a context menu from the current selected rows.
     func outlineViewMenuForRows(_ outlineView: NSOutlineView, rows: IndexSet) -> NSMenu?
 }
 
+extension GeoObject {
+    func canAddTo() -> Bool { !(self is Geometry) }
+
+    func canChange() -> Bool { true }
+}
+
 extension OutlineViewController: CustomMenuDelegate {
-    
+
     enum MenuItemTags: Int {
         case removeTag = 1 // Remove item.
         case renameTag // Rename item.
+        case addFeatureTag // Add a picture.
         case addGroupTag // Add a folder group.
     }
 
@@ -32,24 +39,24 @@ extension OutlineViewController: CustomMenuDelegate {
             let selectionIndexes = menuItem.representedObject as? IndexSet else { return }
 
         if selectionIndexes.count > 1 {
-            var nodesToRemove = [Node]()
+            var nodesToRemove = [GeoObject]()
             for item in selectionIndexes {
                 if let rowItem = outlineView.item(atRow: item) as? NSTreeNode,
-                	let node = OutlineViewModel.node(from: rowItem) {
+                    let node = OutlineViewModel.geoObject(from: rowItem) {
                         nodesToRemove.append(node)
                     }
             }
-            removeItems(nodesToRemove)
+            remove(items: nodesToRemove)
         } else {
-            // Expect the first item, the first item being a tree node and ultimately a Node class.
+            // Expect the first item, the first item being a tree node and ultimately a GeoObject class.
             guard let item = selectionIndexes.first,
-                let rowItem = outlineView.item(atRow: item) as? NSTreeNode,
-                let node = OutlineViewModel.node(from: rowItem) else { return }
-            
+                let rowItem = outlineView.item(atRow: item),
+                  let g = OutlineViewModel.geoObject(from: rowItem as! NSTreeNode) else { return }
+
             switch menuItem.tag {
             case MenuItemTags.removeTag.rawValue:
                 // Remove the node.
-                removeItems([node])
+                remove(item: g)
 
             case MenuItemTags.renameTag.rawValue:
                 // Force edit the node's name text field.
@@ -57,23 +64,29 @@ extension OutlineViewController: CustomMenuDelegate {
                 if let cellView = view as? NSTableCellView {
                     view?.window?.makeFirstResponder(cellView.textField)
                 }
-                                
+
+            case MenuItemTags.addFeatureTag.rawValue:
+                // Add a picture object to the menu item's representedObject.
+                if let item = self.outlineView.item(atRow: item) as? NSTreeNode, let addToNode = OutlineViewModel.geoObject(from: item) {
+                    addFeature(at: addToNode)
+                }
+
             case MenuItemTags.addGroupTag.rawValue:
                 // Add an empty group folder to the menu item's representedObject (the row number of the outline view).
                 if let rowItem = outlineView.item(atRow: item) as? NSTreeNode {
-                    addFolderAtItem(rowItem)
+                    self.addFolder(at: rowItem)
                 }
 
             default: break
             }
         }
     }
-    
+
     /** A utility factory function to make a contextual menu item from inputs.
-    	The system constructs each contextual menu item with:
-    		tag: To determine what the menu item actually does.
-    		representedObject: The set of rows to act on.
-	*/
+        The system constructs each contextual menu item with:
+            tag: To determine what the menu item actually does.
+            representedObject: The set of rows to act on.
+    */
     private func contextMenuItem(_ title: String, tag: Int, representedObject: Any) -> NSMenuItem {
         let menuItem = NSMenuItem(title: title,
                                   action: #selector(OutlineViewController.handleContextualMenu),
@@ -82,15 +95,15 @@ extension OutlineViewController: CustomMenuDelegate {
         menuItem.representedObject = representedObject
         return menuItem
     }
-    
+
     /** Return the contextual menu for the specified set of outline view rows.
-		The system constructs each contextual menu item with:
- 			tag: To determine what the menu item actually does.
- 			representedObject: The set of rows to act on.
- 	*/
+        The system constructs each contextual menu item with:
+             tag: To determine what the menu item actually does.
+             representedObject: The set of rows to act on.
+     */
     func outlineViewMenuForRows(_ outlineView: NSOutlineView, rows: IndexSet) -> NSMenu? {
         let contextMenu = NSMenu(title: "")
-        
+
         // For multiple selected rows, you only offer the remove command.
         if rows.count > 1 {
             // A contextual menu for mutiple selection.
@@ -100,38 +113,42 @@ extension OutlineViewController: CustomMenuDelegate {
                                                 representedObject: rows))
         } else {
             // Contextual menu for single selection.
-            
+
             // You must have a selected row.
             guard !rows.isEmpty,
                 // You must have an item at that row.
                 let item = outlineView.item(atRow: rows.first!) as? NSTreeNode,
-                	// You must have a node from that item.
-                	let node = OutlineViewModel.node(from: item) else { return contextMenu }
-            
+                    // You must have a node from that item.
+                    let geoObject = OutlineViewModel.geoObject(from: item) else { return contextMenu }
+
             // The item is a non-URL file object, so you can remove or rename it.
             //
-   			let removeItemFormat = NSLocalizedString("context remove string", comment: "")
-            let removeMenuItemTitle = String(format: removeItemFormat, node.title ?? "node")
+               let removeItemFormat = NSLocalizedString("context remove string", comment: "")
+            let removeMenuItemTitle = String(format: removeItemFormat, geoObject.description)
             contextMenu.addItem(contextMenuItem(removeMenuItemTitle,
                                                 tag: MenuItemTags.removeTag.rawValue,
                                                 representedObject: rows))
-            
-            if node.canChange {
+
+            if geoObject.canChange() {
                 let renameItemFormat = NSLocalizedString("context rename string", comment: "")
-                let renameMenuItemTitle = String(format: renameItemFormat, node.title ?? "node")
+                let renameMenuItemTitle = String(format: renameItemFormat, geoObject.description)
                 contextMenu.addItem(contextMenuItem(renameMenuItemTitle,
                                                     tag: MenuItemTags.renameTag.rawValue,
                                                     representedObject: rows))
             }
-            
-            if node.canAddTo {
+
+            if geoObject.canAddTo() {
                 // The item is a container you can add to.
+                contextMenu.addItem(contextMenuItem(NSLocalizedString("add picture", comment: ""),
+                                                    tag: MenuItemTags.addFeatureTag.rawValue,
+                                                    representedObject: rows))
+
                 contextMenu.addItem(contextMenuItem(NSLocalizedString("add group", comment: ""),
                                                     tag: MenuItemTags.addGroupTag.rawValue,
                                                     representedObject: rows))
             }
         }
-  
+
         return contextMenu
     }
 

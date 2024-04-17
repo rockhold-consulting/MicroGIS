@@ -26,41 +26,13 @@
 
 import Cocoa
 
-class WindowController: NSWindowController, NSWindowDelegate {
-    
-    let documentContext: NSManagedObjectContext
+class WindowController: NSWindowController {
 
-    required init?(coder aDecoder: NSCoder, docContext: NSManagedObjectContext) {
-        
-        documentContext = docContext
-        
-        super.init(coder: aDecoder)
-        /** NSWindows loaded from the storyboard will be cascaded
-         based on the original frame of the window in the storyboard.
-         */
-        shouldCascadeWindows = true
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError()
-    }
-    
     override func windowDidLoad() {
         super.windowDidLoad()
     }
-    
-//    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "WindowViewControllerRelationship" {
-//            print("dest \(segue.destinationController)")
-//        }
-//        super.prepare(for: segue, sender: sender)
-//    }
-//    
-//    
-//    @IBSegueAction func prepareWindowViewControllerSegue(_ coder: NSCoder, sender: Any?, segueIdentifier: String?) -> WindowViewController? {
-//                let wvc = WindowViewController(coder: coder)
-//                return wvc
-//    }    
+
+    override func windowWillLoad() {
+        super.windowWillLoad()
+    }
 }
-
-
