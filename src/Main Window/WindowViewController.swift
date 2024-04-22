@@ -17,47 +17,65 @@ class WindowViewController: NSViewController {
 
     override var representedObject: Any? {
         didSet {
+            treeController = makeTreeController(managedObjectContext: representedObject as? NSManagedObjectContext)
             if let svc = splitViewController {
-                svc.representedObject = representedObject
+                svc.representedObject = treeController
             }
-
-            // Update the view, if already loaded.
-            outlineViewModelDidLoad()
         }
     }
 
-    func outlineViewModelDidLoad() {
+    var selectionChangedCancellable: Cancellable?
+
+    var treeController: NSTreeController? = nil {
+        didSet {
+            selectionChangedCancellable?.cancel()
+            if let tc = treeController {
+                listen(to: tc)
+            }
+        }
+    }
+
+    func makeTreeController(managedObjectContext: NSManagedObjectContext?) -> NSTreeController? {
+        guard let moc = managedObjectContext else { return nil }
+        let tc = NSTreeController()
+        tc.childrenKeyPath = "kidArray"
+        tc.leafKeyPath = "isLeaf"
+        tc.preservesSelection = true
+        tc.selectsInsertedObjects = true
+        tc.isEditable = true
+        tc.managedObjectContext = moc
+        tc.entityName = "Layer"
+        return tc
+    }
+
+    func listen(to treeController: NSTreeController) {
         // Listens for selection changes to the NSTreeController so it can update the UI elements (add/remove buttons).
-        selectionChangedCancellable = self.outlineViewModel?.treeController.publisher(for: \.selectedNodes)
-            .sink() { [self] selectedNodes in
+        selectionChangedCancellable = treeController.publisher(for: \.selectedNodes)
+        .sink() { [self] selectedNodes in
 
-                // Examine the current selection and adjust the UI elements.
+            // Examine the current selection and adjust the UI elements.
 
-                // Remember the selected nodes for later when the system calls NSToolbarItemValidation and NSMenuItemValidation.
-                self.selectedNodes = selectedNodes
+            // Remember the selected nodes for later when the system calls NSToolbarItemValidation and NSMenuItemValidation.
+            self.selectedNodes = selectedNodes
 
-                guard let currentlySelectedNodes = self.selectedNodes else { return }
+            guard let currentlySelectedNodes = self.selectedNodes else { return }
 
-                if !currentlySelectedNodes.isEmpty && currentlySelectedNodes.count == 1 {
-                    if let item = OutlineViewModel.geoObject(from: currentlySelectedNodes[0]) {
-                        if item is Layer {
-                            // The user selected a directory, so this could take a while to populate the detail view controller.
-                            progIndicator.isHidden = false
-                            progIndicator.startAnimation(self)
-                        }
+            if !currentlySelectedNodes.isEmpty && currentlySelectedNodes.count == 1 {
+                if let item = OutlineViewModel.modelObject(from: currentlySelectedNodes[0]) {
+                    if item is Layer {
+                        // The user selected a directory, so this could take a while to populate the detail view controller.
+                        progIndicator.isHidden = false
+                        progIndicator.startAnimation(self)
                     }
                 }
-
             }
-
+        }
     }
 
     @IBOutlet private weak var progIndicator: NSProgressIndicator!
 
     // Remember the selected nodes from NSTreeController when the system calls "selectionDidChange".
     var selectedNodes: [NSTreeNode]?
-
-    var selectionChangedCancellable: Cancellable?
 
     // MARK: View Controller Lifecycle
 
@@ -161,7 +179,7 @@ extension WindowViewController: NSMenuItemValidation {
             guard let selection = selectedNodes else { return false }
             guard !selection.isEmpty && selection.count == 1 else { return false }
 
-            if let item = OutlineViewModel.geoObject(from: selection[0]) {
+            if let item = OutlineViewModel.modelObject(from: selection[0]) {
                 // Enable add menu items when the selection is a non-URL based node.
                 return item.canAddTo()
             } else {
@@ -180,7 +198,7 @@ private extension NSToolbarItem.Identifier {
 
 extension WindowViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embed-splitview" {
+        if segue.identifier == "EmbedSplitViewControllerSegue" {
             guard let dest = segue.destinationController as? SplitViewController else {
                 fatalError("unexpected error: unexpected view controller transition")
             }

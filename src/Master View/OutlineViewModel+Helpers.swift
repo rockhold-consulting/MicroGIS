@@ -11,8 +11,8 @@ import CoreLocation
 
 extension OutlineViewModel {
 
-    // Return an instance of the abstract GeoObject class from the specified outline view item through its representedObject.
-    class func geoObject(from treeNode: NSTreeNode) -> GeoObject? {
-        return treeNode.representedObject as? GeoObject
+    // Return an instance of the conforming to ModelObject from the specified outline view item through its representedObject.
+    class func modelObject(from treeNode: NSTreeNode) -> ModelObject? {
+        return treeNode.representedObject as? ModelObject
     }
 }

@@ -740,6 +740,11 @@
                     </connections>
                 </viewController>
                 <customObject id="2Tp-Fl-jBw" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController mode="entity" entityName="Feature" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" id="8dr-Vd-vob">
+                    <connections>
+                        <binding destination="5gI-5U-AMq" name="managedObjectContext" keyPath="representedObject.managedObjectContext" id="SyU-Hi-2WL"/>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="-228" y="1902"/>
         </scene>
@@ -796,13 +801,13 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView autohidesScrollers="YES" horizontalLineScroll="28" horizontalPageScroll="10" verticalLineScroll="28" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odi-A8-IZO">
-                                <rect key="frame" x="0.0" y="0.0" width="216" height="245"/>
+                                <rect key="frame" x="0.0" y="0.0" width="216" height="239"/>
                                 <clipView key="contentView" drawsBackground="NO" id="i9F-aN-iEx">
-                                    <rect key="frame" x="1" y="1" width="214" height="243"/>
+                                    <rect key="frame" x="1" y="1" width="214" height="237"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" selectionHighlightStyle="sourceList" columnReordering="NO" columnResizing="NO" autosaveColumns="NO" autosaveName="OutlineView" rowHeight="28" rowSizeStyle="systemDefault" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="13" autosaveExpandedItems="YES" outlineTableColumn="Mwu-OS-las" id="Da1-TG-7Xw" customClass="OutlineView" customModule="Georg" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="214" height="243"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="214" height="237"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="3" height="0.0"/>
                                             <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -847,7 +852,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView wantsLayer="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PHM-Gw-Bmm">
-                                                                    <rect key="frame" x="3" y="-4" width="17" height="26"/>
+                                                                    <rect key="frame" x="3" y="-4" width="17" height="27"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="17" id="WxQ-8Q-fqK"/>
                                                                     </constraints>
@@ -882,8 +887,6 @@
                                                 </tableColumn>
                                             </tableColumns>
                                             <connections>
-                                                <binding destination="uNH-RI-5EI" name="content" keyPath="arrangedObjects" id="07g-ER-QUK"/>
-                                                <binding destination="uNH-RI-5EI" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="07g-ER-QUK" id="54L-VN-ESk"/>
                                                 <outlet property="dataSource" destination="jKd-JE-0pX" id="o9m-BM-ZXm"/>
                                                 <outlet property="delegate" destination="jKd-JE-0pX" id="dN5-fT-5uB"/>
                                             </connections>
@@ -910,11 +913,9 @@
                     </view>
                     <connections>
                         <outlet property="outlineView" destination="Da1-TG-7Xw" id="VJI-Nc-67E"/>
-                        <outlet property="treeController" destination="uNH-RI-5EI" id="p3p-Ce-OT3"/>
                     </connections>
                 </viewController>
                 <customObject id="Od6-6h-d61" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <treeController mode="entity" entityName="GeoLayer" childrenKeyPath="children" leafKeyPath="isLeaf" avoidsEmptySelection="NO" id="uNH-RI-5EI" userLabel="OutlineController"/>
             </objects>
             <point key="canvasLocation" x="-796" y="1871"/>
         </scene>
@@ -960,6 +961,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSActionTemplate" width="19" height="19"/>
+        <image name="NSActionTemplate" width="20" height="20"/>
     </resources>
 </document>

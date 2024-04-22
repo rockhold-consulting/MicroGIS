@@ -5,6 +5,8 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconSystemGenerated</key>
+			<integer>0</integer>
 			<key>CFBundleTypeName</key>
 			<string>Georg Geographic Features Document</string>
 			<key>CFBundleTypeRole</key>
@@ -26,7 +28,6 @@
 			<array>
 				<string>public.data</string>
 				<string>public.content</string>
-				<string>public.database</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>Georg Geographic Features Document</string>

@@ -60,7 +60,7 @@ import CoreData
     public static var supportsSecureCoding: Bool = true
 
     required public init(coder aDecoder: NSCoder) {
-        
+
         guard let jsonData = aDecoder.decodeData() else {
             fatalError()
         }
@@ -86,44 +86,66 @@ import CoreData
 
 }
 
-public extension Feature {
+extension Feature: ModelObject {    
+
+    var title: String? { featureID }
+
+    var identifier: NSObject { self.objectID }
+
+    var isLeaf: Bool { (geometries?.count ?? 0) > 1 }
+
+    var kidArray: [ModelObject]? { (geometries?.array as! [ModelObject]) }
+
+    var icon: KitImage {
+        return KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
+    }
+
     convenience init(
         context: NSManagedObjectContext,
-        featureID: String,
-        properties: FeatureProperties?
+        featureID: String?,
+        properties: FeatureProperties?,
+        parent: Layer?
     ) {
         self.init(context: context)
         self.featureID = featureID
         self.properties = properties
-    }
-
-    func add(child: GeometryLike) {
-        self.addToChildren(child as! Geometry)
-        (child as! Geometry).parent = self
+        self.parent = parent
+        parent?.addToFeatures(self)
     }
 }
 
-extension Feature: FeatureLike {
-    public func set(parent: GeoObjectParent) {
-        if let p = parent as? Layer {
-            self.parent = p
-        }
+class FeaturePropertiesTransformer: NSSecureUnarchiveFromDataTransformer {
+
+    override class func allowsReverseTransformation() -> Bool {
+        return true
     }
 
-    public func add(child: GeoObjectChild) {
-        if let geoChild = child as? Geometry {
-            self.addToChildren(geoChild)
-        }
+    override class func transformedValueClass() -> AnyClass {
+        return FeatureProperties.self
     }
-}
 
-@objc(FeaturePropertiesTransformer)
-public class FeaturePropertiesTransformer: NSSecureUnarchiveFromDataTransformer {
-    override public static var allowedTopLevelClasses: [AnyClass] { [FeatureProperties.self] }
+    override class var allowedTopLevelClasses: [AnyClass] {
+        return [FeatureProperties.self, NSData.self]
+    }
+
+    override func transformedValue(_ value: Any?) -> Any? {
+        guard let data = value as? Data else {
+            fatalError("Wrong data type: value must be a Data object; received \(type(of: value))")
+        }
+        return super.transformedValue(data)
+    }
+
+    override func reverseTransformedValue(_ value: Any?) -> Any? {
+        guard let v = value as? FeatureProperties else {
+            fatalError("Wrong data type: value must be a FeatureProperties object; received \(type(of: value))")
+        }
+        return super.reverseTransformedValue(v)
+    }
+
+    static let featurePropertiesTransformerName = NSValueTransformerName(rawValue: "FeaturePropertiesTransformer")
 
     static func register() {
         ValueTransformer.setValueTransformer(FeaturePropertiesTransformer(),
-                                             forName: NSValueTransformerName(String(describing: FeaturePropertiesTransformer.self)))
+                                             forName: featurePropertiesTransformerName)
     }
-
 }

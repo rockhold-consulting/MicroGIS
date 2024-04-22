@@ -26,9 +26,65 @@ import Cocoa
 import MapKit
 import Combine
 
+extension MKAnnotationView {
+
+    func setClusteringIdentifier(id: String) -> MKAnnotationView {
+        self.clusteringIdentifier = id
+        return self
+    }
+
+    func setStyle(for annotation: Geometry, selected: Bool) -> MKAnnotationView {
+
+        //            pointAnnotationView.canShowCallout = true
+
+        // Provide the annotation view's image.
+        //            let image = #imageLiteral(resourceName: "flag")
+        self.image = selected ? MapViewController.selectedAnnotationImage : MapViewController.annotationImage
+        self.setSelected(selected, animated: true)
+
+        //            // Provide the left image icon for the annotation.
+        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
+
+        // Offset the flag annotation so that the flag pole rests on the map coordinate.
+        //            let offset = CGPoint(x: image.size.width / 2, y: -(image.size.height / 2) )
+        //            pointAnnotationView.centerOffset = offset
+
+        return self
+    }
+
+    func setStyle(forCluster annotation: MKClusterAnnotation) -> MKAnnotationView {
+
+        //            pointAnnotationView.canShowCallout = true
+
+        let pointCount = annotation.memberAnnotations.count
+        self.image = KitImage(systemSymbolName: "\(pointCount).circle", accessibilityDescription: "encircled number") ?? MapViewController.clusterAnnotationImage
+
+        //            // Provide the left image icon for the annotation.
+        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
+
+        return self
+    }
+}
+
+extension MKOverlayPathRenderer {
+
+    func applyStyle(manager: StyleManager, geometry: Geometry, selected: Bool) -> MKOverlayPathRenderer {
+
+        manager.applyStyle(renderer: self, geometry: geometry)
+
+        if selected {
+            self.strokeColor = NSColor.black
+        }
+        return self
+    }
+}
+
 class MapViewController: NSViewController {
-    
+
     @IBOutlet weak var mapView: MKMapView!
+    var mapViewModel: MapViewModel!
+    let styleManager = SimpleStyleManager()
+    var rendererCache = [NSManagedObjectID:MKOverlayPathRenderer]()
 
     /**
      A template URL for map tiles from the National Hydrography Dataset of the United States Geological Survey.
@@ -53,66 +109,29 @@ class MapViewController: NSViewController {
     static let geoPointReuseIdentifier = "\(NSStringFromClass(Geometry.self)).GeoPointReuseIdentifier"
     static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
 
-    let annotationImage = NSImage(systemSymbolName: "mappin.circle", // or bubble.middle.bottom
-                                  accessibilityDescription: "Map pin inside a circle")!
+    static let annotationImage = NSImage(systemSymbolName: "mappin.circle",
+                                         accessibilityDescription: "Map pin inside a circle")!
+    static let selectedAnnotationImage = NSImage(systemSymbolName: "mappin.circle.fill",
+                                         accessibilityDescription: "Selected Map pin inside a circle")!
 
-    let clusterAnnotationImage = NSImage(systemSymbolName: "seal",
-                                         accessibilityDescription: "star-like shape")!
-
-    var selectionChangedCancellable: Cancellable? = nil
-
-    var selectedNodes: [NSTreeNode]? = nil
+    static let clusterAnnotationImage = NSImage(systemSymbolName: "seal",
+                                                accessibilityDescription: "star-like shape")!
 
     var commandWasDown: Bool = false
 
     override var representedObject: Any? {
         didSet {
-            outlineViewModelDidLoad()
-        }
-    }
-
-    var content: [Layer]? {
-        didSet {
-            print("got content")
-        }
-    }
-
-    var selectionIndexPaths: [IndexPath]? = nil {
-        didSet {
-            print("got selectionIndexPaths")
-        }
-    }
-
-    func outlineViewModelDidLoad() {
-        guard let ovm = outlineViewModel else {
-            // TODO: do we need to 'unbind'  and 'unsetup'?
-            return
-        }
-
-        self.bind(.content,
-                to: ovm.treeController,
-                withKeyPath: "arrangedObjects",
-                options:[.raisesForNotApplicableKeys: true])
-
-        self.bind(.selectionIndexPaths,
-                to: ovm.treeController,
-                withKeyPath: "selectionIndexPaths",
-                options:[.raisesForNotApplicableKeys: true])
-
-        // Listen to the treeController's selection change so you inform clients to react to selection changes.
-        // Examine the current selection and adjust the contents and focus of the map.
-        selectionChangedCancellable = ovm.treeController.publisher(for: \.selectedNodes)
-            .sink() { [self] selectedNodes in
-
-                print("selectedNodes \(selectedNodes)")
-                self.selectedNodes = selectedNodes
+            if let tc = representedObject as? NSTreeController {
+                mapViewModel = MapViewModel(treeController: tc, mapViewController: self)
+                reload()
+            } else {
+                mapViewModel = nil
             }
+        }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Self.exposeBinding(.content)
-        Self.exposeBinding(.selectionIndexPaths)
         registerMapAnnotationViews(self.mapView)
 
         let gr = NSClickGestureRecognizer(target: self, action: #selector(handleClick))
@@ -129,7 +148,7 @@ class MapViewController: NSViewController {
         }
         mv.isPitchEnabled = true
         mv.showsPitchControl = true
-//            mv.pitchButtonVisibility = .visible
+        //            mv.pitchButtonVisibility = .visible
         mv.isZoomEnabled = true
         mv.showsZoomControls = true
         mv.isRotateEnabled = true
@@ -148,46 +167,6 @@ class MapViewController: NSViewController {
 
 extension MapViewController: MKMapViewDelegate, NSGestureRecognizerDelegate {
 
-    private func setupPointAnnotationView(for annotation: Geometry, on mapView: MKMapView) -> MKAnnotationView {
-
-        let pointAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.geoPointReuseIdentifier,
-                                                                        for: annotation)
-        
-        //            pointAnnotationView.canShowCallout = true
-        
-        // Provide the annotation view's image.
-        //            let image = #imageLiteral(resourceName: "flag")
-        pointAnnotationView.image = self.annotationImage
-        
-        //            // Provide the left image icon for the annotation.
-        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
-        
-        // Offset the flag annotation so that the flag pole rests on the map coordinate.
-        //            let offset = CGPoint(x: image.size.width / 2, y: -(image.size.height / 2) )
-        //            pointAnnotationView.centerOffset = offset
-        
-        return pointAnnotationView
-    }
-    
-    private func setupClusterAnnotationView(for annotation: MKClusterAnnotation, 
-                                            on mapView: MKMapView) -> MKAnnotationView {
-        
-        let clusterAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.clusterAnnotationReuseIdentifier,
-                                                                        for: annotation)
-        
-        //            pointAnnotationView.canShowCallout = true
-        
-        // Provide the annotation view's image.
-        //            let image = #imageLiteral(resourceName: "flag")
-        clusterAnnotationView.image = self.clusterAnnotationImage
-        
-        //            // Provide the left image icon for the annotation.
-        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
-                
-        return clusterAnnotationView
-    }
-
-
     @MainActor
     private func addToView(annotations: [MKAnnotation],
                            overlays: [MKOverlay],
@@ -202,7 +181,7 @@ extension MapViewController: MKMapViewDelegate, NSGestureRecognizerDelegate {
                 view.removeOverlay(overlay)
             }
         }
-//        view.removeOverlays(view.overlays)
+        //        view.removeOverlays(view.overlays)
 
         if !annotations.isEmpty {
             view.addAnnotations(annotations)
@@ -211,74 +190,25 @@ extension MapViewController: MKMapViewDelegate, NSGestureRecognizerDelegate {
             view.addOverlays(overlays, level: .aboveRoads)
         }
 
-        let currentRect = view.visibleMapRect
-        let containsAll = centroids.allSatisfy { p in currentRect.contains(p) }
-
-//        if containsAll && view.region.span.longitudeDelta < 4.0 {
-//            // don't reset the view, you can already see the new coordinate
-//            return
-//        }
-        //        view.visibleMapRect = visibleRect
+//        let currentRect = view.visibleMapRect
+//        let containsAll = centroids.allSatisfy { p in currentRect.contains(p) }
+//
+//                if containsAll && view.region.span.longitudeDelta < 4.0 {
+//                    // don't reset the view, you can already see the new coordinate
+//                    return
+//                }
+//                view.visibleMapRect = visibleRect
     }
 
     func reload() {
-
-        var annotations = [MKAnnotation]()
-        var overlays = [MKOverlay]()
-
-        var bigbox = MKMapRect.null
-        var centroids = [MKMapPoint]()
-
-        func add(geometry: Geometry) {
-            bigbox = bigbox.union(geometry.betterBox)
-            centroids.append(MKMapPoint(geometry.coordinate))
-
-            if geometry.shape is GeoPoint {
-                annotations.append(geometry)
-            } else {
-                overlays.append(geometry)
+        mapViewModel?.reload { annotations, overlays, centroids, bigbox in
+            Task {
+                await self.addToView(annotations: annotations,
+                                     overlays: overlays,
+                                     centroids: centroids,
+                                     visibleRect:bigbox.insetBy(dx: -10000, dy: -10000))
             }
         }
-
-        func add(geometries: [Geometry]?, feature: Feature? = nil) {
-            geometries?.forEach { g in
-                add(geometry: g)
-            }
-        }
-
-        for layer in self.content ?? [] {
-            guard let kids = layer.children?.array else { continue }
-            for layerChild in kids {
-                switch layerChild {
-                case let f as Feature:
-                    guard let featureKids = f.children?.array else { continue }
-                    add(geometries: featureKids as? [Geometry])
-                    break
-
-                case let g as Geometry:
-                    add(geometry: g)
-                    break
-
-                default:
-                    break
-                }
-            }
-        }
-
-        bigbox = bigbox.insetBy(dx: -10000, dy: -10000)
-
-        // TODO: Here's something ugly I can't figure out
-        let ays = annotations
-        let ohs = overlays
-        let cees = centroids
-        let vr = bigbox
-        Task {
-            await self.addToView(annotations: ays,
-                                 overlays: ohs,
-                                 centroids: cees,
-                                 visibleRect:vr)
-        }
-
     }
 
     @MainActor
@@ -289,6 +219,31 @@ extension MapViewController: MKMapViewDelegate, NSGestureRecognizerDelegate {
 
         commandWasDown = event.modifierFlags.contains(.command)
         return true
+    }
+
+    private func makeRenderer(for geometry: Geometry) -> MKOverlayPathRenderer? {
+        if let r = geometry.makeRenderer() {
+            rendererCache[geometry.objectID] = r
+            return r
+        } else {
+            return nil
+        }
+    }
+
+    func renderer(forGeometry g: Geometry) -> MKOverlayPathRenderer? {
+        if let renderer = rendererCache[g.objectID] {
+            return renderer
+        } else {
+            return makeRenderer(for: g)
+        }
+    }
+
+    func renderer(forGeometryID gID: NSManagedObjectID) -> MKOverlayPathRenderer? {
+        if let renderer = rendererCache[gID] {
+            return renderer
+        } else {
+            return makeRenderer(for: mapViewModel.geometry(with: gID))
+        }
     }
 
     @objc func handleClick(gestureRecognizer: NSGestureRecognizer) {
@@ -305,57 +260,60 @@ extension MapViewController: MKMapViewDelegate, NSGestureRecognizerDelegate {
         // that path.
         // Finally, use cgpath operations to determine whether this point is
         // inside that generated path.
-        mapView?.overlays.forEach { overlay in
+        mapView.overlays.compactMap { (overlay: MKOverlay) in
+            return overlay as? GeometryProxy
+        }
+        .map { (proxy: GeometryProxy) in
+            return mapViewModel.geometry(with: proxy.geometryID)
+        }
+        .compactMap { (geometry: Geometry) in
+            let renderer = renderer(forGeometry: geometry)
+            guard let path = renderer?.path,
+                  let  viewPoint = renderer?.point(for: mapPoint) else { return nil }
 
-            guard let geometry = overlay as? Geometry, let renderer = geometry.makeRenderer() else { return }
-
-            let viewPoint = renderer.point(for: mapPoint)
-
-            guard var path = renderer.path else { return }
-
+            return (geometry, path, viewPoint)
+        }
+        .map { (geometry: Geometry, path: CGPath, viewPoint: CGPoint) in
             // If the geometry is a LineString, turn the path from a sequence of line segments
             // into a thin polygon
-            if geometry.shape is GeoPolyline || geometry.shape is GeoMultiPolyline {
-                path = path.copy(strokingWithWidth: 500, lineCap: .round, lineJoin: .round, miterLimit: 0)
-            }
-
-            if path.contains(viewPoint) {
-                if let f = geometry.parent {
-                    objectTapped(featureID: f.id, continueSelection: commandWasDown)
-                }
-            }
-
+            return geometry.wrapped?.shape is GeoPolyline || geometry.wrapped?.shape is GeoMultiPolyline
+            ? (geometry, path.copy(strokingWithWidth: 500, lineCap: .round, lineJoin: .round, miterLimit: 0), viewPoint)
+            : (geometry, path, viewPoint)
+        }
+        .compactMap { (geometry: Geometry, path: CGPath, viewPoint: CGPoint) in
+            guard path.contains(viewPoint) else { return nil }
+            return geometry.objectID
+        }
+        .forEach { (objID: NSManagedObjectID) in
+            objectTapped(geometryID: objID, continueSelection: commandWasDown)
         }
     }
 
-    func objectTapped(featureID: ObjectIdentifier, continueSelection: Bool = false) {
-        // TODO: implement me
-//        if selection.contains(featureID) {
-//            selection.remove(featureID)
-//        } else {
-//
-//            if !continueSelection {
-//                selection.removeAll()
-//            }
-//            selection.insert(featureID)
-//        }
+    func objectTapped(geometryID: NSManagedObjectID,
+                      continueSelection: Bool = false) {
+        if mapViewModel.isIDSelected(geometryID) {
+            mapViewModel.deselect(geometryID)
+        } else {
+            if !continueSelection {
+                mapViewModel.clearSelection()
+            }
+            mapViewModel.select(geometryID)
+        }
     }
-
-    func isSelected(_ objectID: ObjectIdentifier) -> Bool {
-        // TODO: implement selection
-        return false
-
-        //return selection.contains(objectID)
-    }
-
-    //    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-    //    }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 
         switch overlay {
-        case let geometry as Geometry:
-            return applyStyle(geometry.makeRenderer(), for: geometry) ?? MKOverlayRenderer(overlay: overlay)
+        case let geometryProxy as GeometryProxy:
+
+            let selected = mapViewModel.isIDSelected(geometryProxy.geometryID)
+            let geometry = mapViewModel.geometry(with: geometryProxy.geometryID)
+
+            return renderer(forGeometry: geometry)?
+                .applyStyle(manager: styleManager,
+                            geometry: geometry,
+                            selected: selected)
+            ?? MKOverlayRenderer(overlay: overlay)
 
         case let overlay as MKTileOverlay:
             return MKTileOverlayRenderer(tileOverlay: overlay)
@@ -374,108 +332,55 @@ extension MapViewController: MKMapViewDelegate, NSGestureRecognizerDelegate {
             // not an annotation view we wish to customize yet.
             return nil
 
-        case let geometry as Geometry: // Probably a .shape is GeoPoint
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.geoPointReuseIdentifier,
-                                                                       for: annotation)
-            annotationView.clusteringIdentifier = "pointcluster" // TODO: this is _very_ temporary
-            return applyStyleTo(annotationView: annotationView, for: geometry)
+        case let geometryProxy as GeometryProxy: // Probably a .shape is GeoPoint
+            let id = geometryProxy.geometryID
+            return mapView.dequeueReusableAnnotationView(withIdentifier: Self.geoPointReuseIdentifier, for: annotation)
+                .setClusteringIdentifier(id: "pointcluster") // TODO: this is _very_ temporary
+                .setStyle(for: mapViewModel.geometry(with: id),
+                          selected: mapViewModel.isIDSelected(id))
 
         case let clusterAnnotation as MKClusterAnnotation:
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.clusterAnnotationReuseIdentifier,
                                                                        for: annotation)
-            return applyStyleTo(annotationView: annotationView, forCluster: clusterAnnotation)
+            return annotationView.setStyle(forCluster: clusterAnnotation)
 
         default:
             return nil
         }
     }
 
-    // TODO: this is where the style engine goes :)
-    private func applyStyle(to overlayRenderer: MKOverlayRenderer, for feature: Feature?) -> MKOverlayRenderer {
-
-        switch overlayRenderer {
-        case let multipolygonRenderer as MKMultiPolygonRenderer:
-            multipolygonRenderer.fillColor = NSColor.red
-            multipolygonRenderer.strokeColor = NSColor.red
-
-        case let multipolylineRenderer as MKMultiPolylineRenderer:
-            multipolylineRenderer.fillColor = NSColor.blue
-            multipolylineRenderer.strokeColor = NSColor.blue
-
-        case let polygonRenderer as MKPolygonRenderer:
-            polygonRenderer.fillColor = NSColor.yellow
-            polygonRenderer.strokeColor = NSColor.yellow
-
-        case let polylineRenderer as MKPolylineRenderer:
-            polylineRenderer.fillColor = NSColor.green
-            polylineRenderer.strokeColor = NSColor.green
-
-        case let circleRenderer as MKCircleRenderer:
-            circleRenderer.fillColor = NSColor.orange
-            circleRenderer.strokeColor = NSColor.orange
-
-        case let gradientPolylineRenderer as MKGradientPolylineRenderer:
-            gradientPolylineRenderer.fillColor = NSColor.purple // or something
-            gradientPolylineRenderer.strokeColor = NSColor.purple // or something
-
-        case let overlayPathRenderer as MKOverlayPathRenderer:
-            overlayPathRenderer.fillColor = NSColor.black
-            overlayPathRenderer.strokeColor = NSColor.black
-
-        default:
-            break
-        }
-
-        return overlayRenderer
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("did SELECT an annotation")
     }
 
-    func applyStyle(_ renderer: MKOverlayPathRenderer?, for geometry: Geometry) -> MKOverlayPathRenderer? {
-
-        guard let renderer = renderer else { return nil }
-
-        var objID: ObjectIdentifier? = nil
-        if isSelected(geometry.id) {
-            objID = geometry.id
-        }
-        if let f = geometry.parent {
-            objID = f.id
-        }
-        if let selectedID = objID, isSelected(selectedID) {
-            renderer.strokeColor = NSColor.black
-        }
-        return renderer
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        print("did DESELECT an annotation")
     }
 
-    func applyStyleTo(annotationView view: MKAnnotationView,
-                      forCluster annotation: MKClusterAnnotation) -> MKAnnotationView {
-
-        //            pointAnnotationView.canShowCallout = true
-
-        let pointCount = annotation.memberAnnotations.count
-        view.image = KitImage(systemSymbolName: "\(pointCount).circle", accessibilityDescription: "encircled number") ?? clusterAnnotationImage
-
-        //            // Provide the left image icon for the annotation.
-        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
-
-        return view
+    func doSelectAnnotation(objID: NSManagedObjectID, selected: Bool) {
+        guard let ann = mapView.annotations.first(where: { annotation in
+            guard let proxy = annotation as? GeometryProxy else { return false }
+            return proxy.geometryID == objID
+        }) else {
+            return
+        }
+        mapView.removeAnnotation(ann)
+        mapView.addAnnotation(ann)
     }
 
-    func applyStyleTo(annotationView view: MKAnnotationView,
-                      for annotation: Geometry) -> MKAnnotationView {
-
-        //            pointAnnotationView.canShowCallout = true
-
-        // Provide the annotation view's image.
-        //            let image = #imageLiteral(resourceName: "flag")
-        view.image = annotationImage
-
-        //            // Provide the left image icon for the annotation.
-        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
-
-        // Offset the flag annotation so that the flag pole rests on the map coordinate.
-        //            let offset = CGPoint(x: image.size.width / 2, y: -(image.size.height / 2) )
-        //            pointAnnotationView.centerOffset = offset
-
-        return view
+    @MainActor
+    func rerenderSelection(changeSet: MapViewModel.IDSet) {
+        changeSet.forEach { objID in
+            let selected = mapViewModel.isIDSelected(objID)
+            if let r = renderer(forGeometryID: objID) {
+                r.applyStyle(manager: styleManager,
+                                             geometry: mapViewModel.geometry(with: objID),
+                                             selected: selected)
+                                 .setNeedsDisplay()
+            } else {
+                self.doSelectAnnotation(objID: objID, selected: selected)
+            }
+        }
     }
+
 }

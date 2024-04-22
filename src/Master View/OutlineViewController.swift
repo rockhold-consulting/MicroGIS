@@ -17,48 +17,53 @@ class OutlineViewController: NSViewController,
 
     @IBOutlet weak var outlineView: OutlineView!
 
+    // We observe the tree controller's selection changing.
+    var selectionChangedCancellable: Cancellable?
+
     override var representedObject: Any? {
         didSet {
-            outlineViewModelDidLoad()
+            selectionChangedCancellable?.cancel()
+            if let tc = representedObject as? NSTreeController {
+                outlineViewModel = OutlineViewModel(treeController: tc)
+                listen(to: tc)
+            } else {
+                outlineViewModel = nil
+            }
         }
     }
 
-    // Update the view, if already loaded.
-    func outlineViewModelDidLoad() {
-
-        guard let ovm = outlineViewModel, let ov = outlineView else {
-            // TODO: do we need to 'unbind'  and 'unsetup'?
-            return
-        }
-
-        ov.bind(.content,
-                to: ovm.treeController,
-                withKeyPath: "arrangedObjects",
-                options:[.raisesForNotApplicableKeys: true])
-
-        ov.bind(.selectionIndexPaths,
-                to: ovm.treeController,
-                withKeyPath: "selectionIndexPaths",
-                options:[.raisesForNotApplicableKeys: true])
-
+    func listen(to treeController: NSTreeController) {
         // Listen to the treeController's selection change so you inform clients to react to selection changes.
-        selectionChangedCancellable = ovm.treeController.publisher(for: \.selectedNodes)
+        selectionChangedCancellable = treeController.publisher(for: \.selectedNodes)
             .sink() { [self] selectedNodes in
-
+                print("OUTLINE SELECTION \(selectedNodes)")
                 // Save the outline selection state for later when the app relaunches.
                 self.invalidateRestorableState()
             }
     }
 
+
+    var outlineViewModel: OutlineViewModel? = nil {
+        // Update the view, if already loaded.
+        didSet {
+            guard let ovm = outlineViewModel, let ov = outlineView else {
+                // TODO: do we need to 'unbind'  and 'unsetup'?
+                return
+            }
+
+            ov.bind(.content,
+                    to: ovm.treeController,
+                    withKeyPath: "arrangedObjects",
+                    options:[.raisesForNotApplicableKeys: true])
+
+            ov.bind(.selectionIndexPaths,
+                    to: ovm.treeController,
+                    withKeyPath: "selectionIndexPaths",
+                    options:[.raisesForNotApplicableKeys: true])
+        }
+    }
+
     @IBOutlet private weak var placeHolderView: NSView!
-
-    // MARK: Instance Variables
-
-    // We observe the tree controller's selection changing.
-    var selectionChangedCancellable: Cancellable?
-
-    // The outline view of top-level content. NSTreeController backs this.
-    //    @objc dynamic var contents: [AnyObject] = []
 
     var rowToAdd = -1 // The addition of a flagged row (for later renaming).
 
@@ -133,30 +138,29 @@ class OutlineViewController: NSViewController,
         }
 
         if let vm = outlineViewModel {
-            vm.treeController.fetchPredicate = NSPredicate(format: "parent == %@", NSNull())
+//            vm.treeController.fetchPredicate = NSPredicate(format: "parent == %@", NSNull())
             vm.treeController.fetch(self)
         }
         outlineView.reloadData()
     }
 
     deinit {
-        NotificationCenter.default.removeObserver(
-            self,
-            name: Notification.Name(WindowViewController.NotificationNames.addFolder),
-            object: nil)
-        NotificationCenter.default.removeObserver(
-            self,
-            name: Notification.Name(WindowViewController.NotificationNames.addFeature),
-            object: nil)
-        NotificationCenter.default.removeObserver(
-            self,
-            name: Notification.Name(WindowViewController.NotificationNames.removeItem),
-            object: nil)
+        selectionChangedCancellable?.cancel()
+
+        [WindowViewController.NotificationNames.addFolder,
+         WindowViewController.NotificationNames.addFeature,
+         WindowViewController.NotificationNames.removeItem
+        ].forEach { s in
+            NotificationCenter.default.removeObserver(
+                self,
+                name: Notification.Name(s),
+                object: nil)
+        }
     }
 
     // MARK: Removal and Addition
 
-    private func removalConfirmAlert(_ itemsToRemove: [GeoObject]) -> NSAlert {
+    private func removalConfirmAlert(_ itemsToRemove: [ModelObject]) -> NSAlert {
         let alert = NSAlert()
 
         var messageStr: String
@@ -166,7 +170,7 @@ class OutlineViewController: NSViewController,
         } else {
             // Remove the single item.
             messageStr = NSLocalizedString("remove confirm string", comment: "")
-            alert.messageText = String(format: messageStr, itemsToRemove[0].description)
+            alert.messageText = String(format: messageStr, itemsToRemove[0].title ?? "<no title>")
         }
 
         alert.addButton(withTitle: NSLocalizedString("ok button title", comment: ""))
@@ -182,11 +186,11 @@ class OutlineViewController: NSViewController,
         remove(items: nil)
     }
 
-    func remove(item: GeoObject) {
+    func remove(item: ModelObject) {
         remove(items: [item])
     }
 
-    func remove(items itemsToRemove: [GeoObject]? = nil) {
+    func remove(items itemsToRemove: [ModelObject]? = nil) {
         Task {
             await self.outlineViewModel?.remove(items: itemsToRemove) { itemsToRemove in
                 let confirmAlert = removalConfirmAlert(itemsToRemove)
@@ -203,12 +207,12 @@ class OutlineViewController: NSViewController,
     }
 
     // The system calls this from handleContextualMenu() or the add picture button.
-    func addFeature(at item: GeoObject) {
+    func addFeature(at item: ModelObject) {
         // Present an open panel to choose a picture to display in the outline view.
         let openPanel = NSOpenPanel()
 
         // Find a picture to add.
-        let locationTitle = item.description
+        let locationTitle = item.title ?? "<no title>"
         let messageStr = NSLocalizedString("choose picture message", comment: "")
         openPanel.message = String(format: messageStr, locationTitle)
         openPanel.prompt = NSLocalizedString("open panel prompt", comment: "") // Set the Choose button title.
@@ -232,7 +236,7 @@ class OutlineViewController: NSViewController,
             // You're inserting a new picture at the item node index path.
             let indexPathToInsert = itemNodeIndexPath.appending(IndexPath(index: 0))
 
-            // Create a GeoObject of the type appropriate to where we're inserting it
+            // Create a ModelObject of the type appropriate to where we're inserting it
             fatalError("TODO: unimplemented feature")
 //            let node = self.outlineViewModel?.newNode(
 //                type: .document,
@@ -264,7 +268,7 @@ class OutlineViewController: NSViewController,
         let selectedRow = outlineView.selectedRow
 
         if let item = self.outlineView.item(atRow: selectedRow) as? NSTreeNode,
-           let addToNode = OutlineViewModel.geoObject(from: item) {
+           let addToNode = OutlineViewModel.modelObject(from: item) {
             addFeature(at: addToNode)
         }
     }
@@ -279,7 +283,7 @@ class OutlineViewController: NSViewController,
     func addFolder(at item: NSTreeNode) {
         if let rowItemNode = self.outlineViewModel?.addFolder(at: item) {
             // Flag the row you're adding (for later renaming).
-            rowToAdd = outlineView.row(forItem: item) + rowItemNode.children!.count
+            rowToAdd = outlineView.row(forItem: item) + (rowItemNode.kidArray?.count ?? 0)
         }
     }
 
@@ -289,7 +293,7 @@ class OutlineViewController: NSViewController,
     func controlTextDidEndEditing(_ obj: Notification) {
         // Commit the edit by applying the text field's text to the current node.
         guard let item = outlineView.item(atRow: outlineView.selectedRow) as? NSTreeNode,
-              let node = OutlineViewModel.geoObject(from: item) else { return }
+              let node = OutlineViewModel.modelObject(from: item) else { return }
 
         // TODO: implement this for Layers, Features, and Geometries
 //        if let textField = obj.object as? NSTextField {

@@ -12,15 +12,15 @@ extension OutlineViewController: NSOutlineViewDelegate {
     // Is the outline view item a group node? Not a folder but a group, with Hide/Show buttons.
     func outlineView(_ outlineView: NSOutlineView, isGroupItem item: Any) -> Bool {
         guard let node = item as? NSTreeNode else { return false }
-        let g = OutlineViewModel.geoObject(from: node)
+        let g = OutlineViewModel.modelObject(from: node)
         return g is Layer
     }
 
     // Should you select the outline view item? No selection for special groupings or separators.
     func outlineView(_ outlineView: NSOutlineView, shouldSelectItem item: Any) -> Bool {
         guard let node = item as? NSTreeNode else { return false }
-        if let g = OutlineViewModel.geoObject(from: node) {
-            return g is Layer
+        if let g = OutlineViewModel.modelObject(from: node) {
+            return true
         } else {
             return false
         }
@@ -30,7 +30,7 @@ extension OutlineViewController: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, heightOfRowByItem item: Any) -> CGFloat {
         let rowHeight = outlineView.rowHeight
 
-        guard let node = OutlineViewModel.geoObject(from: item as! NSTreeNode) else { return rowHeight }
+        guard let node = OutlineViewModel.modelObject(from: item as! NSTreeNode) else { return rowHeight }
 
         return rowHeight
     }
@@ -38,24 +38,24 @@ extension OutlineViewController: NSOutlineViewDelegate {
     func outlineView(_ outlineView: NSOutlineView, viewFor tableColumn: NSTableColumn?, item: Any) -> NSView? {
         var view: NSTableCellView?
 
-        guard let geoObject = OutlineViewModel.geoObject(from: item as! NSTreeNode) else { return view }
+        guard let modelObject = OutlineViewModel.modelObject(from: item as! NSTreeNode) else { return view }
 
         if self.outlineView(outlineView, isGroupItem: item) {
             // The row is a group node, so return NSTableCellView as a special group row.
             view = outlineView.makeView(
                 withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "GroupCell"), owner: self) as? NSTableCellView
-            view?.textField?.stringValue = geoObject.description.uppercased()
+            view?.textField?.stringValue =  modelObject.title?.uppercased() ?? "<no title>"
         } else {
             // The row is a regular outline node, so return NSTableCellView with an image and title.
             view = outlineView.makeView(
                 withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MainCell"), owner: self) as? NSTableCellView
 
-            view?.textField?.stringValue = geoObject.description
-            view?.imageView?.image = geoObject.icon
+            view?.textField?.stringValue = modelObject.title ?? "<no title>"
+            view?.imageView?.image = modelObject.icon
 
             // Folder titles are editable only if they don't have a file URL,
             // You don't want users to rename file system-based nodes.
-            view?.textField?.isEditable = geoObject.canChange()
+            view?.textField?.isEditable = modelObject.canChange()
         }
 
         return view

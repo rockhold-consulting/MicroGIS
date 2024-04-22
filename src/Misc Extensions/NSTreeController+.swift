@@ -11,13 +11,14 @@ import Cocoa
 
 extension NSTreeController {
 
-    func indexPathOfObject(anObject: GeoObject) -> IndexPath? {
+    func indexPathOfObject(anObject: ModelObject) -> IndexPath? {
         return indexPathOfObject(anObject: anObject, nodes: self.arrangedObjects.children)
     }
 
-    func indexPathOfObject(anObject: GeoObject, nodes: [NSTreeNode]!) -> IndexPath? {
+    func indexPathOfObject(anObject: ModelObject, nodes: [NSTreeNode]!) -> IndexPath? {
         for node in nodes {
-            if anObject == node.representedObject as? GeoObject {
+            let modelObject = node.representedObject as! ModelObject
+            if anObject.identifier == modelObject.identifier {
                 return node.indexPath
             }
             if node.children != nil {

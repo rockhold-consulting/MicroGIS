@@ -29,9 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         FeaturePropertiesTransformer.register()
-        GeoBaseInfoTransformer.register()
-        GeoShapeTransformer.register()
-
+        GeoWrapperTransformer.register()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

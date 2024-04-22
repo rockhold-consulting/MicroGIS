@@ -11,12 +11,10 @@ import CoreData
 
 class OutlineViewModel {
 
-    let managedObjectContext: NSManagedObjectContext
     let treeController: NSTreeController
 
-    init(document: Document) {
-        managedObjectContext = document.managedObjectContext!
-        treeController = document.treeController
+    init(treeController t: NSTreeController) {
+        treeController = t
     }
 
 //    public func newNode(type t: Node.TypeCode, url: URL?, title: String) -> Node {
@@ -115,7 +113,7 @@ class OutlineViewModel {
 //             selected node's children array.
 //             */
 //            insertionIndexPath = treeController.selectionIndexPath!
-//            if let selectedNode = treeController.selectedObjects[0] as? GeoObject {
+//            if let selectedNode = treeController.selectedObjects[0] as? ModelObject {
 //                // The user is trying to add a folder on a selected folder, so add the selection to the children.
 //                insertionIndexPath.append(selectedNode.children!.count)
 //            }
@@ -124,7 +122,7 @@ class OutlineViewModel {
 //        treeController.insert(node, atArrangedObjectIndexPath: insertionIndexPath)
 //    }
 
-    private func addNode(_ node: GeoObject) {
+    private func addNode(_ node: ModelObject) {
         return
 
         // TODO: implement adding items to the outline (and the map)
@@ -137,7 +135,7 @@ class OutlineViewModel {
 //        } else {
 //            // There's a selection, so insert the child at the end of the selection.
 //            indexPath = treeController.selectionIndexPath!
-//            if let node = treeController.selectedObjects[0] as? GeoObject {
+//            if let node = treeController.selectedObjects[0] as? ModelObject {
 //                indexPath.append(node.children!.count)
 //            }
 //        }
@@ -158,7 +156,7 @@ class OutlineViewModel {
     }
 
     // The system calls this from handleContextualMenu() or the add group button.
-    func addFolder(at item: NSTreeNode) -> GeoObject? {
+    func addFolder(at item: NSTreeNode) -> ModelObject? {
         return nil
 //        // Obtain the base node at the specified outline view's row number, and the indexPath of that base node.
 //        guard let rowItemNode = OutlineViewModel.geoObject(from: item),
@@ -193,17 +191,17 @@ class OutlineViewModel {
         return dropIndexPath
     }
 
-//    private func geoObjectFromIdentifier(anObject: Any, nodes: [NSTreeNode]!) -> NSTreeNode? {
+//    private func modelObjectFromIdentifier(anObject: Any, nodes: [NSTreeNode]!) -> NSTreeNode? {
 //        var treeNode: NSTreeNode?
 //        for node in nodes {
-//            if let testNode = node.representedObject as? GeoObject {
+//            if let testNode = node.representedObject as? ModelObject {
 //                let idCheck = anObject as? String
 //                if idCheck == testNode.objectIdentifier {
 //                    treeNode = node
 //                    break
 //                }
 //                if node.children != nil {
-//                    if let nodeCheck = geoObjectFromIdentifier(anObject: anObject, nodes: node.children) {
+//                    if let nodeCheck = modelObjectFromIdentifier(anObject: anObject, nodes: node.children) {
 //                        treeNode = nodeCheck
 //                        break
 //                    }
@@ -233,10 +231,10 @@ class OutlineViewModel {
         }
     }
 
-    typealias ConfirmFn = @MainActor ([GeoObject]) async -> Bool
+    typealias ConfirmFn = @MainActor ([ModelObject]) async -> Bool
 
     @MainActor
-    func performRemoval(itemsToRemove: [GeoObject]) {
+    func performRemoval(itemsToRemove: [ModelObject]) {
         // Remove the specified set of node objects from the tree controller.
         var indexPathsToRemove = [IndexPath]()
         for item in itemsToRemove {
@@ -251,15 +249,15 @@ class OutlineViewModel {
         self.treeController.setSelectionIndexPaths([])
     }
 
-    func remove(items: [GeoObject]?, confirmFn: ConfirmFn) async {
+    func remove(items: [ModelObject]?, confirmFn: ConfirmFn) async {
 
-        let itemsToRemove: [GeoObject]
+        let itemsToRemove: [ModelObject]
 
         if let items2 = items {
             itemsToRemove = items2
         } else {
             itemsToRemove = treeController.selectedNodes.compactMap { treeNode in
-                if let g = OutlineViewModel.geoObject(from: treeNode) {
+                if let g = OutlineViewModel.modelObject(from: treeNode) {
                     return g
                 } else {
                     return nil

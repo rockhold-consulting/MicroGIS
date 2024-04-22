@@ -107,7 +107,7 @@ extension OutlineViewController: NSOutlineViewDataSource {
   		The system calls this for each dragged item in the selection.
 	*/
     func outlineView(_ outlineView: NSOutlineView, pasteboardWriterForItem item: Any) -> NSPasteboardWriting? {
-        guard let dragNode = OutlineViewModel.geoObject(from: item as! NSTreeNode) else { return nil }
+        guard let dragNode = OutlineViewModel.modelObject(from: item as! NSTreeNode) else { return nil }
         
         return nil
 
@@ -378,12 +378,12 @@ extension OutlineViewController: NSOutlineViewDataSource {
                      operation: NSDragOperation) {
         if operation == .delete,
             let items = session.draggingPasteboard.pasteboardItems {
-            var itemsToRemove = [GeoObject]()
+            var itemsToRemove = [ModelObject]()
 
             // Find the items the user is dragging to the Trash (as a dictionary containing their row numbers).
             for draggedItem in items {
                 if let item = itemFromPasteboardItem(draggedItem) {
-                    if let itemToRemove = OutlineViewModel.geoObject(from: item) {
+                    if let itemToRemove = OutlineViewModel.modelObject(from: item) {
                         itemsToRemove.append(itemToRemove)
                     }
                 }

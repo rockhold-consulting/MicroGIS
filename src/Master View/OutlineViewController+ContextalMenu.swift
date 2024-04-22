@@ -16,7 +16,7 @@ protocol CustomMenuDelegate: AnyObject {
     func outlineViewMenuForRows(_ outlineView: NSOutlineView, rows: IndexSet) -> NSMenu?
 }
 
-extension GeoObject {
+extension ModelObject {
     func canAddTo() -> Bool { !(self is Geometry) }
 
     func canChange() -> Bool { true }
@@ -39,19 +39,19 @@ extension OutlineViewController: CustomMenuDelegate {
             let selectionIndexes = menuItem.representedObject as? IndexSet else { return }
 
         if selectionIndexes.count > 1 {
-            var nodesToRemove = [GeoObject]()
+            var nodesToRemove = [ModelObject]()
             for item in selectionIndexes {
                 if let rowItem = outlineView.item(atRow: item) as? NSTreeNode,
-                    let node = OutlineViewModel.geoObject(from: rowItem) {
+                    let node = OutlineViewModel.modelObject(from: rowItem) {
                         nodesToRemove.append(node)
                     }
             }
             remove(items: nodesToRemove)
         } else {
-            // Expect the first item, the first item being a tree node and ultimately a GeoObject class.
+            // Expect the first item, the first item being a tree node and ultimately a ModelObject.
             guard let item = selectionIndexes.first,
                 let rowItem = outlineView.item(atRow: item),
-                  let g = OutlineViewModel.geoObject(from: rowItem as! NSTreeNode) else { return }
+                  let g = OutlineViewModel.modelObject(from: rowItem as! NSTreeNode) else { return }
 
             switch menuItem.tag {
             case MenuItemTags.removeTag.rawValue:
@@ -67,7 +67,7 @@ extension OutlineViewController: CustomMenuDelegate {
 
             case MenuItemTags.addFeatureTag.rawValue:
                 // Add a picture object to the menu item's representedObject.
-                if let item = self.outlineView.item(atRow: item) as? NSTreeNode, let addToNode = OutlineViewModel.geoObject(from: item) {
+                if let item = self.outlineView.item(atRow: item) as? NSTreeNode, let addToNode = OutlineViewModel.modelObject(from: item) {
                     addFeature(at: addToNode)
                 }
 
@@ -119,25 +119,25 @@ extension OutlineViewController: CustomMenuDelegate {
                 // You must have an item at that row.
                 let item = outlineView.item(atRow: rows.first!) as? NSTreeNode,
                     // You must have a node from that item.
-                    let geoObject = OutlineViewModel.geoObject(from: item) else { return contextMenu }
+                    let modelObject = OutlineViewModel.modelObject(from: item) else { return contextMenu }
 
             // The item is a non-URL file object, so you can remove or rename it.
             //
                let removeItemFormat = NSLocalizedString("context remove string", comment: "")
-            let removeMenuItemTitle = String(format: removeItemFormat, geoObject.description)
+            let removeMenuItemTitle = String(format: removeItemFormat, modelObject.title ?? "<no title>")
             contextMenu.addItem(contextMenuItem(removeMenuItemTitle,
                                                 tag: MenuItemTags.removeTag.rawValue,
                                                 representedObject: rows))
 
-            if geoObject.canChange() {
+            if modelObject.canChange() {
                 let renameItemFormat = NSLocalizedString("context rename string", comment: "")
-                let renameMenuItemTitle = String(format: renameItemFormat, geoObject.description)
+                let renameMenuItemTitle = String(format: renameItemFormat, modelObject.title ?? "<no title>")
                 contextMenu.addItem(contextMenuItem(renameMenuItemTitle,
                                                     tag: MenuItemTags.renameTag.rawValue,
                                                     representedObject: rows))
             }
 
-            if geoObject.canAddTo() {
+            if modelObject.canAddTo() {
                 // The item is a container you can add to.
                 contextMenu.addItem(contextMenuItem(NSLocalizedString("add picture", comment: ""),
                                                     tag: MenuItemTags.addFeatureTag.rawValue,

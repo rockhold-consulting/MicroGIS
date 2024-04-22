@@ -27,20 +27,6 @@ import UniformTypeIdentifiers
 import OSLog
 
 class Document: NSPersistentDocument {
-    
-    // MARK: TreeController
-    // The data source backing the NSOutlineView.
-    lazy var treeController: NSTreeController = {
-        let tc = NSTreeController()
-        tc.childrenKeyPath = "children"
-        tc.leafKeyPath = "isLeaf"
-        tc.preservesSelection = true
-        tc.selectsInsertedObjects = true
-        tc.isEditable = true
-        tc.managedObjectContext = self.managedObjectContext
-        tc.entityName = "GeoObject"
-        return tc
-    }()
 
     override class var autosavesInPlace: Bool { return true }
             
@@ -52,10 +38,25 @@ class Document: NSPersistentDocument {
         // and injects it into the root view controller
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! WindowController
-        windowController.contentViewController?.representedObject = OutlineViewModel(document: self)
+        windowController.contentViewController?.representedObject = managedObjectContext
         self.addWindowController(windowController)
     }
-    
+
+    override func write(to absoluteURL: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, originalContentsURL absoluteOriginalContentsURL: URL?) throws {
+        do {
+            try super.write(to: absoluteURL, ofType: typeName, for: saveOperation, originalContentsURL: absoluteOriginalContentsURL)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+    override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
+        do {
+            try super.writeSafely(to: url, ofType: typeName, for: saveOperation)
+        } catch {
+            fatalError(error.localizedDescription)
+        }
+    }
+
     @IBAction
     func importFile(_ sender: Any?) {
 

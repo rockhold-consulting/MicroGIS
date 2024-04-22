@@ -105,71 +105,85 @@ extension MKGeoJSONFeature {
     }
 }
 
-public class GeorgMKGeoJSONFeatureSource {    
+extension GeoObjectCreator {
+    func createGeometry(from shape: MKShape, parent: GeometryParent) {
 
-    let logger = Logger(subsystem: "org.appel-rockhold.Georg", category: "GeorgMKGeoJSONFeatureSource")
-
-    private func createGeometry(
-        from shape: MKShape,
-        geoObjectCreator: GeoObjectCreator,
-        parent: GeoObjectParent
-    ) {
         switch shape {
         case let pa as MKPointAnnotation:
-            geoObjectCreator.createAnnotationGeometry(
-                coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: pa.coordinate),
-                title: pa.title,
-                subtitle: pa.subtitle,
-                parent: parent)
+            let _ = self.createAnnotationGeometry(
+                coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: pa.coordinate), parent: parent)
 
         case let overlay as MKCircle:
-            geoObjectCreator.createOverlayGeometry(
+            let _ = self.createOverlayGeometry(
                 coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: overlay.coordinate),
                 boundingBox: Geometry.MapBox(fromMKMapRect: overlay.boundingMapRect),
-                shape: GeoCircle(with: overlay),
-                parent: parent)
+                shape: GeoCircle(with: overlay), parent: parent)
 
         case let overlay as MKMultiPolygon:
-            geoObjectCreator.createOverlayGeometry(
+            let _ = self.createOverlayGeometry(
                 coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: overlay.coordinate),
                 boundingBox: Geometry.MapBox(fromMKMapRect: overlay.boundingMapRect),
-                shape: GeoMultiPolygon(with: overlay),
-                parent: parent)
+                shape: GeoMultiPolygon(with: overlay), parent: parent)
 
         case let overlay as MKMultiPolyline:
-            geoObjectCreator.createOverlayGeometry(
+            let _ = self.createOverlayGeometry(
                 coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: overlay.coordinate),
                 boundingBox: Geometry.MapBox(fromMKMapRect: overlay.boundingMapRect),
-                shape: GeoMultiPolyline(with: overlay),
-                parent: parent)
+                shape: GeoMultiPolyline(with: overlay), parent: parent)
 
         case let overlay as MKPolygon:
-            geoObjectCreator.createOverlayGeometry(
+            let _ = self.createOverlayGeometry(
                 coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: overlay.coordinate),
                 boundingBox: Geometry.MapBox(fromMKMapRect: overlay.boundingMapRect),
-                shape: GeoPolygon(with: overlay),
-                parent: parent)
+                shape: GeoPolygon(with: overlay), parent: parent)
 
         case let overlay as MKPolyline:
-            geoObjectCreator.createOverlayGeometry(
+            let _ = self.createOverlayGeometry(
                 coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: overlay.coordinate),
                 boundingBox: Geometry.MapBox(fromMKMapRect: overlay.boundingMapRect),
-                shape: GeoPolyline(with: overlay),
-                parent: parent)
+                shape: GeoPolyline(with: overlay), parent: parent)
 
         case let overlay as MKGeodesicPolyline:
-            geoObjectCreator.createOverlayGeometry(
+            let _ = self.createOverlayGeometry(
                 coordinate: Geometry.Coordinate3D(fromCLLocationCoordinate2D: overlay.coordinate),
                 boundingBox: Geometry.MapBox(fromMKMapRect: overlay.boundingMapRect),
-                shape: GeoGeodesicPolyline(with: overlay),
-                parent: parent)
+                shape: GeoGeodesicPolyline(with: overlay), parent: parent)
 
         default:
+            fatalError("unsupported kind of geometry")
             break
         }
     }
+}
+
+public class GeorgMKGeoJSONFeatureSource {
+
+    let logger = Logger(subsystem: "org.appel-rockhold.Georg", category: "GeorgMKGeoJSONFeatureSource")
 
     public func importLayer(from fileURL: URL, creator: GeoObjectCreator) {
+
+        func s1(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties) -> String? {
+            if let identifier = mkFeature.identifier {
+                if !identifier.isEmpty {
+                    return identifier
+                }
+            }
+            return nil
+        }
+
+        func s2(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties) -> String? {
+            if let propsFeatureID = featureProperties.featureID {
+                if !propsFeatureID.isEmpty {
+                    return propsFeatureID
+                }
+            }
+            return nil
+        }
+
+        func s3(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties) -> String? {
+            logger.info("no ID for feature")
+            return nil
+        }
 
         let name = fileURL.lastPathComponent
         let layer = creator.createLayer(name: name.isEmpty ? "Imported Layer" : name, importDate: .now)
@@ -180,31 +194,24 @@ public class GeorgMKGeoJSONFeatureSource {
                 switch topLevelGeoJSONObject {
 
                 case let shape as MKShape:
-                    createGeometry(from: shape, geoObjectCreator: creator, parent: layer)
+                    creator.createGeometry(from: shape, parent: layer)
 
                 case let mkFeature as MKGeoJSONFeature:
                     let featureProperties = FeatureProperties(data: mkFeature.properties)
-                    var id: String = ""
-                    if let identifier = mkFeature.identifier {
-                        id = identifier.isEmpty ? "" : identifier
-                    }
-                    if id.isEmpty {
-                        id = featureProperties.featureID ?? ""
-                    }
-                    if id.isEmpty {
-                        logger.info("no ID for feature")
+                    var id: String? = nil
+
+                    for s in [s1, s2, s3] {
+                        id = s(mkFeature, featureProperties)
+                        if id != nil { break }
                     }
 
                     let feature = creator.createFeature(
-                        parent: layer,
                         featureID: id,
-                        properties: featureProperties
+                        properties: featureProperties,
+                        parent: layer
                     )
                     for shape in mkFeature.geometry {
-                        createGeometry(
-                            from: shape,
-                            geoObjectCreator: creator,
-                            parent: feature)
+                        creator.createGeometry(from: shape, parent: feature)
                     }
 
                 default:
@@ -213,9 +220,8 @@ public class GeorgMKGeoJSONFeatureSource {
             }
         }
         catch {
-            // Throw?
-            //                throw GeorgError.importError(error: error)
             self.logger.debug("error decoding GeoJSON file")
         }
+
     }
 }

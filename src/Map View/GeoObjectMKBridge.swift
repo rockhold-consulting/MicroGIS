@@ -20,66 +20,88 @@ protocol Rendererable {
 
 extension GeoPolyline: Rendererable {
     func makeRenderer() -> MKOverlayPathRenderer {
-        let renderer = MKPolylineRenderer(polyline: MKPolyline(from: self))
-        renderer.fillColor = NSColor.green
-        renderer.strokeColor = NSColor.green
-        renderer.lineWidth = 4.0
-        return renderer
+        return MKPolylineRenderer(polyline: MKPolyline(from: self))
+    }
+}
+
+extension GeoCircle: Rendererable {
+    func makeRenderer() -> MKOverlayPathRenderer {
+        return MKCircleRenderer(circle: MKCircle(center: self.center.clcoordinate, radius: self.radius))
     }
 }
 
 extension GeoGeodesicPolyline: Rendererable {
     func makeRenderer() -> MKOverlayPathRenderer {
-        let renderer = MKPolylineRenderer(polyline: MKGeodesicPolyline(from: self))
-        renderer.fillColor = NSColor.blue
-        renderer.strokeColor = NSColor.blue
-        renderer.lineWidth = 4.0
-        return renderer
+        return MKPolylineRenderer(polyline: MKGeodesicPolyline(from: self))
     }
 }
 
 extension GeoPolygon: Rendererable {
     func makeRenderer() -> MKOverlayPathRenderer {
-        let renderer = MKPolygonRenderer(polygon: MKPolygon(from: self))
-        renderer.fillColor = NSColor.yellow
-        renderer.strokeColor = NSColor.yellow
-        renderer.lineWidth = 4.0
-        return renderer
+        return MKPolygonRenderer(polygon: MKPolygon(from: self))
     }
 }
 
 extension GeoMultiPolyline: Rendererable {
     func makeRenderer() -> MKOverlayPathRenderer {
-        let renderer = MKMultiPolylineRenderer(multiPolyline: MKMultiPolyline(from: self))
-        renderer.fillColor = NSColor.red
-        renderer.strokeColor = NSColor.red
-        renderer.lineWidth = 4.0
-        return renderer
+        return MKMultiPolylineRenderer(multiPolyline: MKMultiPolyline(from: self))
     }
 }
 
 extension GeoMultiPolygon: Rendererable {
     func makeRenderer() -> MKOverlayPathRenderer {
-        let renderer = MKMultiPolygonRenderer(multiPolygon: MKMultiPolygon(from: self))
-        renderer.fillColor = NSColor.orange
-        renderer.strokeColor = NSColor.orange
-        renderer.lineWidth = 4.0
-        return renderer
+        return MKMultiPolygonRenderer(multiPolygon: MKMultiPolygon(from: self))
     }
 }
 
-extension Geometry: MKOverlay {
+class GeometryProxy: NSObject, MKAnnotation, MKOverlay {
+    let geometryID: NSManagedObjectID
+    let coordinate: CLLocationCoordinate2D
+    let boundingMapRect: MKMapRect
+    let title: String?
+    let subtitle: String?
 
-    public var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(fromCoordinate: baseInfo!.value.coordinate)
+    init(
+        geometryID: NSManagedObjectID,
+        coordinate: CLLocationCoordinate2D,
+        boundingMapRect: MKMapRect,
+        title: String?,
+        subtitle: String?
+    ) {
+        self.geometryID = geometryID
+        self.coordinate = coordinate
+        self.boundingMapRect = boundingMapRect
+        self.title = title
+        self.subtitle = subtitle
     }
 
-    public var boundingMapRect: MKMapRect {
-        return MKMapRect(fromBox: baseInfo!.value.boundingBox!)
+    convenience init(geometry: Geometry) {
+        self.init(
+            geometryID: geometry.objectID,
+            coordinate: geometry.coordinate,
+            boundingMapRect: geometry.boundingMapRect ?? MKMapRect.null,
+            title: geometry.title,
+            subtitle: nil
+        )
+    }
+}
+
+extension Geometry {
+
+    public var coordinate: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(fromCoordinate: wrapped!.baseInfo.coordinate)
+    }
+
+    public var boundingMapRect: MKMapRect? {
+        if let bb =  wrapped?.baseInfo.boundingBox {
+            return MKMapRect(fromBox: bb)
+        } else {
+            return nil
+        }
     }
 
     var betterBox: MKMapRect {
-        guard let bbox = baseInfo!.value.boundingBox else {
+        guard let bbox = wrapped?.baseInfo.boundingBox else {
             return MKMapRect(origin: MKMapPoint(coordinate),
                              size: MKMapSize(width: 0.0001, height: 0.0001))
         }
@@ -93,8 +115,7 @@ extension Geometry: MKOverlay {
     }
 
     func makeRenderer() -> MKOverlayPathRenderer? {
-        guard let r = shape as? Rendererable else { return nil }
-        return r.makeRenderer()
+        return (wrapped?.shape as? Rendererable)?.makeRenderer()
     }
 }
 
@@ -183,7 +204,6 @@ extension MKMapRect {
 
 extension MKMapView {
     func pointToMapPoint(_ point: CGPoint) -> MKMapPoint {
-
         return MKMapPoint(self.convert(point, toCoordinateFrom: self))
     }
 }
