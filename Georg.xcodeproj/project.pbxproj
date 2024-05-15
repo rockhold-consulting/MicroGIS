@@ -12,6 +12,7 @@
 		2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* StyleManager.swift */; };
 		2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */; };
 		2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
+		2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305632BF5249E00E90FAA /* InspectorViewController.swift */; };
 		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
 		2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443AF2B2FCB9100244326 /* SplitViewController.swift */; };
 		2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B02B2FCB9100244326 /* WindowViewController.swift */; };
@@ -54,6 +55,7 @@
 		2E8304C72BEFE8A000E90FAA /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStyleManager.swift; sourceTree = "<group>"; };
 		2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryFormatter.swift; sourceTree = "<group>"; };
+		2E8305632BF5249E00E90FAA /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
 		2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeorgError.swift; sourceTree = "<group>"; };
 		2EACC0362BE9528B00A7F91A /* Georg-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Shared.xcconfig"; sourceTree = "<group>"; };
 		2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +119,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E8305652BF524CC00E90FAA /* Inspector View */ = {
+			isa = PBXGroup;
+			children = (
+				2E8305632BF5249E00E90FAA /* InspectorViewController.swift */,
+			);
+			path = "Inspector View";
+			sourceTree = "<group>";
+		};
 		2EACC0352BE9528B00A7F91A /* xcconfig */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +188,7 @@
 				2EE770192B2FBE1F00E67B56 /* Main Window */,
 				2EC443AE2B2FCB4700244326 /* Master View */,
 				2EE7701A2B2FBE5300E67B56 /* Map View */,
+				2E8305652BF524CC00E90FAA /* Inspector View */,
 				2EF569E82BCF292200964F85 /* Misc Extensions */,
 				2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */,
 				2EF0D11C2A983E6E0018E70D /* Assets.xcassets */,
@@ -339,6 +350,7 @@
 				2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */,
 				2EC443C02B2FCBD800244326 /* OutlineView.swift in Sources */,
 				2EF569D02BCE0AD400964F85 /* OutlineViewModel.swift in Sources */,
+				2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */,
 				2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */,
 				2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */,
 				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
