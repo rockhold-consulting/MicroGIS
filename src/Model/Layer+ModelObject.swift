@@ -11,8 +11,15 @@ import CoreData
 extension Layer: ModelObject {
     var identifier: NSObject { self.objectID }
 
-    var title: String? { self.name ?? "<no name>" }
-
+    var title: String? {
+        get {
+            self.name ?? ""
+        }
+        set {
+            self.name = newValue
+        }
+    }
+    
     var isLeaf: Bool { false }
     
     var kidArray: [ModelObject]? {

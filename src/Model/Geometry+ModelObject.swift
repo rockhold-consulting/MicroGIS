@@ -289,8 +289,15 @@ public extension Geometry {
 extension Geometry: ModelObject {
 
     var title: String? {
-        GeometryFormatter().string(from: self)
+        get {
+            GeometryFormatter().string(from: self)
+        }
+        set {
+            // TODO: decide what to do about this
+        }
     }
+
+    var canRename: Bool { false }
 
     var identifier: NSObject { self.objectID }
 

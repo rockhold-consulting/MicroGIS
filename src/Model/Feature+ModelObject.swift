@@ -88,7 +88,14 @@ import CoreData
 
 extension Feature: ModelObject {    
 
-    var title: String? { featureID }
+    var title: String? {
+        get {
+            featureID ?? ""
+        }
+        set {
+            featureID = newValue
+        }
+    }
 
     var identifier: NSObject { self.objectID }
 
@@ -97,7 +104,12 @@ extension Feature: ModelObject {
     var kidArray: [ModelObject]? { (geometries?.array as! [ModelObject]) }
 
     var icon: KitImage {
-        return KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
+        let defaultIcon = KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
+        if (geometries?.count ?? 0) == 1 {
+            return (geometries?.first as? Geometry)?.icon ?? defaultIcon
+        } else {
+            return defaultIcon
+        }
     }
 
     convenience init(

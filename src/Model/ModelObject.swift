@@ -18,7 +18,7 @@ public typealias KitImage = UIImage
 @objc protocol ModelObject {
     var identifier: NSObject { get } // NSManagedObjectID
 
-    var title: String? { get }
+    var title: String? { get set }
 
     @objc var isLeaf: Bool { get }
 

@@ -1,9 +1,9 @@
 /*
-See LICENSE folder for this sample’s licensing information.
+ See LICENSE folder for this sample’s licensing information.
 
-Abstract:
-NSOutlineViewDelegate support for OutlineViewController.
-*/
+ Abstract:
+ NSOutlineViewDelegate support for OutlineViewController.
+ */
 
 import Cocoa
 

@@ -295,10 +295,9 @@ class OutlineViewController: NSViewController,
         guard let item = outlineView.item(atRow: outlineView.selectedRow) as? NSTreeNode,
               let node = OutlineViewModel.modelObject(from: item) else { return }
 
-        // TODO: implement this for Layers, Features, and Geometries
-//        if let textField = obj.object as? NSTextField {
-//            node.title = textField.stringValue
-//        }
+        if let textField = obj.object as? NSTextField {
+            node.title = textField.stringValue
+        }
     }
 
     // MARK: NSValidatedUserInterfaceItem
