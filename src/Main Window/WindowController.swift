@@ -25,14 +25,8 @@
 //
 
 import Cocoa
+import SwiftUI
 
 class WindowController: NSWindowController {
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
-    }
-
-    override func windowWillLoad() {
-        super.windowWillLoad()
-    }
 }

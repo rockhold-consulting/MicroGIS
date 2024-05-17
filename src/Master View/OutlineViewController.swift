@@ -93,33 +93,6 @@ class OutlineViewController: NSViewController,
             .nodeRowPasteBoardType, // Your internal drag type, the outline view's row number for internal drags.
             NSPasteboard.PasteboardType.fileURL // To receive file URL drags.
         ])
-
-        /** Note: The following makes the outline view appear with gradient background and proper
-         selection to behave like the Finder sidebar, iTunes, and so forth.
-         */
-        //outlineView.selectionHighlightStyle = .sourceList // But you already do this in the storyboard.
-
-        // Set up observers for the outline view's selection, adding items, and removing items.
-        // A notification to add a folder.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(addFolder(_:)),
-            name: Notification.Name(WindowViewController.NotificationNames.addFolder),
-            object: nil)
-
-        // A notification to add a picture.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(addFeature(_:)),
-            name: Notification.Name(WindowViewController.NotificationNames.addFeature),
-            object: nil)
-
-        // A notification to remove an item.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(removeItem(_:)),
-            name: Notification.Name(WindowViewController.NotificationNames.removeItem),
-            object: nil)
     }
 
     override func viewWillAppear() {
@@ -146,16 +119,6 @@ class OutlineViewController: NSViewController,
 
     deinit {
         selectionChangedCancellable?.cancel()
-
-        [WindowViewController.NotificationNames.addFolder,
-         WindowViewController.NotificationNames.addFeature,
-         WindowViewController.NotificationNames.removeItem
-        ].forEach { s in
-            NotificationCenter.default.removeObserver(
-                self,
-                name: Notification.Name(s),
-                object: nil)
-        }
     }
 
     // MARK: Removal and Addition
@@ -238,13 +201,6 @@ class OutlineViewController: NSViewController,
 
             // Create a ModelObject of the type appropriate to where we're inserting it
             fatalError("TODO: unimplemented feature")
-//            let node = self.outlineViewModel?.newNode(
-//                type: .document,
-//                url: openPanel.url,
-//                title: openPanel.url?.localizedName ?? ""
-//            )
-//
-//            self.outlineViewModel?.treeController.insert(node, atArrangedObjectIndexPath: indexPathToInsert)
         }
     }
 

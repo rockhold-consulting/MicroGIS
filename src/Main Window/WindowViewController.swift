@@ -8,6 +8,7 @@
 import Cocoa
 import Combine
 import UniformTypeIdentifiers // for UTType
+import SwiftUI
 
 class WindowViewController: NSViewController {
 
@@ -17,6 +18,21 @@ class WindowViewController: NSViewController {
 
     override var representedObject: Any? {
         didSet {
+            if let moc = representedObject as? NSManagedObjectContext {
+                var controller = NSHostingController(rootView: DocumentView().environment(\.managedObjectContext, moc))
+
+                addChild(controller)
+                controller.view.translatesAutoresizingMaskIntoConstraints = false
+                view.addSubview(controller.view)
+
+                NSLayoutConstraint.activate([
+                    controller.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+                    controller.view.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+                    controller.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+                    controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+                ])
+            }
+
             treeController = makeTreeController(managedObjectContext: representedObject as? NSManagedObjectContext)
             if let svc = splitViewController {
                 svc.representedObject = treeController
@@ -58,17 +74,17 @@ class WindowViewController: NSViewController {
             // Remember the selected nodes for later when the system calls NSToolbarItemValidation and NSMenuItemValidation.
             self.selectedNodes = selectedNodes
 
-            guard let currentlySelectedNodes = self.selectedNodes else { return }
-
-            if !currentlySelectedNodes.isEmpty && currentlySelectedNodes.count == 1 {
-                if let item = OutlineViewModel.modelObject(from: currentlySelectedNodes[0]) {
-                    if item is Layer {
-                        // The user selected a directory, so this could take a while to populate the detail view controller.
-                        progIndicator.isHidden = false
-                        progIndicator.startAnimation(self)
-                    }
-                }
-            }
+//            guard let currentlySelectedNodes = self.selectedNodes else { return }
+//
+//            if !currentlySelectedNodes.isEmpty && currentlySelectedNodes.count == 1 {
+//                if let item = OutlineViewModel.modelObject(from: currentlySelectedNodes[0]) {
+//                    if item is Layer {
+//                        // The user selected a directory, so this could take a while to populate the detail view controller.
+//                        progIndicator.isHidden = false
+//                        progIndicator.startAnimation(self)
+//                    }
+//                }
+//            }
         }
     }
 
@@ -111,33 +127,6 @@ class WindowViewController: NSViewController {
         progIndicator.isHidden = true
         progIndicator.stopAnimation(self)
     }
-
-    // MARK: Actions
-
-    struct NotificationNames {
-        // A notification to instruct OutlineViewController to add a folder.
-        static let addFolder = "AddFolderNotification"
-        // A notification to instruct OutlineViewController to add a picture.
-        static let addFeature = "AddFeatureNotification"
-        // A notification to instruct OutlineViewController to remove an item.
-        static let removeItem = "RemoveItemNotification"
-    }
-
-    @IBAction func addFolderAction(_: AnyObject) {
-        // Post a notification to OutlineViewController to add a new folder group.
-        NotificationCenter.default.post(name: Notification.Name(NotificationNames.addFolder), object: nil)
-    }
-
-    @IBAction func addFeatureAction(_: AnyObject) {
-        // Post a notification to OutlineViewController to add a new picture.
-        NotificationCenter.default.post(name: Notification.Name(NotificationNames.addFeature), object: nil)
-    }
-
-    @IBAction func removeAction(_: AnyObject) {
-        // Post a notification to OutlineViewController to remove an item.
-        NotificationCenter.default.post(name: Notification.Name(NotificationNames.removeItem), object: nil)
-    }
-
 }
 
 // MARK: - NSToolbarItemValidation
@@ -196,17 +185,6 @@ private extension NSToolbarItem.Identifier {
     static let removeItem: NSToolbarItem.Identifier = NSToolbarItem.Identifier(rawValue: "remove")
 }
 
-extension WindowViewController {
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EmbedSplitViewControllerSegue" {
-            guard let dest = segue.destinationController as? SplitViewController else {
-                fatalError("unexpected error: unexpected view controller transition")
-            }
-            splitViewController = dest
-        }
-    }
-}
-
 extension WindowViewController: NSToolbarDelegate {
 
     /** NSToolbar delegates require this function.
@@ -220,39 +198,6 @@ extension WindowViewController: NSToolbarDelegate {
 
         let toolbarItem = NSToolbarItem(itemIdentifier: itemIdentifier)
 
-        /// Create a new NSToolbarItem, and then go through the process of setting up its attributes.
-        if itemIdentifier == NSToolbarItem.Identifier.addItem {
-            // Configure the Add toolbar item.
-            var image: NSImage!
-            if #available(OSX 11.0, *) {
-                let config = NSImage.SymbolConfiguration(scale: .large)
-                image = NSImage(systemSymbolName: "plus", accessibilityDescription: "Add")!.withSymbolConfiguration(config)
-            } else {
-                image = NSImage(named: NSImage.addTemplateName)
-            }
-            let segmentControl = NSSegmentedControl(images: [image], trackingMode: .selectOne, target: nil, action: nil)
-
-            let addMenu = NSMenu(title: "Add")
-            addMenu.addItem(NSMenuItem(title: "Add Feature…", action: #selector(addFeatureAction), keyEquivalent: ""))
-            addMenu.addItem(NSMenuItem(title: "Add Group", action: #selector(addFolderAction), keyEquivalent: ""))
-            segmentControl.setMenu(addMenu, forSegment: 0)
-            segmentControl.setShowsMenuIndicator(true, forSegment: 0)
-
-            toolbarItem.view = segmentControl
-            toolbarItem.label = "Add"
-            toolbarItem.image = image
-        } else if itemIdentifier == NSToolbarItem.Identifier.removeItem {
-            // Configure the Remove toolbar item.
-            if #available(OSX 11.0, *) {
-                let config = NSImage.SymbolConfiguration(scale: .small)
-                let image = NSImage(systemSymbolName: "minus", accessibilityDescription: "Remove")!.withSymbolConfiguration(config)
-                toolbarItem.image = image
-            } else {
-                toolbarItem.image = NSImage(named: NSImage.removeTemplateName)
-            }
-            toolbarItem.action = #selector(removeAction)
-            toolbarItem.label = "Remove"
-        }
 
         return toolbarItem
     }
@@ -274,8 +219,9 @@ extension WindowViewController: NSToolbarDelegate {
         if #available(macOS 11.0, *) {
             toolbarItemIdentifiers.append(.toggleSidebar)
         }
-        toolbarItemIdentifiers.append(.addItem)
-        toolbarItemIdentifiers.append(.removeItem)
+        if #available(macOS 14.0, *) {
+            toolbarItemIdentifiers.append(.toggleInspector)
+        }
         return toolbarItemIdentifiers
     }
 
@@ -285,5 +231,4 @@ extension WindowViewController: NSToolbarDelegate {
     func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
         return self.toolbarDefaultItemIdentifiers(toolbar)
     }
-
 }

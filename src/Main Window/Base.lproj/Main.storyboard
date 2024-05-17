@@ -112,7 +112,7 @@
                                                 <action selector="revertDocumentToSaved:" target="Ady-hI-5gd" id="iJ3-Pv-kwq"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Import…" enabled="NO" keyEquivalent="i" id="roF-fg-y2S" userLabel="Export…">
+                                        <menuItem title="Export…" enabled="NO" keyEquivalent="e" id="roF-fg-y2S" userLabel="Export…">
                                             <connections>
                                                 <action selector="exportToFile:" target="Ady-hI-5gd" id="IF9-Ek-klF"/>
                                             </connections>
@@ -698,7 +698,7 @@
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" customClass="WindowController" customModule="Georg" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController storyboardIdentifier="Document Window Controller" id="jGA-0Y-lOj" sceneMemberID="viewController">
                     <window key="window" title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="Ckk-yw-fiv">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <rect key="contentRect" x="0.0" y="0.0" width="638" height="298"/>
@@ -708,7 +708,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="IZF-sJ-0ih" kind="relationship" relationship="window.shadowedContentViewController" id="ZZX-8T-E6m"/>
+                        <segue destination="IZF-sJ-0ih" kind="relationship" relationship="window.shadowedContentViewController" destinationCreationSelector="make3:sender:segueIdentifier:" id="iaO-4d-kWJ"/>
                     </connections>
                 </windowController>
                 <customObject id="6f7-a7-6o1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -756,9 +756,6 @@
                         <subviews>
                             <containerView translatesAutoresizingMaskIntoConstraints="NO" id="czR-M2-xl4">
                                 <rect key="frame" x="0.0" y="0.0" width="832" height="480"/>
-                                <connections>
-                                    <segue destination="krN-OZ-4td" kind="embed" identifier="EmbedSplitViewControllerSegue" id="GKu-dI-h84"/>
-                                </connections>
                             </containerView>
                             <progressIndicator hidden="YES" wantsLayer="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="QWd-qk-P88">
                                 <rect key="frame" x="10" y="5" width="16" height="16"/>
@@ -780,6 +777,14 @@
                 <customObject id="8Nj-3N-tg3" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-228" y="739"/>
+        </scene>
+        <!--Hosting Controller-->
+        <scene sceneID="yh9-Uv-vI4">
+            <objects>
+                <hostingController id="ksd-vl-b5M" sceneMemberID="viewController"/>
+                <customObject id="gnY-Oj-d3c" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="27" y="1349"/>
         </scene>
         <!--Outline View Controller-->
         <scene sceneID="vW0-mV-xc1">

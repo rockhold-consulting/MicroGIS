@@ -13,6 +13,15 @@
 		2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */; };
 		2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
 		2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305632BF5249E00E90FAA /* InspectorViewController.swift */; };
+		2E83056D2BF5778500E90FAA /* Georg_IIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83056C2BF5778500E90FAA /* Georg_IIApp.swift */; };
+		2E83056F2BF5778500E90FAA /* Georg_IIDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83056E2BF5778500E90FAA /* Georg_IIDocument.swift */; };
+		2E8305712BF5778500E90FAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305702BF5778500E90FAA /* ContentView.swift */; };
+		2E8305732BF5778900E90FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8305722BF5778900E90FAA /* Assets.xcassets */; };
+		2E8305762BF5778900E90FAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8305752BF5778900E90FAA /* Preview Assets.xcassets */; };
+		2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83057E2BF688AF00E90FAA /* DocumentView.swift */; };
+		2E8305812BF6A89A00E90FAA /* HostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305802BF6A89A00E90FAA /* HostController.swift */; };
+		2E8305832BF7E7FA00E90FAA /* FeatureDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */; };
+		2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305842BF801B500E90FAA /* FeatureRow.swift */; };
 		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
 		2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443AF2B2FCB9100244326 /* SplitViewController.swift */; };
 		2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B02B2FCB9100244326 /* WindowViewController.swift */; };
@@ -56,6 +65,18 @@
 		2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStyleManager.swift; sourceTree = "<group>"; };
 		2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryFormatter.swift; sourceTree = "<group>"; };
 		2E8305632BF5249E00E90FAA /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
+		2E83056A2BF5778400E90FAA /* Georg-II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Georg-II.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E83056C2BF5778500E90FAA /* Georg_IIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Georg_IIApp.swift; sourceTree = "<group>"; };
+		2E83056E2BF5778500E90FAA /* Georg_IIDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Georg_IIDocument.swift; sourceTree = "<group>"; };
+		2E8305702BF5778500E90FAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2E8305722BF5778900E90FAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E8305752BF5778900E90FAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2E8305772BF5778900E90FAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E8305782BF5778900E90FAA /* Georg_II.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Georg_II.entitlements; sourceTree = "<group>"; };
+		2E83057E2BF688AF00E90FAA /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
+		2E8305802BF6A89A00E90FAA /* HostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostController.swift; sourceTree = "<group>"; };
+		2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDetails.swift; sourceTree = "<group>"; };
+		2E8305842BF801B500E90FAA /* FeatureRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRow.swift; sourceTree = "<group>"; };
 		2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeorgError.swift; sourceTree = "<group>"; };
 		2EACC0362BE9528B00A7F91A /* Georg-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Shared.xcconfig"; sourceTree = "<group>"; };
 		2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
@@ -107,6 +128,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2E8305672BF5778400E90FAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2ECCEAED2A9436C0005785FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -125,6 +153,28 @@
 				2E8305632BF5249E00E90FAA /* InspectorViewController.swift */,
 			);
 			path = "Inspector View";
+			sourceTree = "<group>";
+		};
+		2E83056B2BF5778500E90FAA /* Georg-II */ = {
+			isa = PBXGroup;
+			children = (
+				2E83056C2BF5778500E90FAA /* Georg_IIApp.swift */,
+				2E83056E2BF5778500E90FAA /* Georg_IIDocument.swift */,
+				2E8305702BF5778500E90FAA /* ContentView.swift */,
+				2E8305722BF5778900E90FAA /* Assets.xcassets */,
+				2E8305772BF5778900E90FAA /* Info.plist */,
+				2E8305782BF5778900E90FAA /* Georg_II.entitlements */,
+				2E8305742BF5778900E90FAA /* Preview Content */,
+			);
+			path = "Georg-II";
+			sourceTree = "<group>";
+		};
+		2E8305742BF5778900E90FAA /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2E8305752BF5778900E90FAA /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		2EACC0352BE9528B00A7F91A /* xcconfig */ = {
@@ -166,6 +216,7 @@
 				2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */,
 				2EACC0352BE9528B00A7F91A /* xcconfig */,
 				2ECCEAF22A9436C0005785FA /* src */,
+				2E83056B2BF5778500E90FAA /* Georg-II */,
 				2ECCEAF12A9436C0005785FA /* Products */,
 				2EF33E642ADF0077004C750F /* Frameworks */,
 				2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */,
@@ -176,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				2ECCEAF02A9436C0005785FA /* Georg.app */,
+				2E83056A2BF5778400E90FAA /* Georg-II.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +259,10 @@
 				2EC443B02B2FCB9100244326 /* WindowViewController.swift */,
 				2EC443AF2B2FCB9100244326 /* SplitViewController.swift */,
 				2ECCEAFE2A9436C4005785FA /* Main.storyboard */,
+				2E83057E2BF688AF00E90FAA /* DocumentView.swift */,
+				2E8305802BF6A89A00E90FAA /* HostController.swift */,
+				2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */,
+				2E8305842BF801B500E90FAA /* FeatureRow.swift */,
 			);
 			path = "Main Window";
 			sourceTree = "<group>";
@@ -269,6 +325,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2E8305692BF5778400E90FAA /* Georg-II */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E8305792BF5778900E90FAA /* Build configuration list for PBXNativeTarget "Georg-II" */;
+			buildPhases = (
+				2E8305662BF5778400E90FAA /* Sources */,
+				2E8305672BF5778400E90FAA /* Frameworks */,
+				2E8305682BF5778400E90FAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Georg-II";
+			productName = "Georg-II";
+			productReference = 2E83056A2BF5778400E90FAA /* Georg-II.app */;
+			productType = "com.apple.product-type.application";
+		};
 		2ECCEAEF2A9436C0005785FA /* Georg */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2ECCEB052A9436C4005785FA /* Build configuration list for PBXNativeTarget "Georg" */;
@@ -297,9 +370,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					2E8305692BF5778400E90FAA = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					2ECCEAEF2A9436C0005785FA = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -322,11 +398,21 @@
 			projectRoot = "";
 			targets = (
 				2ECCEAEF2A9436C0005785FA /* Georg */,
+				2E8305692BF5778400E90FAA /* Georg-II */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2E8305682BF5778400E90FAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E8305762BF5778900E90FAA /* Preview Assets.xcassets in Resources */,
+				2E8305732BF5778900E90FAA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2ECCEAEE2A9436C0005785FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -341,6 +427,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2E8305662BF5778400E90FAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E83056D2BF5778500E90FAA /* Georg_IIApp.swift in Sources */,
+				2E83056F2BF5778500E90FAA /* Georg_IIDocument.swift in Sources */,
+				2E8305712BF5778500E90FAA /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2ECCEAEC2A9436C0005785FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,6 +444,7 @@
 				2E5E56A92BEBF44B006C571F /* MapViewModel.swift in Sources */,
 				2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */,
 				2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */,
+				2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */,
 				2EC443C02B2FCBD800244326 /* OutlineView.swift in Sources */,
 				2EF569D02BCE0AD400964F85 /* OutlineViewModel.swift in Sources */,
 				2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */,
@@ -355,17 +452,20 @@
 				2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */,
 				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
 				2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */,
+				2E8305812BF6A89A00E90FAA /* HostController.swift in Sources */,
 				2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */,
 				2EC443BF2B2FCBD800244326 /* OutlineViewModel+Helpers.swift in Sources */,
 				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
 				2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */,
 				2EFFD9652BD0864900249DE1 /* OutlineViewController+DragDrop.swift in Sources */,
 				2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */,
+				2E8305832BF7E7FA00E90FAA /* FeatureDetails.swift in Sources */,
 				2ECCEAF62A9436C0005785FA /* MapViewController.swift in Sources */,
 				2EF569F02BCF292300964F85 /* NSTreeController+.swift in Sources */,
 				2EC443C32B2FCBD800244326 /* OutlineViewController+Restoration.swift in Sources */,
 				2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */,
 				2EF569E22BCF129800964F85 /* Layer+ModelObject.swift in Sources */,
+				2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
 				2EC443C12B2FCBD800244326 /* OutlineViewController.swift in Sources */,
 				2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */,
@@ -397,6 +497,168 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2E83057A2BF5778900E90FAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "Georg-II/Georg_II.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_ASSET_PATHS = "\"Georg-II/Preview Content\"";
+				DEVELOPMENT_TEAM = MYU6NE7WY6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Georg-II/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg-II";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		2E83057B2BF5778900E90FAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = "Georg-II/Georg_II.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_ASSET_PATHS = "\"Georg-II/Preview Content\"";
+				DEVELOPMENT_TEAM = MYU6NE7WY6;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Georg-II/Info.plist";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg-II";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		2ECCEB032A9436C4005785FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */;
@@ -415,6 +677,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC03B2BE9528B00A7F91A /* Georg-Debug.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 			};
 			name = Debug;
 		};
@@ -422,12 +685,22 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC0392BE9528B00A7F91A /* Georg-Release.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2E8305792BF5778900E90FAA /* Build configuration list for PBXNativeTarget "Georg-II" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E83057A2BF5778900E90FAA /* Debug */,
+				2E83057B2BF5778900E90FAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "Georg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

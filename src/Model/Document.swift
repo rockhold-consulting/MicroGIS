@@ -37,8 +37,9 @@ class Document: NSPersistentDocument {
         // Creates a view model required by some of the various view controllers embedded in that window's hierarchy,
         // and injects it into the root view controller
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! WindowController
+        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! NSWindowController
         windowController.contentViewController?.representedObject = managedObjectContext
+
         self.addWindowController(windowController)
     }
 
