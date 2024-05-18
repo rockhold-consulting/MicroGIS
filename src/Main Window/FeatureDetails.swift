@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 extension NSManagedObjectID {
     var shortName: String {
@@ -19,8 +20,13 @@ struct FeatureDetails: View {
         let id = UUID()
         let icon: KitImage
         let shapeName: String
-        let latitude: String
-        let longitude: String
+        let latitude: Double
+        let longitude: Double
+
+        var coordinateStr: String {
+            let cf = CoordinateFormatter(style: .Decimal)
+            return cf.string(from: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
+        }
     }
     struct PropertyViewModel: Identifiable, Hashable {
         let id = UUID()
@@ -36,7 +42,7 @@ struct FeatureDetails: View {
                 self.value = String(i)
             case let d as Double:
                 self.value = String(d)
-            case let _ as NSNull:
+            case _ as NSNull:
                 self.value = "null"
             default:
                 self.value = "-??-"
@@ -54,8 +60,8 @@ struct FeatureDetails: View {
             GeometryViewModel(
                 icon: g.icon,
                 shapeName: g.wrapped?.shape.kindString ?? "??",
-                latitude: String(g.wrapped?.baseInfo.coordinate.latitude ?? 0.0),
-                longitude: String(g.wrapped?.baseInfo.coordinate.longitude ?? 0.0)
+                latitude: g.wrapped?.baseInfo.coordinate.latitude ?? 0.0,
+                longitude: g.wrapped?.baseInfo.coordinate.longitude ?? 0.0
             )
         }
         self.propertyVMs = (f.properties?.data.keys)?.map { k in
@@ -65,19 +71,20 @@ struct FeatureDetails: View {
 
     var body: some View {
         VStack {
-            Text("Feature \(feature.objectID.shortName)")
-                .multilineTextAlignment(.leading)
-            Grid {
-                ForEach(geometryVMs, id: \.self) { g in
-                    GridRow {
-                        Image(nsImage: g.icon)
-                        Text(g.shapeName)
-                        Text(g.latitude)
-                        Text(g.longitude)
+            HStack {
+                Text("Feature \(feature.objectID.shortName)")
+                    .multilineTextAlignment(.leading)
+                Grid {
+                    ForEach(geometryVMs, id: \.self) { g in
+                        GridRow {
+                            Image(nsImage: g.icon)
+                            Text(g.shapeName)
+                            Text(g.coordinateStr)
+                        }
                     }
                 }
+                .multilineTextAlignment(.leading)
             }
-            .multilineTextAlignment(.leading)
             Grid {
                 ForEach(propertyVMs) { (pvm: PropertyViewModel) in
                     GridRow {

@@ -34,6 +34,7 @@
 		2EC443C42B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */; };
 		2EC443D62B322C4400244326 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
 		2EC443D72B322C4400244326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D52B322C4400244326 /* Localizable.strings */; };
+		2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
 		2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF32A9436C0005785FA /* AppDelegate.swift */; };
 		2ECCEAF62A9436C0005785FA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF52A9436C0005785FA /* MapViewController.swift */; };
 		2ECCEAF82A9436C0005785FA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF72A9436C0005785FA /* Document.swift */; };
@@ -96,6 +97,7 @@
 		2EC443D42B322C4400244326 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		2EC443D52B322C4400244326 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Roadmap and Ideas.md"; sourceTree = "<group>"; };
+		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		2ECCEAF02A9436C0005785FA /* Georg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Georg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ECCEAF52A9436C0005785FA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -318,6 +320,7 @@
 				2EF569EA2BCF292200964F85 /* URL+.swift */,
 				2EF569EB2BCF292200964F85 /* NSTreeController+.swift */,
 				2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */,
+				2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */,
 			);
 			path = "Misc Extensions";
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */,
 				2E5E56A92BEBF44B006C571F /* MapViewModel.swift in Sources */,
 				2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */,
 				2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */,
