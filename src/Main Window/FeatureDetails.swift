@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+extension NSManagedObjectID {
+    var shortName: String {
+        let uri = self.uriRepresentation().lastPathComponent
+        return uri.isEmpty ? "---" : uri
+    }
+}
+
 struct FeatureDetails: View {
     struct GeometryViewModel: Identifiable, Hashable {
         let id = UUID()
@@ -19,6 +26,22 @@ struct FeatureDetails: View {
         let id = UUID()
         let name: String
         let value: String
+
+        init(name: String, value: Any) {
+            self.name = name
+            switch value {
+            case let s as String:
+                self.value = s
+            case let i as Int:
+                self.value = String(i)
+            case let d as Double:
+                self.value = String(d)
+            case let _ as NSNull:
+                self.value = "null"
+            default:
+                self.value = "-??-"
+            }
+        }
     }
 
     @State var feature: Feature
@@ -36,26 +59,14 @@ struct FeatureDetails: View {
             )
         }
         self.propertyVMs = (f.properties?.data.keys)?.map { k in
-           PropertyViewModel(name: k, value: f.properties?.data[k] as? String ?? "??")
+            PropertyViewModel(name: k, value: f.properties?.data[k] as Any)
         } ?? []
     }
 
     var body: some View {
         VStack {
-
-            Text("Feature \(feature.objectID) \(feature.title ?? "--")")
-//            Table(of: GeometryViewModel.self) {
-//                TableColumn("Icon") { g in
-//                    Image(nsImage: g.icon)
-//                }
-//                TableColumn("Shape", value: \.shapeName)
-//                TableColumn("Latitude", value: \.latitude)
-//                TableColumn("Longitude", value: \.longitude)
-//            } rows: {
-//                ForEach(geometryVMs) { g in
-//                    TableRow(g)
-//                }
-//            }
+            Text("Feature \(feature.objectID.shortName)")
+                .multilineTextAlignment(.leading)
             Grid {
                 ForEach(geometryVMs, id: \.self) { g in
                     GridRow {
@@ -66,6 +77,7 @@ struct FeatureDetails: View {
                     }
                 }
             }
+            .multilineTextAlignment(.leading)
             Grid {
                 ForEach(propertyVMs) { (pvm: PropertyViewModel) in
                     GridRow {
@@ -74,6 +86,7 @@ struct FeatureDetails: View {
                     }
                 }
             }
+            .multilineTextAlignment(.trailing)
         }
         .padding()
         .overlay(
