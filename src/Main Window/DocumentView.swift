@@ -11,7 +11,7 @@ struct DocumentView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(sortDescriptors: []) var features: FetchedResults<Feature>
 
-    @State private var selection: Feature?
+    @State private var selection: Set<Feature> = []
 
     var body: some View {
 
@@ -20,10 +20,17 @@ struct DocumentView: View {
                 FeatureRow(feature: feature)
             }
             .navigationTitle("Features")
+            .navigationSplitViewColumnWidth(280)
 
         } detail: {
-            FeatureDetails(feature: selection)
+            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+                .fill()
+            List(Array(selection)) { selectedFeature in
+                FeatureDetails(feature: selectedFeature)
+            }
+            Spacer()
         }
+        .navigationSplitViewStyle(.balanced)
     }
 }
 
