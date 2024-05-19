@@ -23,8 +23,9 @@ struct DocumentView: View {
             .navigationSplitViewColumnWidth(280)
 
         } detail: {
-            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-                .fill()
+            MRMap(features: features, selection: $selection)
+//            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
+//                .fill()
             List(Array(selection)) { selectedFeature in
                 FeatureDetails(feature: selectedFeature)
             }
