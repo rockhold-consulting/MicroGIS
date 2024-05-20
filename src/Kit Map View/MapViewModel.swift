@@ -161,22 +161,4 @@ class MapViewModel: NSObject {
 
         reloadViewControllerFn(annotations, overlays, centroids, bigbox)
     }
-
-    //    public func load() {
-    //
-    //        do {
-    //            try fetchedModelObjectsResultsController.performFetch()
-    //            mapViewController?.load(overlays: fetchedModelObjectsResultsController.fetchedObjects)
-    //        }
-    //        catch {
-    //            fatalError("Failed to fetch entities: \(error)")
-    //        }
-    //    }
 }
-
-//extension MapViewModel: NSFetchedResultsControllerDelegate {
-//
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        mapViewController?.load(overlays: fetchedModelObjectsResultsController.fetchedObjects)
-//    }
-//}

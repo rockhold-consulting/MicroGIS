@@ -14,7 +14,7 @@ class WindowViewController: NSViewController {
 
     // MARK: - Properties
 
-    var splitViewController: SplitViewController? = nil
+//    var splitViewController: SplitViewController? = nil
 
     override var representedObject: Any? {
         didSet {
@@ -33,10 +33,10 @@ class WindowViewController: NSViewController {
                 ])
             }
 
-            treeController = makeTreeController(managedObjectContext: representedObject as? NSManagedObjectContext)
-            if let svc = splitViewController {
-                svc.representedObject = treeController
-            }
+//            treeController = makeTreeController(managedObjectContext: representedObject as? NSManagedObjectContext)
+//            if let svc = splitViewController {
+//                svc.representedObject = treeController
+//            }
         }
     }
 
@@ -136,18 +136,18 @@ extension WindowViewController: NSToolbarItemValidation {
     // Validate the toolbar items against the currently selected nodes.
     func validateToolbarItem(_ item: NSToolbarItem) -> Bool {
         var enable = false
-        if let splitViewController = children[0] as? NSSplitViewController {
-            let primary = splitViewController.splitViewItems[0]
-            if primary.isCollapsed {
-                // The primary side bar is in a collapsed state, don't allow the remove item to work.
-                enable = false
-            } else {
-                // The primary side bar is in an expanded state, allow the remove item to work if there is a selection.
-                if let selection = selectedNodes {
-                    enable = !selection.isEmpty
-                }
-            }
-        }
+//        if let splitViewController = children[0] as? NSSplitViewController {
+//            let primary = splitViewController.splitViewItems[0]
+//            if primary.isCollapsed {
+//                // The primary side bar is in a collapsed state, don't allow the remove item to work.
+//                enable = false
+//            } else {
+//                // The primary side bar is in an expanded state, allow the remove item to work if there is a selection.
+//                if let selection = selectedNodes {
+//                    enable = !selection.isEmpty
+//                }
+//            }
+//        }
         return enable
     }
 }
@@ -168,12 +168,11 @@ extension WindowViewController: NSMenuItemValidation {
             guard let selection = selectedNodes else { return false }
             guard !selection.isEmpty && selection.count == 1 else { return false }
 
-            if let item = OutlineViewModel.modelObject(from: selection[0]) {
-                // Enable add menu items when the selection is a non-URL based node.
-                return item.canAddTo()
-            } else {
-                return false
-            }
+//            if let item = OutlineViewModel.modelObject(from: selection[0]) {
+//                // Enable add menu items when the selection is a non-URL based node.
+//                return item.canAddTo()
+//            }
+            return false
         }
     }
 }

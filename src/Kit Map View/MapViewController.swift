@@ -83,41 +83,6 @@ class MapViewController: NSViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     var mapViewModel: MapViewModel!
-    let styleManager = SimpleStyleManager()
-    var rendererCache = [NSManagedObjectID:MKOverlayPathRenderer]()
-
-    /**
-     A template URL for map tiles from the National Hydrography Dataset of the United States Geological Survey.
-     These map tiles place an emphasis on rivers and bodies of water. These tiles contain an alpha channel, allowing you to place them
-     over other map tiles. For example, when placing over shaded topographic relief map tiles, the relationship between
-     valleys and rivers is visible.
-
-     More information on this tile set is available at `https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/`.
-     */
-    private static let HydrographyTilePathTemplate = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSHydroCached/MapServer/WMTS/tile/1.0.0/USGSHydroCached/default/default028mm/{z}/{y}/{x}"
-
-    /**
-     A template URL for map tiles showing shaded topographic relief from The National Map of the United States Geological Survey.
-     These map tiles place an emphasis on terrain, and highlight the differences between plains and mountains.
-
-     More information on this tile set is available at `https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/`.
-     */
-    private static let ShadedReliefTilePathTemplate = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS/tile/1.0.0/USGSShadedReliefOnly/default/default028mm/{z}/{y}/{x}"
-
-    var reliefTileOverlay: CustomLoadingTileOverlay!
-
-    static let geoPointReuseIdentifier = "\(NSStringFromClass(Geometry.self)).GeoPointReuseIdentifier"
-    static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
-
-    static let annotationImage = NSImage(systemSymbolName: "mappin.circle",
-                                         accessibilityDescription: "Map pin inside a circle")!
-    static let selectedAnnotationImage = NSImage(systemSymbolName: "mappin.circle.fill",
-                                         accessibilityDescription: "Selected Map pin inside a circle")!
-
-    static let clusterAnnotationImage = NSImage(systemSymbolName: "seal",
-                                                accessibilityDescription: "star-like shape")!
-
-    var commandWasDown: Bool = false
 
     override var representedObject: Any? {
         didSet {

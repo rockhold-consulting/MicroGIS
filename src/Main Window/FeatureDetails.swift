@@ -9,7 +9,7 @@ import SwiftUI
 import CoreLocation
 
 extension NSManagedObjectID {
-    var shortName: String {
+    @objc var shortName: String {
         let uri = self.uriRepresentation().lastPathComponent
         return uri.isEmpty ? "---" : uri
     }

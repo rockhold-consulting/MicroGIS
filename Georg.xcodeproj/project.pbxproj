@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E59AB302A95B6DA0064F50E /* WindowController.swift */; };
-		2E5E56A92BEBF44B006C571F /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */; };
 		2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* StyleManager.swift */; };
 		2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */; };
 		2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
@@ -23,27 +22,16 @@
 		2E8305832BF7E7FA00E90FAA /* FeatureDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */; };
 		2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305842BF801B500E90FAA /* FeatureRow.swift */; };
 		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
-		2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443AF2B2FCB9100244326 /* SplitViewController.swift */; };
 		2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B02B2FCB9100244326 /* WindowViewController.swift */; };
-		2EC443BD2B2FCBD800244326 /* OutlineViewController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B42B2FCBD600244326 /* OutlineViewController+Delegate.swift */; };
-		2EC443BF2B2FCBD800244326 /* OutlineViewModel+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B62B2FCBD600244326 /* OutlineViewModel+Helpers.swift */; };
-		2EC443C02B2FCBD800244326 /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B72B2FCBD700244326 /* OutlineView.swift */; };
-		2EC443C12B2FCBD800244326 /* OutlineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B82B2FCBD700244326 /* OutlineViewController.swift */; };
-		2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B92B2FCBD700244326 /* OutlineViewController+Expansion.swift */; };
-		2EC443C32B2FCBD800244326 /* OutlineViewController+Restoration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443BA2B2FCBD800244326 /* OutlineViewController+Restoration.swift */; };
-		2EC443C42B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */; };
 		2EC443D62B322C4400244326 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
 		2EC443D72B322C4400244326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D52B322C4400244326 /* Localizable.strings */; };
 		2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
 		2ECB8D6C2BF9744F0044F557 /* MRMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D6B2BF9744F0044F557 /* MRMap.swift */; };
-		2ECB8D6E2BF97AD20044F557 /* MRMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D6D2BF97AD20044F557 /* MRMapCoordinator.swift */; };
 		2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF32A9436C0005785FA /* AppDelegate.swift */; };
-		2ECCEAF62A9436C0005785FA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF52A9436C0005785FA /* MapViewController.swift */; };
 		2ECCEAF82A9436C0005785FA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF72A9436C0005785FA /* Document.swift */; };
 		2ECCEB002A9436C4005785FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2ECCEAFE2A9436C4005785FA /* Main.storyboard */; };
 		2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0D11C2A983E6E0018E70D /* Assets.xcassets */; };
 		2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF33E652ADF0077004C750F /* GeoFeatures */; };
-		2EF569D02BCE0AD400964F85 /* OutlineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569CF2BCE0AD400964F85 /* OutlineViewModel.swift */; };
 		2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */; };
 		2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */; };
 		2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */; };
@@ -53,13 +41,10 @@
 		2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */; };
 		2EF569EE2BCF292300964F85 /* NSImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E92BCF292200964F85 /* NSImage+.swift */; };
 		2EF569EF2BCF292300964F85 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569EA2BCF292200964F85 /* URL+.swift */; };
-		2EF569F02BCF292300964F85 /* NSTreeController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569EB2BCF292200964F85 /* NSTreeController+.swift */; };
 		2EF569F52BCF2F4E00964F85 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF569F42BCF2F4E00964F85 /* BinaryCodable */; };
 		2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E62BCF133700964F85 /* Document.xcdatamodeld */; };
 		2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */; };
 		2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */; };
-		2EFFD9652BD0864900249DE1 /* OutlineViewController+DragDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD9642BD0864900249DE1 /* OutlineViewController+DragDrop.swift */; };
-		2EFFD9672BD08CC700249DE1 /* NodePasteboardWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD9662BD08CC700249DE1 /* NodePasteboardWriter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +86,6 @@
 		2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Roadmap and Ideas.md"; sourceTree = "<group>"; };
 		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		2ECB8D6B2BF9744F0044F557 /* MRMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
-		2ECB8D6D2BF97AD20044F557 /* MRMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMapCoordinator.swift; sourceTree = "<group>"; };
 		2ECCEAF02A9436C0005785FA /* Georg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Georg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ECCEAF52A9436C0005785FA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -254,7 +238,6 @@
 				2EC443D52B322C4400244326 /* Localizable.strings */,
 				2ECCEB012A9436C4005785FA /* Info.plist */,
 				2ECCEB022A9436C4005785FA /* Georg.entitlements */,
-				2ECB8D6D2BF97AD20044F557 /* MRMapCoordinator.swift */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -451,35 +434,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */,
-				2E5E56A92BEBF44B006C571F /* MapViewModel.swift in Sources */,
 				2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */,
-				2EC443C22B2FCBD800244326 /* OutlineViewController+Expansion.swift in Sources */,
 				2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */,
-				2EC443C02B2FCBD800244326 /* OutlineView.swift in Sources */,
-				2EF569D02BCE0AD400964F85 /* OutlineViewModel.swift in Sources */,
 				2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */,
 				2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */,
 				2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */,
-				2ECB8D6E2BF97AD20044F557 /* MRMapCoordinator.swift in Sources */,
 				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
 				2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */,
 				2E8305812BF6A89A00E90FAA /* HostController.swift in Sources */,
 				2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */,
-				2EC443BF2B2FCBD800244326 /* OutlineViewModel+Helpers.swift in Sources */,
 				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
-				2EC443B12B2FCB9200244326 /* SplitViewController.swift in Sources */,
-				2EFFD9652BD0864900249DE1 /* OutlineViewController+DragDrop.swift in Sources */,
 				2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */,
 				2E8305832BF7E7FA00E90FAA /* FeatureDetails.swift in Sources */,
-				2ECCEAF62A9436C0005785FA /* MapViewController.swift in Sources */,
 				2ECB8D6C2BF9744F0044F557 /* MRMap.swift in Sources */,
-				2EF569F02BCF292300964F85 /* NSTreeController+.swift in Sources */,
-				2EC443C32B2FCBD800244326 /* OutlineViewController+Restoration.swift in Sources */,
 				2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */,
 				2EF569E22BCF129800964F85 /* Layer+ModelObject.swift in Sources */,
 				2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
-				2EC443C12B2FCBD800244326 /* OutlineViewController.swift in Sources */,
 				2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */,
 				2EF569EF2BCF292300964F85 /* URL+.swift in Sources */,
 				2EF569EE2BCF292300964F85 /* NSImage+.swift in Sources */,
@@ -487,9 +458,6 @@
 				2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */,
 				2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */,
 				2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */,
-				2EC443C42B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift in Sources */,
-				2EC443BD2B2FCBD800244326 /* OutlineViewController+Delegate.swift in Sources */,
-				2EFFD9672BD08CC700249DE1 /* NodePasteboardWriter.swift in Sources */,
 				2EF569E12BCF129700964F85 /* ModelObject.swift in Sources */,
 				2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */,
 			);
