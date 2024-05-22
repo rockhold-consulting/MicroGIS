@@ -21,24 +21,9 @@ struct DocumentView: View {
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selection) {
-                ForEach(features, id: \.self.objectID) { feature in
-                    FeatureRow(feature: feature)
-                }
-            }
-            .navigationTitle("Features")
-            .navigationSplitViewColumnWidth(280)
+            Sidebar(features: features, selection: $selection)
         } detail: {
-            MRMap(selection: $selection)
-                .onTapGesture {
-                    print("TAPPED ON MAP")
-                }
-            List(selection.compactMap({ objID in
-                return moc.object(with: objID) as? Feature
-            })) { selected in
-                FeatureDetails(feature: selected)
-            }
-            Spacer()
+            MainContent(moc: moc, features: features, selection: $selection)
         }
         .navigationSplitViewStyle(.automatic)
 //        .task {

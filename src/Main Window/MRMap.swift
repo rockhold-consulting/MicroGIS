@@ -28,10 +28,7 @@ struct MRMap: BaseViewRepresentable {
 #endif
 
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest<Geometry>(
-        sortDescriptors: [
-        ]
-    )
+    @FetchRequest<Geometry>(sortDescriptors: [])
     private var geometries: FetchedResults<Geometry>
 
     @Binding var selection: Set<NSManagedObjectID>
@@ -53,9 +50,7 @@ struct MRMap: BaseViewRepresentable {
     }
 
     func updateNSView(_ nsView: NSViewType, context: Context) {
-        // apply feature selection to geometry selection?
-
-        (context.coordinator as Coordinator).load()
+        context.coordinator.update(selection: selection)
     }
 }
 
@@ -64,7 +59,6 @@ extension MRMap {
 
         let owner: MRMap
         let managedObjectContext: NSManagedObjectContext
-
         var previousSelection = Set<NSManagedObjectID>()
 
         init(owner: MRMap, managedObjectContext: NSManagedObjectContext) {
@@ -234,15 +228,6 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
     }
 
     func load() {
-        let newlySelected = owner.selection.subtracting(previousSelection)
-        let newlyDeselected = previousSelection.subtracting(owner.selection)
-        let toChange = newlySelected.union(newlyDeselected)
-        previousSelection = owner.selection
-
-        Task {
-            await self.rerenderSelection(changeSet: toChange)
-        }
-
         reload { annotations, overlays, centroids, bigbox in
             Task {
                 await self.addToView(annotations: annotations,
@@ -250,6 +235,18 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
                                      centroids: centroids,
                                      visibleRect:bigbox.insetBy(dx: -10000, dy: -10000))
             }
+        }
+    }
+
+    func update(selection: Set<NSManagedObjectID>) {
+        let newlySelected = selection.subtracting(previousSelection)
+        let newlyDeselected = previousSelection.subtracting(selection)
+        let toChange = newlySelected.union(newlyDeselected)
+        previousSelection.removeAll()
+        previousSelection.formUnion(selection)
+
+        Task {
+            await self.rerenderSelection(changeSet: toChange)
         }
     }
 
