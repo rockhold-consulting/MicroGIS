@@ -17,29 +17,37 @@ struct DocumentView: View {
         ]
     )
     private var features: FetchedResults<Feature>
-    @State private var selection: Set<Feature> = []
+    @State private var selection: Set<NSManagedObjectID> = []
 
     var body: some View {
-
         NavigationSplitView {
-            List(features, id: \.self, selection: $selection) { feature in
-                FeatureRow(feature: feature)
+            List(selection: $selection) {
+                ForEach(features, id: \.self.objectID) { feature in
+                    FeatureRow(feature: feature)
+                }
             }
             .navigationTitle("Features")
             .navigationSplitViewColumnWidth(280)
         } detail: {
-            MRMap(features: features, selection: $selection)
+            MRMap(selection: $selection)
                 .onTapGesture {
                     print("TAPPED ON MAP")
                 }
-//            RoundedRectangle(cornerSize: CGSize(width: 10, height: 10))
-//                .fill()
-            List(Array(selection)) { selectedFeature in
-                FeatureDetails(feature: selectedFeature)
+            List(selection.compactMap({ objID in
+                return moc.object(with: objID) as? Feature
+            })) { selected in
+                FeatureDetails(feature: selected)
             }
             Spacer()
         }
         .navigationSplitViewStyle(.automatic)
+//        .task {
+//
+//            let s = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { t in
+//                let f = features[0]
+//                moc.delete(f)
+//            }
+//        }
     }
 }
 
