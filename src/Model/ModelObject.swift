@@ -26,3 +26,10 @@ public typealias KitImage = UIImage
 
     var icon: KitImage { get }
 }
+
+extension NSManagedObjectID {
+    @objc var shortName: String {
+        let uri = self.uriRepresentation().lastPathComponent
+        return uri.isEmpty ? "---" : uri
+    }
+}

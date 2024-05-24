@@ -7,22 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E59AB302A95B6DA0064F50E /* WindowController.swift */; };
 		2E7C372E2BFEA1F7008D2B68 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */; };
 		2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372F2BFEA30F008D2B68 /* MainContent.swift */; };
 		2E7C373C2BFEAFFC008D2B68 /* FeatureTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */; };
 		2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* StyleManager.swift */; };
 		2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */; };
 		2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
-		2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305632BF5249E00E90FAA /* InspectorViewController.swift */; };
-		2E83056D2BF5778500E90FAA /* Georg_IIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83056C2BF5778500E90FAA /* Georg_IIApp.swift */; };
-		2E83056F2BF5778500E90FAA /* Georg_IIDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83056E2BF5778500E90FAA /* Georg_IIDocument.swift */; };
-		2E8305712BF5778500E90FAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305702BF5778500E90FAA /* ContentView.swift */; };
-		2E8305732BF5778900E90FAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8305722BF5778900E90FAA /* Assets.xcassets */; };
-		2E8305762BF5778900E90FAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E8305752BF5778900E90FAA /* Preview Assets.xcassets */; };
 		2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83057E2BF688AF00E90FAA /* DocumentView.swift */; };
 		2E8305812BF6A89A00E90FAA /* HostController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305802BF6A89A00E90FAA /* HostController.swift */; };
-		2E8305832BF7E7FA00E90FAA /* FeatureDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */; };
 		2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305842BF801B500E90FAA /* FeatureRow.swift */; };
 		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
 		2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC443B02B2FCB9100244326 /* WindowViewController.swift */; };
@@ -42,8 +34,6 @@
 		2EF569E22BCF129800964F85 /* Layer+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D92BCF129700964F85 /* Layer+ModelObject.swift */; };
 		2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */; };
 		2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */; };
-		2EF569EE2BCF292300964F85 /* NSImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E92BCF292200964F85 /* NSImage+.swift */; };
-		2EF569EF2BCF292300964F85 /* URL+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569EA2BCF292200964F85 /* URL+.swift */; };
 		2EF569F52BCF2F4E00964F85 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF569F42BCF2F4E00964F85 /* BinaryCodable */; };
 		2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E62BCF133700964F85 /* Document.xcdatamodeld */; };
 		2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */; };
@@ -51,25 +41,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2E59AB302A95B6DA0064F50E /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		2E7C372F2BFEA30F008D2B68 /* MainContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContent.swift; sourceTree = "<group>"; };
 		2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTable.swift; sourceTree = "<group>"; };
 		2E8304C72BEFE8A000E90FAA /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStyleManager.swift; sourceTree = "<group>"; };
 		2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryFormatter.swift; sourceTree = "<group>"; };
-		2E8305632BF5249E00E90FAA /* InspectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorViewController.swift; sourceTree = "<group>"; };
-		2E83056A2BF5778400E90FAA /* Georg-II.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Georg-II.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E83056C2BF5778500E90FAA /* Georg_IIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Georg_IIApp.swift; sourceTree = "<group>"; };
-		2E83056E2BF5778500E90FAA /* Georg_IIDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Georg_IIDocument.swift; sourceTree = "<group>"; };
-		2E8305702BF5778500E90FAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		2E8305722BF5778900E90FAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2E8305752BF5778900E90FAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2E8305772BF5778900E90FAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2E8305782BF5778900E90FAA /* Georg_II.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Georg_II.entitlements; sourceTree = "<group>"; };
 		2E83057E2BF688AF00E90FAA /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
 		2E8305802BF6A89A00E90FAA /* HostController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostController.swift; sourceTree = "<group>"; };
-		2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDetails.swift; sourceTree = "<group>"; };
 		2E8305842BF801B500E90FAA /* FeatureRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureRow.swift; sourceTree = "<group>"; };
 		2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeorgError.swift; sourceTree = "<group>"; };
 		2EACC0362BE9528B00A7F91A /* Georg-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Shared.xcconfig"; sourceTree = "<group>"; };
@@ -78,15 +57,7 @@
 		2EACC0392BE9528B00A7F91A /* Georg-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Release.xcconfig"; sourceTree = "<group>"; };
 		2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		2EACC03B2BE9528B00A7F91A /* Georg-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Debug.xcconfig"; sourceTree = "<group>"; };
-		2EC443AF2B2FCB9100244326 /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		2EC443B02B2FCB9100244326 /* WindowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowViewController.swift; sourceTree = "<group>"; };
-		2EC443B42B2FCBD600244326 /* OutlineViewController+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Delegate.swift"; sourceTree = "<group>"; };
-		2EC443B62B2FCBD600244326 /* OutlineViewModel+Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewModel+Helpers.swift"; sourceTree = "<group>"; };
-		2EC443B72B2FCBD700244326 /* OutlineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
-		2EC443B82B2FCBD700244326 /* OutlineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineViewController.swift; sourceTree = "<group>"; };
-		2EC443B92B2FCBD700244326 /* OutlineViewController+Expansion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Expansion.swift"; sourceTree = "<group>"; };
-		2EC443BA2B2FCBD800244326 /* OutlineViewController+Restoration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+Restoration.swift"; sourceTree = "<group>"; };
-		2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+ContextalMenu.swift"; sourceTree = "<group>"; };
 		2EC443D42B322C4400244326 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		2EC443D52B322C4400244326 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Roadmap and Ideas.md"; sourceTree = "<group>"; };
@@ -94,18 +65,15 @@
 		2ECB8D6B2BF9744F0044F557 /* MRMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
 		2ECCEAF02A9436C0005785FA /* Georg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Georg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2ECCEAF52A9436C0005785FA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2ECCEAF72A9436C0005785FA /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		2ECCEAFF2A9436C4005785FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2ECCEB012A9436C4005785FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2ECCEB022A9436C4005785FA /* Georg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Georg.entitlements; sourceTree = "<group>"; };
 		2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeoFeatures; sourceTree = "<group>"; };
-		2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		2EF0D1192A9828740018E70D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2EF0D11A2A9829690018E70D /* COPYING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
 		2EF0D11B2A9829690018E70D /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		2EF0D11C2A983E6E0018E70D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2EF569CF2BCE0AD400964F85 /* OutlineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutlineViewModel.swift; sourceTree = "<group>"; };
 		2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGeoObjectCreator.swift; sourceTree = "<group>"; };
 		2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeorgMKGeoJSONFeatureSource.swift; sourceTree = "<group>"; };
 		2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectCreator.swift; sourceTree = "<group>"; };
@@ -114,23 +82,11 @@
 		2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry+ModelObject.swift"; sourceTree = "<group>"; };
 		2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature+ModelObject.swift"; sourceTree = "<group>"; };
 		2EF569E72BCF133800964F85 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
-		2EF569E92BCF292200964F85 /* NSImage+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSImage+.swift"; sourceTree = "<group>"; };
-		2EF569EA2BCF292200964F85 /* URL+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+.swift"; sourceTree = "<group>"; };
-		2EF569EB2BCF292200964F85 /* NSTreeController+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSTreeController+.swift"; sourceTree = "<group>"; };
 		2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTileOverlay.swift; sourceTree = "<group>"; };
 		2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectMKBridge.swift; sourceTree = "<group>"; };
-		2EFFD9642BD0864900249DE1 /* OutlineViewController+DragDrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "OutlineViewController+DragDrop.swift"; sourceTree = "<group>"; };
-		2EFFD9662BD08CC700249DE1 /* NodePasteboardWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NodePasteboardWriter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2E8305672BF5778400E90FAA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2ECCEAED2A9436C0005785FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -143,34 +99,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E8305652BF524CC00E90FAA /* Inspector View */ = {
+		2E7C373D2C011151008D2B68 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
-				2E8305632BF5249E00E90FAA /* InspectorViewController.swift */,
+				2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */,
+				2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */,
 			);
-			path = "Inspector View";
+			path = Formatters;
 			sourceTree = "<group>";
 		};
-		2E83056B2BF5778500E90FAA /* Georg-II */ = {
+		2E7C373E2C0111A3008D2B68 /* Display Features */ = {
 			isa = PBXGroup;
 			children = (
-				2E83056C2BF5778500E90FAA /* Georg_IIApp.swift */,
-				2E83056E2BF5778500E90FAA /* Georg_IIDocument.swift */,
-				2E8305702BF5778500E90FAA /* ContentView.swift */,
-				2E8305722BF5778900E90FAA /* Assets.xcassets */,
-				2E8305772BF5778900E90FAA /* Info.plist */,
-				2E8305782BF5778900E90FAA /* Georg_II.entitlements */,
-				2E8305742BF5778900E90FAA /* Preview Content */,
+				2E8305842BF801B500E90FAA /* FeatureRow.swift */,
+				2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */,
 			);
-			path = "Georg-II";
-			sourceTree = "<group>";
-		};
-		2E8305742BF5778900E90FAA /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				2E8305752BF5778900E90FAA /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
+			path = "Display Features";
 			sourceTree = "<group>";
 		};
 		2EACC0352BE9528B00A7F91A /* xcconfig */ = {
@@ -186,23 +130,6 @@
 			path = xcconfig;
 			sourceTree = "<group>";
 		};
-		2EC443AE2B2FCB4700244326 /* Master View */ = {
-			isa = PBXGroup;
-			children = (
-				2EC443B72B2FCBD700244326 /* OutlineView.swift */,
-				2EF569CF2BCE0AD400964F85 /* OutlineViewModel.swift */,
-				2EC443B82B2FCBD700244326 /* OutlineViewController.swift */,
-				2EFFD9642BD0864900249DE1 /* OutlineViewController+DragDrop.swift */,
-				2EC443BB2B2FCBD800244326 /* OutlineViewController+ContextalMenu.swift */,
-				2EC443B42B2FCBD600244326 /* OutlineViewController+Delegate.swift */,
-				2EC443B92B2FCBD700244326 /* OutlineViewController+Expansion.swift */,
-				2EC443B62B2FCBD600244326 /* OutlineViewModel+Helpers.swift */,
-				2EC443BA2B2FCBD800244326 /* OutlineViewController+Restoration.swift */,
-				2EFFD9662BD08CC700249DE1 /* NodePasteboardWriter.swift */,
-			);
-			path = "Master View";
-			sourceTree = "<group>";
-		};
 		2ECCEAE72A9436C0005785FA = {
 			isa = PBXGroup;
 			children = (
@@ -212,7 +139,6 @@
 				2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */,
 				2EACC0352BE9528B00A7F91A /* xcconfig */,
 				2ECCEAF22A9436C0005785FA /* src */,
-				2E83056B2BF5778500E90FAA /* Georg-II */,
 				2ECCEAF12A9436C0005785FA /* Products */,
 				2EF33E642ADF0077004C750F /* Frameworks */,
 				2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */,
@@ -223,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				2ECCEAF02A9436C0005785FA /* Georg.app */,
-				2E83056A2BF5778400E90FAA /* Georg-II.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -232,13 +157,12 @@
 			isa = PBXGroup;
 			children = (
 				2ECCEAF32A9436C0005785FA /* AppDelegate.swift */,
+				2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */,
 				2EF569D72BCF129700964F85 /* Model */,
 				2EE770192B2FBE1F00E67B56 /* Main Window */,
-				2EC443AE2B2FCB4700244326 /* Master View */,
-				2EE7701A2B2FBE5300E67B56 /* Kit Map View */,
-				2E8305652BF524CC00E90FAA /* Inspector View */,
-				2EF569E82BCF292200964F85 /* Misc Extensions */,
-				2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */,
+				2E7C373E2C0111A3008D2B68 /* Display Features */,
+				2EE7701A2B2FBE5300E67B56 /* Map View */,
+				2E7C373D2C011151008D2B68 /* Formatters */,
 				2EF0D11C2A983E6E0018E70D /* Assets.xcassets */,
 				2EC443D42B322C4400244326 /* InfoPlist.strings */,
 				2EC443D52B322C4400244326 /* Localizable.strings */,
@@ -251,33 +175,26 @@
 		2EE770192B2FBE1F00E67B56 /* Main Window */ = {
 			isa = PBXGroup;
 			children = (
-				2E59AB302A95B6DA0064F50E /* WindowController.swift */,
-				2EC443B02B2FCB9100244326 /* WindowViewController.swift */,
-				2EC443AF2B2FCB9100244326 /* SplitViewController.swift */,
 				2ECCEAFE2A9436C4005785FA /* Main.storyboard */,
+				2EC443B02B2FCB9100244326 /* WindowViewController.swift */,
 				2E8305802BF6A89A00E90FAA /* HostController.swift */,
 				2E83057E2BF688AF00E90FAA /* DocumentView.swift */,
 				2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */,
 				2E7C372F2BFEA30F008D2B68 /* MainContent.swift */,
-				2ECB8D6B2BF9744F0044F557 /* MRMap.swift */,
-				2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */,
-				2E8305842BF801B500E90FAA /* FeatureRow.swift */,
-				2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */,
 			);
 			path = "Main Window";
 			sourceTree = "<group>";
 		};
-		2EE7701A2B2FBE5300E67B56 /* Kit Map View */ = {
+		2EE7701A2B2FBE5300E67B56 /* Map View */ = {
 			isa = PBXGroup;
 			children = (
-				2EE770172B2FB3AF00E67B56 /* MapViewModel.swift */,
-				2ECCEAF52A9436C0005785FA /* MapViewController.swift */,
+				2ECB8D6B2BF9744F0044F557 /* MRMap.swift */,
 				2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */,
 				2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */,
 				2E8304C72BEFE8A000E90FAA /* StyleManager.swift */,
 				2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */,
 			);
-			path = "Kit Map View";
+			path = "Map View";
 			sourceTree = "<group>";
 		};
 		2EF33E642ADF0077004C750F /* Frameworks */ = {
@@ -311,38 +228,9 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		2EF569E82BCF292200964F85 /* Misc Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				2EF569E92BCF292200964F85 /* NSImage+.swift */,
-				2EF569EA2BCF292200964F85 /* URL+.swift */,
-				2EF569EB2BCF292200964F85 /* NSTreeController+.swift */,
-				2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */,
-				2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */,
-			);
-			path = "Misc Extensions";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2E8305692BF5778400E90FAA /* Georg-II */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2E8305792BF5778900E90FAA /* Build configuration list for PBXNativeTarget "Georg-II" */;
-			buildPhases = (
-				2E8305662BF5778400E90FAA /* Sources */,
-				2E8305672BF5778400E90FAA /* Frameworks */,
-				2E8305682BF5778400E90FAA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Georg-II";
-			productName = "Georg-II";
-			productReference = 2E83056A2BF5778400E90FAA /* Georg-II.app */;
-			productType = "com.apple.product-type.application";
-		};
 		2ECCEAEF2A9436C0005785FA /* Georg */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2ECCEB052A9436C4005785FA /* Build configuration list for PBXNativeTarget "Georg" */;
@@ -374,9 +262,6 @@
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					2E8305692BF5778400E90FAA = {
-						CreatedOnToolsVersion = 15.2;
-					};
 					2ECCEAEF2A9436C0005785FA = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -399,21 +284,11 @@
 			projectRoot = "";
 			targets = (
 				2ECCEAEF2A9436C0005785FA /* Georg */,
-				2E8305692BF5778400E90FAA /* Georg-II */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2E8305682BF5778400E90FAA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E8305762BF5778900E90FAA /* Preview Assets.xcassets in Resources */,
-				2E8305732BF5778900E90FAA /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2ECCEAEE2A9436C0005785FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -428,16 +303,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2E8305662BF5778400E90FAA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E83056D2BF5778500E90FAA /* Georg_IIApp.swift in Sources */,
-				2E83056F2BF5778500E90FAA /* Georg_IIDocument.swift in Sources */,
-				2E8305712BF5778500E90FAA /* ContentView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2ECCEAEC2A9436C0005785FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -445,8 +310,6 @@
 				2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */,
 				2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */,
 				2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */,
-				2E8305642BF5249E00E90FAA /* InspectorViewController.swift in Sources */,
-				2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */,
 				2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */,
 				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
 				2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */,
@@ -456,15 +319,12 @@
 				2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */,
 				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
 				2EC443B22B2FCB9200244326 /* WindowViewController.swift in Sources */,
-				2E8305832BF7E7FA00E90FAA /* FeatureDetails.swift in Sources */,
 				2ECB8D6C2BF9744F0044F557 /* MRMap.swift in Sources */,
 				2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */,
 				2EF569E22BCF129800964F85 /* Layer+ModelObject.swift in Sources */,
 				2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
 				2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */,
-				2EF569EF2BCF292300964F85 /* URL+.swift in Sources */,
-				2EF569EE2BCF292300964F85 /* NSImage+.swift in Sources */,
 				2ECCEAF82A9436C0005785FA /* Document.swift in Sources */,
 				2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */,
 				2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */,
@@ -489,168 +349,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		2E83057A2BF5778900E90FAA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "Georg-II/Georg_II.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"Georg-II/Preview Content\"";
-				DEVELOPMENT_TEAM = MYU6NE7WY6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Georg-II/Info.plist";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg-II";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		2E83057B2BF5778900E90FAA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "Georg-II/Georg_II.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"Georg-II/Preview Content\"";
-				DEVELOPMENT_TEAM = MYU6NE7WY6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Georg-II/Info.plist";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.Georg-II";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		2ECCEB032A9436C4005785FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */;
@@ -684,15 +382,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2E8305792BF5778900E90FAA /* Build configuration list for PBXNativeTarget "Georg-II" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2E83057A2BF5778900E90FAA /* Debug */,
-				2E83057B2BF5778900E90FAA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "Georg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

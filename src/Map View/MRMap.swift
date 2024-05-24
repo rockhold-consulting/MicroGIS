@@ -246,7 +246,12 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
         previousSelection.formUnion(selection)
 
         Task {
-            await self.rerenderSelection(changeSet: toChange)
+            await MainActor.run {
+                if selection.count == 1 {
+                    self.flyToSelection(selection.first!)
+                }
+                self.rerenderSelection(changeSet: toChange)
+            }
         }
     }
 
@@ -424,6 +429,24 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
                 }
             }
         }
+    }
+
+    @MainActor
+    func flyToSelection(_ objID:  NSManagedObjectID) {
+        if let geokid = objID.geometryChildren(given: owner.moc).first {
+            mapView?.setCenter(geokid.coordinate, animated: true)
+        }
+//        objectID.geometryChildren(given: owner.moc).forEach { geometry in
+//            if let r = renderer(forGeometry: geometry) {
+//                r.applyStyle(manager: styleManager,
+//                             geometry: geometry,
+//                             selected: selected)
+//                .setNeedsDisplay()
+//            } else {
+//                self.doSelectAnnotation(geometry: geometry, selected: selected)
+//            }
+//        }
+
     }
 }
 

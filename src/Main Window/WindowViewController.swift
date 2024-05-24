@@ -14,12 +14,10 @@ class WindowViewController: NSViewController {
 
     // MARK: - Properties
 
-//    var splitViewController: SplitViewController? = nil
-
     override var representedObject: Any? {
         didSet {
             if let moc = representedObject as? NSManagedObjectContext {
-                var controller = NSHostingController(rootView: DocumentView().environment(\.managedObjectContext, moc))
+                let controller = NSHostingController(rootView: DocumentView().environment(\.managedObjectContext, moc))
 
                 addChild(controller)
                 controller.view.translatesAutoresizingMaskIntoConstraints = false
@@ -32,66 +30,10 @@ class WindowViewController: NSViewController {
                     controller.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
                 ])
             }
-
-//            treeController = makeTreeController(managedObjectContext: representedObject as? NSManagedObjectContext)
-//            if let svc = splitViewController {
-//                svc.representedObject = treeController
-//            }
-        }
-    }
-
-    var selectionChangedCancellable: Cancellable?
-
-    var treeController: NSTreeController? = nil {
-        didSet {
-            selectionChangedCancellable?.cancel()
-            if let tc = treeController {
-                listen(to: tc)
-            }
-        }
-    }
-
-    func makeTreeController(managedObjectContext: NSManagedObjectContext?) -> NSTreeController? {
-        guard let moc = managedObjectContext else { return nil }
-        let tc = NSTreeController()
-        tc.childrenKeyPath = "kidArray"
-        tc.leafKeyPath = "isLeaf"
-        tc.preservesSelection = true
-        tc.selectsInsertedObjects = true
-        tc.isEditable = true
-        tc.managedObjectContext = moc
-        tc.entityName = "Layer"
-        return tc
-    }
-
-    func listen(to treeController: NSTreeController) {
-        // Listens for selection changes to the NSTreeController so it can update the UI elements (add/remove buttons).
-        selectionChangedCancellable = treeController.publisher(for: \.selectedNodes)
-        .sink() { [self] selectedNodes in
-
-            // Examine the current selection and adjust the UI elements.
-
-            // Remember the selected nodes for later when the system calls NSToolbarItemValidation and NSMenuItemValidation.
-            self.selectedNodes = selectedNodes
-
-//            guard let currentlySelectedNodes = self.selectedNodes else { return }
-//
-//            if !currentlySelectedNodes.isEmpty && currentlySelectedNodes.count == 1 {
-//                if let item = OutlineViewModel.modelObject(from: currentlySelectedNodes[0]) {
-//                    if item is Layer {
-//                        // The user selected a directory, so this could take a while to populate the detail view controller.
-//                        progIndicator.isHidden = false
-//                        progIndicator.startAnimation(self)
-//                    }
-//                }
-//            }
         }
     }
 
     @IBOutlet private weak var progIndicator: NSProgressIndicator!
-
-    // Remember the selected nodes from NSTreeController when the system calls "selectionDidChange".
-    var selectedNodes: [NSTreeNode]?
 
     // MARK: View Controller Lifecycle
 
@@ -113,10 +55,6 @@ class WindowViewController: NSViewController {
         toolbar.displayMode = .iconOnly
         toolbar.allowsUserCustomization = false
         self.view.window?.toolbar = toolbar
-    }
-
-    deinit {
-        selectionChangedCancellable?.cancel()
     }
 
     // MARK: NSNotifications
@@ -158,22 +96,23 @@ extension WindowViewController: NSMenuItemValidation {
 
     // Validate the two menu items in the Add toolbar item against the currently selected nodes.
     func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
-        guard let splitViewController = children[0] as? NSSplitViewController else { return false }
-
-        if splitViewController.splitViewItems[0].isCollapsed {
-            // The primary side bar is in a collapsed state, don't allow the menu item to work.
-            return false
-        } else {
-            // The primary side bar is in an expanded state, allow the item to work.
-            guard let selection = selectedNodes else { return false }
-            guard !selection.isEmpty && selection.count == 1 else { return false }
-
-//            if let item = OutlineViewModel.modelObject(from: selection[0]) {
-//                // Enable add menu items when the selection is a non-URL based node.
-//                return item.canAddTo()
-//            }
-            return false
-        }
+        return false
+//        guard let splitViewController = children[0] as? NSSplitViewController else { return false }
+//
+//        if splitViewController.splitViewItems[0].isCollapsed {
+//            // The primary side bar is in a collapsed state, don't allow the menu item to work.
+//            return false
+//        } else {
+//            // The primary side bar is in an expanded state, allow the item to work.
+//            guard let selection = selectedNodes else { return false }
+//            guard !selection.isEmpty && selection.count == 1 else { return false }
+//
+////            if let item = OutlineViewModel.modelObject(from: selection[0]) {
+////                // Enable add menu items when the selection is a non-URL based node.
+////                return item.canAddTo()
+////            }
+//            return false
+//        }
     }
 }
 
