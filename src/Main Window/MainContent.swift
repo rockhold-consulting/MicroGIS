@@ -13,11 +13,12 @@ struct MainContent: View {
     @Binding var selection: Set<NSManagedObjectID>
 
     var body: some View {
-        MRMap(selection: $selection)
-        List(selection.compactMap({ objID in
-            return moc.object(with: objID) as? Feature
-        })) { selected in
-            FeatureDetails(feature: selected)
+        VStack {
+            MRMap(selection: $selection)
+            HStack {
+                FeatureTable(managedObjectContext: moc, featureIDs: selection)
+                Spacer()
+            }
         }
         Spacer()
     }

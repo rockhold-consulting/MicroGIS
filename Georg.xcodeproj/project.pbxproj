@@ -10,6 +10,7 @@
 		2E59AB312A95B6DA0064F50E /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E59AB302A95B6DA0064F50E /* WindowController.swift */; };
 		2E7C372E2BFEA1F7008D2B68 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */; };
 		2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372F2BFEA30F008D2B68 /* MainContent.swift */; };
+		2E7C373C2BFEAFFC008D2B68 /* FeatureTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */; };
 		2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* StyleManager.swift */; };
 		2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */; };
 		2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
@@ -53,6 +54,7 @@
 		2E59AB302A95B6DA0064F50E /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		2E7C372F2BFEA30F008D2B68 /* MainContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContent.swift; sourceTree = "<group>"; };
+		2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTable.swift; sourceTree = "<group>"; };
 		2E8304C72BEFE8A000E90FAA /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStyleManager.swift; sourceTree = "<group>"; };
 		2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryFormatter.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				2ECB8D6B2BF9744F0044F557 /* MRMap.swift */,
 				2E8305822BF7E7FA00E90FAA /* FeatureDetails.swift */,
 				2E8305842BF801B500E90FAA /* FeatureRow.swift */,
+				2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */,
 			);
 			path = "Main Window";
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
 				2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */,
 				2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */,
+				2E7C373C2BFEAFFC008D2B68 /* FeatureTable.swift in Sources */,
 				2E8305812BF6A89A00E90FAA /* HostController.swift in Sources */,
 				2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */,
 				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
