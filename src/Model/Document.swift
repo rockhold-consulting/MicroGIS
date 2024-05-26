@@ -32,6 +32,10 @@ class Document: NSPersistentDocument {
             
     let logger = Logger(subsystem: "org.appel-rockhold.Georg", category: "Document")
 
+    override var managedObjectModel: NSManagedObjectModel? {
+        return (NSApplication.shared.delegate as! AppDelegate).documentObjectModel
+    }
+
     override func makeWindowControllers() {
         // Returns the Storyboard that contains the main Document window.
         // Creates a view model required by some of the various view controllers embedded in that window's hierarchy,
@@ -41,21 +45,6 @@ class Document: NSPersistentDocument {
         windowController.contentViewController?.representedObject = managedObjectContext
 
         self.addWindowController(windowController)
-    }
-
-    override func write(to absoluteURL: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType, originalContentsURL absoluteOriginalContentsURL: URL?) throws {
-        do {
-            try super.write(to: absoluteURL, ofType: typeName, for: saveOperation, originalContentsURL: absoluteOriginalContentsURL)
-        } catch {
-            fatalError(error.localizedDescription)
-        }
-    }
-    override func writeSafely(to url: URL, ofType typeName: String, for saveOperation: NSDocument.SaveOperationType) throws {
-        do {
-            try super.writeSafely(to: url, ofType: typeName, for: saveOperation)
-        } catch {
-            fatalError(error.localizedDescription)
-        }
     }
 
     @IBAction

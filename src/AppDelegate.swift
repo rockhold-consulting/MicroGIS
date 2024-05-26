@@ -27,6 +27,16 @@ import Cocoa
 @main
 class AppDelegate: NSObject, NSApplicationDelegate {
 
+    let documentObjectModel: NSManagedObjectModel
+
+    override init() {
+        let momUrl = Bundle.main.url(forResource: "Document", 
+                                     withExtension: "mom",
+                                     subdirectory: "Document.momd")!
+        documentObjectModel = NSManagedObjectModel(contentsOf: momUrl)!
+        super.init()
+    }
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         FeaturePropertiesTransformer.register()
         GeoWrapperTransformer.register()

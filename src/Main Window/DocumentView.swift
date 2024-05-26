@@ -26,13 +26,6 @@ struct DocumentView: View {
             MainContent(moc: moc, features: features, selection: $selection)
         }
         .navigationSplitViewStyle(.automatic)
-//        .task {
-//
-//            let s = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { t in
-//                let f = features[0]
-//                moc.delete(f)
-//            }
-//        }
     }
 }
 
