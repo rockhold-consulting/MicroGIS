@@ -24,6 +24,7 @@
 
 import Cocoa
 import UniformTypeIdentifiers
+import SwiftUI
 import OSLog
 
 class Document: NSPersistentDocument {
@@ -37,26 +38,25 @@ class Document: NSPersistentDocument {
     }
 
     override func makeWindowControllers() {
-        // Returns the Storyboard that contains the main Document window.
-        // Creates a view model required by some of the various view controllers embedded in that window's hierarchy,
-        // and injects it into the root view controller
-        let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        let windowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Document Window Controller")) as! NSWindowController
-        windowController.contentViewController?.representedObject = managedObjectContext
-
+        let f = (NSScreen.main?.visibleFrame)!
+        let window = NSWindow(
+            contentRect: f,
+            styleMask: [.titled, .closable, .resizable, .fullSizeContentView],
+            backing: .buffered, defer: false
+        )
+        window.contentViewController = HostingController(rootView: DocumentView().environment(\.managedObjectContext, self.managedObjectContext!), frame: f)
+        let windowController = NSWindowController(window: window)
         self.addWindowController(windowController)
     }
 
     @IBAction
     func importFile(_ sender: Any?) {
 
-        guard let docWindow = self.windowControllers.first?.window else {
+        guard self.windowControllers.first?.window != nil,
+              managedObjectContext != nil else {
             return
         }
-        guard let _ = managedObjectContext else {
-            return
-        }
-
+        
         let openPanel = NSOpenPanel()
         openPanel.allowedContentTypes = [UTType(filenameExtension: "geojson", conformingTo: .json)!]
         openPanel.message = NSLocalizedString("Choose File to Import Message", comment: "")
@@ -69,7 +69,7 @@ class Document: NSPersistentDocument {
 
         openPanel.begin { [self] (response) in
             guard response == NSApplication.ModalResponse.OK else { return }
-            self.importGeoJSON(url: openPanel.url!)
+            self.importFeaturesFile(url: openPanel.url!)
         }
     }
 
@@ -78,9 +78,13 @@ class Document: NSPersistentDocument {
         // TODO: implement me
     }
 
-    func importGeoJSON(url: URL) {
+    func importFeaturesFile(url: URL) {
         guard let moc = self.managedObjectContext else { return }
         let geoObjectCreator = CoreDataGeoObjectCreator(importContext: moc)
-        GeorgMKGeoJSONFeatureSource().importLayer(from: url, creator: geoObjectCreator)
+
+        let ext = url.pathExtension
+        if ext.uppercased() == "GEOJSON" {
+            GeorgMKGeoJSONFeatureSource().importLayer(from: url, creator: geoObjectCreator)
+        }
     }
 }
