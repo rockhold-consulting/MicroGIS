@@ -64,6 +64,10 @@ extension MRMap {
         init(owner: MRMap, managedObjectContext: NSManagedObjectContext) {
             self.owner = owner
             self.managedObjectContext = managedObjectContext
+
+            super.init()
+
+            NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: managedObjectContext)
         }
 
         weak var mapView: MKMapView? = nil {
@@ -138,6 +142,114 @@ extension MRMap {
             mapView?.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.geoPointReuseIdentifier)
             mapView?.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.clusterAnnotationReuseIdentifier)
         }
+
+        @objc func managedObjectContextObjectsDidChange(notification: NSNotification) {
+            guard let userInfo = notification.userInfo,
+                  let view = mapView else {
+                return
+            }
+
+            if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
+
+                guard inserts.count > 0 else { return }
+                var annotations = [MKAnnotation]()
+                var overlays = [MKOverlay]()
+
+                inserts.compactMap { obj in
+                    obj as? Geometry
+                }
+                .forEach { g in
+                    let gp = GeometryProxy(geometry: g)
+                    if g.wrapped?.shape is GeoPoint {
+                        annotations.append(gp)
+                    } else {
+                        overlays.append(gp)
+                    }
+                }
+                Task { [annotations, overlays] in
+                    await MainActor.run {
+                        if !annotations.isEmpty {
+                            view.addAnnotations(annotations)
+                        }
+                        if !overlays.isEmpty {
+                            view.addOverlays(overlays, level: .aboveRoads)
+                        }
+                    }
+                }
+            }
+
+            if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
+
+                updates.compactMap { obj in
+                    obj as? Geometry
+                }
+                .forEach { geometry in
+                    if let r = renderer(forGeometry: geometry) {
+                        r.applyStyle(manager: styleManager,
+                                     geometry: geometry,
+                                     selected: isSelected(geometry.parentID))
+                        .setNeedsDisplay()
+                    } else {
+                        self.refreshAnnotation(geometry: geometry)
+                    }
+                }
+            }
+            if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
+
+                func annotation(with id: NSManagedObjectID) -> MKAnnotation? {
+                    if let ann = mapView?.annotations.first(where: { annotation in
+                        guard let proxy = annotation as? GeometryProxy else { return false }
+                        return proxy.geometryID == id
+                    }) {
+                        return ann
+                    }
+                    return nil
+                }
+
+                func overlay(with id: NSManagedObjectID) -> MKOverlay? {
+                    if let ovr = mapView?.overlays.first(where: { overlay in
+                        guard let proxy = overlay as? GeometryProxy else { return false }
+                        return proxy.geometryID == id
+                    }) {
+                        return ovr
+                    }
+                    return nil
+                }
+
+                var annotations = [MKAnnotation]()
+                var overlays = [MKOverlay]()
+
+                deletes.compactMap { obj in
+                    obj as? Geometry
+                }
+                .forEach { g in
+                    if g.wrapped?.shape is GeoPoint {
+                        if let ann = annotation(with: g.objectID) {
+                            annotations.append(ann)
+                        }
+                    } else {
+                        if let ovr = overlay(with: g.objectID) {
+                            overlays.append(ovr)
+                        }
+                    }
+                }
+
+                Task { [overlays, annotations] in
+                    await MainActor.run {
+                        mapView?.removeOverlays(overlays)
+                        mapView?.removeAnnotations(annotations)
+                    }
+                }
+            }
+        }
+
+        func handle(inserts: Set<NSManagedObject>) {
+            
+        }
+
+        func handle(deletes: Set<NSManagedObject>) {
+
+        }
     }
 }
 
@@ -194,46 +306,47 @@ extension MKOverlayPathRenderer {
 
 extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
 
-    @MainActor
-    private func addToView(annotations: [MKAnnotation],
-                           overlays: [MKOverlay],
-                           centroids: [MKMapPoint],
-                           visibleRect: MKMapRect) async {
+    func load() {
+//        var bigbox = MKMapRect.null
+//        var centroids = [MKMapPoint]()
+        var annotations = [MKAnnotation]()
+        var overlays = [MKOverlay]()
+        owner.geometries.forEach { geometry in
+//            bigbox = bigbox.union(geometry.betterBox)
+//            centroids.append(MKMapPoint(geometry.coordinate))
 
-        guard let view = mapView else { return }
-
-        view.removeAnnotations(view.annotations)
-        view.overlays.forEach { overlay in
-            if !(overlay is CustomLoadingTileOverlay) {
-                view.removeOverlay(overlay)
+            let gp = GeometryProxy(geometry: geometry)
+            if geometry.wrapped?.shape is GeoPoint {
+                annotations.append(gp)
+            } else {
+                overlays.append(gp)
             }
         }
-        //        view.removeOverlays(view.overlays)
 
-        if !annotations.isEmpty {
-            view.addAnnotations(annotations)
-        }
-        if !overlays.isEmpty {
-            view.addOverlays(overlays, level: .aboveRoads)
-        }
+        Task { [annotations, overlays] in
+            await MainActor.run {
+                guard let view = mapView else { return }
+                view.overlays.forEach { overlay in
+                    if !(overlay is CustomLoadingTileOverlay) {
+                        view.removeOverlay(overlay)
+                    }
+                }
 
-//        let currentRect = view.visibleMapRect
-//        let containsAll = centroids.allSatisfy { p in currentRect.contains(p) }
-//
-//                if containsAll && view.region.span.longitudeDelta < 4.0 {
-//                    // don't reset the view, you can already see the new coordinate
-//                    return
-//                }
-//                view.visibleMapRect = visibleRect
-    }
+                if !annotations.isEmpty {
+                    view.addAnnotations(annotations)
+                }
+                if !overlays.isEmpty {
+                    view.addOverlays(overlays, level: .aboveRoads)
+                }
 
-    func load() {
-        reload { annotations, overlays, centroids, bigbox in
-            Task {
-                await self.addToView(annotations: annotations,
-                                     overlays: overlays,
-                                     centroids: centroids,
-                                     visibleRect:bigbox.insetBy(dx: -10000, dy: -10000))
+                //        let currentRect = view.visibleMapRect
+                //        let containsAll = centroids.allSatisfy { p in currentRect.contains(p) }
+                //
+                //                if containsAll && view.region.span.longitudeDelta < 4.0 {
+                //                    // don't reset the view, you can already see the new coordinate
+                //                    return
+                //                }
+                //                view.visibleMapRect = visibleRect
             }
         }
     }
@@ -250,7 +363,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
                 if selection.count == 1 {
                     self.flyToSelection(selection.first!)
                 }
-                self.rerenderSelection(changeSet: toChange)
+                self.rerender(changeSet: toChange)
             }
         }
     }
@@ -260,40 +373,24 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
         _ gestureRecognizer: NSGestureRecognizer,
         shouldAttemptToRecognizeWith event: NSEvent
     ) -> Bool {
-
         commandWasDown = event.modifierFlags.contains(.command)
         return true
     }
 
-    private func makeRenderer(for geometry: Geometry) -> MKOverlayPathRenderer? {
-        if let r = geometry.makeRenderer() {
-            rendererCache[geometry.objectID] = r
+    func renderer(forGeometry g: Geometry) -> MKOverlayPathRenderer? {
+        if let renderer = rendererCache[g.objectID] {
+            return renderer
+        } else if let r = g.makeRenderer() {
+            rendererCache[g.objectID] = r
             return r
         } else {
             return nil
         }
     }
 
-    func renderer(forGeometry g: Geometry) -> MKOverlayPathRenderer? {
-        if let renderer = rendererCache[g.objectID] {
-            return renderer
-        } else {
-            return makeRenderer(for: g)
-        }
-    }
-
-    func renderer(forGeometryID gID: NSManagedObjectID) -> MKOverlayPathRenderer? {
-        if let renderer = rendererCache[gID] {
-            return renderer
-        } else {
-            return makeRenderer(for: geometry(with: gID))
-        }
-    }
-
     @objc func handleClick(gestureRecognizer: NSGestureRecognizer) {
 
         let loc = gestureRecognizer.location(in: mapView)
-
         guard let mapPoint = mapView?.pointToMapPoint(loc) else { return }
 
         // Let's do this the naively stupid way first
@@ -402,21 +499,24 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
         print("did DESELECT an annotation")
     }
 
-    func doSelectAnnotation(geometry: Geometry, selected: Bool) {
+    func refreshAnnotation(geometry: Geometry) {
         guard let ann = mapView?.annotations.first(where: { annotation in
             guard let proxy = annotation as? GeometryProxy else { return false }
             return proxy.geometryID == geometry.objectID
         }) else {
             return
         }
-        mapView?.removeAnnotation(ann)
-        mapView?.addAnnotation(ann)
+        Task {
+            await MainActor.run {
+                mapView?.removeAnnotation(ann)
+                mapView?.addAnnotation(ann)
+            }
+        }
     }
 
     @MainActor
-    func rerenderSelection(changeSet: Set<NSManagedObjectID>) {
+    func rerender(changeSet: Set<NSManagedObjectID>) {
         changeSet.forEach { objectID in
-
             let selected = isSelected(objectID)
             objectID.geometryChildren(given: owner.moc).forEach { geometry in
                 if let r = renderer(forGeometry: geometry) {
@@ -425,7 +525,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
                                  selected: selected)
                     .setNeedsDisplay()
                 } else {
-                    self.doSelectAnnotation(geometry: geometry, selected: selected)
+                    self.refreshAnnotation(geometry: geometry)
                 }
             }
         }
@@ -436,17 +536,6 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
         if let geokid = objID.geometryChildren(given: owner.moc).first {
             mapView?.setCenter(geokid.coordinate, animated: true)
         }
-//        objectID.geometryChildren(given: owner.moc).forEach { geometry in
-//            if let r = renderer(forGeometry: geometry) {
-//                r.applyStyle(manager: styleManager,
-//                             geometry: geometry,
-//                             selected: selected)
-//                .setNeedsDisplay()
-//            } else {
-//                self.doSelectAnnotation(geometry: geometry, selected: selected)
-//            }
-//        }
-
     }
 }
 
@@ -493,12 +582,6 @@ extension MRMap.MapCoordinator {
                 annotations.append(gp)
             } else {
                 overlays.append(gp)
-            }
-        }
-
-        func add(geometries: [Geometry]?, feature: Feature? = nil) {
-            geometries?.forEach { g in
-                add(geometry: g)
             }
         }
 
