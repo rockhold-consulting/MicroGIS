@@ -10,20 +10,9 @@
 		2E7C372E2BFEA1F7008D2B68 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */; };
 		2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372F2BFEA30F008D2B68 /* MainContent.swift */; };
 		2E7C373C2BFEAFFC008D2B68 /* FeatureTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */; };
-		2E7C37462C030BBC008D2B68 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C37452C030BBC008D2B68 /* AppDelegate.swift */; };
-		2E7C37482C030BBC008D2B68 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C37472C030BBC008D2B68 /* Document.swift */; };
-		2E7C374B2C030BBC008D2B68 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C37492C030BBC008D2B68 /* Document.xib */; };
-		2E7C374E2C030BBC008D2B68 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C374C2C030BBC008D2B68 /* Document.xcdatamodeld */; };
-		2E7C37502C030BC1008D2B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C374F2C030BC1008D2B68 /* Assets.xcassets */; };
-		2E7C37532C030BC1008D2B68 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C37512C030BC1008D2B68 /* MainMenu.xib */; };
 		2E7C375D2C03BC43008D2B68 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C375C2C03BC43008D2B68 /* MainMenu.xib */; };
 		2E7C37632C03D8C5008D2B68 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C37622C03D8C5008D2B68 /* main.swift */; };
 		2E7C37642C03E412008D2B68 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305802BF6A89A00E90FAA /* HostingController.swift */; };
-		2E7C376C2C04F9EF008D2B68 /* dataappApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C376B2C04F9EF008D2B68 /* dataappApp.swift */; };
-		2E7C376E2C04F9EF008D2B68 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C376D2C04F9EF008D2B68 /* ContentView.swift */; };
-		2E7C37702C04F9EF008D2B68 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C376F2C04F9EF008D2B68 /* Item.swift */; };
-		2E7C37722C04F9F4008D2B68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C37712C04F9F4008D2B68 /* Assets.xcassets */; };
-		2E7C37752C04F9F4008D2B68 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C37742C04F9F4008D2B68 /* Preview Assets.xcassets */; };
 		2E7C377C2C06770B008D2B68 /* FeatureDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C377B2C06770B008D2B68 /* FeatureDetails.swift */; };
 		2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* StyleManager.swift */; };
 		2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */; };
@@ -56,25 +45,8 @@
 		2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sidebar.swift; sourceTree = "<group>"; };
 		2E7C372F2BFEA30F008D2B68 /* MainContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContent.swift; sourceTree = "<group>"; };
 		2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureTable.swift; sourceTree = "<group>"; };
-		2E7C37432C030BBC008D2B68 /* docapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = docapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E7C37452C030BBC008D2B68 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2E7C37472C030BBC008D2B68 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		2E7C374A2C030BBC008D2B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
-		2E7C374D2C030BBC008D2B68 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
-		2E7C374F2C030BC1008D2B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2E7C37522C030BC1008D2B68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		2E7C37542C030BC1008D2B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2E7C37552C030BC1008D2B68 /* docapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = docapp.entitlements; sourceTree = "<group>"; };
 		2E7C375C2C03BC43008D2B68 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		2E7C37622C03D8C5008D2B68 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		2E7C37692C04F9EF008D2B68 /* dataapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dataapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E7C376B2C04F9EF008D2B68 /* dataappApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataappApp.swift; sourceTree = "<group>"; };
-		2E7C376D2C04F9EF008D2B68 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		2E7C376F2C04F9EF008D2B68 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		2E7C37712C04F9F4008D2B68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2E7C37742C04F9F4008D2B68 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2E7C37762C04F9F4008D2B68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2E7C37772C04F9F4008D2B68 /* dataapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = dataapp.entitlements; sourceTree = "<group>"; };
 		2E7C377B2C06770B008D2B68 /* FeatureDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureDetails.swift; sourceTree = "<group>"; };
 		2E8304C72BEFE8A000E90FAA /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStyleManager.swift; sourceTree = "<group>"; };
@@ -117,20 +89,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2E7C37402C030BBC008D2B68 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2E7C37662C04F9EF008D2B68 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2ECCEAED2A9436C0005785FA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,43 +120,6 @@
 			path = "Display Features";
 			sourceTree = "<group>";
 		};
-		2E7C37442C030BBC008D2B68 /* docapp */ = {
-			isa = PBXGroup;
-			children = (
-				2E7C37452C030BBC008D2B68 /* AppDelegate.swift */,
-				2E7C37472C030BBC008D2B68 /* Document.swift */,
-				2E7C37492C030BBC008D2B68 /* Document.xib */,
-				2E7C374F2C030BC1008D2B68 /* Assets.xcassets */,
-				2E7C37512C030BC1008D2B68 /* MainMenu.xib */,
-				2E7C37542C030BC1008D2B68 /* Info.plist */,
-				2E7C37552C030BC1008D2B68 /* docapp.entitlements */,
-				2E7C374C2C030BBC008D2B68 /* Document.xcdatamodeld */,
-			);
-			path = docapp;
-			sourceTree = "<group>";
-		};
-		2E7C376A2C04F9EF008D2B68 /* dataapp */ = {
-			isa = PBXGroup;
-			children = (
-				2E7C376B2C04F9EF008D2B68 /* dataappApp.swift */,
-				2E7C376D2C04F9EF008D2B68 /* ContentView.swift */,
-				2E7C376F2C04F9EF008D2B68 /* Item.swift */,
-				2E7C37712C04F9F4008D2B68 /* Assets.xcassets */,
-				2E7C37762C04F9F4008D2B68 /* Info.plist */,
-				2E7C37772C04F9F4008D2B68 /* dataapp.entitlements */,
-				2E7C37732C04F9F4008D2B68 /* Preview Content */,
-			);
-			path = dataapp;
-			sourceTree = "<group>";
-		};
-		2E7C37732C04F9F4008D2B68 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				2E7C37742C04F9F4008D2B68 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
 		2EACC0352BE9528B00A7F91A /* xcconfig */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,8 +142,6 @@
 				2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */,
 				2EACC0352BE9528B00A7F91A /* xcconfig */,
 				2ECCEAF22A9436C0005785FA /* src */,
-				2E7C37442C030BBC008D2B68 /* docapp */,
-				2E7C376A2C04F9EF008D2B68 /* dataapp */,
 				2ECCEAF12A9436C0005785FA /* Products */,
 				2EF33E642ADF0077004C750F /* Frameworks */,
 				2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */,
@@ -233,8 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				2ECCEAF02A9436C0005785FA /* Georg.app */,
-				2E7C37432C030BBC008D2B68 /* docapp.app */,
-				2E7C37692C04F9EF008D2B68 /* dataapp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,40 +234,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2E7C37422C030BBC008D2B68 /* docapp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2E7C37582C030BC1008D2B68 /* Build configuration list for PBXNativeTarget "docapp" */;
-			buildPhases = (
-				2E7C373F2C030BBC008D2B68 /* Sources */,
-				2E7C37402C030BBC008D2B68 /* Frameworks */,
-				2E7C37412C030BBC008D2B68 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = docapp;
-			productName = docapp;
-			productReference = 2E7C37432C030BBC008D2B68 /* docapp.app */;
-			productType = "com.apple.product-type.application";
-		};
-		2E7C37682C04F9EF008D2B68 /* dataapp */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2E7C37782C04F9F4008D2B68 /* Build configuration list for PBXNativeTarget "dataapp" */;
-			buildPhases = (
-				2E7C37652C04F9EF008D2B68 /* Sources */,
-				2E7C37662C04F9EF008D2B68 /* Frameworks */,
-				2E7C37672C04F9EF008D2B68 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = dataapp;
-			productName = dataapp;
-			productReference = 2E7C37692C04F9EF008D2B68 /* dataapp.app */;
-			productType = "com.apple.product-type.application";
-		};
 		2ECCEAEF2A9436C0005785FA /* Georg */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2ECCEB052A9436C4005785FA /* Build configuration list for PBXNativeTarget "Georg" */;
@@ -382,12 +265,6 @@
 				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
-					2E7C37422C030BBC008D2B68 = {
-						CreatedOnToolsVersion = 15.2;
-					};
-					2E7C37682C04F9EF008D2B68 = {
-						CreatedOnToolsVersion = 15.2;
-					};
 					2ECCEAEF2A9436C0005785FA = {
 						CreatedOnToolsVersion = 14.3.1;
 					};
@@ -410,32 +287,11 @@
 			projectRoot = "";
 			targets = (
 				2ECCEAEF2A9436C0005785FA /* Georg */,
-				2E7C37422C030BBC008D2B68 /* docapp */,
-				2E7C37682C04F9EF008D2B68 /* dataapp */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2E7C37412C030BBC008D2B68 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E7C37502C030BC1008D2B68 /* Assets.xcassets in Resources */,
-				2E7C374B2C030BBC008D2B68 /* Document.xib in Resources */,
-				2E7C37532C030BC1008D2B68 /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2E7C37672C04F9EF008D2B68 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E7C37752C04F9F4008D2B68 /* Preview Assets.xcassets in Resources */,
-				2E7C37722C04F9F4008D2B68 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2ECCEAEE2A9436C0005785FA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,26 +306,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2E7C373F2C030BBC008D2B68 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E7C374E2C030BBC008D2B68 /* Document.xcdatamodeld in Sources */,
-				2E7C37482C030BBC008D2B68 /* Document.swift in Sources */,
-				2E7C37462C030BBC008D2B68 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2E7C37652C04F9EF008D2B68 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E7C376E2C04F9EF008D2B68 /* ContentView.swift in Sources */,
-				2E7C37702C04F9EF008D2B68 /* Item.swift in Sources */,
-				2E7C376C2C04F9EF008D2B68 /* dataappApp.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		2ECCEAEC2A9436C0005785FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -505,350 +341,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXVariantGroup section */
-		2E7C37492C030BBC008D2B68 /* Document.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2E7C374A2C030BBC008D2B68 /* Base */,
-			);
-			name = Document.xib;
-			sourceTree = "<group>";
-		};
-		2E7C37512C030BC1008D2B68 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2E7C37522C030BC1008D2B68 /* Base */,
-			);
-			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
-		2E7C37562C030BC1008D2B68 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = docapp/docapp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = MYU6NE7WY6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = docapp/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.docapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		2E7C37572C030BC1008D2B68 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = docapp/docapp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = MYU6NE7WY6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = docapp/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.docapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		2E7C37792C04F9F4008D2B68 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = dataapp/dataapp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"dataapp/Preview Content\"";
-				DEVELOPMENT_TEAM = MYU6NE7WY6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = dataapp/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.dataapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		2E7C377A2C04F9F4008D2B68 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = dataapp/dataapp.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"dataapp/Preview Content\"";
-				DEVELOPMENT_TEAM = MYU6NE7WY6;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_PREVIEWS = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = dataapp/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.6;
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.dataapp";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 		2ECCEB032A9436C4005785FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */;
@@ -896,24 +389,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2E7C37582C030BC1008D2B68 /* Build configuration list for PBXNativeTarget "docapp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2E7C37562C030BC1008D2B68 /* Debug */,
-				2E7C37572C030BC1008D2B68 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2E7C37782C04F9F4008D2B68 /* Build configuration list for PBXNativeTarget "dataapp" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2E7C37792C04F9F4008D2B68 /* Debug */,
-				2E7C377A2C04F9F4008D2B68 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "Georg" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -958,16 +433,6 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		2E7C374C2C030BBC008D2B68 /* Document.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				2E7C374D2C030BBC008D2B68 /* Document.xcdatamodel */,
-			);
-			currentVersion = 2E7C374D2C030BBC008D2B68 /* Document.xcdatamodel */;
-			path = Document.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		2EF569E62BCF133700964F85 /* Document.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

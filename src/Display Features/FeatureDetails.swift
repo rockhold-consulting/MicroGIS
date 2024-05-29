@@ -15,7 +15,7 @@ struct FeatureDetails: View {
     var body: some View {
         GroupBox {
 
-            
+
 
 
             Button {
