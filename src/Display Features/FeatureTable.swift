@@ -4,27 +4,27 @@ import CoreLocation
 extension Feature {
     var geoInfo: (KitImage, String, String) {
         let cf = CoordinateFormatter(style: .Decimal)
-
+        
         guard let geo0 = (self.kidArray as? [Geometry])?.first else {
-//        guard let geos = self.kidArray as? [Geometry], !geos.isEmpty else {
+            //        guard let geos = self.kidArray as? [Geometry], !geos.isEmpty else {
             return (
                 KitImage(systemSymbolName: "dot.squareshape.split.2x2",
-                                            accessibilityDescription: "feature icon")!,
+                         accessibilityDescription: "feature icon")!,
                 "",
                 ""
             )
         }
-
+        
         let lat = geo0.wrapped?.baseInfo.coordinate.latitude ?? 0.0
         let lng = geo0.wrapped?.baseInfo.coordinate.longitude ?? 0.0
-
+        
         return (
             geo0.icon,
             geo0.wrapped?.shape.kindString ?? "??",
             cf.string(from: CLLocationCoordinate2D(latitude: lat, longitude: lng))
-            )
+        )
     }
-
+    
     func cleanProperties() -> [String:String] {
         func clean(_ v: Any) -> String {
             switch v {
@@ -40,7 +40,7 @@ extension Feature {
                 return "-??-"
             }
         }
-
+        
         var props = [String:String]()
         if let p = self.properties {
             for (k,v) in p.data {
@@ -49,14 +49,14 @@ extension Feature {
         }
         return props
     }
-
+    
 }
 
 struct FeatureTable: View {
     let managedObjectContext: NSManagedObjectContext
     let features: [Feature]
     let columns: [String]
-
+    
     init(managedObjectContext: NSManagedObjectContext, featureIDs: Set<NSManagedObjectID>) {
         self.managedObjectContext = managedObjectContext
         self.features = featureIDs.map { fID in
@@ -73,7 +73,7 @@ struct FeatureTable: View {
         }
         .sorted(using: .localizedStandard)
     }
-
+    
     struct Header: View {
         let columns: [String]
         var body: some View {
@@ -100,32 +100,36 @@ struct FeatureTable: View {
             }
         }
     }
-
+    
     struct Row: View {
-
+        
         let feature: Feature
         let columns: [String]
-
+        
         init(feature f: Feature, columns cc: [String]) {
             self.feature = f
             self.columns = cc
         }
-
+        
         var body: some View {
+            let info = feature.geoInfo
             GridRow {
-                Text(feature.objectID.shortName)
-
-                let info = feature.geoInfo
+                
                 HStack {
+                    Text(feature.objectID.shortName)
                     Divider()
-                    Image(nsImage: info.0)
-                    Text(info.1) // shapeName
+                }
+                NavigationLink(value: feature) {
+                    HStack {
+                        Image(nsImage: info.0)
+                        Text(info.1) // shapeName
+                    }
                 }
                 HStack {
                     Divider()
                     Text(info.2) // formatted coordinate of centerpoint
                 }
-
+                
                 ForEach(columns, id:\.self) { column in
                     let cleanProperties = feature.cleanProperties()
                     HStack {
@@ -133,10 +137,11 @@ struct FeatureTable: View {
                         Text(cleanProperties[column] ?? "")
                     }
                 }
+                
             }
         }
     }
-
+    
     var body: some View {
         if !features.isEmpty {
             ScrollView([.horizontal, .vertical]) {

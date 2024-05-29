@@ -15,12 +15,8 @@ struct MainContent: View {
     var body: some View {
         VStack {
             MRMap(selection: $selection)
-            HStack {
-                FeatureTable(managedObjectContext: moc, featureIDs: selection)
-                Spacer()
-            }
+            FeatureTable(managedObjectContext: moc, featureIDs: selection)
         }
-        Spacer()
     }
 }
 

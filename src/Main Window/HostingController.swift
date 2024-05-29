@@ -9,7 +9,10 @@ import Foundation
 import SwiftUI
 import CoreData
 
-class HostingController<Content: View>: NSHostingController<Content>, NSToolbarItemValidation, NSMenuItemValidation, NSToolbarDelegate {
+class HostingController<Content: View>: NSHostingController<Content>, 
+                                            NSToolbarItemValidation,
+                                            NSMenuItemValidation,
+                                            NSToolbarDelegate {
 
     @MainActor
     init(rootView: Content, frame: NSRect) {
@@ -26,7 +29,7 @@ class HostingController<Content: View>: NSHostingController<Content>, NSToolbarI
 
         // This view controller determines the window toolbar's content.
         let toolbar = NSToolbar(identifier: "toolbar")
-        toolbar.delegate = self
+        toolbar.delegate = self as! any NSToolbarDelegate
         toolbar.displayMode = .iconOnly
         toolbar.allowsUserCustomization = false
         self.view.window?.toolbar = toolbar

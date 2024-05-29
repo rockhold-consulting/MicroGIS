@@ -150,105 +150,97 @@ extension MRMap {
             }
 
             if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-
-                guard inserts.count > 0 else { return }
-                var annotations = [MKAnnotation]()
-                var overlays = [MKOverlay]()
-
-                inserts.compactMap { obj in
-                    obj as? Geometry
-                }
-                .forEach { g in
-                    let gp = GeometryProxy(geometry: g)
-                    if g.wrapped?.shape is GeoPoint {
-                        annotations.append(gp)
-                    } else {
-                        overlays.append(gp)
-                    }
-                }
-                Task { [annotations, overlays] in
-                    await MainActor.run {
-                        if !annotations.isEmpty {
-                            view.addAnnotations(annotations)
-                        }
-                        if !overlays.isEmpty {
-                            view.addOverlays(overlays, level: .aboveRoads)
-                        }
-                    }
-                }
+                handle(mapView: view, inserts: inserts.compactMap({ $0 as? Geometry }))
             }
-
             if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
-
-                updates.compactMap { obj in
-                    obj as? Geometry
-                }
-                .forEach { geometry in
-                    if let r = renderer(forGeometry: geometry) {
-                        r.applyStyle(manager: styleManager,
-                                     geometry: geometry,
-                                     selected: isSelected(geometry.parentID))
-                        .setNeedsDisplay()
-                    } else {
-                        self.refreshAnnotation(geometry: geometry)
-                    }
-                }
+                handle(mapView: view, updates: updates.compactMap({ $0 as? Geometry }))
             }
             if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
+                handle(mapView: view, deletes: deletes.compactMap({ $0 as? Geometry }))
+            }
+        }
 
-                func annotation(with id: NSManagedObjectID) -> MKAnnotation? {
-                    if let ann = mapView?.annotations.first(where: { annotation in
-                        guard let proxy = annotation as? GeometryProxy else { return false }
-                        return proxy.geometryID == id
-                    }) {
-                        return ann
+        func handle(mapView: MKMapView, updates: [Geometry]) {
+            updates.forEach { geometry in
+                if let r = renderer(forGeometry: geometry) {
+                    r.applyStyle(manager: styleManager,
+                                 geometry: geometry,
+                                 selected: isSelected(geometry.parentID))
+                    .setNeedsDisplay()
+                } else {
+                    self.refreshAnnotation(geometry: geometry)
+                }
+            }
+        }
+
+        func handle(mapView: MKMapView, inserts: [Geometry]) {
+            guard inserts.count > 0 else { return }
+            var annotations = [MKAnnotation]()
+            var overlays = [MKOverlay]()
+
+            inserts.forEach { g in
+                let gp = GeometryProxy(geometry: g)
+                if g.wrapped?.shape is GeoPoint {
+                    annotations.append(gp)
+                } else {
+                    overlays.append(gp)
+                }
+            }
+            Task { [annotations, overlays] in
+                await MainActor.run {
+                    if !annotations.isEmpty {
+                        mapView.addAnnotations(annotations)
                     }
-                    return nil
-                }
-
-                func overlay(with id: NSManagedObjectID) -> MKOverlay? {
-                    if let ovr = mapView?.overlays.first(where: { overlay in
-                        guard let proxy = overlay as? GeometryProxy else { return false }
-                        return proxy.geometryID == id
-                    }) {
-                        return ovr
-                    }
-                    return nil
-                }
-
-                var annotations = [MKAnnotation]()
-                var overlays = [MKOverlay]()
-
-                deletes.compactMap { obj in
-                    obj as? Geometry
-                }
-                .forEach { g in
-                    if g.wrapped?.shape is GeoPoint {
-                        if let ann = annotation(with: g.objectID) {
-                            annotations.append(ann)
-                        }
-                    } else {
-                        if let ovr = overlay(with: g.objectID) {
-                            overlays.append(ovr)
-                        }
-                    }
-                }
-
-                Task { [overlays, annotations] in
-                    await MainActor.run {
-                        mapView?.removeOverlays(overlays)
-                        mapView?.removeAnnotations(annotations)
+                    if !overlays.isEmpty {
+                        mapView.addOverlays(overlays, level: .aboveRoads)
                     }
                 }
             }
         }
 
-        func handle(inserts: Set<NSManagedObject>) {
-            
-        }
+        func handle(mapView: MKMapView, deletes: [Geometry]) {
 
-        func handle(deletes: Set<NSManagedObject>) {
+            func annotation(with id: NSManagedObjectID) -> MKAnnotation? {
+                if let ann = mapView.annotations.first(where: { annotation in
+                    guard let proxy = annotation as? GeometryProxy else { return false }
+                    return proxy.geometryID == id
+                }) {
+                    return ann
+                }
+                return nil
+            }
 
+            func overlay(with id: NSManagedObjectID) -> MKOverlay? {
+                if let ovr = mapView.overlays.first(where: { overlay in
+                    guard let proxy = overlay as? GeometryProxy else { return false }
+                    return proxy.geometryID == id
+                }) {
+                    return ovr
+                }
+                return nil
+            }
+
+            var annotations = [MKAnnotation]()
+            var overlays = [MKOverlay]()
+
+            deletes.forEach { g in
+                if g.wrapped?.shape is GeoPoint {
+                    if let ann = annotation(with: g.objectID) {
+                        annotations.append(ann)
+                    }
+                } else {
+                    if let ovr = overlay(with: g.objectID) {
+                        overlays.append(ovr)
+                    }
+                }
+            }
+
+            Task { [overlays, annotations] in
+                await MainActor.run {
+                    mapView.removeOverlays(overlays)
+                    mapView.removeAnnotations(annotations)
+                }
+            }
         }
     }
 }
