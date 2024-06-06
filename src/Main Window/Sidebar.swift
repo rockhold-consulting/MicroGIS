@@ -57,26 +57,10 @@ struct Sidebar: View {
             ForEach(features, id: \.self.objectID) { feature in
                 FeatureRow(feature: feature)
             }
-//                ForEach(features) { feature in
-//                    let vm = feature.vm()
-//                    NavigationLink(value: feature) {
-//                        Label {
-//                            Text(vm.id)
-//                            Text(vm.coordStr)
-//                        } icon: {
-//                            Image(nsImage: vm.icon)
-//                        }
-//                    }
-//                    .listItemTint(.secondary)
-//                }
-//            }
         }
         .navigationTitle("Features")
-        .navigationDestination(for: FakeStyleManager.self) { styleMgr in
-            Text("StyleManager")
-        }
-//        .navigationDestination(for: Feature.self) { feature in
-//            Text("Feature")
+//        .navigationDestination(for: FakeStyleManager.self) { styleMgr in
+//            Text("StyleManager")
 //        }
 #if os(macOS)
         .navigationSplitViewColumnWidth(280)

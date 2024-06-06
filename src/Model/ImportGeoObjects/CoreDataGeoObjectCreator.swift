@@ -37,55 +37,29 @@ class CoreDataGeoObjectCreator: GeoObjectCreator {
             context: self.importContext,
             featureID: featureID,
             properties: properties,
-            parent: parent as? Layer)
+            parent: parent as! Layer)
     }
 
-    func createAnnotationGeometry(coordinate: Geometry.Coordinate3D, parent: GeometryParent) -> GeometryLike {
-        switch parent {
-        case let layerParent as Layer:
-            return Geometry(
-                ctx: importContext,
-                coordinate: coordinate,
-                boundingBox: nil,
-                shape: GeoPoint(coordinate: coordinate),
-                layerParent: layerParent)
-
-        case let featureParent as Feature:
-            return Geometry(
-                ctx: importContext,
-                coordinate: coordinate,
-                boundingBox: nil,
-                shape: GeoPoint(coordinate: coordinate),
-                featureParent: featureParent)
-
-        default:
-            fatalError()
-        }
+    func createAnnotationGeometry(coordinate: Geometry.Coordinate3D, parent: FeatureLike) -> GeometryLike {
+        return Geometry(
+            ctx: importContext,
+            coordinate: coordinate,
+            boundingBox: nil,
+            shape: GeoPoint(coordinate: coordinate),
+            parent: parent as! Feature)
     }
 
     func createOverlayGeometry(
         coordinate: Geometry.Coordinate3D,
         boundingBox: Geometry.MapBox,
         shape: GeoShape,
-        parent: GeometryParent) -> GeometryLike {
-            switch parent {
-            case let layerParent as Layer:
-                return Geometry(
-                    ctx: importContext,
-                    coordinate: coordinate,
-                    boundingBox: boundingBox,
-                    shape: shape,
-                    layerParent: layerParent)
-            case let featureParent as Feature:
-                return Geometry(
-                    ctx: importContext,
-                    coordinate: coordinate,
-                    boundingBox: boundingBox,
-                    shape: shape,
-                    featureParent: featureParent)
-            default:
-                fatalError()
-            }
+        parent: FeatureLike) -> GeometryLike {
+            return Geometry(
+                ctx: importContext,
+                coordinate: coordinate,
+                boundingBox: boundingBox,
+                shape: shape,
+                parent: parent as! Feature)
         }
 }
 

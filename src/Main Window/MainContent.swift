@@ -10,11 +10,12 @@ import SwiftUI
 struct MainContent: View {
     let moc: NSManagedObjectContext
     @Binding var selection: Set<NSManagedObjectID>
+    @State private var searchText = ""
 
     var body: some View {
         VStack {
             MRMap(selection: $selection)
-            FeatureTable(managedObjectContext: moc, features: featuresFromSelection())
+            GeometriesTable(managedObjectContext: moc, features: featuresFromSelection(), searchText: $searchText)
         }
     }
 

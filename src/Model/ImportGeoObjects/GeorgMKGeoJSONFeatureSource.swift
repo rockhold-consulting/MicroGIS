@@ -106,7 +106,8 @@ extension MKGeoJSONFeature {
 }
 
 extension GeoObjectCreator {
-    func createGeometry(from shape: MKShape, parent: GeometryParent) {
+
+    func createGeometry(from shape: MKShape, parent: Feature) {
 
         switch shape {
         case let pa as MKPointAnnotation:
@@ -154,6 +155,15 @@ extension GeoObjectCreator {
             break
         }
     }
+
+    func createFeatureWithGeometry(from shape: MKShape, parent: LayerLike) {
+        let feature = self.createFeature(
+            featureID: nil,
+            properties: nil,
+            parent: parent
+        )
+        self.createGeometry(from: shape, parent: feature as! Feature)
+    }
 }
 
 public class GeorgMKGeoJSONFeatureSource {
@@ -162,7 +172,7 @@ public class GeorgMKGeoJSONFeatureSource {
 
     public func importLayer(from fileURL: URL, creator: GeoObjectCreator) {
 
-        func s1(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties) -> String? {
+        func s1(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties?) -> String? {
             if let identifier = mkFeature.identifier {
                 if !identifier.isEmpty {
                     return identifier
@@ -171,8 +181,8 @@ public class GeorgMKGeoJSONFeatureSource {
             return nil
         }
 
-        func s2(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties) -> String? {
-            if let propsFeatureID = featureProperties.featureID {
+        func s2(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties?) -> String? {
+            if let propsFeatureID = featureProperties?.featureID {
                 if !propsFeatureID.isEmpty {
                     return propsFeatureID
                 }
@@ -180,7 +190,7 @@ public class GeorgMKGeoJSONFeatureSource {
             return nil
         }
 
-        func s3(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties) -> String? {
+        func s3(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties?) -> String? {
             logger.info("no ID for feature")
             return nil
         }
@@ -194,7 +204,7 @@ public class GeorgMKGeoJSONFeatureSource {
                 switch topLevelGeoJSONObject {
 
                 case let shape as MKShape:
-                    creator.createGeometry(from: shape, parent: layer)
+                    creator.createFeatureWithGeometry(from: shape, parent: layer)
 
                 case let mkFeature as MKGeoJSONFeature:
                     let featureProperties = FeatureProperties(data: mkFeature.properties)
@@ -211,7 +221,7 @@ public class GeorgMKGeoJSONFeatureSource {
                         parent: layer
                     )
                     for shape in mkFeature.geometry {
-                        creator.createGeometry(from: shape, parent: feature)
+                        creator.createGeometry(from: shape, parent: feature as! Feature)
                     }
 
                 default:

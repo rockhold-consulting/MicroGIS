@@ -441,7 +441,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
         case let geometryProxy as GeometryProxy:
 
             let geometry = geometry(with: geometryProxy.geometryID)
-            let selected = isSelected(geometry.parent.objectID)
+            let selected = isSelected(geometry.parent!.objectID)
 
             return renderer(forGeometry: geometry)?
                 .applyStyle(manager: styleManager,
@@ -585,37 +585,17 @@ extension MRMap.MapCoordinator {
     }
 }
 
-extension GeometryParent {
-    var objectID: NSManagedObjectID {
-        return (self as! NSManagedObject).objectID
-    }
-}
-extension Feature: GeometryParent { }
-extension Layer: GeometryParent { }
-
 extension Geometry {
     var parentID: NSManagedObjectID {
-        return self.parent.objectID
-    }
-
-    public var parent: GeometryParent {
-        if let fp = featureParent {
-            return fp
-        } else if let lp = layerParent {
-            return lp
-        } else {
-            fatalError()
-        }
+        return self.parent!.objectID
     }
 }
 
 extension NSManagedObjectID {
     func geometryChildren(given moc: NSManagedObjectContext) -> [Geometry] {
         switch moc.object(with: self) {
-        case let lp as Layer:
-            return lp.geometries!.array as! [Geometry]
         case let fp as Feature:
-            return fp.geometries!.array as! [Geometry]
+            return fp.geometries?.allObjects as? [Geometry] ?? [Geometry]()
         default:
             fatalError()
         }

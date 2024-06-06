@@ -268,21 +268,11 @@ public extension Geometry {
                      coordinate c: Coordinate3D,
                      boundingBox bb: MapBox?,
                      shape: GeoShape,
-                     layerParent: Layer
+                     parent: Feature
     ) {
         self.init(context: ctx)
         self.wrapped = GeoWrapper(baseInfo: GeoBaseInfo(coordinate: c, boundingBox: bb), shape: shape)
-        self.layerParent = layerParent
-    }
-    convenience init(ctx: NSManagedObjectContext,
-                     coordinate c: Coordinate3D,
-                     boundingBox bb: MapBox?,
-                     shape: GeoShape,
-                     featureParent: Feature
-    ) {
-        self.init(context: ctx)
-        self.wrapped = GeoWrapper(baseInfo: GeoBaseInfo(coordinate: c, boundingBox: bb), shape: shape)
-        self.featureParent = featureParent
+        self.parent = parent
     }
 }
 

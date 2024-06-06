@@ -8,7 +8,9 @@
 import Foundation
 import CoreData
 
-@objc public class FeatureProperties: NSObject, NSSecureCoding {
+//@dynamicMemberLookup
+@objc
+public class FeatureProperties: NSObject, NSSecureCoding {
 
     var data: [String:Any]
 
@@ -22,7 +24,7 @@ import CoreData
         return nil
     }
 
-    init(data: Data?) {
+    init?(data: Data?) {
 
         guard let d = data else {
             self.data = [String:Any]()
@@ -30,7 +32,7 @@ import CoreData
         }
 
         guard let _ = try? JSONSerialization.jsonObject(with: d) else {
-            fatalError()
+            return nil
         }
 
         if let fi = try? JSONSerialization.jsonObject(with: d) as? [String:Any] {
@@ -59,14 +61,14 @@ import CoreData
 
     public static var supportsSecureCoding: Bool = true
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
 
         guard let jsonData = aDecoder.decodeData() else {
-            fatalError()
+            return nil
         }
 
         guard let _ = try? JSONSerialization.jsonObject(with: jsonData) else {
-            fatalError()
+            return nil
         }
 
         if let fi = try? JSONSerialization.jsonObject(with: jsonData) as? [String:Any] {
@@ -101,7 +103,7 @@ extension Feature: ModelObject {
 
     var isLeaf: Bool { (geometries?.count ?? 0) > 1 }
 
-    var kidArray: [ModelObject]? { (geometries?.array as! [ModelObject]) }
+    var kidArray: [ModelObject]? { (geometries as! [ModelObject]) }
 
     var icon: KitImage {
         let defaultIcon = KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
@@ -116,15 +118,22 @@ extension Feature: ModelObject {
         context: NSManagedObjectContext,
         featureID: String?,
         properties: FeatureProperties?,
-        parent: Layer?
+        parent: Layer
     ) {
         self.init(context: context)
         self.featureID = featureID
         self.properties = properties
         self.parent = parent
-        parent?.addToFeatures(self)
+        parent.addToFeatures(self)
     }
 }
+
+extension Feature {
+    var geometryArray: [Geometry] {
+        return self.geometries?.allObjects as! [Geometry]
+    }
+}
+
 
 class FeaturePropertiesTransformer: NSSecureUnarchiveFromDataTransformer {
 

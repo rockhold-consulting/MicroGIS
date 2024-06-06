@@ -13,14 +13,22 @@ struct FeatureRow: View {
 
     func vm(_ feature: Feature) -> (KitImage, String, String) {
         let cf = CoordinateFormatter(style: .Decimal)
-        var coord = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-        var icon =  KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
-        if let g = feature.kidArray?[0] as? Geometry {
-            let c = g.coordinate
-            coord = CLLocationCoordinate2D(latitude: c.latitude, longitude: c.longitude)
-            icon = g.icon
+        let icon =  KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
+
+        if let geometries = feature.geometries?.allObjects {
+            switch geometries.count {
+            case 0:
+                return (icon, feature.objectID.shortName, "<error>")
+            case 1:
+                let g = geometries[0] as! Geometry
+                let c = g.coordinate
+                return (g.icon, feature.objectID.shortName, cf.string(from: CLLocationCoordinate2D(latitude: c.latitude, longitude: c.longitude)))
+            default:
+                return (icon, feature.objectID.shortName, "<many>")
+            }
+        } else {
+            return (icon, feature.objectID.shortName, "<error>")
         }
-        return (icon, feature.objectID.shortName, cf.string(from: coord))
     }
 
     var body: some View {

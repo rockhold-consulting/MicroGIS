@@ -36,6 +36,7 @@
 		2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */; };
 		2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */; };
 		2EF569F52BCF2F4E00964F85 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF569F42BCF2F4E00964F85 /* BinaryCodable */; };
+		2EF5CE2A2C11509A004F5F8E /* GeometriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */; };
 		2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E62BCF133700964F85 /* Document.xcdatamodeld */; };
 		2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */; };
 		2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */; };
@@ -84,6 +85,7 @@
 		2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry+ModelObject.swift"; sourceTree = "<group>"; };
 		2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature+ModelObject.swift"; sourceTree = "<group>"; };
 		2EF569E72BCF133800964F85 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
+		2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometriesTable.swift; sourceTree = "<group>"; };
 		2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTileOverlay.swift; sourceTree = "<group>"; };
 		2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectMKBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -159,6 +161,7 @@
 		2ECCEAF22A9436C0005785FA /* src */ = {
 			isa = PBXGroup;
 			children = (
+				2EF5CE282C115077004F5F8E /* Display Geometries */,
 				2E7C37622C03D8C5008D2B68 /* main.swift */,
 				2E7C375C2C03BC43008D2B68 /* MainMenu.xib */,
 				2ECCEAF32A9436C0005785FA /* AppDelegate.swift */,
@@ -229,6 +232,14 @@
 				2EF569D32BCF129600964F85 /* ImportGeoObjects */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		2EF5CE282C115077004F5F8E /* Display Geometries */ = {
+			isa = PBXGroup;
+			children = (
+				2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */,
+			);
+			path = "Display Geometries";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -327,6 +338,7 @@
 				2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */,
 				2E7C37642C03E412008D2B68 /* HostingController.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
+				2EF5CE2A2C11509A004F5F8E /* GeometriesTable.swift in Sources */,
 				2E7C37632C03D8C5008D2B68 /* main.swift in Sources */,
 				2E8304CA2BEFE8DA00E90FAA /* SimpleStyleManager.swift in Sources */,
 				2ECCEAF82A9436C0005785FA /* Document.swift in Sources */,
