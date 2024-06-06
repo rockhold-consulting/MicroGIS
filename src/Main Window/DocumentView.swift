@@ -8,30 +8,40 @@
 import SwiftUI
 import CoreData
 
+struct FakeStyleManager: Hashable {
+    static func == (lhs: FakeStyleManager, rhs: FakeStyleManager) -> Bool {
+        return lhs.name == rhs.name
+    }
+
+    let name: String
+    init(name: String) {
+        self.name = name
+    }
+}
+
+enum Panel: Hashable {
+    case styleManager(FakeStyleManager)
+    case feature(Feature)
+}
+
 struct DocumentView: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest<Feature>(
-        sortDescriptors: [
-            SortDescriptor(\Feature.parent!.importDate!, order: .forward),
-            SortDescriptor(\Feature.objectID.shortName)
-        ]
-    )
+    @FetchRequest<Feature>(sortDescriptors: [SortDescriptor(\.objectID.shortName)])
     private var features: FetchedResults<Feature>
     @State private var selection: Set<NSManagedObjectID> = []
-    @State private var path: [Feature] = []
+    @State private var path = NavigationPath()
 
     var body: some View {
         NavigationSplitView {
             Sidebar(features: features, selection: $selection)
         } detail: {
             NavigationStack(path: $path) {
-                MainContent(moc: moc, features: features, selection: $selection)
-                .navigationDestination(for: Feature.self) { feature in
-                    FeatureDetails(feature: feature, path: $path)
-                }
+                MainContent(moc: moc, selection: $selection)
             }
         }
-        .navigationSplitViewStyle(.automatic)
+//        .onChange(of: selection) { _ in
+//            path.removeLast(path.count)
+//        }
     }
 }
 

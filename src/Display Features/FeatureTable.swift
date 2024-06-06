@@ -57,11 +57,9 @@ struct FeatureTable: View {
     let features: [Feature]
     let columns: [String]
     
-    init(managedObjectContext: NSManagedObjectContext, featureIDs: Set<NSManagedObjectID>) {
+    init(managedObjectContext: NSManagedObjectContext, features: [Feature]) {
         self.managedObjectContext = managedObjectContext
-        self.features = featureIDs.map { fID in
-            return managedObjectContext.object(with: fID) as! Feature
-        }
+        self.features = features
         self.columns = features.reduce(Set<String>()) { set, f in
             if let k = f.properties?.data.keys {
                 return set.union(k)
