@@ -8,6 +8,7 @@
 import Foundation
 import CoreData
 import BinaryCodable
+import CoreLocation
 
 public struct GeoBaseInfo: Codable {
     let coordinate: Geometry.Coordinate3D
@@ -298,6 +299,27 @@ extension Geometry: ModelObject {
     var icon: KitImage {
         return wrapped?.shape.icon ?? KitImage(systemSymbolName: "mappin.and.ellipse", accessibilityDescription: "default geometry icon")!
     }
+}
+
+extension Geometry { // conveniences
+
+    static let coordFormatter = CoordinateFormatter(style: .Decimal)
+
+    var parentID: NSManagedObjectID? { self.parent?.objectID }
+
+    var shortName: String { self.objectID.shortName }
+
+    var featureShortName: String { self.parentID?.shortName ?? "?" }
+
+    var coordString: String {
+        let coord = CLLocationCoordinate2D(latitude: coordinate.latitude,
+                                           longitude: coordinate.longitude)
+        return Self.coordFormatter.string(from: coord)
+    }
+
+    var shapeCode: Geometry.GeoShapeType { self.wrapped?.shape.shapeCode ?? .Invalid }
+
+    var property: [String:String] { self.parent?.cleanProperties() ?? [String:String]() }
 }
 
 @objc

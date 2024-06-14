@@ -358,6 +358,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 			};
 			name = Debug;
 		};
@@ -365,6 +366,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */;
 			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 			};
 			name = Release;
 		};
@@ -379,7 +381,8 @@
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG NO_TABLECOLUMNFOREACH";
 			};
 			name = Debug;
 		};
@@ -394,7 +397,8 @@
 				INFOPLIST_KEY_NSMainNibFile = MainMenu;
 				INFOPLIST_KEY_NSMainStoryboardFile = "";
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = NO_TABLECOLUMNFOREACH;
 			};
 			name = Release;
 		};

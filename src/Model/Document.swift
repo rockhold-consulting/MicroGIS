@@ -47,7 +47,21 @@ class Document: NSPersistentDocument {
         window.contentViewController = HostingController(rootView: DocumentView().environment(\.managedObjectContext, self.managedObjectContext!), frame: f)
         let windowController = NSWindowController(window: window)
         self.addWindowController(windowController)
+        self.gratuitousAutosave()
     }
+
+    func gratuitousAutosave() {
+        self.updateChangeCount(.changeDone)
+        self.autosave(withDelegate: self,
+                      didAutosave: #selector(document(_:didAutosave:contextInfo:)),
+                      contextInfo: nil)
+    }
+    @objc func document(_ document: NSDocument,
+                  didAutosave didAutosaveSuccessfully: Bool,
+                  contextInfo: UnsafeMutableRawPointer?) {
+        self.updateChangeCount(.changeUndone)
+    }
+
 
     @IBAction
     func importFile(_ sender: Any?) {
@@ -81,6 +95,8 @@ class Document: NSPersistentDocument {
     func importFeaturesFile(url: URL) {
         guard let moc = self.managedObjectContext else { return }
         let geoObjectCreator = CoreDataGeoObjectCreator(importContext: moc)
+
+        self.gratuitousAutosave()
 
         let ext = url.pathExtension
         if ext.uppercased() == "GEOJSON" {

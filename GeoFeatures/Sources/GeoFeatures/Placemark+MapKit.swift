@@ -15,7 +15,7 @@ extension Placemark {
         if point != nil {
             let mp = self.mapPoint
             return MKMapRect(origin: mp, size: MKMapSize())
-        } else if let polygon {
+        } else if polygon != nil {
             // TODO: implement this
             return MKMapRect(x: 0, y: 0, width: 0, height: 0)
         } else {

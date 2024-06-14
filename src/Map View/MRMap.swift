@@ -441,7 +441,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
         case let geometryProxy as GeometryProxy:
 
             let geometry = geometry(with: geometryProxy.geometryID)
-            let selected = isSelected(geometry.parent!.objectID)
+            let selected = isSelected(geometry.parentID)
 
             return renderer(forGeometry: geometry)?
                 .applyStyle(manager: styleManager,
@@ -533,20 +533,23 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, NSGestureRecognizerDelegate {
 
 extension MRMap.MapCoordinator {
 
-    func isSelected(_ objID: NSManagedObjectID) -> Bool {
-        return owner.selection.contains(objID)
+    func isSelected(_ objID: NSManagedObjectID?) -> Bool {
+        guard let id = objID else { return false }
+        return owner.selection.contains(id)
     }
 
     func clearSelection() {
         owner.selection.removeAll()
     }
 
-    func select(_ objID: NSManagedObjectID) {
-        owner.selection.insert(objID)
+    func select(_ objID: NSManagedObjectID?) {
+        guard let id = objID else { return }
+        owner.selection.insert(id)
     }
 
-    func deselect(_ objID: NSManagedObjectID) {
-        owner.selection.remove(objID)
+    func deselect(_ objID: NSManagedObjectID?) {
+        guard let id = objID else { return }
+        owner.selection.remove(id)
     }
 
     func geometry(with objID: NSManagedObjectID) -> Geometry {
@@ -585,12 +588,6 @@ extension MRMap.MapCoordinator {
     }
 }
 
-extension Geometry {
-    var parentID: NSManagedObjectID {
-        return self.parent!.objectID
-    }
-}
-
 extension NSManagedObjectID {
     func geometryChildren(given moc: NSManagedObjectContext) -> [Geometry] {
         switch moc.object(with: self) {
@@ -603,7 +600,6 @@ extension NSManagedObjectID {
 
 }
 
-//
 //#Preview {
 //    MRMap(features: FetchResults<Feature>().wrappedValue, selection: [])
 //}

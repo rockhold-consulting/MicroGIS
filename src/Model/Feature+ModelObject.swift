@@ -8,7 +8,6 @@
 import Foundation
 import CoreData
 
-//@dynamicMemberLookup
 @objc
 public class FeatureProperties: NSObject, NSSecureCoding {
 

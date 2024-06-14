@@ -15,7 +15,7 @@ struct MainContent: View {
     var body: some View {
         VStack {
             MRMap(selection: $selection)
-            GeometriesTable(managedObjectContext: moc, features: featuresFromSelection(), searchText: $searchText)
+            GeometriesTable(managedObjectContext: moc, features: featuresFromSelection(), searchText: searchText)
         }
     }
 
