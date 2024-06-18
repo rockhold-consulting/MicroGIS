@@ -9,32 +9,46 @@ import Foundation
 import CoreData
 import CoreLocation
 
+protocol SimpleJSONObject {
+
+}
+
+extension String: SimpleJSONObject {}
+extension NSNumber: SimpleJSONObject {}
+extension NSNull: SimpleJSONObject {}
+
 @objc
 public class FeatureProperties: NSObject, NSSecureCoding {
 
-    var data: [String:Any]
+    enum PropertiesError: Error {
+        case Malformed
+    }
 
-    init?(data: Data?) {
+    private var data: [String:Any]?
 
-        guard let d = data else {
-            self.data = [String:Any]()
-            return
+    var names: Set<String> {
+        guard let dict = data else {
+            return Set<String>()
+        }
+        return Set<String>(dict.keys)
+    }
+
+    init?(data: Data?) throws {
+
+        guard let d = data, let obj = try? JSONSerialization.jsonObject(with: d) else { return nil
         }
 
-        guard let _ = try? JSONSerialization.jsonObject(with: d) else {
-            return nil
-        }
-
-        if let fi = try? JSONSerialization.jsonObject(with: d) as? [String:Any] {
-            self.data = fi
+        if let dict = obj as? [String:Any] {
+            self.data = dict
         } else {
-            self.data = [String:Any]()
+            throw PropertiesError.Malformed
         }
     }
 
     subscript(index: String) -> String {
         get {
-            if let value = data[index] {
+            guard let d = self.data else { return "" }
+            if let value = d[index] {
                 if value is String {
                     return value as! String
                 } else {
@@ -45,10 +59,36 @@ public class FeatureProperties: NSObject, NSSecureCoding {
             }
         }
         set(newValue) {
-            data[index] = newValue
+            if self.data == nil {
+                self.data = [String:Any]()
+            }
+            data![index] = newValue
         }
     }
 
+    func clean() -> [String:String]? {
+        func format(_ v: Any) -> String {
+            switch v {
+            case let s as String:
+                return s
+            case let i as Int:
+                return String(i)
+            case let d as Double:
+                return String(d)
+            case _ as NSNull:
+                return "null"
+            default:
+                return "-??-"
+            }
+        }
+
+        guard let d = self.data else { return nil }
+        var props = [String:String]()
+        for (k,v) in d {
+            props[k] = format(v)
+        }
+        return props
+    }
     public static var supportsSecureCoding: Bool = true
 
     required public init?(coder aDecoder: NSCoder) {
@@ -108,28 +148,10 @@ extension Feature {
     }
 
     func cleanProperties() -> [String:String] {
-        func clean(_ v: Any) -> String {
-            switch v {
-            case let s as String:
-                return s
-            case let i as Int:
-                return String(i)
-            case let d as Double:
-                return String(d)
-            case _ as NSNull:
-                return "null"
-            default:
-                return "-??-"
-            }
+        guard let c = self.properties?.clean() else {
+            return [String:String]()
         }
-
-        var props = [String:String]()
-        if let p = self.properties {
-            for (k,v) in p.data {
-                props[k] = clean(v)
-            }
-        }
-        return props
+        return c
     }
 }
 

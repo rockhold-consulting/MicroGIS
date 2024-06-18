@@ -79,7 +79,7 @@ struct GeometriesTable: View {
         self.features = features
 
         self.columns = features.reduce(Set<String>()) { set, f in
-            if let k = f.properties?.data.keys {
+            if let k = f.properties?.names {
                 return set.union(k)
             } else {
                 return set

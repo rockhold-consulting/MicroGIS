@@ -184,7 +184,12 @@ public class GeorgMKGeoJSONFeatureSource {
                     creator.createFeatureWithGeometry(from: shape, parent: layer)
 
                 case let mkFeature as MKGeoJSONFeature:
-                    let featureProperties = FeatureProperties(data: mkFeature.properties)
+                    var featureProperties: FeatureProperties? = nil
+                    do {
+                        featureProperties = try FeatureProperties(data: mkFeature.properties)
+                    } catch {
+                        // TODO: log this
+                    }
 
                     let feature = creator.createFeature(
                         featureID: mkFeature.identifier,
