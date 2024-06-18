@@ -88,14 +88,12 @@ struct GeometriesTable: View {
         .sorted(using: .localizedStandard)
         .map { PropertyColumn(str: $0) }
 
-        var temp_geometries = features.flatMap { feature in
+        self.geometries = features.flatMap { feature in
             return feature.geometries?.allObjects as! [Geometry]
         }
         .filter { geometry in
             searchText == "" || (geometry.matches(searchText: searchText) || geometry.parent!.matches(searchText: searchText))
         }
-
-        self.geometries = temp_geometries
     }
 
     var body: some View {
@@ -107,7 +105,7 @@ struct GeometriesTable: View {
                         Label("View Details", systemImage: "list.bullet.below.rectangle")
                     }
                 } label: {
-                        Image(nsImage: g.icon)
+                        Image(systemName: g.iconSymbolName)
                             .frame(width: 20, alignment: .center)
                 }
                 .menuStyle(.borderlessButton)

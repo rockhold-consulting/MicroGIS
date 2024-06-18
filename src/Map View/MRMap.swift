@@ -13,6 +13,7 @@ import CoreData
 
 #if os(macOS)
 import Cocoa
+import AppKit
 typealias BaseViewRepresentable = NSViewRepresentable
 #elseif os(iOS)
 import UIKit
@@ -23,8 +24,10 @@ struct MRMap: BaseViewRepresentable {
 
 #if os(macOS)
     typealias NSViewType = MKMapView
+    typealias KitImage = NSImage
 #elseif os(iOS)
     typealias UIViewType = MKMapView
+    typealias KitImage = UIImage
 #endif
 
     @Environment(\.managedObjectContext) var moc
@@ -128,12 +131,12 @@ extension MRMap {
         static let geoPointReuseIdentifier = "\(NSStringFromClass(Geometry.self)).GeoPointReuseIdentifier"
         static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
 
-        static let annotationImage = NSImage(systemSymbolName: "mappin.circle",
+        static let annotationImage = KitImage(systemSymbolName: "mappin.circle",
                                              accessibilityDescription: "Map pin inside a circle")!
-        static let selectedAnnotationImage = NSImage(systemSymbolName: "mappin.circle.fill",
+        static let selectedAnnotationImage = KitImage(systemSymbolName: "mappin.circle.fill",
                                              accessibilityDescription: "Selected Map pin inside a circle")!
 
-        static let clusterAnnotationImage = NSImage(systemSymbolName: "seal",
+        static let clusterAnnotationImage = KitImage(systemSymbolName: "seal",
                                                     accessibilityDescription: "star-like shape")!
 
         var commandWasDown: Bool = false
@@ -275,7 +278,7 @@ extension MKAnnotationView {
         //            pointAnnotationView.canShowCallout = true
 
         let pointCount = annotation.memberAnnotations.count
-        self.image = KitImage(systemSymbolName: "\(pointCount).circle", accessibilityDescription: "encircled number") ?? MRMap.MapCoordinator.clusterAnnotationImage
+        self.image = MRMap.KitImage(systemSymbolName: "\(pointCount).circle", accessibilityDescription: "encircled number") ?? MRMap.MapCoordinator.clusterAnnotationImage
 
         //            // Provide the left image icon for the annotation.
         //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))

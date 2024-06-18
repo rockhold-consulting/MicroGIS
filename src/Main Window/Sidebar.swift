@@ -8,27 +8,6 @@
 import SwiftUI
 import CoreLocation
 
-struct FeatureItemVM: Identifiable {
-    let id: String
-    let icon: KitImage
-    let coordStr: String
-}
-
-extension Feature {
-    func vm() -> FeatureItemVM {
-        let cf = CoordinateFormatter(style: .Decimal)
-        var coord = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
-        var icon =  KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
-        if let g = self.kidArray?[0] as? Geometry {
-            let c = g.coordinate
-            coord = CLLocationCoordinate2D(latitude: c.latitude, longitude: c.longitude)
-            icon = g.icon
-        }
-        return FeatureItemVM(id: self.objectID.shortName, icon: icon, coordStr: cf.string(from: coord))
-    }
-}
-
-
 struct Sidebar: View {
     let features: FetchedResults<Feature>
     @Binding var selection: Set<NSManagedObjectID>

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2E7C372E2BFEA1F7008D2B68 /* Sidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372D2BFEA1F7008D2B68 /* Sidebar.swift */; };
 		2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372F2BFEA30F008D2B68 /* MainContent.swift */; };
-		2E7C373C2BFEAFFC008D2B68 /* FeatureTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C373B2BFEAFFC008D2B68 /* FeatureTable.swift */; };
 		2E7C375D2C03BC43008D2B68 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C375C2C03BC43008D2B68 /* MainMenu.xib */; };
 		2E7C37632C03D8C5008D2B68 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C37622C03D8C5008D2B68 /* main.swift */; };
 		2E7C37642C03E412008D2B68 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305802BF6A89A00E90FAA /* HostingController.swift */; };
@@ -31,10 +30,10 @@
 		2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */; };
 		2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */; };
 		2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */; };
-		2EF569E12BCF129700964F85 /* ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D82BCF129700964F85 /* ModelObject.swift */; };
-		2EF569E22BCF129800964F85 /* Layer+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D92BCF129700964F85 /* Layer+ModelObject.swift */; };
-		2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */; };
-		2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */; };
+		2EF569E12BCF129700964F85 /* NSManagedObjectID-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */; };
+		2EF569E22BCF129800964F85 /* Layer-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D92BCF129700964F85 /* Layer-Extension.swift */; };
+		2EF569E32BCF129800964F85 /* Geometry-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */; };
+		2EF569E42BCF129800964F85 /* Feature-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature-Extension.swift */; };
 		2EF569F52BCF2F4E00964F85 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF569F42BCF2F4E00964F85 /* BinaryCodable */; };
 		2EF5CE2A2C11509A004F5F8E /* GeometriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */; };
 		2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E62BCF133700964F85 /* Document.xcdatamodeld */; };
@@ -80,10 +79,10 @@
 		2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGeoObjectCreator.swift; sourceTree = "<group>"; };
 		2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeorgMKGeoJSONFeatureSource.swift; sourceTree = "<group>"; };
 		2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectCreator.swift; sourceTree = "<group>"; };
-		2EF569D82BCF129700964F85 /* ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelObject.swift; sourceTree = "<group>"; };
-		2EF569D92BCF129700964F85 /* Layer+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Layer+ModelObject.swift"; sourceTree = "<group>"; };
-		2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry+ModelObject.swift"; sourceTree = "<group>"; };
-		2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature+ModelObject.swift"; sourceTree = "<group>"; };
+		2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectID-Extension.swift"; sourceTree = "<group>"; };
+		2EF569D92BCF129700964F85 /* Layer-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Layer-Extension.swift"; sourceTree = "<group>"; };
+		2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry-Extension.swift"; sourceTree = "<group>"; };
+		2EF569DB2BCF129700964F85 /* Feature-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature-Extension.swift"; sourceTree = "<group>"; };
 		2EF569E72BCF133800964F85 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
 		2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometriesTable.swift; sourceTree = "<group>"; };
 		2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTileOverlay.swift; sourceTree = "<group>"; };
@@ -225,10 +224,10 @@
 			children = (
 				2EF569E62BCF133700964F85 /* Document.xcdatamodeld */,
 				2ECCEAF72A9436C0005785FA /* Document.swift */,
-				2EF569D82BCF129700964F85 /* ModelObject.swift */,
-				2EF569D92BCF129700964F85 /* Layer+ModelObject.swift */,
-				2EF569DA2BCF129700964F85 /* Geometry+ModelObject.swift */,
-				2EF569DB2BCF129700964F85 /* Feature+ModelObject.swift */,
+				2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */,
+				2EF569D92BCF129700964F85 /* Layer-Extension.swift */,
+				2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */,
+				2EF569DB2BCF129700964F85 /* Feature-Extension.swift */,
 				2EF569D32BCF129600964F85 /* ImportGeoObjects */,
 			);
 			path = Model;
@@ -322,19 +321,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */,
-				2EF569E32BCF129800964F85 /* Geometry+ModelObject.swift in Sources */,
+				2EF569E32BCF129800964F85 /* Geometry-Extension.swift in Sources */,
 				2E8305852BF801B500E90FAA /* FeatureRow.swift in Sources */,
-				2EF569E42BCF129800964F85 /* Feature+ModelObject.swift in Sources */,
+				2EF569E42BCF129800964F85 /* Feature-Extension.swift in Sources */,
 				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
 				2E7C37302BFEA30F008D2B68 /* MainContent.swift in Sources */,
 				2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */,
-				2E7C373C2BFEAFFC008D2B68 /* FeatureTable.swift in Sources */,
 				2EFFD9482BCF306F00249DE1 /* Document.xcdatamodeld in Sources */,
 				2E7C377C2C06770B008D2B68 /* FeatureDetails.swift in Sources */,
 				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
 				2ECB8D6C2BF9744F0044F557 /* MRMap.swift in Sources */,
 				2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */,
-				2EF569E22BCF129800964F85 /* Layer+ModelObject.swift in Sources */,
+				2EF569E22BCF129800964F85 /* Layer-Extension.swift in Sources */,
 				2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */,
 				2E7C37642C03E412008D2B68 /* HostingController.swift in Sources */,
 				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
@@ -345,7 +343,7 @@
 				2E8304C82BEFE8A000E90FAA /* StyleManager.swift in Sources */,
 				2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */,
 				2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */,
-				2EF569E12BCF129700964F85 /* ModelObject.swift in Sources */,
+				2EF569E12BCF129700964F85 /* NSManagedObjectID-Extension.swift in Sources */,
 				2E7C372E2BFEA1F7008D2B68 /* Sidebar.swift in Sources */,
 				2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */,
 			);

@@ -1,57 +1,6 @@
 import SwiftUI
 import CoreLocation
 
-extension Feature {
-    var geoInfo: (KitImage, String, String) {
-        let cf = CoordinateFormatter(style: .Decimal)
-        
-        guard let geo0 = (self.kidArray as? [Geometry])?.first else {
-            //        guard let geos = self.kidArray as? [Geometry], !geos.isEmpty else {
-            return (
-                KitImage(systemSymbolName: "dot.squareshape.split.2x2",
-                         accessibilityDescription: "feature icon")!,
-                "",
-                ""
-            )
-        }
-        
-        let lat = geo0.wrapped?.baseInfo.coordinate.latitude ?? 0.0
-        let lng = geo0.wrapped?.baseInfo.coordinate.longitude ?? 0.0
-        
-        return (
-            geo0.icon,
-            geo0.wrapped?.shape.kindString ?? "??",
-            cf.string(from: CLLocationCoordinate2D(latitude: lat, longitude: lng))
-        )
-    }
-    
-    func cleanProperties() -> [String:String] {
-        func clean(_ v: Any) -> String {
-            switch v {
-            case let s as String:
-                return s
-            case let i as Int:
-                return String(i)
-            case let d as Double:
-                return String(d)
-            case _ as NSNull:
-                return "null"
-            default:
-                return "-??-"
-            }
-        }
-        
-        var props = [String:String]()
-        if let p = self.properties {
-            for (k,v) in p.data {
-                props[k] = clean(v)
-            }
-        }
-        return props
-    }
-    
-}
-
 struct FeatureTable: View {
     let managedObjectContext: NSManagedObjectContext
     let features: [Feature]
@@ -110,22 +59,22 @@ struct FeatureTable: View {
         }
         
         var body: some View {
-            let info = feature.geoInfo
+            let info = feature.geoInfo()
             GridRow {
                 
                 HStack {
-                    Text(feature.objectID.shortName)
+                    Text(feature.shortName)
                     Divider()
                 }
                 NavigationLink(value: feature) {
                     HStack {
-                        Image(nsImage: info.0)
-                        Text(info.1) // shapeName
+                        Image(nsImage: info.icon)
+                        Text(info.kindName)
                     }
                 }
                 HStack {
                     Divider()
-                    Text(info.2) // formatted coordinate of centerpoint
+                    Text(info.coordString)
                 }
                 
                 ForEach(columns, id:\.self) { column in

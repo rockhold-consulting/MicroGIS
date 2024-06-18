@@ -1,5 +1,5 @@
 //
-//  Geometry+.swift
+//  Geometry-Extension.swift
 //  GeorgB
 //
 //  Created by Michael Rockhold on 3/21/24.
@@ -18,15 +18,13 @@ public struct GeoBaseInfo: Codable {
 public protocol GeoShape : Codable {
     var shapeCode: Geometry.GeoShapeType { get }
     var kindString: String { get }
-    var icon: KitImage { get }
+    var iconSymbolName: String { get }
 }
 
 public struct GeoPoint: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .Point }}
     public var kindString: String { "Point" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "mappin.circle", accessibilityDescription: "Point icon")!
-    }
+    public var iconSymbolName: String { "mappin.circle" }
 
     let coordinate: Geometry.Coordinate3D
 
@@ -52,9 +50,7 @@ public struct GeoPoint: GeoShape {
 struct GeoCircle: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .Circle }}
     public var kindString: String { "Circle" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "smallcircle.circle", accessibilityDescription: "Circle icon")!
-    }
+    public var iconSymbolName: String { "smallcircle.circle" }
 
     let center: Geometry.Coordinate3D
     let radius: Double
@@ -85,9 +81,7 @@ struct GeoCircle: GeoShape {
 struct GeoMultipoint: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .Multipoint }}
     public var kindString: String { "MultiPoint" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "circle.dotted.circle", accessibilityDescription: "Multipoint icon")!
-    }
+    public var iconSymbolName: String { "circle.dotted.circle" }
 
     let coordinates: [Geometry.Coordinate3D]
 
@@ -109,9 +103,7 @@ struct GeoMultipoint: GeoShape {
 struct GeoPolyline: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .Polyline }}
     public var kindString: String { "Polyline" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "lines.measurement.horizontal", accessibilityDescription: "Polyline icon")!
-    }
+    public var iconSymbolName: String { "lines.measurement.horizontal" }
 
     let coordinates: [Geometry.Coordinate3D]
 
@@ -133,9 +125,7 @@ struct GeoPolyline: GeoShape {
 struct GeoGeodesicPolyline: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .GeodesicPolyline }}
     public var kindString: String { "Geodesic Polyline" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "globe.desk", accessibilityDescription: "Geodesic Polyline icon")!
-    }
+    public var iconSymbolName: String { "globe.desk" }
 
     let coordinates: [Geometry.Coordinate3D]
 
@@ -157,9 +147,7 @@ struct GeoGeodesicPolyline: GeoShape {
 struct GeoPolygon: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .Polygon }}
     public var kindString: String { "Polygon" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "pentagon", accessibilityDescription: "Polygone icon")!
-    }
+    public var iconSymbolName: String { "pentagon" }
 
     let coordinates: [Geometry.Coordinate3D]
     let innerPolygons: [GeoPolygon]
@@ -185,9 +173,7 @@ struct GeoPolygon: GeoShape {
 struct GeoMultiPolygon: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .MultiPolygon }}
     public var kindString: String { "MultiPolygon" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "platter.2.filled.ipad.landscape", accessibilityDescription: "MultiPolygon icon")!
-    }
+    public var iconSymbolName: String { "platter.2.filled.ipad.landscape" }
 
     let polygons: [GeoPolygon]
 
@@ -209,9 +195,7 @@ struct GeoMultiPolygon: GeoShape {
 struct GeoMultiPolyline: GeoShape {
     public var shapeCode: Geometry.GeoShapeType { get { .MultiPolyline }}
     public var kindString: String { "MultiPolyline" }
-    public var icon: KitImage {
-        return KitImage(systemSymbolName: "arrow.up.left.and.down.right.and.arrow.up.right.and.down.left", accessibilityDescription: "MultiPolyline icon")!
-    }
+    public var iconSymbolName: String { "arrow.up.left.and.down.right.and.arrow.up.right.and.down.left" }
 
     let polylines: [GeoPolyline]
 
@@ -277,7 +261,7 @@ public extension Geometry {
     }
 }
 
-extension Geometry: ModelObject {
+extension Geometry {
 
     var title: String? {
         get {
@@ -288,17 +272,9 @@ extension Geometry: ModelObject {
         }
     }
 
-    var canRename: Bool { false }
+//    var identifier: NSObject { self.objectID }
 
-    var identifier: NSObject { self.objectID }
-
-    var isLeaf: Bool { true }
-
-    var kidArray: [ModelObject]? { nil }
-
-    var icon: KitImage {
-        return wrapped?.shape.icon ?? KitImage(systemSymbolName: "mappin.and.ellipse", accessibilityDescription: "default geometry icon")!
-    }
+    var iconSymbolName: String { wrapped?.shape.iconSymbolName ?? "mappin.and.ellipse" }
 }
 
 extension Geometry { // conveniences

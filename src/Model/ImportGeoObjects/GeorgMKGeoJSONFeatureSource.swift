@@ -172,29 +172,6 @@ public class GeorgMKGeoJSONFeatureSource {
 
     public func importLayer(from fileURL: URL, creator: GeoObjectCreator) {
 
-        func s1(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties?) -> String? {
-            if let identifier = mkFeature.identifier {
-                if !identifier.isEmpty {
-                    return identifier
-                }
-            }
-            return nil
-        }
-
-        func s2(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties?) -> String? {
-            if let propsFeatureID = featureProperties?.featureID {
-                if !propsFeatureID.isEmpty {
-                    return propsFeatureID
-                }
-            }
-            return nil
-        }
-
-        func s3(_ mkFeature: MKGeoJSONFeature, featureProperties: FeatureProperties?) -> String? {
-            logger.info("no ID for feature")
-            return nil
-        }
-
         let name = fileURL.lastPathComponent
         let layer = creator.createLayer(name: name.isEmpty ? "Imported Layer" : name, importDate: .now)
 
@@ -208,15 +185,9 @@ public class GeorgMKGeoJSONFeatureSource {
 
                 case let mkFeature as MKGeoJSONFeature:
                     let featureProperties = FeatureProperties(data: mkFeature.properties)
-                    var id: String? = nil
-
-                    for s in [s1, s2, s3] {
-                        id = s(mkFeature, featureProperties)
-                        if id != nil { break }
-                    }
 
                     let feature = creator.createFeature(
-                        featureID: id,
+                        featureID: mkFeature.identifier,
                         properties: featureProperties,
                         parent: layer
                     )

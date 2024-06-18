@@ -1,5 +1,5 @@
 //
-//  Feature+.swift
+//  Feature-Extension.swift
 //  GeorgB
 //
 //  Created by Michael Rockhold on 3/21/24.
@@ -7,21 +7,12 @@
 
 import Foundation
 import CoreData
+import CoreLocation
 
 @objc
 public class FeatureProperties: NSObject, NSSecureCoding {
 
     var data: [String:Any]
-
-    var featureID: String? {
-        // attempt to find an appropriate ID among the keys
-        for key in ["ID", "id", "identifier", "IDENTIFIER", "featureID"] {
-            if let fID = data[key] {
-                return fID is String ? fID as! String : "\(fID)"
-            }
-        }
-        return nil
-    }
 
     init?(data: Data?) {
 
@@ -66,14 +57,10 @@ public class FeatureProperties: NSObject, NSSecureCoding {
             return nil
         }
 
-        guard let _ = try? JSONSerialization.jsonObject(with: jsonData) else {
-            return nil
-        }
-
         if let fi = try? JSONSerialization.jsonObject(with: jsonData) as? [String:Any] {
             self.data = fi
         } else {
-            self.data = [String:Any]()
+            return nil
         }
     }
 
@@ -87,7 +74,7 @@ public class FeatureProperties: NSObject, NSSecureCoding {
 
 }
 
-extension Feature: ModelObject {    
+extension Feature {
 
     var title: String? {
         get {
@@ -98,16 +85,10 @@ extension Feature: ModelObject {
         }
     }
 
-    var identifier: NSObject { self.objectID }
-
-    var isLeaf: Bool { (geometries?.count ?? 0) > 1 }
-
-    var kidArray: [ModelObject]? { (geometries as! [ModelObject]) }
-
-    var icon: KitImage {
-        let defaultIcon = KitImage(systemSymbolName: "dot.squareshape.split.2x2", accessibilityDescription: "feature icon")!
+    var iconSymbolName: String {
+        let defaultIcon = "dot.squareshape.split.2x2"
         if (geometries?.count ?? 0) == 1 {
-            return (geometries?.first as? Geometry)?.icon ?? defaultIcon
+            return (geometries?.first as? Geometry)?.iconSymbolName ?? defaultIcon
         } else {
             return defaultIcon
         }
@@ -125,14 +106,68 @@ extension Feature: ModelObject {
         self.parent = parent
         parent.addToFeatures(self)
     }
-}
 
-extension Feature {
-    var geometryArray: [Geometry] {
-        return self.geometries?.allObjects as! [Geometry]
+    func cleanProperties() -> [String:String] {
+        func clean(_ v: Any) -> String {
+            switch v {
+            case let s as String:
+                return s
+            case let i as Int:
+                return String(i)
+            case let d as Double:
+                return String(d)
+            case _ as NSNull:
+                return "null"
+            default:
+                return "-??-"
+            }
+        }
+
+        var props = [String:String]()
+        if let p = self.properties {
+            for (k,v) in p.data {
+                props[k] = clean(v)
+            }
+        }
+        return props
     }
 }
 
+extension Feature {
+    struct GeoInfo {
+        let iconSymbolName: String
+        let kindName: String
+        let coordString: String
+    }
+    func geoInfo() -> GeoInfo {
+            let cf = CoordinateFormatter(style: .Decimal)
+            let icon = "dot.squareshape.split.2x2"
+
+            if let geometries = self.geometries?.allObjects {
+                switch geometries.count {
+                case 0:
+                    return GeoInfo(iconSymbolName: icon,
+                                   kindName: self.objectID.shortName,
+                                   coordString: "<error>")
+                case 1:
+                    let g = geometries[0] as! Geometry
+                    let c = g.coordinate
+                    return GeoInfo(iconSymbolName: g.iconSymbolName,
+                                   kindName: self.objectID.shortName,
+                                   coordString: cf.string(from: CLLocationCoordinate2D(latitude: c.latitude, longitude: c.longitude)))
+
+                default:
+                    return GeoInfo(iconSymbolName: icon,
+                                   kindName: self.objectID.shortName,
+                                   coordString: "<many>")
+                }
+            } else {
+                return GeoInfo(iconSymbolName: icon,
+                               kindName: self.objectID.shortName,
+                               coordString: "<error>")
+            }
+    }
+}
 
 class FeaturePropertiesTransformer: NSSecureUnarchiveFromDataTransformer {
 
