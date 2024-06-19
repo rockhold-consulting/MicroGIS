@@ -13,62 +13,63 @@ import UIKit
 #endif
 import MapKit
 import BinaryCodable
+import CoreData
 
 protocol Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer
+    func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer
 }
 
 extension GeoPolyline: Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer {
+    @objc func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer {
         return MKPolylineRenderer(polyline: MKPolyline(from: self))
     }
 }
 
 extension GeoCircle: Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer {
-        return MKCircleRenderer(circle: MKCircle(center: self.center.clcoordinate, radius: self.radius))
+    @objc func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer {
+        return MKCircleRenderer(circle: MKCircle(center: geometry.center.clcoordinate, radius: self.radius))
     }
 }
 
-extension GeoGeodesicPolyline: Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer {
+extension GeoGeodesicPolyline {
+    @objc override func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer {
         return MKPolylineRenderer(polyline: MKGeodesicPolyline(from: self))
     }
 }
 
 extension GeoPolygon: Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer {
+    @objc func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer {
         return MKPolygonRenderer(polygon: MKPolygon(from: self))
     }
 }
 
 extension GeoMultiPolyline: Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer {
+    @objc func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer {
         return MKMultiPolylineRenderer(multiPolyline: MKMultiPolyline(from: self))
     }
 }
 
 extension GeoMultiPolygon: Rendererable {
-    func makeRenderer() -> MKOverlayPathRenderer {
+    @objc func makeRenderer(geometry: Geometry) -> MKOverlayPathRenderer {
         return MKMultiPolygonRenderer(multiPolygon: MKMultiPolygon(from: self))
     }
 }
 
 class GeometryProxy: NSObject, MKAnnotation, MKOverlay {
-    let geometryID: NSManagedObjectID
+    let geometry: Geometry
     let coordinate: CLLocationCoordinate2D
     let boundingMapRect: MKMapRect
     let title: String?
     let subtitle: String?
 
     init(
-        geometryID: NSManagedObjectID,
+        geometry: Geometry,
         coordinate: CLLocationCoordinate2D,
         boundingMapRect: MKMapRect,
         title: String?,
         subtitle: String?
     ) {
-        self.geometryID = geometryID
+        self.geometry = geometry
         self.coordinate = coordinate
         self.boundingMapRect = boundingMapRect
         self.title = title
@@ -77,8 +78,8 @@ class GeometryProxy: NSObject, MKAnnotation, MKOverlay {
 
     convenience init(geometry: Geometry) {
         self.init(
-            geometryID: geometry.objectID,
-            coordinate: geometry.coordinate,
+            geometry: geometry,
+            coordinate: geometry.center.clcoordinate,
             boundingMapRect: geometry.boundingMapRect ?? MKMapRect.null,
             title: geometry.title,
             subtitle: nil
@@ -89,23 +90,15 @@ class GeometryProxy: NSObject, MKAnnotation, MKOverlay {
 extension Geometry {
 
     public var coordinate: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(fromCoordinate: wrapped!.baseInfo.coordinate)
+        return CLLocationCoordinate2D(fromCoordinate: self.center)
     }
 
     public var boundingMapRect: MKMapRect? {
-        if let bb =  wrapped?.baseInfo.boundingBox {
-            return MKMapRect(fromBox: bb)
-        } else {
-            return nil
-        }
+        return MKMapRect(fromBoundingVolume: self.boundingVolume)
     }
 
     var betterBox: MKMapRect {
-        guard let bbox = wrapped?.baseInfo.boundingBox else {
-            return MKMapRect(origin: MKMapPoint(coordinate),
-                             size: MKMapSize(width: 0.0001, height: 0.0001))
-        }
-        let mkmaprect = MKMapRect(fromBox: bbox)
+        let mkmaprect = MKMapRect(fromBoundingVolume: self.boundingVolume)
         if mkmaprect.isNull || mkmaprect.isZero {
             return MKMapRect(origin: MKMapPoint(coordinate),
                              size: MKMapSize(width: 0.0001, height: 0.0001))
@@ -114,12 +107,12 @@ extension Geometry {
         }
     }
 
-    func makeRenderer() -> MKOverlayPathRenderer? {
-        return (wrapped?.shape as? Rendererable)?.makeRenderer()
+    func renderer(selected: Bool = false) -> MKOverlayRenderer? {
+        return self.feature?.collection?.currentStylesheet.renderer(for: self, selected: selected)
     }
 }
 
-extension Geometry.Coordinate3D {
+extension Coordinate3D {
     var clcoordinate: CLLocationCoordinate2D {
         CLLocationCoordinate2D(latitude: self.latitude, longitude: self.longitude)
     }
@@ -127,14 +120,14 @@ extension Geometry.Coordinate3D {
 
 
 extension CLLocationCoordinate2D {
-    init(fromCoordinate c: Geometry.Coordinate3D) {
+    init(fromCoordinate c: Coordinate3D) {
         self.init(latitude: c.latitude, longitude: c.longitude)
     }
 }
 
 extension MKMapRect {
-    init(fromBox b: Geometry.MapBox) {
-        self.init(x: b.x, y: b.y, width: b.width, height: b.height)
+    init(fromBoundingVolume v: Geometry.BoundingVolume) {
+        self.init(x: v.x, y: v.y, width: v.w, height: v.h)
     }
 }
 

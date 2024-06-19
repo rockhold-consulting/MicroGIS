@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import CoreData
 
 extension Geometry {
     public func matches(searchText: String) -> Bool {
@@ -62,94 +63,91 @@ struct PropertyColumn: Identifiable {
     let str: String
 }
 
+extension Set<Geometry> {
+    var idSet: Set<Geometry.ID> {
+        return Set<Geometry.ID>( self.map { g in
+            g.id
+        })
+    }
+}
+
 struct GeometriesTable: View {
 
-    let managedObjectContext: NSManagedObjectContext
-    let features: [Feature]
-    let columns: [PropertyColumn]
     let geometries: [Geometry]
+    let columns: [PropertyColumn]
+    @Binding var selection: Set<Geometry>
+    let idMap: [Geometry.ID: Geometry]
+    @Binding var searchText: String
+    @State private var sortOrder = [KeyPathComparator(\Geometry.shortName, order: .forward)]
+    let jsonValueFormatter = JSONValueFormatter()
 
-    @State private var sortOrder = [KeyPathComparator(\Geometry.id, order: .forward)]
-    var searchText: String = ""
+    init(geometries: [Geometry], columns: [PropertyColumn], selection: Binding<Set<Geometry>>, searchText: Binding<String>) {
+        self.geometries = geometries
+        self.columns = columns
+        self._selection = selection
+        self._searchText = searchText
+        self.idMap = [Geometry.ID: Geometry](uniqueKeysWithValues: geometries.map { g in
+            return (g.id, g)
+        })
+    }
 
-    init(managedObjectContext: NSManagedObjectContext, features: [Feature], searchText: String) {
-
-        self.searchText = searchText
-        self.managedObjectContext = managedObjectContext
-        self.features = features
-
-        self.columns = features.reduce(Set<String>()) { set, f in
-            if let k = f.properties?.names {
-                return set.union(k)
-            } else {
-                return set
-            }
+    var proxyBinding: Binding<Set<Geometry.ID>> {
+        Binding<Set<Geometry.ID>> {
+            Set<Geometry.ID>(self.selection.map { $0.id })
         }
-        .sorted(using: .localizedStandard)
-        .map { PropertyColumn(str: $0) }
-
-        self.geometries = features.flatMap { feature in
-            return feature.geometries?.allObjects as! [Geometry]
-        }
-        .filter { geometry in
-            searchText == "" || (geometry.matches(searchText: searchText) || geometry.parent!.matches(searchText: searchText))
+        set: { newValue in
+            self.selection.removeAll()
+            self.selection.formUnion(newValue.compactMap { objID in
+                self.idMap[objID]
+            })
         }
     }
 
     var body: some View {
-        Table(sortOrder: $sortOrder) {
-
-            TableColumn(" ", value: \.shapeCode.rawValue) { g in
-                Menu {
-                    NavigationLink(value: g.id) {
-                        Label("View Details", systemImage: "list.bullet.below.rectangle")
-                    }
-                } label: {
-                        Image(systemName: g.iconSymbolName)
-                            .frame(width: 20, alignment: .center)
+        VStack {
+            Table(geometries,
+                  selection: proxyBinding,
+                  sortOrder: $sortOrder) {
+                TableColumn(" ", value: \.shapeCode.rawValue) { g in
+                    Image(systemName: g.iconSymbolName)
+                        .frame(width: 20, alignment: .center)
                 }
-                .menuStyle(.borderlessButton)
-                .menuIndicator(.hidden)
-                .fixedSize()
-                .labelStyle(.titleAndIcon)
-                .contentShape(Rectangle())
-            }
-            .width(20)
-
-            TableColumn("ID", value: \.id) { g in
-                Text(g.shortName)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .layoutPriority(1)
-            }
-            .width(60)
-            .leading_alignment()
-
-            TableColumn("Center", value: \.coordString) { g in
-                Text(g.coordString)
-                    .monospacedDigit()
+                .width(20)
+                
+                TableColumn("ID", value: \.shortName) { g in
+                    Text(g.shortName)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .layoutPriority(1)
+                }
+                .width(60)
+                .leading_alignment()
+                
+                TableColumn("Center", value: \.coordString) { g in
+                    Text(g.coordString)
+                        .monospacedDigit()
 #if os(macOS)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                        .foregroundStyle(.secondary)
 #endif
-            }
-            .width(130)
-            .trailing_alignment()
-
-            TableColumn("Feature ID", value: \.featureShortName) { g in
-                Text(g.featureShortName)
+                }
+                .width(130)
+                //            .trailing_alignment()
+                
+                TableColumn("Feature ID", value: \.featureShortName) { g in
+                    Text(g.featureShortName)
 #if os(macOS)
-                    .foregroundStyle(.secondary)
+                        .foregroundStyle(.secondary)
 #endif
-            }
-            .width(60)
-            .leading_alignment()
-
+                }
+                .width(60)
+                //            .leading_alignment()
+                
 #if  NO_TABLECOLUMNFOREACH
                 let propertyHeaders = self.columns.map { $0.str }
                 TableColumn(Text(propertyHeaders.joined(separator: "  |  "))) { (g: Geometry) in
                     HStack {
                         ForEach(propertyHeaders, id: \.self) { h in
-                            Text(g.property[h] ?? "-")
+                            Text(self.jsonValueFormatter.string(for: g.property[h]) ?? "-")
                                 .frame(width: 140, alignment: .leading)
                             Divider()
                         }
@@ -166,18 +164,9 @@ struct GeometriesTable: View {
                     .trailing_alignment()
                 }
 #endif
-
-        } rows: {
-            Section {
-                ForEach(sorted_geometries()) { g in
-                    TableRow(g)
-                }
             }
+            Text("count: \(geometries.count), selections: \(selection.count)")
         }
-    }
-
-    func sorted_geometries() -> [Geometry] {
-        geometries.sorted(using: sortOrder)
     }
 }
 //#Preview {

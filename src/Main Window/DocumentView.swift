@@ -8,40 +8,64 @@
 import SwiftUI
 import CoreData
 
-struct FakeStyleManager: Hashable {
-    static func == (lhs: FakeStyleManager, rhs: FakeStyleManager) -> Bool {
-        return lhs.name == rhs.name
-    }
-
-    let name: String
-    init(name: String) {
-        self.name = name
-    }
-}
-
-enum Panel: Hashable {
-    case styleManager(FakeStyleManager)
-    case feature(Feature)
+enum Selectable: Hashable {
+    case stylesheet(Stylesheet)
+    case featureCollection(FeatureCollection)
 }
 
 struct DocumentView: View {
-    @Environment(\.managedObjectContext) var moc
-    @FetchRequest<Feature>(sortDescriptors: [SortDescriptor(\.objectID.shortName)])
-    private var features: FetchedResults<Feature>
-    @State private var selection: Set<NSManagedObjectID> = []
+
+    @State private var selection: Selectable? = nil
     @State private var path = NavigationPath()
+
+    @Environment(\.managedObjectContext) var moc
+
+    @FetchRequest<Stylesheet>(sortDescriptors: [SortDescriptor(\.name)])
+    private var stylesheets: FetchedResults<Stylesheet>
+
+    @FetchRequest<FeatureCollection>(sortDescriptors: [SortDescriptor(\.creationDate)])
+    private var featureCollections: FetchedResults<FeatureCollection>
 
     var body: some View {
         NavigationSplitView {
-            Sidebar(features: features, selection: $selection)
+            List(selection: $selection) {
+                Section {
+                    ForEach(stylesheets, id: \.id) { stylesheet in
+                        NavigationLink(value: Selectable.stylesheet(stylesheet)) {
+                            Label(stylesheet.name ?? "-", systemImage: "paintpalette")
+                        }
+                    }
+                } header: {
+                    Text("Style Rules")
+                }
+                Section {
+                    ForEach(featureCollections, id: \.id) { featureCollection in
+                        NavigationLink(value: Selectable.featureCollection(featureCollection)) {
+                            Label(featureCollection.name ?? "-", systemImage: "rectangle.3.group")
+                        }
+                    }
+                } header: {
+                    Text("Feature Collections")
+                }
+            }
+            .navigationTitle("Main Menu")
+    #if os(macOS)
+            .navigationSplitViewColumnWidth(280)
+    #endif
         } detail: {
             NavigationStack(path: $path) {
-                MainContent(moc: moc, selection: $selection)
+                if let sel = selection {
+                    switch sel {
+                    case .featureCollection(let fc):
+                        FeatureCollectionView(featureCollection: fc)
+                    case .stylesheet(let ss):
+                        StylesheetView(stylesheet: ss)
+                    }
+                } else {
+                    Text("Make a selection in the sidebar.")
+                }
             }
         }
-//        .onChange(of: selection) { _ in
-//            path.removeLast(path.count)
-//        }
     }
 }
 

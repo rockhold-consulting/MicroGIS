@@ -8,6 +8,15 @@
         "revision" : "f4bdd82c5da4a825634bd32c3b2ef70faa773143",
         "version" : "3.0.3"
       }
+    },
+    {
+      "identity" : "splitview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stevengharris/SplitView.git",
+      "state" : {
+        "revision" : "7737a80740919c2fa94a6e64f870d37ef77b9b5f",
+        "version" : "3.5.3"
+      }
     }
   ],
   "version" : 2

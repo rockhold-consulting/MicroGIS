@@ -30,7 +30,7 @@ import OSLog
 class Document: NSPersistentDocument {
 
     override class var autosavesInPlace: Bool { return true }
-            
+
     let logger = Logger(subsystem: "org.appel-rockhold.Georg", category: "Document")
 
     override var managedObjectModel: NSManagedObjectModel? {
@@ -57,11 +57,11 @@ class Document: NSPersistentDocument {
                       contextInfo: nil)
     }
     @objc func document(_ document: NSDocument,
-                  didAutosave didAutosaveSuccessfully: Bool,
-                  contextInfo: UnsafeMutableRawPointer?) {
+                        didAutosave didAutosaveSuccessfully: Bool,
+                        contextInfo: UnsafeMutableRawPointer?) {
         self.updateChangeCount(.changeUndone)
+        Swift.print("didAutoSave: \(didAutosaveSuccessfully)")
     }
-
 
     @IBAction
     func importFile(_ sender: Any?) {
@@ -70,7 +70,7 @@ class Document: NSPersistentDocument {
               managedObjectContext != nil else {
             return
         }
-        
+
         let openPanel = NSOpenPanel()
         openPanel.allowedContentTypes = [UTType(filenameExtension: "geojson", conformingTo: .json)!]
         openPanel.message = NSLocalizedString("Choose File to Import Message", comment: "")
@@ -94,13 +94,19 @@ class Document: NSPersistentDocument {
 
     func importFeaturesFile(url: URL) {
         guard let moc = self.managedObjectContext else { return }
+
+        let featureCollection = FeatureCollection(ctx: moc, stylesheet: ss, creationDate: .now, name: url.lastPathComponent)
+
         let geoObjectCreator = CoreDataGeoObjectCreator(importContext: moc)
 
         self.gratuitousAutosave()
 
         let ext = url.pathExtension
-        if ext.uppercased() == "GEOJSON" {
-            GeorgMKGeoJSONFeatureSource().importLayer(from: url, creator: geoObjectCreator)
+        switch ext.uppercased() {
+        case "GEOJSON":
+            GeorgMKGeoJSONFeatureSource().importFeatureCollection(from: url, into: featureCollection, creator: geoObjectCreator)
+        default:
+            break
         }
     }
 }

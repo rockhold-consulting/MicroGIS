@@ -11,6 +11,7 @@ class GeometryFormatter: Formatter {
 
     func string(from g: Geometry) -> String {
         // TODO: do this for real
-        return "\(g.wrapped!.shape.kindString) at lat: \(g.wrapped!.baseInfo.coordinate.latitude), lng: \(g.wrapped!.baseInfo.coordinate.latitude)"
+        let center = g.center
+        return "\(g.shape!) at lat: \(center.latitude), lng: \(center.latitude)"
     }
 }

@@ -13,7 +13,7 @@ class SimpleStyleManager: StyleManager {
     func applyStyle(renderer: MKOverlayPathRenderer, geometry: Geometry) {
         switch renderer {
         case let r as MKPolylineRenderer: // handles both Polyline and GeodesicPolyline
-            if geometry.wrapped?.shape is GeoGeodesicPolyline {
+            if geometry.isGeodesic {
                 r.fillColor = NSColor.blue
                 r.strokeColor = NSColor.blue
                 r.lineWidth = 4.0

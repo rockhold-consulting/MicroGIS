@@ -29,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let documentObjectModel: NSManagedObjectModel
 
     override init() {
-        let momUrl = Bundle.main.url(forResource: "Document", 
+        let momUrl = Bundle.main.url(forResource: "MicroGIS",
                                      withExtension: "mom",
                                      subdirectory: "Document.momd")!
         documentObjectModel = NSManagedObjectModel(contentsOf: momUrl)!
@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         FeaturePropertiesTransformer.register()
-        GeoWrapperTransformer.register()
+        GeoShapeWrapperTransformer.register()
     }
 
     func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {

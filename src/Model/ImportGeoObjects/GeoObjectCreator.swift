@@ -9,7 +9,7 @@ import Foundation
 
 public protocol GeoObjectLike {}
 
-public protocol LayerLike: GeoObjectLike {}
+public protocol FeatureCollectionLike: GeoObjectLike {}
 
 public protocol FeatureLike: GeoObjectLike {}
 
@@ -17,22 +17,20 @@ public protocol GeometryLike: GeoObjectLike {}
 
 public protocol GeoObjectCreator {
 
-    func createLayer(name: String, importDate: Date) -> LayerLike
-
     func createFeature(
         featureID: String?,
         properties: FeatureProperties?,
-        parent: LayerLike
+        parent: FeatureCollectionLike
     ) -> FeatureLike
 
     func createAnnotationGeometry(
-        coordinate: Geometry.Coordinate3D,
+        center: Coordinate3D,
         parent: FeatureLike
     ) -> GeometryLike
 
     func createOverlayGeometry(
-        coordinate: Geometry.Coordinate3D,
-        boundingBox: Geometry.MapBox,
+        center: Coordinate3D,
+        boundingVolume: Geometry.BoundingVolume,
         shape: GeoShape,
         parent: FeatureLike
     ) -> GeometryLike

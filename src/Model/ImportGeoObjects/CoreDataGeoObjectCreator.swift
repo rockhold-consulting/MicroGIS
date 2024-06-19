@@ -9,55 +9,47 @@ import Foundation
 import CoreData
 import BinaryCodable
 
-extension Layer: LayerLike {}
+extension FeatureCollection: FeatureCollectionLike {}
 extension Feature: FeatureLike {}
 extension Geometry: GeometryLike {}
 
 class CoreDataGeoObjectCreator: GeoObjectCreator {
-    
 
     private let importContext: NSManagedObjectContext
-    private let encoder = BinaryEncoder()
 
     init(importContext: NSManagedObjectContext) {
         self.importContext = importContext
     }
 
-    func createLayer(name: String, importDate: Date) -> LayerLike {
-        return Layer(ctx: importContext, name: name, importDate: importDate)
-    }
-
-    func createLayer(fileURL: URL) -> LayerLike {
-        let name = fileURL.lastPathComponent
-        return self.createLayer(name: name.isEmpty ? "Imported Layer" : name, importDate: .now)
-    }
-
-    func createFeature(featureID: String?, properties: FeatureProperties?, parent: LayerLike) -> FeatureLike {
+    func createFeature(featureID: String?, properties: FeatureProperties?, parent: FeatureCollectionLike) -> FeatureLike {
         return Feature(
             context: self.importContext,
             featureID: featureID,
             properties: properties,
-            parent: parent as! Layer)
+            parent: parent as! FeatureCollection)
     }
 
-    func createAnnotationGeometry(coordinate: Geometry.Coordinate3D, parent: FeatureLike) -> GeometryLike {
+    func createAnnotationGeometry(center: Coordinate3D,
+                                  parent: FeatureLike) -> GeometryLike {
+
         return Geometry(
-            ctx: importContext,
-            coordinate: coordinate,
-            boundingBox: nil,
-            shape: GeoPoint(coordinate: coordinate),
+            context: importContext,
+            center: center,
+            boundingVolume: Geometry.BoundingVolume(),
+            shape: GeoPoint(center: center),
             parent: parent as! Feature)
     }
 
     func createOverlayGeometry(
-        coordinate: Geometry.Coordinate3D,
-        boundingBox: Geometry.MapBox,
+        center: Coordinate3D,
+        boundingVolume: Geometry.BoundingVolume,
         shape: GeoShape,
         parent: FeatureLike) -> GeometryLike {
+
             return Geometry(
-                ctx: importContext,
-                coordinate: coordinate,
-                boundingBox: boundingBox,
+                context: importContext,
+                center: center,
+                boundingVolume: boundingVolume,
                 shape: shape,
                 parent: parent as! Feature)
         }
