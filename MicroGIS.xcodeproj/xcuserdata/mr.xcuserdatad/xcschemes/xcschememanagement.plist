@@ -19,11 +19,6 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
-		<key>Georg.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
 		<key>GeorgB.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -72,6 +67,21 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>2E9F909B2C3765C700171176</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2E9F90B02C3765CB00171176</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>2E9F90BA2C3765CB00171176</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>2EC49BB52B480A9200FC85CA</key>
 		<dict>
 			<key>primary</key>

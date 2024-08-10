@@ -27,8 +27,8 @@
 		2E9F90D22C377A3900171176 /* NSManagedObjectID-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */; };
 		2E9F90D32C377A4800171176 /* GeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */; };
 		2E9F90D42C377A4800171176 /* CoreDataGeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */; };
-		2E9F90D52C377A4800171176 /* GeorgMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */; };
-		2E9F90D62C377A5000171176 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
+		2E9F90D52C377A4800171176 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */; };
+		2E9F90D62C377A5000171176 /* MicroGISError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */; };
 		2E9F90D72C377A5500171176 /* GeometriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */; };
 		2E9F90D82C377A5D00171176 /* GeoShapeWrapperTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E62432E2C273611004218E9 /* GeoShapeWrapperTransformer.swift */; };
 		2E9F90D92C377A5D00171176 /* Coordinate3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6243302C273841004218E9 /* Coordinate3D.swift */; };
@@ -44,6 +44,7 @@
 		2E9F90E32C377B7800171176 /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
 		2E9F90E52C377BD700171176 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2E9F90E42C377BD700171176 /* BinaryCodable */; };
 		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */; };
+		2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
 		2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,13 +75,8 @@
 		2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stylesheet-Extension.swift"; sourceTree = "<group>"; };
 		2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryInfo.swift; sourceTree = "<group>"; };
 		2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionView.swift; sourceTree = "<group>"; };
-		2E7C375C2C03BC43008D2B68 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
-		2E7C37622C03D8C5008D2B68 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stylesheet+Extensions.swift"; sourceTree = "<group>"; };
-		2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleStyleManager.swift; sourceTree = "<group>"; };
 		2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryFormatter.swift; sourceTree = "<group>"; };
-		2E83057E2BF688AF00E90FAA /* DocumentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentView.swift; sourceTree = "<group>"; };
-		2E8305802BF6A89A00E90FAA /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		2E9F90922C36498700171176 /* StylesheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesheetView.swift; sourceTree = "<group>"; };
 		2E9F909C2C3765C700171176 /* MicroGIS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroGIS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9F909E2C3765C800171176 /* MicroGISApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISApp.swift; sourceTree = "<group>"; };
@@ -94,31 +90,26 @@
 		2E9F90BB2C3765CB00171176 /* MicroGISUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicroGISUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9F90BF2C3765CB00171176 /* MicroGISUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITests.swift; sourceTree = "<group>"; };
 		2E9F90C12C3765CB00171176 /* MicroGISUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeorgError.swift; sourceTree = "<group>"; };
-		2EACC0362BE9528B00A7F91A /* Georg-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Shared.xcconfig"; sourceTree = "<group>"; };
+		2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISError.swift; sourceTree = "<group>"; };
+		2EACC0362BE9528B00A7F91A /* MicroGIS-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MicroGIS-Shared.xcconfig"; sourceTree = "<group>"; };
 		2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
 		2EACC0382BE9528B00A7F91A /* Project-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Shared.xcconfig"; sourceTree = "<group>"; };
-		2EACC0392BE9528B00A7F91A /* Georg-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Release.xcconfig"; sourceTree = "<group>"; };
+		2EACC0392BE9528B00A7F91A /* MicroGIS-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MicroGIS-Release.xcconfig"; sourceTree = "<group>"; };
 		2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
-		2EACC03B2BE9528B00A7F91A /* Georg-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Georg-Debug.xcconfig"; sourceTree = "<group>"; };
+		2EACC03B2BE9528B00A7F91A /* MicroGIS-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MicroGIS-Debug.xcconfig"; sourceTree = "<group>"; };
 		2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewModel.swift; sourceTree = "<group>"; };
 		2EC443D42B322C4400244326 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		2EC443D52B322C4400244326 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Roadmap and Ideas.md"; sourceTree = "<group>"; };
 		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		2ECB8D6B2BF9744F0044F557 /* MRMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
-		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2ECCEAF72A9436C0005785FA /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		2ECCEB012A9436C4005785FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2ECCEB022A9436C4005785FA /* Georg.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Georg.entitlements; sourceTree = "<group>"; };
 		2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeoFeatures; sourceTree = "<group>"; };
 		2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueFormatter.swift; sourceTree = "<group>"; };
 		2EF0D1192A9828740018E70D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2EF0D11A2A9829690018E70D /* COPYING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
 		2EF0D11B2A9829690018E70D /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
-		2EF0D11C2A983E6E0018E70D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGeoObjectCreator.swift; sourceTree = "<group>"; };
-		2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeorgMKGeoJSONFeatureSource.swift; sourceTree = "<group>"; };
+		2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicroGISMKGeoJSONFeatureSource.swift; sourceTree = "<group>"; };
 		2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectCreator.swift; sourceTree = "<group>"; };
 		2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectID-Extension.swift"; sourceTree = "<group>"; };
 		2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeatureCollection-Extension.swift"; sourceTree = "<group>"; };
@@ -188,20 +179,6 @@
 			path = Formatters;
 			sourceTree = "<group>";
 		};
-		2E9F909D2C3765C800171176 /* MicroGIS */ = {
-			isa = PBXGroup;
-			children = (
-				2E9F909E2C3765C800171176 /* MicroGISApp.swift */,
-				2E9F90A02C3765C800171176 /* Persistence.swift */,
-				2E9F90A52C3765C800171176 /* ContentView.swift */,
-				2E9F90A72C3765CB00171176 /* Assets.xcassets */,
-				2E9F90A92C3765CB00171176 /* MicroGIS.entitlements */,
-				2E9F90AA2C3765CB00171176 /* Preview Content */,
-				2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */,
-			);
-			path = MicroGIS;
-			sourceTree = "<group>";
-		};
 		2E9F90AA2C3765CB00171176 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,12 +207,12 @@
 		2EACC0352BE9528B00A7F91A /* xcconfig */ = {
 			isa = PBXGroup;
 			children = (
-				2EACC0362BE9528B00A7F91A /* Georg-Shared.xcconfig */,
+				2EACC0362BE9528B00A7F91A /* MicroGIS-Shared.xcconfig */,
 				2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */,
 				2EACC0382BE9528B00A7F91A /* Project-Shared.xcconfig */,
-				2EACC0392BE9528B00A7F91A /* Georg-Release.xcconfig */,
+				2EACC0392BE9528B00A7F91A /* MicroGIS-Release.xcconfig */,
 				2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */,
-				2EACC03B2BE9528B00A7F91A /* Georg-Debug.xcconfig */,
+				2EACC03B2BE9528B00A7F91A /* MicroGIS-Debug.xcconfig */,
 			);
 			path = xcconfig;
 			sourceTree = "<group>";
@@ -248,8 +225,7 @@
 				2EF0D1192A9828740018E70D /* README.md */,
 				2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */,
 				2EACC0352BE9528B00A7F91A /* xcconfig */,
-				2ECCEAF22A9436C0005785FA /* src */,
-				2E9F909D2C3765C800171176 /* MicroGIS */,
+				2ECCEAF22A9436C0005785FA /* MicroGIS */,
 				2E9F90B42C3765CB00171176 /* MicroGISTests */,
 				2E9F90BE2C3765CB00171176 /* MicroGISUITests */,
 				2ECCEAF12A9436C0005785FA /* Products */,
@@ -268,46 +244,43 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2ECCEAF22A9436C0005785FA /* src */ = {
+		2ECCEAF22A9436C0005785FA /* MicroGIS */ = {
 			isa = PBXGroup;
 			children = (
-				2EF5CE282C115077004F5F8E /* Display Geometries */,
-				2E7C37622C03D8C5008D2B68 /* main.swift */,
-				2E7C375C2C03BC43008D2B68 /* MainMenu.xib */,
-				2ECCEAF32A9436C0005785FA /* AppDelegate.swift */,
-				2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */,
+				2E9F90A72C3765CB00171176 /* Assets.xcassets */,
+				2ECCEB012A9436C4005785FA /* Info.plist */,
+				2EC443D42B322C4400244326 /* InfoPlist.strings */,
+				2E9F90A92C3765CB00171176 /* MicroGIS.entitlements */,
+				2E9F909E2C3765C800171176 /* MicroGISApp.swift */,
+				2E9F90A02C3765C800171176 /* Persistence.swift */,
+				2E9F90A52C3765C800171176 /* ContentView.swift */,
+				2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */,
 				2EF569D72BCF129700964F85 /* Model */,
-				2EE770192B2FBE1F00E67B56 /* Main Window */,
+				2EE770192B2FBE1F00E67B56 /* Display Features */,
+				2EF5CE282C115077004F5F8E /* Display Geometries */,
 				2EE7701A2B2FBE5300E67B56 /* Map View */,
 				2E7C373D2C011151008D2B68 /* Formatters */,
-				2EF0D11C2A983E6E0018E70D /* Assets.xcassets */,
-				2EC443D42B322C4400244326 /* InfoPlist.strings */,
-				2EC443D52B322C4400244326 /* Localizable.strings */,
-				2ECCEB012A9436C4005785FA /* Info.plist */,
-				2ECCEB022A9436C4005785FA /* Georg.entitlements */,
+				2E9F90922C36498700171176 /* StylesheetView.swift */,
+				2E9F90AA2C3765CB00171176 /* Preview Content */,
 			);
-			path = src;
+			path = MicroGIS;
 			sourceTree = "<group>";
 		};
 		2ED21C032C2E338900B739B3 /* Styles */ = {
 			isa = PBXGroup;
 			children = (
 				2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */,
-				2E8304C92BEFE8DA00E90FAA /* SimpleStyleManager.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
 		};
-		2EE770192B2FBE1F00E67B56 /* Main Window */ = {
+		2EE770192B2FBE1F00E67B56 /* Display Features */ = {
 			isa = PBXGroup;
 			children = (
-				2E8305802BF6A89A00E90FAA /* HostingController.swift */,
-				2E83057E2BF688AF00E90FAA /* DocumentView.swift */,
 				2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */,
-				2E9F90922C36498700171176 /* StylesheetView.swift */,
 				2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */,
 			);
-			path = "Main Window";
+			path = "Display Features";
 			sourceTree = "<group>";
 		};
 		2EE7701A2B2FBE5300E67B56 /* Map View */ = {
@@ -333,7 +306,7 @@
 			children = (
 				2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */,
 				2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */,
-				2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */,
+				2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */,
 			);
 			path = ImportGeoObjects;
 			sourceTree = "<group>";
@@ -342,7 +315,6 @@
 			isa = PBXGroup;
 			children = (
 				2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */,
-				2ECCEAF72A9436C0005785FA /* Document.swift */,
 				2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */,
 				2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */,
 				2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */,
@@ -357,6 +329,7 @@
 		2EF5CE282C115077004F5F8E /* Display Geometries */ = {
 			isa = PBXGroup;
 			children = (
+				2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */,
 				2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */,
 			);
 			path = "Display Geometries";
@@ -445,7 +418,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "Georg" */;
+			buildConfigurationList = 2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "MicroGIS" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -475,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E9F90AC2C3765CB00171176 /* Preview Assets.xcassets in Resources */,
+				2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */,
 				2E9F90A82C3765CB00171176 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,7 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EB8DC482C45C3EA00DE4251 /* FeatureCollectionViewModel.swift in Sources */,
-				2E9F90D52C377A4800171176 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
+				2E9F90D52C377A4800171176 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */,
 				2E9F909F2C3765C800171176 /* MicroGISApp.swift in Sources */,
 				2E9F90D92C377A5D00171176 /* Coordinate3D.swift in Sources */,
 				2E9F90D72C377A5500171176 /* GeometriesTable.swift in Sources */,
@@ -521,7 +495,7 @@
 				2E9F90D02C377A3900171176 /* FeatureProperties.swift in Sources */,
 				2E9F90DA2C377A5D00171176 /* GeoShapes.swift in Sources */,
 				2E9F90CF2C377A3900171176 /* Feature-Extension.swift in Sources */,
-				2E9F90D62C377A5000171176 /* GeorgError.swift in Sources */,
+				2E9F90D62C377A5000171176 /* MicroGISError.swift in Sources */,
 				2E9F90CC2C37757600171176 /* MicroGIS.xcdatamodeld in Sources */,
 				2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */,
 				2E9F90E02C377A7900171176 /* MRMap.swift in Sources */,
@@ -604,6 +578,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = MicroGIS/MicroGIS.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -700,6 +675,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = MicroGIS/MicroGIS.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1048,16 +1024,18 @@
 		};
 		2ECCEB032A9436C4005785FA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */;
+			baseConfigurationReference = 2EACC03B2BE9528B00A7F91A /* MicroGIS-Debug.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 			};
 			name = Debug;
 		};
 		2ECCEB042A9436C4005785FA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */;
+			baseConfigurationReference = 2EACC0392BE9528B00A7F91A /* MicroGIS-Release.xcconfig */;
 			buildSettings = {
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
 			};
 			name = Release;
@@ -1092,7 +1070,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "Georg" */ = {
+		2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "MicroGIS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2ECCEB032A9436C4005785FA /* Debug */,
