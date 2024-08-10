@@ -8,23 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2E2045CF2C560AAF00FF0BFF /* SplitView in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2045CE2C560AAF00FF0BFF /* SplitView */; };
-		2E62432D2C2735C5004218E9 /* GeoShapeWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E62432C2C2735C4004218E9 /* GeoShapeWrapper.swift */; };
-		2E62432F2C273611004218E9 /* GeoShapeWrapperTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E62432E2C273611004218E9 /* GeoShapeWrapperTransformer.swift */; };
-		2E6243312C273841004218E9 /* Coordinate3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6243302C273841004218E9 /* Coordinate3D.swift */; };
-		2E6243332C27391B004218E9 /* GeoShapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6243322C27391B004218E9 /* GeoShapes.swift */; };
-		2E6243362C275072004218E9 /* FeaturePropertiesTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6243352C275072004218E9 /* FeaturePropertiesTransformer.swift */; };
-		2E6243382C2758D8004218E9 /* FeatureProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6243372C2758D8004218E9 /* FeatureProperties.swift */; };
-		2E79D57A2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */; };
 		2E79D57B2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */; };
 		2E7A574F2C48CA8E00DA1C2F /* GeometryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */; };
-		2E7C37302BFEA30F008D2B68 /* FeatureCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */; };
-		2E7C375D2C03BC43008D2B68 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2E7C375C2C03BC43008D2B68 /* MainMenu.xib */; };
-		2E7C37632C03D8C5008D2B68 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C37622C03D8C5008D2B68 /* main.swift */; };
-		2E7C37642C03E412008D2B68 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8305802BF6A89A00E90FAA /* HostingController.swift */; };
-		2E8304C82BEFE8A000E90FAA /* Stylesheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */; };
-		2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
-		2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E83057E2BF688AF00E90FAA /* DocumentView.swift */; };
-		2E9F90932C36498700171176 /* StylesheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90922C36498700171176 /* StylesheetView.swift */; };
 		2E9F909F2C3765C800171176 /* MicroGISApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F909E2C3765C800171176 /* MicroGISApp.swift */; };
 		2E9F90A12C3765C800171176 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90A02C3765C800171176 /* Persistence.swift */; };
 		2E9F90A62C3765C800171176 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90A52C3765C800171176 /* ContentView.swift */; };
@@ -58,30 +43,8 @@
 		2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
 		2E9F90E32C377B7800171176 /* GeometryFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304CB2BF28C9600E90FAA /* GeometryFormatter.swift */; };
 		2E9F90E52C377BD700171176 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2E9F90E42C377BD700171176 /* BinaryCodable */; };
-		2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* GeorgError.swift */; };
 		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */; };
-		2EC443D62B322C4400244326 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
-		2EC443D72B322C4400244326 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D52B322C4400244326 /* Localizable.strings */; };
-		2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
-		2ECB8D6C2BF9744F0044F557 /* MRMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D6B2BF9744F0044F557 /* MRMap.swift */; };
-		2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF32A9436C0005785FA /* AppDelegate.swift */; };
-		2ECCEAF82A9436C0005785FA /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECCEAF72A9436C0005785FA /* Document.swift */; };
-		2EDE3DD82C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
 		2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
-		2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF0D11C2A983E6E0018E70D /* Assets.xcassets */; };
-		2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF33E652ADF0077004C750F /* GeoFeatures */; };
-		2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D42BCF129600964F85 /* CoreDataGeoObjectCreator.swift */; };
-		2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D52BCF129600964F85 /* GeorgMKGeoJSONFeatureSource.swift */; };
-		2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D62BCF129600964F85 /* GeoObjectCreator.swift */; };
-		2EF569E12BCF129700964F85 /* NSManagedObjectID-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */; };
-		2EF569E22BCF129800964F85 /* FeatureCollection-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */; };
-		2EF569E32BCF129800964F85 /* Geometry-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */; };
-		2EF569E42BCF129800964F85 /* Feature-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature-Extension.swift */; };
-		2EF569F52BCF2F4E00964F85 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2EF569F42BCF2F4E00964F85 /* BinaryCodable */; };
-		2EF5CE2A2C11509A004F5F8E /* GeometriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */; };
-		2EFFD9482BCF306F00249DE1 /* MicroGIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */; };
-		2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */; };
-		2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,7 +107,6 @@
 		2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Roadmap and Ideas.md"; sourceTree = "<group>"; };
 		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		2ECB8D6B2BF9744F0044F557 /* MRMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
-		2ECCEAF02A9436C0005785FA /* Georg.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Georg.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ECCEAF32A9436C0005785FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2ECCEAF72A9436C0005785FA /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		2ECCEB012A9436C4005785FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -189,15 +151,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2ECCEAED2A9436C0005785FA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2EF569F52BCF2F4E00964F85 /* BinaryCodable in Frameworks */,
-				2EF33E662ADF0077004C750F /* GeoFeatures in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +261,6 @@
 		2ECCEAF12A9436C0005785FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2ECCEAF02A9436C0005785FA /* Georg.app */,
 				2E9F909C2C3765C700171176 /* MicroGIS.app */,
 				2E9F90B12C3765CB00171176 /* MicroGISTests.xctest */,
 				2E9F90BB2C3765CB00171176 /* MicroGISUITests.xctest */,
@@ -470,27 +422,6 @@
 			productReference = 2E9F90BB2C3765CB00171176 /* MicroGISUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		2ECCEAEF2A9436C0005785FA /* Georg */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2ECCEB052A9436C4005785FA /* Build configuration list for PBXNativeTarget "Georg" */;
-			buildPhases = (
-				2ECCEAEC2A9436C0005785FA /* Sources */,
-				2ECCEAED2A9436C0005785FA /* Frameworks */,
-				2ECCEAEE2A9436C0005785FA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Georg;
-			packageProductDependencies = (
-				2EF33E652ADF0077004C750F /* GeoFeatures */,
-				2EF569F42BCF2F4E00964F85 /* BinaryCodable */,
-			);
-			productName = DocbasedApp;
-			productReference = 2ECCEAF02A9436C0005785FA /* Georg.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -512,9 +443,6 @@
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 2E9F909B2C3765C700171176;
 					};
-					2ECCEAEF2A9436C0005785FA = {
-						CreatedOnToolsVersion = 14.3.1;
-					};
 				};
 			};
 			buildConfigurationList = 2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "Georg" */;
@@ -534,7 +462,6 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2ECCEAEF2A9436C0005785FA /* Georg */,
 				2E9F909B2C3765C700171176 /* MicroGIS */,
 				2E9F90B02C3765CB00171176 /* MicroGISTests */,
 				2E9F90BA2C3765CB00171176 /* MicroGISUITests */,
@@ -563,17 +490,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		2ECCEAEE2A9436C0005785FA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2EC443D72B322C4400244326 /* Localizable.strings in Resources */,
-				2EF0D11D2A983E6E0018E70D /* Assets.xcassets in Resources */,
-				2EC443D62B322C4400244326 /* InfoPlist.strings in Resources */,
-				2E7C375D2C03BC43008D2B68 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -635,44 +551,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2ECCEAEC2A9436C0005785FA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2ECB8D6A2BF958970044F557 /* CoordinateFormatter.swift in Sources */,
-				2EF569E32BCF129800964F85 /* Geometry-Extension.swift in Sources */,
-				2EF569E42BCF129800964F85 /* Feature-Extension.swift in Sources */,
-				2EF569DF2BCF129700964F85 /* GeorgMKGeoJSONFeatureSource.swift in Sources */,
-				2E6243332C27391B004218E9 /* GeoShapes.swift in Sources */,
-				2E7C37302BFEA30F008D2B68 /* FeatureCollectionView.swift in Sources */,
-				2E6243312C273841004218E9 /* Coordinate3D.swift in Sources */,
-				2EFFD9632BD07F0600249DE1 /* GeoObjectMKBridge.swift in Sources */,
-				2EFFD9482BCF306F00249DE1 /* MicroGIS.xcdatamodeld in Sources */,
-				2E6243382C2758D8004218E9 /* FeatureProperties.swift in Sources */,
-				2EAA233D2B23DD7E00E5F653 /* GeorgError.swift in Sources */,
-				2ECB8D6C2BF9744F0044F557 /* MRMap.swift in Sources */,
-				2EF569DE2BCF129700964F85 /* CoreDataGeoObjectCreator.swift in Sources */,
-				2EF569E22BCF129800964F85 /* FeatureCollection-Extension.swift in Sources */,
-				2E83057F2BF688AF00E90FAA /* DocumentView.swift in Sources */,
-				2E62432F2C273611004218E9 /* GeoShapeWrapperTransformer.swift in Sources */,
-				2E62432D2C2735C5004218E9 /* GeoShapeWrapper.swift in Sources */,
-				2E7C37642C03E412008D2B68 /* HostingController.swift in Sources */,
-				2ECCEAF42A9436C0005785FA /* AppDelegate.swift in Sources */,
-				2EF5CE2A2C11509A004F5F8E /* GeometriesTable.swift in Sources */,
-				2E7C37632C03D8C5008D2B68 /* main.swift in Sources */,
-				2ECCEAF82A9436C0005785FA /* Document.swift in Sources */,
-				2E8304C82BEFE8A000E90FAA /* Stylesheet+Extensions.swift in Sources */,
-				2EF569E02BCF129700964F85 /* GeoObjectCreator.swift in Sources */,
-				2E9F90932C36498700171176 /* StylesheetView.swift in Sources */,
-				2E8304CC2BF28C9600E90FAA /* GeometryFormatter.swift in Sources */,
-				2EDE3DD82C64413400A6B847 /* JSONValueFormatter.swift in Sources */,
-				2E6243362C275072004218E9 /* FeaturePropertiesTransformer.swift in Sources */,
-				2EF569E12BCF129700964F85 /* NSManagedObjectID-Extension.swift in Sources */,
-				2EFFD9572BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift in Sources */,
-				2E79D57A2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -696,6 +574,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -791,6 +670,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -1182,38 +1062,6 @@
 			};
 			name = Release;
 		};
-		2ECCEB062A9436C4005785FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EACC03B2BE9528B00A7F91A /* Georg-Debug.xcconfig */;
-			buildSettings = {
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Georg;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
-				INFOPLIST_KEY_NSMainStoryboardFile = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG NO_TABLECOLUMNFOREACH";
-			};
-			name = Debug;
-		};
-		2ECCEB072A9436C4005785FA /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2EACC0392BE9528B00A7F91A /* Georg-Release.xcconfig */;
-			buildSettings = {
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Georg;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainNibFile = MainMenu;
-				INFOPLIST_KEY_NSMainStoryboardFile = "";
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = NO_TABLECOLUMNFOREACH;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1253,15 +1101,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2ECCEB052A9436C4005785FA /* Build configuration list for PBXNativeTarget "Georg" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2ECCEB062A9436C4005785FA /* Debug */,
-				2ECCEB072A9436C4005785FA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1290,15 +1129,6 @@
 			productName = SplitView;
 		};
 		2E9F90E42C377BD700171176 /* BinaryCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EF569F32BCF2F4E00964F85 /* XCRemoteSwiftPackageReference "BinaryCodable" */;
-			productName = BinaryCodable;
-		};
-		2EF33E652ADF0077004C750F /* GeoFeatures */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GeoFeatures;
-		};
-		2EF569F42BCF2F4E00964F85 /* BinaryCodable */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2EF569F32BCF2F4E00964F85 /* XCRemoteSwiftPackageReference "BinaryCodable" */;
 			productName = BinaryCodable;

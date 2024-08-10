@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "A1664952-B203-4D50-864A-3A15AA2222F8"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "6CFA9AC4-860C-4EFC-AB77-0E4736A6610A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.SwiftErrorBreakpoint">
+         <BreakpointContent
+            uuid = "E70C68E2-02C2-42A4-AC5C-D2748B3C3BA1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.RuntimeIssueBreakpoint">
+         <BreakpointContent
+            uuid = "D681EE83-D6DC-4BF4-B705-F9DD86FE0CB1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            breakpointStackSelectionBehavior = "1"
+            type = "65535">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "74115AB3-F34E-4369-A98D-0516A07E59CD"
+            shouldBeEnabled = "No"
+            condition = "selected == true"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/Map View/Styles/Stylesheet+Extensions.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "applyStyle(_:geometry:selected:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F580449E-4333-4709-850D-F6C3E981E61B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/Model/ImportGeoObjects/GeorgMKGeoJSONFeatureSource.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "importFeatureCollection(from:into:creator:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F580449E-4333-4709-850D-F6C3E981E61B - 9ab88a1ca39e84a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MicroGIS.GeorgMKGeoJSONFeatureSource.importFeatureCollection(from: Foundation.URL, into: MicroGIS.FeatureCollectionLike, creator: MicroGIS.GeoObjectCreator) -&gt; ()"
+                  moduleName = "MicroGIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mr/Developer/Projects/Georg/src/Model/ImportGeoObjects/GeorgMKGeoJSONFeatureSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "1960">
+               </Location>
+               <Location
+                  uuid = "F580449E-4333-4709-850D-F6C3E981E61B - 9ab88a1ca39e84a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MicroGIS.GeorgMKGeoJSONFeatureSource.importFeatureCollection(from: Foundation.URL, into: MicroGIS.FeatureCollectionLike, creator: MicroGIS.GeoObjectCreator) -&gt; ()"
+                  moduleName = "MicroGIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mr/Developer/Projects/Georg/src/Model/ImportGeoObjects/GeorgMKGeoJSONFeatureSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "2112">
+               </Location>
+               <Location
+                  uuid = "F580449E-4333-4709-850D-F6C3E981E61B - 9ab88a1ca39e84a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MicroGIS.GeorgMKGeoJSONFeatureSource.importFeatureCollection(from: Foundation.URL, into: MicroGIS.FeatureCollectionLike, creator: MicroGIS.GeoObjectCreator) -&gt; ()"
+                  moduleName = "MicroGIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mr/Developer/Projects/Georg/src/Model/ImportGeoObjects/GeorgMKGeoJSONFeatureSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "2745">
+               </Location>
+               <Location
+                  uuid = "F580449E-4333-4709-850D-F6C3E981E61B - 9ab88a1ca39e84a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MicroGIS.GeorgMKGeoJSONFeatureSource.importFeatureCollection(from: Foundation.URL, into: MicroGIS.FeatureCollectionLike, creator: MicroGIS.GeoObjectCreator) -&gt; ()"
+                  moduleName = "MicroGIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mr/Developer/Projects/Georg/src/Model/ImportGeoObjects/GeorgMKGeoJSONFeatureSource.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "2722">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0ED70FC1-FF47-4AA9-92F3-B0CA7789F0B0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/Formatters/JSONValueFormatter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "string(for:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0ED70FC1-FF47-4AA9-92F3-B0CA7789F0B0 - 22413fbf603eefcc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MicroGIS.JSONValueFormatter.string(for: Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "MicroGIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mr/Developer/Projects/Georg/src/Formatters/JSONValueFormatter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "2887">
+               </Location>
+               <Location
+                  uuid = "0ED70FC1-FF47-4AA9-92F3-B0CA7789F0B0 - 22413fbf603eef8e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MicroGIS.JSONValueFormatter.string(for: Swift.Optional&lt;Any&gt;) -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "MicroGIS"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mr/Developer/Projects/Georg/src/Formatters/JSONValueFormatter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "2992">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
