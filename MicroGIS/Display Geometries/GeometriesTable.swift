@@ -29,11 +29,11 @@ extension TableColumnContent {
 
     public func trailing_alignment() -> some TableColumnContent<Self.TableRowValue, Self.TableColumnSortComparator> {
 
-        if #available(macOS 14.0, *) {
-            return alignment(.trailing)
-        } else {
+        if #unavailable(macOS 14.4, iOS 17.2) {
             // Fallback on earlier versions
             return self
+        } else {
+            return alignment(.trailing)
         }
     }
 
