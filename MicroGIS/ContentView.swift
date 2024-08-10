@@ -34,6 +34,8 @@ struct ContentView: View {
     @FetchRequest<FeatureCollection>(sortDescriptors: [SortDescriptor(\.creationDate)])
     private var featureCollections: FetchedResults<FeatureCollection>
 
+    @State private var geometriesFetchRequest = NSFetchRequest<Geometry>(entityName: "Geometry")
+
     @State private var selectedSidebarItem: SidebarItem?
     @State private var selectedGeometries = Set<Geometry>()
 
@@ -63,9 +65,7 @@ struct ContentView: View {
                         SidebarItem.FeatureCollection(fc)
                     }), id: \.self) { sbi in
                         if case .FeatureCollection(let featureCollection) = sbi {
-                            NavigationLink(value: featureCollection) {
-                                Label(featureCollection.name ?? "unnamed", systemImage:"rectangle.3.group")
-                            }
+                            Label(featureCollection.name ?? "unnamed", systemImage:"rectangle.3.group")
                         } else {
                             Text("featureCollection error")
                         }
@@ -106,7 +106,7 @@ struct ContentView: View {
                 Text("Stylesheet \(stylesheet.name ?? "--")")
 
             case .FeatureCollection(let featureCollection):
-                let vm = FeatureCollectionViewModel(context: viewContext, featureCollection: featureCollection)
+                let vm = createFeatureCollectionViewModel([featureCollection])
                 FeatureCollectionView(geometries: vm.geometries,
                                       columns: vm.columns,
                                       selection: $selectedGeometries)
@@ -118,6 +118,15 @@ struct ContentView: View {
                 Text("Select a feature collection or stylesheet in the sidebar.")
             }
         }
+    }
+
+    private func createFeatureCollectionViewModel(_ featureCollections: [FeatureCollection]) -> FeatureCollectionViewModel {
+        let frA = NSPredicate(format: "feature.collection IN %@",
+                                                       argumentArray: [featureCollections])
+
+        let frB = NSPredicate(format: "rawShapeCode = %d", Geometry.GeoShapeType.Polygon.rawValue)
+        geometriesFetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [frA])
+        return FeatureCollectionViewModel(context: viewContext, fetchRequest: geometriesFetchRequest)
     }
 
     private func addItem() {

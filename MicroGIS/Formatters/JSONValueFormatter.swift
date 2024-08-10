@@ -8,6 +8,8 @@
 import Foundation
 
 class JSONValueFormatter: Formatter {
+    let dateFormatter = DateFormatter()
+
     override func string(for obj: Any?) -> String? {
         switch obj {
         case _ as NSNull:
@@ -22,6 +24,8 @@ class JSONValueFormatter: Formatter {
             return String(f)
         case let d as Double:
             return String(d)
+        case let dt as Date:
+            return dateFormatter.string(from: dt)
         case let ar as Array<Any>:
             let subs = ar.map {
                 self.string(for: $0) ?? "??"
@@ -37,7 +41,11 @@ class JSONValueFormatter: Formatter {
         }
     }
 
-    override func getObjectValue(_ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?, for string: String, errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
-        return false
+    override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?) -> Bool {
+
+            return true
     }
 }

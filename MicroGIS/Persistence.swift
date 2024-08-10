@@ -73,17 +73,10 @@ struct PersistenceController {
 
     func importFeaturesFile(url: URL) {
 
-        let featureCollection = FeatureCollection(ctx: self.container.viewContext, 
-                                                  stylesheet: defaultStylesheet(),
-                                                  creationDate: .now,
-                                                  name: url.lastPathComponent)
-
-        let geoObjectCreator = CoreDataGeoObjectCreator(importContext: self.container.viewContext)
-
         let ext = url.pathExtension
         switch ext.uppercased() {
         case "GEOJSON":
-            MicroGISMKGeoJSONFeatureSource().importFeatureCollection(from: url, into: featureCollection, creator: geoObjectCreator)
+            let _ = MicroGISMKGeoJSONFeatureSource(importContext: self.container.viewContext).importFeatureCollection(from: url)
         default:
             break
         }

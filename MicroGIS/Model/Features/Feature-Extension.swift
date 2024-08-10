@@ -29,17 +29,15 @@ extension Feature {
         }
     }
 
-    convenience init(
-        context: NSManagedObjectContext,
-        featureID: String?,
-        properties: FeatureProperties?,
-        parent: FeatureCollection
-    ) {
+    convenience init(context: NSManagedObjectContext,
+                     featureID: String?) {
+
         self.init(context: context)
         self.featureID = featureID
-        self.properties = properties
-        self.collection = parent
-        parent.addToFeatures(self)
+    }
+
+    func propertyKeys() -> Set<String> {
+        return Set<String>(self.properties?.allObjects.map({($0 as! FeatureProperty).key!}) ?? [String]())
     }
 }
 
@@ -63,9 +61,8 @@ extension Feature {
                                    coordString: "<none>")
                 case 1:
                     let g = geometries[0] as! Geometry
-                    let c = g.coordinate
                     self.init(iconSymbolName: g.iconSymbolName,
-                                   coordString: cf.string(from: CLLocationCoordinate2D(latitude: c.latitude, longitude: c.longitude)))
+                                   coordString: cf.string(from: g.center))
 
                 default:
                     self.init(iconSymbolName: icon,

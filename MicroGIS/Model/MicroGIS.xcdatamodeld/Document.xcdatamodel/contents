@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G720" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G830" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BlobFeatureProperty" representedClassName="BlobFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="Binary"/>
+    </entity>
+    <entity name="BoolFeatureProperty" representedClassName="BoolFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="DateFeatureProperty" representedClassName="DateFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="DoubleFeatureProperty" representedClassName="DoubleFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
     <entity name="Feature" representedClassName="Feature" syncable="YES" codeGenerationType="class">
         <attribute name="featureID" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
-        <attribute name="properties" optional="YES" attributeType="Transformable" valueTransformerName="FeaturePropertiesTransformer" customClassName=".FeatureProperties"/>
         <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeatureCollection" inverseName="features" inverseEntity="FeatureCollection"/>
         <relationship name="geometries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Geometry" inverseName="feature" inverseEntity="Geometry"/>
+        <relationship name="properties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeatureProperty" inverseName="feature" inverseEntity="FeatureProperty"/>
     </entity>
     <entity name="FeatureCollection" representedClassName="FeatureCollection" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
@@ -17,18 +29,50 @@
         <relationship name="features" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Feature" inverseName="collection" inverseEntity="Feature"/>
         <relationship name="stylesheet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stylesheet" inverseName="collections" inverseEntity="Stylesheet"/>
     </entity>
-    <entity name="Geometry" representedClassName="Geometry" syncable="YES" codeGenerationType="class">
-        <attribute name="altitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="boundsD" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="boundsH" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="boundsW" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="boundsX" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="boundsY" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="boundsZ" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    <entity name="FeatureProperty" representedClassName="FeatureProperty" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <attribute name="key" attributeType="String"/>
+        <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feature" inverseName="properties" inverseEntity="Feature"/>
+    </entity>
+    <entity name="Geometry" representedClassName="Geometry" isAbstract="YES" syncable="YES" codeGenerationType="category">
+        <attribute name="centerLatitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="centerLongitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="rawShapeCode" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="8" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feature" inverseName="geometries" inverseEntity="Feature"/>
+    </entity>
+    <entity name="IntFeatureProperty" representedClassName="IntFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MGCircle" representedClassName="MGCircle" parentEntity="Geometry" syncable="YES" codeGenerationType="category">
+        <attribute name="radius" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MGCoordinate" representedClassName="MGCoordinate" syncable="YES" codeGenerationType="class">
         <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="shape" attributeType="Transformable" valueTransformerName="GeoShapeWrapperTransformer" customClassName=".GeoShapeWrapper"/>
-        <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feature" inverseName="geometries" inverseEntity="Feature"/>
+        <attribute name="uniquifier" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="multipoint" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MGMultipoint" inverseName="points" inverseEntity="MGMultipoint"/>
+    </entity>
+    <entity name="MGGeodesicPolyline" representedClassName="MGGeodesicPolyline" parentEntity="MGPolyline" syncable="YES" codeGenerationType="category"/>
+    <entity name="MGMultipoint" representedClassName="MGMultipoint" isAbstract="YES" parentEntity="Geometry" syncable="YES" codeGenerationType="category">
+        <relationship name="points" optional="YES" toMany="YES" minCount="1" deletionRule="Cascade" ordered="YES" destinationEntity="MGCoordinate" inverseName="multipoint" inverseEntity="MGCoordinate"/>
+    </entity>
+    <entity name="MGMultiPolygon" representedClassName="MGMultiPolygon" parentEntity="Geometry" syncable="YES" codeGenerationType="category">
+        <relationship name="polygons" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MGPolygon" inverseName="multiPolygon" inverseEntity="MGPolygon"/>
+    </entity>
+    <entity name="MGMultiPolyline" representedClassName="MGMultiPolyline" parentEntity="Geometry" syncable="YES" codeGenerationType="category">
+        <relationship name="polylines" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MGPolyline" inverseName="multiPolyline" inverseEntity="MGPolyline"/>
+    </entity>
+    <entity name="MGPoint" representedClassName="MGPoint" parentEntity="Geometry" syncable="YES" codeGenerationType="category"/>
+    <entity name="MGPolygon" representedClassName="MGPolygon" parentEntity="MGMultipoint" syncable="YES" codeGenerationType="category">
+        <relationship name="containingPolygon" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MGPolygon" inverseName="innerPolygons" inverseEntity="MGPolygon"/>
+        <relationship name="innerPolygons" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MGPolygon" inverseName="containingPolygon" inverseEntity="MGPolygon"/>
+        <relationship name="multiPolygon" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MGMultiPolygon" inverseName="polygons" inverseEntity="MGMultiPolygon"/>
+    </entity>
+    <entity name="MGPolyline" representedClassName="MGPolyline" parentEntity="MGMultipoint" syncable="YES" codeGenerationType="category">
+        <relationship name="multiPolyline" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MGMultiPolyline" inverseName="polylines" inverseEntity="MGMultiPolyline"/>
+    </entity>
+    <entity name="NullFeatureProperty" representedClassName="NullFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class"/>
+    <entity name="StringFeatureProperty" representedClassName="StringFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
+        <attribute name="value" attributeType="String"/>
     </entity>
     <entity name="Stylesheet" representedClassName="Stylesheet" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>

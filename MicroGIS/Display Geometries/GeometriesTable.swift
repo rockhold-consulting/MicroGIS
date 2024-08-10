@@ -10,8 +10,31 @@ import CoreLocation
 import CoreData
 
 extension Geometry {
+
+    enum PropertyError: Error {
+        case MalformedGeometry
+    }
+
     public func matches(searchText: String) -> Bool {
         return false
+    }
+
+    func propertyValue(header: String) -> Any? {
+
+        if let targetFp = feature?.properties?.first(where: { element in
+            guard let fp = element as? FeatureProperty else { return false }
+            return fp.key == header
+        }) as? FeatureProperty {
+            if let v = targetFp.primitiveValue(forKey: "value") {
+                return v
+            } else {
+                // TODO: log error, we found a FeatureProperty with this key but it has no value
+                return nil
+            }
+        } else {
+            // not an error
+            return nil
+        }
     }
 }
 
@@ -48,21 +71,6 @@ extension TableColumnContent {
     }
 }
 
-extension TableColumnBuilder {
-    /// Creates a single, sortable column result.
-    static func buildEither<Column>(first: Column) -> Column where RowValue == Column.TableRowValue, Sort == Column.TableColumnSortComparator, Column : TableColumnContent  {
-        return first
-    }
-    static func buildEither<Column>(second: Column) -> Column where RowValue == Column.TableRowValue, Sort == Column.TableColumnSortComparator, Column : TableColumnContent  {
-        return second
-    }
-}
-
-struct PropertyColumn: Identifiable {
-    let id = UUID()
-    let str: String
-}
-
 extension Set<Geometry> {
     var idSet: Set<Geometry.ID> {
         return Set<Geometry.ID>( self.map { g in
@@ -74,22 +82,12 @@ extension Set<Geometry> {
 struct GeometriesTable: View {
 
     let geometries: [Geometry]
-    let columns: [PropertyColumn]
+    let columns: [String]
     @Binding var selection: Set<Geometry>
     let idMap: [Geometry.ID: Geometry]
     @Binding var searchText: String
     @State private var sortOrder = [KeyPathComparator(\Geometry.shortName, order: .forward)]
     let jsonValueFormatter = JSONValueFormatter()
-
-    init(geometries: [Geometry], columns: [PropertyColumn], selection: Binding<Set<Geometry>>, searchText: Binding<String>) {
-        self.geometries = geometries
-        self.columns = columns
-        self._selection = selection
-        self._searchText = searchText
-        self.idMap = [Geometry.ID: Geometry](uniqueKeysWithValues: geometries.map { g in
-            return (g.id, g)
-        })
-    }
 
     var proxyBinding: Binding<Set<Geometry.ID>> {
         Binding<Set<Geometry.ID>> {
@@ -103,72 +101,101 @@ struct GeometriesTable: View {
         }
     }
 
+    init(geometries: [Geometry], columns: [String], selection: Binding<Set<Geometry>>, searchText: Binding<String>) {
+        self.geometries = geometries
+        self.columns = columns
+        self._selection = selection
+        self._searchText = searchText
+        self.idMap = [Geometry.ID: Geometry](uniqueKeysWithValues: geometries.map { g in
+            return (g.id, g)
+        })
+    }
+
     var body: some View {
-        VStack {
-            Table(geometries,
-                  selection: proxyBinding,
-                  sortOrder: $sortOrder) {
-                TableColumn(" ", value: \.shapeCode.rawValue) { g in
-                    Image(systemName: g.iconSymbolName)
-                        .frame(width: 20, alignment: .center)
-                }
-                .width(20)
-                
-                TableColumn("ID", value: \.shortName) { g in
-                    Text(g.shortName)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .layoutPriority(1)
-                }
-                .width(60)
-                .leading_alignment()
-                
-                TableColumn("Center", value: \.coordString) { g in
-                    Text(g.coordString)
-                        .monospacedDigit()
+//            List(geometries, selection: proxyBinding) { g in
+//
+//                HStack {
+//                    Image(systemName: g.iconSymbolName)
+//                        .frame(width: 20, alignment: .center)
+//
+//                    Text(g.shortName)
+//
+//                    Text(g.coordString)
+//                        .monospacedDigit()
+//
+//                    Text(g.featureShortName)
+//
+//                    HStack {
+//                        ForEach(self.columns, id: \.self) { h in
+//                            Text(self.jsonValueFormatter.string(for: g.property[h]) ?? "-")
+//                                .frame(width: 140, alignment: .leading)
+//                            Divider()
+//                        }
+//                    }
+//
+//                }
+//        }
+
+        Table(geometries.sorted(using: sortOrder),
+              selection: proxyBinding,
+              sortOrder: $sortOrder) {
+            TableColumn(" ", value: \.rawShapeCode) { g in
+                Image(systemName: g.iconSymbolName)
+                    .frame(width: 20, alignment: .center)
+            }
+            .width(20)
+
+            TableColumn("ObjID", value: \.shortName) { g in
+                Text(g.shortName)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .layoutPriority(1)
+            }
+            .width(60)
+            .leading_alignment()
+
+            TableColumn("Latitude", value: \.centerLatitude) { g in
+                Text(g.centerLatitude, format: .number.precision(Decimal.FormatStyle.Configuration.Precision.fractionLength(0..<9)))
+                    .monospacedDigit()
+            }
+            .width(100)
+
+            TableColumn("Longitude", value: \.centerLongitude) { g in
+                Text(g.centerLongitude, format: .number.precision(Decimal.FormatStyle.Configuration.Precision.fractionLength(0..<9)))
+                    .monospacedDigit()
+            }
+            .width(100)
+
+
+            TableColumn("fObjID", value: \.featureShortName) { g in
+                Text(g.featureShortName)
 #if os(macOS)
-                        .frame(maxWidth: .infinity, alignment: .trailing)
-                        .foregroundStyle(.secondary)
-#endif
-                }
-                .width(130)
-                //            .trailing_alignment()
-                
-                TableColumn("Feature ID", value: \.featureShortName) { g in
-                    Text(g.featureShortName)
-#if os(macOS)
-                        .foregroundStyle(.secondary)
-#endif
-                }
-                .width(60)
-                //            .leading_alignment()
-                
-#if  NO_TABLECOLUMNFOREACH
-                let propertyHeaders = self.columns.map { $0.str }
-                TableColumn(Text(propertyHeaders.joined(separator: "  |  "))) { (g: Geometry) in
-                    HStack {
-                        ForEach(propertyHeaders, id: \.self) { h in
-                            Text(self.jsonValueFormatter.string(for: g.property[h]) ?? "-")
-                                .frame(width: 140, alignment: .leading)
-                            Divider()
-                        }
-                    }
-                }
-                .width(min: 140, max: .infinity)
-                .leading_alignment()
-#else
-                TableColumnForEach(columns) { col in
-                    TableColumn(col.str) { (g: Geometry) in
-                        Text(g.property[col.str] ?? "")
-                    }
-                    .width(60)
-                    .trailing_alignment()
-                }
+                    .foregroundStyle(.secondary)
 #endif
             }
-            Text("count: \(geometries.count), selections: \(selection.count)")
+            .width(60)
+            .leading_alignment()
+
+#if  NO_TABLECOLUMNFOREACH
+            TableColumn(Text(self.columns.joined(separator: "  |  "))) { (g: Geometry) in
+                HStack {
+                    ForEach(self.columns, id: \.self) { h in
+                        Text(self.jsonValueFormatter.string(for: g.propertyValue(header: h) ?? "") ?? "--")
+                            .frame(width: 140, alignment: .leading)
+                        Divider()
+                    }
+                }
+            }
+            .width(min: 140, max: .infinity)
+            .leading_alignment()
+#else
+            TableColumnForEach(self.columns) { col in
+                TableColumn(col) { (g: Geometry) in
+                    Text(g.property[col] ?? "")
+                }
+                .width(60)
+                .trailing_alignment()
+            }
+#endif
         }
     }
 }
-//#Preview {
-//    GeometriesTable()
-//}

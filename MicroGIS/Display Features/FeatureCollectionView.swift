@@ -11,27 +11,22 @@ import SplitView
 
 struct FeatureCollectionView: View {
     var geometries: [Geometry]
-    var columns: [PropertyColumn]
+    var columns: [String]
     @Binding var selection: Set<Geometry>
     @State var searchText = ""
 
     var body: some View {
 
-        VSplit(
-            top: { MRMap(geometries: geometries, selection: $selection)},
+        VStack {
+            MRMap(geometries: geometries, selection: $selection)
+            HStack {
+                GeometriesTable(geometries: geometries,
+                                    columns: columns,
+                                    selection: $selection,
+                                    searchText: $searchText)
 
-            bottom: { HSplit(
-                left: { GeometriesTable(geometries: geometries,
-                                        columns: columns,
-                                        selection: $selection,
-                                        searchText: $searchText) },
-                
-                right: { GeometryInfo(geometries: $selection)}
-            )}
-        )
+                GeometriesInfo(geometries: selection)
+            }
+        }
     }
 }
-
-//#Preview {
-//    FeatureCollectionView(featureCollection: FeatureCollection())
-//}

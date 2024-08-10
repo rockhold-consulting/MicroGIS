@@ -16,9 +16,10 @@ extension Stylesheet {
     #endif
 
     func renderer(for geometry: Geometry, selected: Bool = false) -> MKOverlayRenderer? {
-        guard let r = (geometry.shape?.shape as? Rendererable)?.makeRenderer(geometry: geometry) else {
+        guard let g = geometry as? Renderable else {
             return nil
         }
+        let r = g.makeRenderer()
         // TODO: dummy implementation
         applyStyle(r, geometry: geometry, selected: selected)
         return r
@@ -27,7 +28,7 @@ extension Stylesheet {
     func applyStyle(_ overlayRenderer: MKOverlayRenderer, geometry: Geometry, selected: Bool) {
         switch overlayRenderer {
         case let r as MKPolylineRenderer: // handles both Polyline and GeodesicPolyline
-            if geometry.isGeodesic {
+            if geometry is MGGeodesicPolyline {
                 r.fillColor = Kolor.blue
                 r.strokeColor = selected ? Kolor.black : Kolor.blue
                 r.lineWidth = 4.0

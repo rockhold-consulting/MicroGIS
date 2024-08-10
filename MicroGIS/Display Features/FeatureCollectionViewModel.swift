@@ -10,34 +10,25 @@ import CoreData
 import SwiftUI
 
 class FeatureCollectionViewModel: Hashable, ObservableObject {
-    var featureCollection: FeatureCollection
     private var context: NSManagedObjectContext
     @Published var geometries: [Geometry]
-    @Published var columns: [PropertyColumn]
-//    @Published var geometriesFetchRequest: NSFetchRequest<Geometry>
+    @Published var columns: [String]
+    var geometriesFetchRequest: NSFetchRequest<Geometry>
 
-    init(context: NSManagedObjectContext, featureCollection: FeatureCollection) {
+    init(context: NSManagedObjectContext, fetchRequest: NSFetchRequest<Geometry>) {
         self.context = context
-        self.featureCollection = featureCollection
+        self.geometriesFetchRequest = fetchRequest
 
-        let fr = NSFetchRequest<Geometry>(entityName: "Geometry")
-//        self.geometriesFetchRequest = fr
-        fr.predicate = NSPredicate(format: "feature.collection == %@", argumentArray: [featureCollection])
-        let gg = Self.fetchGeometries(managedObjectContext: self.context, request: fr)
+        let gg = Self.fetchGeometries(managedObjectContext: self.context, request: fetchRequest)
 
         let features = gg.compactMap { g in
             g.feature
         }
 
         self.columns = features.reduce(Set<String>()) { set, f in
-            if let k = f.properties?.data.keys {
-                return set.union(k)
-            } else {
-                return set
-            }
+            return set.union(f.propertyKeys())
         }
         .sorted(using: .localizedStandard)
-        .map { PropertyColumn(str: $0) }
         self.geometries = gg
     }
 
@@ -54,9 +45,8 @@ class FeatureCollectionViewModel: Hashable, ObservableObject {
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(featureCollection)
+        hasher.combine(geometriesFetchRequest)
         hasher.combine(context)
         hasher.combine(geometries)
-//        hasher.combine(geometriesFetchRequest)
     }
 }

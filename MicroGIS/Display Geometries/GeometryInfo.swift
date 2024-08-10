@@ -16,111 +16,74 @@ extension Geometry {
             self.feature!.featureID = newValue
         }
     }
-}
 
-
-struct FeatureProperty: Identifiable {
-    var title: String
-    var value: Any
-    var id: String { title }
-}
-
-class FeaturePropertyList: ObservableObject {
-    @Published var properties = [FeatureProperty]()
+    var featureProperties: [FeatureProperty] {
+        return self.feature?.properties?.allObjects.compactMap({ thingy in
+            thingy as? FeatureProperty
+        }) ?? []
+    }
 }
 
 struct GeometryInfo: View {
     @Environment(\.managedObjectContext) private var viewContext
+    let geometry: Geometry
 
-    @Binding var geometries: Set<Geometry>
-    @ObservedObject private var featureProperties = FeaturePropertyList()
-
-    var g0: Geometry {
-        geometries.first!
+    init(geometry: Geometry) {
+        self.geometry = geometry
     }
 
-    private let jsonValueFormatter = JSONValueFormatter()
-
-    init(geometries: Binding<Set<Geometry>>) {
-        self._geometries = geometries
-
-        if let geometry = geometries.wrappedValue.first, let props = geometry.feature!.properties {
-            for p in props.data {
-                self.featureProperties.properties.append(FeatureProperty(title: p.key, value: p.value))
-            }
+    private func doSave() {
+        do {
+            try viewContext.save()
+        } catch {
+            fatalError()
         }
     }
-
-    var featureIDProxy: Binding<String> {
-        Binding<String> {
-            self.geometries.first?.featureID ?? ""
-        } set: { newValue in
-            self.geometries.first?.feature?.featureID = newValue
-        }
-    }
-
 
     var body: some View {
-        switch geometries.count {
-        case 0:
-            Text("Select geometries in the table or the map.")
-                .padding(20)
+        Form {
+            Section(header: Text("Location")) {
+                ForEach([geometry]) { g in // this loop is a hack, because I don't really understand the view update lifecycle, or when state is invalidated, or something
+                    GeometryLocationView(geometry: g, saver: doSave)
+                }
+            }
 
-            Spacer()
+            Section(header: Text("Feature Attributes")) {
+                Section {
+                    ForEach([geometry.feature!]) {
+                        FeatureInfoView(feature: $0, saver: doSave)
+                    }
+                }
+                Section(header: Text("Properties")) {
+                    ForEach(geometry.featureProperties.sorted(by: { e1, e2 in
+                        return e1.key! < e2.key!
+                    }), id:\.self) { fp in
+                        switch fp {
+                        case let sfp as StringFeatureProperty:
+                            StringField(stringFeatureProperty: sfp, submitter: doSave)
 
-        case 1:
-            ScrollView {
-                Form {
-                    Section(header: Text("Feature Info")) {
-                        TextField("Feature ID", text: featureIDProxy)
-                            .onSubmit {
-                                do {
-                                    g0.featureID = featureIDProxy.wrappedValue
-                                    try viewContext.save()
-                                } catch {
-                                    fatalError()
-                                }
-                            }
-                            .disableAutocorrection(true)
-                            .border(.secondary)
-                        
-                        ForEach($featureProperties.properties, id:\.title) { $featureProperty in
-                            TextField(featureProperty.title,
-                                      value: $featureProperty.value, 
-                                      formatter: jsonValueFormatter)
-                            .onSubmit {
-                                do {
-                                    let dummy = featureProperty
-                                    print(dummy)
-                                    try viewContext.save()
-                                } catch {
-                                    fatalError()
-                                }
-                            }
-                            .disableAutocorrection(true)
-                            .border(.secondary)
+                        case let bfp as BoolFeatureProperty:
+                            BoolField(boolFeatureProperty: bfp, submitter: doSave)
+
+                        case let ifp as IntFeatureProperty:
+                            IntField(intFeatureProperty: ifp, submitter: doSave)
+
+                        case let dfp as DoubleFeatureProperty:
+                            DoubleField(doubleFeatureProperty: dfp, submitter: doSave)
+
+                        case let dtfp as DateFeatureProperty:
+                            DateField(dateFeatureProperty: dtfp, submitter: doSave)
+
+                        case let nfp as NullFeatureProperty:
+                            NullField(nullFeatureProperty: nfp, submitter: {})
+
+                        default:
+                            OtherField(featureProperty: fp, submitter: {})
                         }
-                    }
-                    
-                    Section(header: Text("Location")) {
-                        
-                    }
-                    
-                    Section(header: Text("Other Stuff")) {
-                        
                     }
                 }
             }
-                .padding(20)
 
-        default:
-            Text("multiple (\(geometries.count)) geometries selected")
-                .padding(20)
-            Spacer()
         }
     }
 }
-
-//#Preview {
-//    GeometryInfo()
-//}

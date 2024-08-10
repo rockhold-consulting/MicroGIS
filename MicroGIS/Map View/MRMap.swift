@@ -18,6 +18,9 @@ typealias BaseViewRepresentable = NSViewRepresentable
 func kitImage(symbolName: String, accessibilityDescription: String) -> NSImage {
     return NSImage(systemSymbolName: symbolName, accessibilityDescription: accessibilityDescription) ?? NSImage(systemSymbolName: "exclamationmark.triangle", accessibilityDescription: "uh oh")!
 }
+typealias MGGestureRecognizer = NSGestureRecognizer
+typealias MGGestureRecognizerDelegate = NSGestureRecognizerDelegate
+typealias MGEvent = NSEvent
 
 #elseif os(iOS)
 import UIKit
@@ -25,8 +28,31 @@ typealias BaseViewRepresentable = UIViewRepresentable
 func kitImage(symbolName: String, accessibilityDescription: String) -> UIImage {
     return UIImage(systemName: symbolName) ?? UIImage(systemName: "exclamationmark.triangle")!
 }
-
+typealias MGGestureRecognizer = UIGestureRecognizer
+typealias MGGestureRecognizerDelegate = UIGestureRecognizerDelegate
+typealias MGEvent = UIEvent
 #endif
+
+#if os(macOS)
+class HitGestureRecognizer: NSClickGestureRecognizer {
+    var commandIsDown: Bool = false
+}
+#endif
+#if os(iOS)
+class HitGestureRecognizer: UITapGestureRecognizer {
+    var commandIsDown: Bool {
+        return self.modifierFlags.contains(.command)
+    }
+}
+#endif
+
+extension Geometry: MKAnnotation, MKOverlay {
+    public var coordinate: CLLocationCoordinate2D { return center }
+    public var boundingMapRect: MKMapRect { return MKMapRect.world }
+    public var title: String? { return feature?.title }
+    public var subtitle: String? { return nil }
+}
+
 
 struct MRMap: BaseViewRepresentable {
 
@@ -86,10 +112,8 @@ extension MRMap {
         
         private func didLoad(mapView: MKMapView) {
             registerMapAnnotationViews()
+
             #if os(macOS)
-            let gr = NSClickGestureRecognizer(target: self, action: #selector(handleClick))
-            gr.delegate = self
-            mapView.addGestureRecognizer(gr)
             if #available(macOS 13.0, *) {
                 mapView.preferredConfiguration = MKStandardMapConfiguration(elevationStyle: .realistic,
                                                                        emphasisStyle: .muted)
@@ -100,8 +124,20 @@ extension MRMap {
             mapView.showsPitchControl = true
             #endif
 
+            #if os(iOS)
+            if #available(iOS 17.0, *) {
+                mapView.preferredConfiguration = MKStandardMapConfiguration(elevationStyle: .realistic,
+                                                                       emphasisStyle: .muted)
+            } else {
+                // Fallback on earlier versions
+            }
+            #endif
+
+            let gr = HitGestureRecognizer(target: self, action: #selector(handleClick))
+            gr.delegate = self
+            mapView.addGestureRecognizer(gr)
+
             mapView.isPitchEnabled = true
-            //            mv.pitchButtonVisibility = .visible
             mapView.isZoomEnabled = true
             mapView.isRotateEnabled = true
             mapView.showsCompass = true
@@ -142,7 +178,6 @@ extension MRMap {
         static let clusterAnnotationImage = kitImage(symbolName: "seal",
                                                     accessibilityDescription: "star-like shape")
 
-        var commandWasDown: Bool = false
 
         private func registerMapAnnotationViews() {
             mapView?.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.geoPointReuseIdentifier)
@@ -202,11 +237,10 @@ extension MRMap {
             var overlays = [MKOverlay]()
 
             inserts.forEach { (g: Geometry) in
-                let gp = GeometryProxy(geometry: g)
                 if g.isPoint {
-                    annotations.append(gp)
+                    annotations.append(g)
                 } else {
-                    overlays.append(gp)
+                    overlays.append(g)
                 }
             }
             Task { [annotations, overlays] in
@@ -220,8 +254,8 @@ extension MRMap {
 
             func annotation(with geometry: Geometry) -> MKAnnotation? {
                 if let ann = mapView.annotations.first(where: { annotation in
-                    guard let proxy = annotation as? GeometryProxy else { return false }
-                    return proxy.geometry == geometry
+                    guard let g = annotation as? Geometry else { return false }
+                    return g == geometry
                 }) {
                     return ann
                 }
@@ -230,8 +264,8 @@ extension MRMap {
 
             func overlay(with geometry: Geometry) -> MKOverlay? {
                 if let ovr = mapView.overlays.first(where: { overlay in
-                    guard let proxy = overlay as? GeometryProxy else { return false }
-                    return proxy.geometry == geometry
+                    guard let g = overlay as? Geometry else { return false }
+                    return g == geometry
                 }) {
                     return ovr
                 }
@@ -308,11 +342,10 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
         var annotations = [MKAnnotation]()
         var overlays = [MKOverlay]()
         geometries.forEach { geometry in
-            let gp = GeometryProxy(geometry: geometry)
             if geometry.isPoint {
-                annotations.append(gp)
+                annotations.append(geometry)
             } else {
-                overlays.append(gp)
+                overlays.append(geometry)
             }
         }
         return (annotations, overlays)
@@ -356,8 +389,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
 
         switch overlay {
-        case let geometryProxy as GeometryProxy:
-            let geometry = geometryProxy.geometry
+        case let geometry as Geometry:
             return geometry.renderer(selected: isSelected(geometry))
             ?? MKOverlayRenderer(overlay: overlay)
 
@@ -378,8 +410,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
             // not an annotation view we wish to customize yet.
             return nil
 
-        case let geometryProxy as GeometryProxy: // Probably a .shape is GeoPoint
-            let g = geometryProxy.geometry
+        case let g as Geometry: // Probably a .shape is GeoPoint
             return mapView.dequeueReusableAnnotationView(withIdentifier: Self.geoPointReuseIdentifier, for: annotation)
                 .setClusteringIdentifier(id: "pointcluster") // TODO: this is _very_ temporary
                 .setStyle(for: g,
@@ -405,8 +436,8 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
 
     func refreshAnnotation(geometry: Geometry) {
         guard let ann = mapView?.annotations.first(where: { annotation in
-            guard let proxy = annotation as? GeometryProxy else { return false }
-            return proxy.geometry == geometry
+            guard let g = annotation as? Geometry else { return false }
+            return g == geometry
         }) else {
             return
         }
@@ -431,25 +462,31 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
     }
 
     func flyToSelection(_ geometry:  Geometry) {
-        mapView?.setCenter(geometry.coordinate, animated: true)
+        mapView?.setCenter(geometry.center, animated: true)
     }
 }
 
-#if os(macOS)
-extension MRMap.MapCoordinator: NSGestureRecognizerDelegate {
+extension MRMap.MapCoordinator: MGGestureRecognizerDelegate {
 
+    #if os(macOS)
     @MainActor
     @objc func gestureRecognizer(
-        _ gestureRecognizer: NSGestureRecognizer,
-        shouldAttemptToRecognizeWith event: NSEvent
+        _ gestureRecognizer: MGGestureRecognizer,
+        shouldAttemptToRecognizeWith event: MGEvent
     ) -> Bool {
-        commandWasDown = event.modifierFlags.contains(.command)
+        if let hitGestureRecognizer = gestureRecognizer as? HitGestureRecognizer {
+            hitGestureRecognizer.commandIsDown = event.modifierFlags.contains(.command)
+        }
         return true
     }
+    #endif
 
-    @objc func handleClick(gestureRecognizer: NSGestureRecognizer) {
+    @objc func handleClick(gestureRecognizer: MGGestureRecognizer) {
 
-        let loc = gestureRecognizer.location(in: mapView)
+        guard let hitGestureRecognizer = gestureRecognizer as? HitGestureRecognizer else {
+            return
+        }
+        let loc = hitGestureRecognizer.location(in: mapView)
         guard let mapPoint = mapView?.pointToMapPoint(loc) else { return }
 
         // Let's do this the naively stupid way first
@@ -461,10 +498,7 @@ extension MRMap.MapCoordinator: NSGestureRecognizerDelegate {
         // Finally, use cgpath operations to determine whether this point is
         // inside that generated path.
         mapView?.overlays.compactMap { (overlay: MKOverlay) in
-            return overlay as? GeometryProxy
-        }
-        .map { (proxy: GeometryProxy) in
-            return proxy.geometry
+            return overlay as? Geometry
         }
         .compactMap { (geometry: Geometry) in
             let renderer = geometry.renderer(selected: self.isSelected(geometry)) as? MKOverlayPathRenderer
@@ -487,11 +521,10 @@ extension MRMap.MapCoordinator: NSGestureRecognizerDelegate {
         }
         .forEach { (geometry: Geometry) in
             objectTapped(geometry: geometry,
-                         continueSelection: commandWasDown)
+                         continueSelection: hitGestureRecognizer.commandIsDown)
         }
     }
 }
-#endif
 
 extension MRMap.MapCoordinator {
 
