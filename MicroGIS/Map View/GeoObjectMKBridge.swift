@@ -12,7 +12,6 @@ import Cocoa
 import UIKit
 #endif
 import MapKit
-import BinaryCodable
 import CoreData
 
 //extension Geometry {

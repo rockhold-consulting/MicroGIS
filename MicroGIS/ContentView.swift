@@ -34,16 +34,13 @@ struct ContentView: View {
     @FetchRequest<FeatureCollection>(sortDescriptors: [SortDescriptor(\.creationDate)])
     private var featureCollections: FetchedResults<FeatureCollection>
 
-    @State private var geometriesFetchRequest = NSFetchRequest<Geometry>(entityName: "Geometry")
-
-    @State private var selectedSidebarItem: SidebarItem?
-    @State private var selectedGeometries = Set<Geometry>()
+    @State private var selectedSidebarItems = Set<SidebarItem>()
 
     @State private var importing = false
 
     var body: some View {
         NavigationSplitView {
-            List(selection: $selectedSidebarItem) {
+            List(selection: $selectedSidebarItems) {
                 Section {
                     ForEach(stylesheets.map({ s in
                         SidebarItem.Stylesheet(s)
@@ -101,32 +98,41 @@ struct ContentView: View {
                 }
             }
         } detail: {
-            switch selectedSidebarItem {
-            case .Stylesheet(let stylesheet):
-                Text("Stylesheet \(stylesheet.name ?? "--")")
-
-            case .FeatureCollection(let featureCollection):
-                let vm = createFeatureCollectionViewModel([featureCollection])
-                FeatureCollectionView(geometries: vm.geometries,
-                                      columns: vm.columns,
-                                      selection: $selectedGeometries)
-                .onChange(of: selectedSidebarItem) { model in
-                    selectedGeometries.removeAll()
-                }
-                
-            case nil:
+            switch selectedSidebarItems.count {
+            case 0:
                 Text("Select a feature collection or stylesheet in the sidebar.")
+            case 1:
+                switch selectedSidebarItems.first! {
+                case .Stylesheet(let stylesheet):
+                    Text("Stylesheet \(stylesheet.name ?? "--")")
+
+                case .FeatureCollection(let featureCollection):
+                    FeatureCollectionView(viewModel: FeatureCollectionViewModel(context: viewContext, featureCollections: [featureCollection]))
+                }
+            default:
+                // if the sidebar-selection is all just FeatureCollection,
+                // display all the features of each together
+                let selectedFeatureCollections = allFeatureCollections(selectedSidebarItems)
+                switch selectedFeatureCollections.count {
+                case 0:
+                    Text("Multiple items selected.")
+                default:
+                    FeatureCollectionView(viewModel: FeatureCollectionViewModel(context: viewContext, featureCollections: selectedFeatureCollections))
+                }
             }
         }
     }
 
-    private func createFeatureCollectionViewModel(_ featureCollections: [FeatureCollection]) -> FeatureCollectionViewModel {
-        let frA = NSPredicate(format: "feature.collection IN %@",
-                                                       argumentArray: [featureCollections])
+    private func allFeatureCollections(_ items: Set<SidebarItem>) -> [FeatureCollection] {
 
-        let frB = NSPredicate(format: "rawShapeCode = %d", Geometry.GeoShapeType.Polygon.rawValue)
-        geometriesFetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [frA])
-        return FeatureCollectionViewModel(context: viewContext, fetchRequest: geometriesFetchRequest)
+        return items.compactMap { item in
+            switch item {
+            case .FeatureCollection(let featureCollection):
+                return featureCollection
+            default:
+                return nil
+            }
+        }
     }
 
     private func addItem() {
@@ -148,14 +154,3 @@ struct ContentView: View {
         }
     }
 }
-
-private let dateFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
-//#Preview {
-//    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//}

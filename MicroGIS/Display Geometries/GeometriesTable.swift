@@ -81,8 +81,10 @@ extension Set<Geometry> {
 
 struct GeometriesTable: View {
 
+    static let maxPropertyColumns = 6
+
     let geometries: [Geometry]
-    let columns: [String]
+    let propertyColumns: ArraySlice<String>
     @Binding var selection: Set<Geometry>
     let idMap: [Geometry.ID: Geometry]
     @Binding var searchText: String
@@ -102,8 +104,9 @@ struct GeometriesTable: View {
     }
 
     init(geometries: [Geometry], columns: [String], selection: Binding<Set<Geometry>>, searchText: Binding<String>) {
+
         self.geometries = geometries
-        self.columns = columns
+        self.propertyColumns = columns[0..<min(Self.maxPropertyColumns, columns.count)]
         self._selection = selection
         self._searchText = searchText
         self.idMap = [Geometry.ID: Geometry](uniqueKeysWithValues: geometries.map { g in
@@ -126,7 +129,7 @@ struct GeometriesTable: View {
 //                    Text(g.featureShortName)
 //
 //                    HStack {
-//                        ForEach(self.columns, id: \.self) { h in
+//                        ForEach(self.propertyColumns, id: \.self) { h in
 //                            Text(self.jsonValueFormatter.string(for: g.property[h]) ?? "-")
 //                                .frame(width: 140, alignment: .leading)
 //                            Divider()
@@ -166,27 +169,58 @@ struct GeometriesTable: View {
             .width(100)
 
 
-            TableColumn("fObjID", value: \.featureShortName) { g in
-                Text(g.featureShortName)
-#if os(macOS)
-                    .foregroundStyle(.secondary)
-#endif
-            }
-            .width(60)
-            .leading_alignment()
+//            TableColumn("fObjID", value: \.featureShortName) { g in
+//                Text(g.featureShortName)
+//#if os(macOS)
+//                    .foregroundStyle(.secondary)
+//#endif
+//            }
+//            .width(60)
+//            .leading_alignment()
 
 #if  NO_TABLECOLUMNFOREACH
-            TableColumn(Text(self.columns.joined(separator: "  |  "))) { (g: Geometry) in
-                HStack {
-                    ForEach(self.columns, id: \.self) { h in
-                        Text(self.jsonValueFormatter.string(for: g.propertyValue(header: h) ?? "") ?? "--")
-                            .frame(width: 140, alignment: .leading)
-                        Divider()
-                    }
-                }
+
+            TableColumn(Text(propertyColumnName(idx:0))) { g in
+                Text(propertyColumnValue(idx:0, geometry:g))
             }
-            .width(min: 140, max: .infinity)
-            .leading_alignment()
+            .width(min: 0, max: propertyColumnWidth(idx: 0))
+
+            TableColumn(Text(propertyColumnName(idx:1))) { g in
+                Text(propertyColumnValue(idx:1, geometry:g))
+            }
+            .width(min: 0, max: propertyColumnWidth(idx: 1))
+
+            TableColumn(Text(propertyColumnName(idx:2))) { g in
+                Text(propertyColumnValue(idx:2, geometry:g))
+            }
+            .width(min: 0, max: propertyColumnWidth(idx: 2))
+
+            TableColumn(Text(propertyColumnName(idx:3))) { g in
+                Text(propertyColumnValue(idx:3, geometry:g))
+            }
+            .width(min: 0, max: propertyColumnWidth(idx: 3))
+
+            TableColumn(Text(propertyColumnName(idx:4))) { g in
+                Text(propertyColumnValue(idx:4, geometry:g))
+            }
+            .width(min: 0, max: propertyColumnWidth(idx: 4))
+
+            TableColumn(Text(propertyColumnName(idx:5))) { g in
+                Text(propertyColumnValue(idx:5, geometry:g))
+            }
+            .width(min: 0, max: propertyColumnWidth(idx: 5))
+
+//            TableColumn(Text(self.columns.joined(separator: "  |  "))) { (g: Geometry) in
+//                HStack {
+//                    ForEach(self.columns, id: \.self) { h in
+//                        Text(self.jsonValueFormatter.string(for: g.propertyValue(header: h) ?? "") ?? "--")
+//                            .frame(width: 140, alignment: .leading)
+//                        Divider()
+//                    }
+//                }
+//            }
+//            .width(min: 140, max: .infinity)
+//            .leading_alignment()
 #else
             TableColumnForEach(self.columns) { col in
                 TableColumn(col) { (g: Geometry) in
@@ -197,5 +231,25 @@ struct GeometriesTable: View {
             }
 #endif
         }
+    }
+
+    func propertyColumnName(idx: Int) -> String {
+        guard (0..<self.propertyColumns.count).contains(idx) else {
+            return ""
+        }
+
+        return self.propertyColumns[idx]
+    }
+
+    func propertyColumnWidth(idx: Int) -> CGFloat {
+        guard (0..<self.propertyColumns.count).contains(idx) else {
+            return 0.0
+        }
+        return .infinity
+    }
+
+    func propertyColumnValue(idx: Int, geometry g: Geometry) -> String {
+        let h = propertyColumnName(idx: idx)
+        return self.jsonValueFormatter.string(for: g.propertyValue(header: h) ?? "") ?? ""
     }
 }

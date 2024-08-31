@@ -7,26 +7,29 @@
 
 import SwiftUI
 import CoreData
-import SplitView
+
 
 struct FeatureCollectionView: View {
-    var geometries: [Geometry]
-    var columns: [String]
-    @Binding var selection: Set<Geometry>
+
+    @State private var selection = Set<Geometry>()
     @State var searchText = ""
+
+    let viewModel: FeatureCollectionViewModel
 
     var body: some View {
 
         VStack {
-            MRMap(geometries: geometries, selection: $selection)
+            MRMap(geometries: viewModel.geometries, selection: $selection)
             HStack {
-                GeometriesTable(geometries: geometries,
-                                    columns: columns,
+                GeometriesTable(geometries: viewModel.geometries,
+                                columns: viewModel.columns,
                                     selection: $selection,
                                     searchText: $searchText)
 
                 GeometriesInfo(geometries: selection)
             }
         }
+        .searchable(text: $searchText)
+
     }
 }

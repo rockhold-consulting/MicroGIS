@@ -8,7 +8,7 @@
 import Foundation
 
 class JSONValueFormatter: Formatter {
-    let dateFormatter = DateFormatter()
+    let dateFormatter = ISO8601DateFormatter()
 
     override func string(for obj: Any?) -> String? {
         switch obj {
@@ -25,7 +25,8 @@ class JSONValueFormatter: Formatter {
         case let d as Double:
             return String(d)
         case let dt as Date:
-            return dateFormatter.string(from: dt)
+            return dateFormatter
+                .string(from: dt)
         case let ar as Array<Any>:
             let subs = ar.map {
                 self.string(for: $0) ?? "??"

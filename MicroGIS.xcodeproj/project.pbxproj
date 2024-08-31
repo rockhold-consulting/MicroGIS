@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2E182EA62C73C90400DE51DE /* FeatureProperty-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E182EA52C73C90400DE51DE /* FeatureProperty-Extension.swift */; };
-		2E2045CF2C560AAF00FF0BFF /* SplitView in Frameworks */ = {isa = PBXBuildFile; productRef = 2E2045CE2C560AAF00FF0BFF /* SplitView */; };
 		2E79D57B2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */; };
 		2E7A574F2C48CA8E00DA1C2F /* GeometryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */; };
 		2E9258BC2C7D4E26007AA143 /* GeometriesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258BB2C7D4E26007AA143 /* GeometriesInfo.swift */; };
@@ -44,7 +43,6 @@
 		2E9F90E02C377A7900171176 /* MRMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D6B2BF9744F0044F557 /* MRMap.swift */; };
 		2E9F90E12C377A8600171176 /* Stylesheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */; };
 		2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
-		2E9F90E52C377BD700171176 /* BinaryCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 2E9F90E42C377BD700171176 /* BinaryCodable */; };
 		2EA3A0DA2C70189900C282A8 /* MGCoordinate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3A0D92C70189900C282A8 /* MGCoordinate+Extension.swift */; };
 		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */; };
 		2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
@@ -132,8 +130,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E2045CF2C560AAF00FF0BFF /* SplitView in Frameworks */,
-				2E9F90E52C377BD700171176 /* BinaryCodable in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,8 +341,6 @@
 			);
 			name = MicroGIS;
 			packageProductDependencies = (
-				2E9F90E42C377BD700171176 /* BinaryCodable */,
-				2E2045CE2C560AAF00FF0BFF /* SplitView */,
 			);
 			productName = MicroGIS;
 			productReference = 2E9F909C2C3765C700171176 /* MicroGIS.app */;
@@ -421,8 +415,6 @@
 			);
 			mainGroup = 2ECCEAE72A9436C0005785FA;
 			packageReferences = (
-				2EF569F32BCF2F4E00964F85 /* XCRemoteSwiftPackageReference "BinaryCodable" */,
-				2E2045CD2C559C0600FF0BFF /* XCRemoteSwiftPackageReference "SplitView" */,
 			);
 			productRefGroup = 2ECCEAF12A9436C0005785FA /* Products */;
 			projectDirPath = "";
@@ -1076,38 +1068,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		2E2045CD2C559C0600FF0BFF /* XCRemoteSwiftPackageReference "SplitView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/stevengharris/SplitView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.5.3;
-			};
-		};
-		2EF569F32BCF2F4E00964F85 /* XCRemoteSwiftPackageReference "BinaryCodable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/christophhagen/BinaryCodable";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		2E2045CE2C560AAF00FF0BFF /* SplitView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2E2045CD2C559C0600FF0BFF /* XCRemoteSwiftPackageReference "SplitView" */;
-			productName = SplitView;
-		};
-		2E9F90E42C377BD700171176 /* BinaryCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2EF569F32BCF2F4E00964F85 /* XCRemoteSwiftPackageReference "BinaryCodable" */;
-			productName = BinaryCodable;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */ = {
