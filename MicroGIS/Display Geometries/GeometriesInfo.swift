@@ -25,7 +25,7 @@ struct GeometriesInfo: View {
             }
             .padding(20)
 #else
-            GeometryInfo(geometry: geometries.first)
+            GeometryInfo(geometry: geometries.first!)
 #endif
 
         default:

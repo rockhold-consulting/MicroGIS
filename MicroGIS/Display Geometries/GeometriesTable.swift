@@ -15,10 +15,6 @@ extension Geometry {
         case MalformedGeometry
     }
 
-    public func matches(searchText: String) -> Bool {
-        return false
-    }
-
     func propertyValue(header: String) -> Any? {
 
         if let targetFp = feature?.properties?.first(where: { element in
@@ -35,16 +31,6 @@ extension Geometry {
             // not an error
             return nil
         }
-    }
-}
-
-extension Feature {
-    public func matches(searchText: String) -> Bool {
-        // TODO: search feature properties too
-        if self.objectID.shortName.localizedCaseInsensitiveContains(searchText) {
-            return true
-        }
-        return false
     }
 }
 
@@ -87,7 +73,6 @@ struct GeometriesTable: View {
     let propertyColumns: ArraySlice<String>
     @Binding var selection: Set<Geometry>
     let idMap: [Geometry.ID: Geometry]
-    @Binding var searchText: String
     @State private var sortOrder = [KeyPathComparator(\Geometry.shortName, order: .forward)]
     let jsonValueFormatter = JSONValueFormatter()
 
@@ -103,12 +88,13 @@ struct GeometriesTable: View {
         }
     }
 
-    init(geometries: [Geometry], columns: [String], selection: Binding<Set<Geometry>>, searchText: Binding<String>) {
+    init(geometries: [Geometry],
+         columns: [String],
+         selection: Binding<Set<Geometry>>) {
 
         self.geometries = geometries
         self.propertyColumns = columns[0..<min(Self.maxPropertyColumns, columns.count)]
         self._selection = selection
-        self._searchText = searchText
         self.idMap = [Geometry.ID: Geometry](uniqueKeysWithValues: geometries.map { g in
             return (g.id, g)
         })
@@ -169,15 +155,6 @@ struct GeometriesTable: View {
             .width(100)
 
 
-//            TableColumn("fObjID", value: \.featureShortName) { g in
-//                Text(g.featureShortName)
-//#if os(macOS)
-//                    .foregroundStyle(.secondary)
-//#endif
-//            }
-//            .width(60)
-//            .leading_alignment()
-
 #if  NO_TABLECOLUMNFOREACH
 
             TableColumn(Text(propertyColumnName(idx:0))) { g in
@@ -209,18 +186,6 @@ struct GeometriesTable: View {
                 Text(propertyColumnValue(idx:5, geometry:g))
             }
             .width(min: 0, max: propertyColumnWidth(idx: 5))
-
-//            TableColumn(Text(self.columns.joined(separator: "  |  "))) { (g: Geometry) in
-//                HStack {
-//                    ForEach(self.columns, id: \.self) { h in
-//                        Text(self.jsonValueFormatter.string(for: g.propertyValue(header: h) ?? "") ?? "--")
-//                            .frame(width: 140, alignment: .leading)
-//                        Divider()
-//                    }
-//                }
-//            }
-//            .width(min: 140, max: .infinity)
-//            .leading_alignment()
 #else
             TableColumnForEach(self.columns) { col in
                 TableColumn(col) { (g: Geometry) in

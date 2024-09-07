@@ -107,7 +107,9 @@ struct ContentView: View {
                     Text("Stylesheet \(stylesheet.name ?? "--")")
 
                 case .FeatureCollection(let featureCollection):
-                    FeatureCollectionView(viewModel: FeatureCollectionViewModel(context: viewContext, featureCollections: [featureCollection]))
+                    FeatureCollectionView(context: viewContext,
+                                          featureCollections: [featureCollection])
+                    .id(collectionsHash([featureCollection]))
                 }
             default:
                 // if the sidebar-selection is all just FeatureCollection,
@@ -117,10 +119,18 @@ struct ContentView: View {
                 case 0:
                     Text("Multiple items selected.")
                 default:
-                    FeatureCollectionView(viewModel: FeatureCollectionViewModel(context: viewContext, featureCollections: selectedFeatureCollections))
+                    FeatureCollectionView(context: viewContext,
+                                          featureCollections: selectedFeatureCollections)
+                    .id(collectionsHash(selectedFeatureCollections))
                 }
             }
         }
+    }
+
+    private func collectionsHash(_ fcs: [FeatureCollection]) -> Int {
+        var hasher = Hasher()
+        hasher.combine(fcs)
+        return hasher.finalize()
     }
 
     private func allFeatureCollections(_ items: Set<SidebarItem>) -> [FeatureCollection] {

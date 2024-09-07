@@ -12,9 +12,12 @@ import CoreData
 struct FeatureCollectionView: View {
 
     @State private var selection = Set<Geometry>()
-    @State var searchText = ""
 
-    let viewModel: FeatureCollectionViewModel
+    @StateObject private var viewModel: FeatureCollectionModel
+
+    init(context: NSManagedObjectContext, featureCollections: [FeatureCollection]) {
+        self._viewModel = StateObject(wrappedValue: FeatureCollectionModel(context: context, featureCollections: featureCollections))
+    }
 
     var body: some View {
 
@@ -23,13 +26,12 @@ struct FeatureCollectionView: View {
             HStack {
                 GeometriesTable(geometries: viewModel.geometries,
                                 columns: viewModel.columns,
-                                    selection: $selection,
-                                    searchText: $searchText)
+                                    selection: $selection)
 
                 GeometriesInfo(geometries: selection)
             }
         }
-        .searchable(text: $searchText)
+        .searchable(text: $viewModel.searchText)
 
     }
 }

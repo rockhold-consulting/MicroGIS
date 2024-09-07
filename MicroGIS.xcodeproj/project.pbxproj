@@ -44,7 +44,7 @@
 		2E9F90E12C377A8600171176 /* Stylesheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */; };
 		2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
 		2EA3A0DA2C70189900C282A8 /* MGCoordinate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3A0D92C70189900C282A8 /* MGCoordinate+Extension.swift */; };
-		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */; };
+		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */; };
 		2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
 		2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
 /* End PBXBuildFile section */
@@ -103,7 +103,7 @@
 		2EACC0392BE9528B00A7F91A /* MicroGIS-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MicroGIS-Release.xcconfig"; sourceTree = "<group>"; };
 		2EACC03A2BE9528B00A7F91A /* Project-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Debug.xcconfig"; sourceTree = "<group>"; };
 		2EACC03B2BE9528B00A7F91A /* MicroGIS-Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MicroGIS-Debug.xcconfig"; sourceTree = "<group>"; };
-		2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewModel.swift; sourceTree = "<group>"; };
+		2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionModel.swift; sourceTree = "<group>"; };
 		2EC443D42B322C4400244326 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		2EC443D82B3E0CB300244326 /* Roadmap and Ideas.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Roadmap and Ideas.md"; sourceTree = "<group>"; };
 		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
@@ -268,7 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */,
-				2EB8DC472C45C3EA00DE4251 /* FeatureCollectionViewModel.swift */,
+				2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */,
 			);
 			path = "Display Features";
 			sourceTree = "<group>";
@@ -459,7 +459,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EB8DC482C45C3EA00DE4251 /* FeatureCollectionViewModel.swift in Sources */,
+				2EB8DC482C45C3EA00DE4251 /* FeatureCollectionModel.swift in Sources */,
 				2E9F90D52C377A4800171176 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */,
 				2E9F909F2C3765C800171176 /* MicroGISApp.swift in Sources */,
 				2E9258C42C7E7996007AA143 /* DoubleField.swift in Sources */,
