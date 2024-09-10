@@ -12,24 +12,37 @@ import MapKit.MKGeoJSONSerialization
 import OSLog
 import CoreData
 
-extension MGPolyline {
-    convenience init(with mkPolyline: MKPolyline, context: NSManagedObjectContext) {
-        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
-                                                           count: mkPolyline.pointCount)
-        mkPolyline.getCoordinates(&locationCoordinates, range: NSRange(location: 0, length: mkPolyline.pointCount))
+extension MKPolyline: MultiCoordinate {
+    public var center: CLLocationCoordinate2D {
+        self.coordinate
+    }
+    
+    public var coordinateCount: Int {
+        self.pointCount
+    }
+}
 
+extension MKPolygon: MultiCoordinate {
+    public var center: CLLocationCoordinate2D {
+        self.coordinate
+    }
+    
+    public var coordinateCount: Int {
+        self.pointCount
+    }
+}
+
+extension MGPolyline {
+    convenience init(with mkPolyline: MKPolyline, 
+                     context: NSManagedObjectContext) {
         self.init(context: context,
-                  center: mkPolyline.coordinate,
-                  coordinates: locationCoordinates)
+                  multipointThing:  mkPolyline)
     }
 }
 
 extension MGPolygon {
-    convenience init(with mkPolygon: MKPolygon, context: NSManagedObjectContext) {
-        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
-                                                           count: mkPolygon.pointCount)
-        mkPolygon.getCoordinates(&locationCoordinates, range: NSRange(location: 0, length: mkPolygon.pointCount))
-
+    convenience init(with mkPolygon: MKPolygon, 
+                     context: NSManagedObjectContext) {
         let inners: [MGPolygon]
         if let innerPolys = mkPolygon.interiorPolygons {
             inners = innerPolys.map { poly in
@@ -40,8 +53,7 @@ extension MGPolygon {
         }
 
         self.init(context: context,
-                  center: mkPolygon.coordinate,
-                  coordinates: locationCoordinates,
+                  multipointThing:  mkPolygon,
                   innerPolygons: inners)
     }
 }
@@ -73,14 +85,12 @@ extension MGCircle {
 extension MKGeoJSONFeature {
 
     func propertiesDictionary() -> [String:Any]? {
-
         guard let propData = self.properties,
               let propertiesDict = try?
                 JSONSerialization.jsonObject(with: propData) as? [String:Any] else {
 
             return nil
         }
-
         return propertiesDict
     }
 }

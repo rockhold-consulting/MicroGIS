@@ -43,7 +43,6 @@
 		2E9F90E02C377A7900171176 /* MRMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D6B2BF9744F0044F557 /* MRMap.swift */; };
 		2E9F90E12C377A8600171176 /* Stylesheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */; };
 		2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
-		2EA3A0DA2C70189900C282A8 /* MGCoordinate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA3A0D92C70189900C282A8 /* MGCoordinate+Extension.swift */; };
 		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */; };
 		2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
 		2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
@@ -95,7 +94,6 @@
 		2E9F90BB2C3765CB00171176 /* MicroGISUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicroGISUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E9F90BF2C3765CB00171176 /* MicroGISUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITests.swift; sourceTree = "<group>"; };
 		2E9F90C12C3765CB00171176 /* MicroGISUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2EA3A0D92C70189900C282A8 /* MGCoordinate+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MGCoordinate+Extension.swift"; sourceTree = "<group>"; };
 		2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISError.swift; sourceTree = "<group>"; };
 		2EACC0362BE9528B00A7F91A /* MicroGIS-Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "MicroGIS-Shared.xcconfig"; sourceTree = "<group>"; };
 		2EACC0372BE9528B00A7F91A /* Project-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Project-Release.xcconfig"; sourceTree = "<group>"; };
@@ -297,7 +295,6 @@
 				2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */,
 				2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */,
 				2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */,
-				2EA3A0D92C70189900C282A8 /* MGCoordinate+Extension.swift */,
 				2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */,
 				2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */,
 				2E6243392C27590D004218E9 /* Features */,
@@ -474,7 +471,6 @@
 				2E9F90D22C377A3900171176 /* NSManagedObjectID-Extension.swift in Sources */,
 				2E9F90DD2C377A7300171176 /* StylesheetView.swift in Sources */,
 				2E7A574F2C48CA8E00DA1C2F /* GeometryInfo.swift in Sources */,
-				2EA3A0DA2C70189900C282A8 /* MGCoordinate+Extension.swift in Sources */,
 				2E9258C82C7E79C5007AA143 /* NullField.swift in Sources */,
 				2E9258CA2C7E79DE007AA143 /* OtherField.swift in Sources */,
 				2E9258BE2C7E5437007AA143 /* StringField.swift in Sources */,
@@ -594,7 +590,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MicroGIS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -685,7 +685,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = MicroGIS;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

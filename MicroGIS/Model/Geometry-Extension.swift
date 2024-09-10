@@ -9,6 +9,15 @@ import Foundation
 import CoreData
 import CoreLocation
 
+public protocol MultiCoordinate {
+    var center: CLLocationCoordinate2D { get }
+    var coordinateCount: Int { get }
+    func getCoordinates(
+        _ coords: UnsafeMutablePointer<CLLocationCoordinate2D>,
+        range: NSRange
+    )
+}
+
 public typealias GeometryID = NSManagedObjectID
 
 @objc(Geometry)
@@ -76,12 +85,28 @@ public class MGMultipoint: Geometry {
     public override class var shapeCode: GeoShapeType { get { .Multipoint }}
     public override class var iconName: String { "circle.dotted.circle" }
 
-    public convenience init(context:NSManagedObjectContext, center: CLLocationCoordinate2D, coordinates: [CLLocationCoordinate2D]) {
+    public convenience init(context:NSManagedObjectContext, 
+                            center: CLLocationCoordinate2D,
+                            coordinateCount: Int,
+                            coordinates: [CLLocationCoordinate2D]) {
         self.init(context: context, center: center)
-        let pointsSet = NSOrderedSet(array: coordinates.map({ coordinate in
-            MGCoordinate(context: context, coordinate: coordinate)
-        }))
-        self.addToPoints(pointsSet)
+        self.pointCount = Int64(coordinateCount)
+        coordinates.withUnsafeBufferPointer { umbp in
+            self.pointData = Data(buffer: umbp)
+        }
+    }
+
+    public convenience init(context:NSManagedObjectContext,
+                            multipointThing: any MultiCoordinate) {
+
+        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                                           count: multipointThing.coordinateCount)
+        multipointThing.getCoordinates(&locationCoordinates, range: NSRange(location: 0, length: multipointThing.coordinateCount))
+
+        self.init(context: context,
+                  center: multipointThing.center,
+                  coordinateCount: multipointThing.coordinateCount,
+                  coordinates: locationCoordinates)
     }
 }
 
@@ -103,10 +128,9 @@ public class MGPolygon: MGMultipoint {
     public override class var iconName: String { "pentagon" }
 
     public convenience init(context:NSManagedObjectContext,
-                center: CLLocationCoordinate2D,
-                coordinates: [CLLocationCoordinate2D],
-                innerPolygons: [MGPolygon] = [MGPolygon]()) {
-        self.init(context: context, center: center, coordinates: coordinates)
+                            multipointThing: any MultiCoordinate,
+                            innerPolygons: [MGPolygon] = [MGPolygon]()) {
+        self.init(context: context, multipointThing: multipointThing)
         self.addToInnerPolygons(NSSet(array: innerPolygons))
     }
 }

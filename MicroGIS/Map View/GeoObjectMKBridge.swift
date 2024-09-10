@@ -14,11 +14,15 @@ import UIKit
 import MapKit
 import CoreData
 
-//extension Geometry {
-//    public func boundingMapRect() -> MKMapRect {
-//        MKMapRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
-//    }
-//}
+extension CLLocationCoordinate2D {
+    static func bufferSize<T: SignedInteger>(for count: T) -> Int {
+        return Data.Index(Int(count) * MemoryLayout<Self>.stride)
+    }
+
+    static func bufferRange<T: SignedInteger>(for count: T) -> Range<Int>  {
+        return 0..<bufferSize(for: count)
+    }
+}
 
 protocol Renderable where Self:Geometry {
     func makeRenderer() -> MKOverlayPathRenderer
@@ -77,36 +81,53 @@ extension Geometry {
 
 extension MKPolyline {
     convenience init(from polyline: MGPolyline) {
-        let coords = polyline.points!.map { obj in
-            (obj as! MGCoordinate).locationCoordinate2D
+        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                                           count: Int(polyline.pointCount))
+
+        locationCoordinates.withUnsafeMutableBufferPointer { b in
+            _ = polyline.pointData?.copyBytes(to: b,
+                                              from: CLLocationCoordinate2D.bufferRange(for: polyline.pointCount))
         }
-        self.init(coordinates: coords, count: coords.count)
-    }
+        self.init(coordinates: locationCoordinates,
+                  count: Int(polyline.pointCount))
+  }
 }
 
 extension MKGeodesicPolyline {
     convenience init(fromGeodesic polyline: MGPolyline) {
-        let coords = polyline.points!.map { obj in
-            (obj as! MGCoordinate).locationCoordinate2D
+        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                                           count: Int(polyline.pointCount))
+
+        locationCoordinates.withUnsafeMutableBufferPointer { b in
+            _ = polyline.pointData?.copyBytes(to: b,
+                                              from: CLLocationCoordinate2D.bufferRange(for: polyline.pointCount))
         }
-        self.init(coordinates: coords, count: coords.count)
+        self.init(coordinates: locationCoordinates,
+                  count: Int(polyline.pointCount))
     }
 }
 
 extension MKPolygon {
     convenience init(from mgPolygon: MGPolygon) {
-        let coords = mgPolygon.points?.map { gp in
-            let point = gp as! MGCoordinate
-            return CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude)
+        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+                                                           count: Int(mgPolygon.pointCount))
+
+        locationCoordinates.withUnsafeMutableBufferPointer { b in
+            _ = mgPolygon.pointData?.copyBytes(to: b,
+                                               from: CLLocationCoordinate2D.bufferRange(for: mgPolygon.pointCount))
         }
+
         if mgPolygon.innerPolygons?.count == 0 {
-            self.init(coordinates: coords!, count: coords!.count)
+            self.init(coordinates:locationCoordinates,
+                      count:locationCoordinates.count)
         } else {
             let innerPolygons = mgPolygon.innerPolygons?.allObjects.map { obj in
                 let innerPoly = obj as! MGPolygon
                 return  MKPolygon(from: innerPoly)
             }
-            self.init(coordinates:coords!, count:coords!.count, interiorPolygons:innerPolygons)
+            self.init(coordinates:locationCoordinates,
+                      count:locationCoordinates.count,
+                      interiorPolygons:innerPolygons)
         }
     }
 }
