@@ -28,7 +28,6 @@
 		2E9F90B62C3765CB00171176 /* MicroGISTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90B52C3765CB00171176 /* MicroGISTests.swift */; };
 		2E9F90C02C3765CB00171176 /* MicroGISUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90BF2C3765CB00171176 /* MicroGISUITests.swift */; };
 		2E9F90C22C3765CC00171176 /* MicroGISUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90C12C3765CB00171176 /* MicroGISUITestsLaunchTests.swift */; };
-		2E9F90CC2C37757600171176 /* MicroGIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */; };
 		2E9F90CD2C377A3900171176 /* FeatureCollection-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */; };
 		2E9F90CE2C377A3900171176 /* Geometry-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */; };
 		2E9F90CF2C377A3900171176 /* Feature-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature-Extension.swift */; };
@@ -46,6 +45,7 @@
 		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */; };
 		2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
 		2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
+		2EF651B62C92584F001DCA4B /* MicroGIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF651B42C92584F001DCA4B /* MicroGIS.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,7 +107,6 @@
 		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
 		2ECB8D6B2BF9744F0044F557 /* MRMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
 		2ECCEB012A9436C4005785FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GeoFeatures; sourceTree = "<group>"; };
 		2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueFormatter.swift; sourceTree = "<group>"; };
 		2EF0D1192A9828740018E70D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2EF0D11A2A9829690018E70D /* COPYING.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
@@ -117,8 +116,8 @@
 		2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeatureCollection-Extension.swift"; sourceTree = "<group>"; };
 		2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry-Extension.swift"; sourceTree = "<group>"; };
 		2EF569DB2BCF129700964F85 /* Feature-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature-Extension.swift"; sourceTree = "<group>"; };
-		2EF569E72BCF133800964F85 /* Document.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Document.xcdatamodel; sourceTree = "<group>"; };
 		2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometriesTable.swift; sourceTree = "<group>"; };
+		2EF651B52C92584F001DCA4B /* MicroGIS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MicroGIS.xcdatamodel; sourceTree = "<group>"; };
 		2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTileOverlay.swift; sourceTree = "<group>"; };
 		2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectMKBridge.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -218,7 +217,6 @@
 				2E9F90BE2C3765CB00171176 /* MicroGISUITests */,
 				2ECCEAF12A9436C0005785FA /* Products */,
 				2EF33E642ADF0077004C750F /* Frameworks */,
-				2EDD8F3E2ADE6AF20036F429 /* GeoFeatures */,
 			);
 			sourceTree = "<group>";
 		};
@@ -292,7 +290,7 @@
 		2EF569D72BCF129700964F85 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */,
+				2EF651B42C92584F001DCA4B /* MicroGIS.xcdatamodeld */,
 				2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */,
 				2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */,
 				2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */,
@@ -464,6 +462,7 @@
 				2E9F90D72C377A5500171176 /* GeometriesTable.swift in Sources */,
 				2E9F90CE2C377A3900171176 /* Geometry-Extension.swift in Sources */,
 				2E79D57B2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */,
+				2EF651B62C92584F001DCA4B /* MicroGIS.xcdatamodeld in Sources */,
 				2E9F90E12C377A8600171176 /* Stylesheet+Extensions.swift in Sources */,
 				2E9F90DC2C377A6F00171176 /* FeatureCollectionView.swift in Sources */,
 				2E9F90DF2C377A7900171176 /* GeoObjectMKBridge.swift in Sources */,
@@ -479,7 +478,6 @@
 				2E9F90CF2C377A3900171176 /* Feature-Extension.swift in Sources */,
 				2E9F90D62C377A5000171176 /* MicroGISError.swift in Sources */,
 				2E9258CE2C7FDD7B007AA143 /* GeometryLocationView.swift in Sources */,
-				2E9F90CC2C37757600171176 /* MicroGIS.xcdatamodeld in Sources */,
 				2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */,
 				2E9F90E02C377A7900171176 /* MRMap.swift in Sources */,
 				2E9F90DE2C377A7900171176 /* CustomLoadingTileOverlay.swift in Sources */,
@@ -1074,12 +1072,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2EF569E62BCF133700964F85 /* MicroGIS.xcdatamodeld */ = {
+		2EF651B42C92584F001DCA4B /* MicroGIS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2EF569E72BCF133800964F85 /* Document.xcdatamodel */,
+				2EF651B52C92584F001DCA4B /* MicroGIS.xcdatamodel */,
 			);
-			currentVersion = 2EF569E72BCF133800964F85 /* Document.xcdatamodel */;
+			currentVersion = 2EF651B52C92584F001DCA4B /* MicroGIS.xcdatamodel */;
 			path = MicroGIS.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
