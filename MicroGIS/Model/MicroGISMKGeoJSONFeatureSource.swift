@@ -112,11 +112,12 @@ extension MKGeoJSONFeature {
 
 public class MicroGISMKGeoJSONFeatureSource {
 
-    let logger = Logger(subsystem: "org.appel-rockhold.MicroGIS", category: "MicroGISMKGeoJSONFeatureSource")
-
+    let logger: Logger
     private let importContext: NSManagedObjectContext
 
     init(importContext: NSManagedObjectContext) {
+        let bundleID = Bundle(for: MicroGISMKGeoJSONFeatureSource.self).bundleIdentifier!
+        logger = Logger(subsystem: bundleID, category: "MicroGISMKGeoJSONFeatureSource")
         self.importContext = importContext
     }
 
