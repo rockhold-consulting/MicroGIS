@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2E9F909B2C3765C700171176"
+               BlueprintIdentifier = "2EFB97382C9CFD0B00492954"
                BuildableName = "MicroGIS.app"
                BlueprintName = "MicroGIS"
                ReferencedContainer = "container:MicroGIS.xcodeproj">
@@ -34,7 +34,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2E9F90B02C3765CB00171176"
+               BlueprintIdentifier = "2EFB974F2C9CFD1700492954"
                BuildableName = "MicroGISTests.xctest"
                BlueprintName = "MicroGISTests"
                ReferencedContainer = "container:MicroGIS.xcodeproj">
@@ -45,7 +45,7 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2E9F90BA2C3765CB00171176"
+               BlueprintIdentifier = "2EFB97592C9CFD1700492954"
                BuildableName = "MicroGISUITests.xctest"
                BlueprintName = "MicroGISUITests"
                ReferencedContainer = "container:MicroGIS.xcodeproj">
@@ -67,7 +67,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2E9F909B2C3765C700171176"
+            BlueprintIdentifier = "2EFB97382C9CFD0B00492954"
             BuildableName = "MicroGIS.app"
             BlueprintName = "MicroGIS"
             ReferencedContainer = "container:MicroGIS.xcodeproj">
@@ -84,7 +84,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2E9F909B2C3765C700171176"
+            BlueprintIdentifier = "2EFB97382C9CFD0B00492954"
             BuildableName = "MicroGIS.app"
             BlueprintName = "MicroGIS"
             ReferencedContainer = "container:MicroGIS.xcodeproj">

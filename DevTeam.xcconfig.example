@@ -1,0 +1,13 @@
+//
+//  DevTeam.xcconfig
+//
+//  Created by Michael Rockhold on 9/20/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+DEVELOPMENT_TEAM = MYU6NE7WY6
+
+// Used to construct the Product Bundle Identifier and the iCloud one
+ORGANIZATION_IDENTIFIER = org.appel-rockhold

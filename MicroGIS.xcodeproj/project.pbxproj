@@ -7,95 +7,128 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E182EA62C73C90400DE51DE /* FeatureProperty-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E182EA52C73C90400DE51DE /* FeatureProperty-Extension.swift */; };
-		2E79D57B2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */; };
-		2E7A574F2C48CA8E00DA1C2F /* GeometryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */; };
-		2E9258BC2C7D4E26007AA143 /* GeometriesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258BB2C7D4E26007AA143 /* GeometriesInfo.swift */; };
-		2E9258BE2C7E5437007AA143 /* StringField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258BD2C7E5436007AA143 /* StringField.swift */; };
-		2E9258C02C7E660D007AA143 /* BoolField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258BF2C7E660D007AA143 /* BoolField.swift */; };
-		2E9258C22C7E7974007AA143 /* IntField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258C12C7E7974007AA143 /* IntField.swift */; };
-		2E9258C42C7E7996007AA143 /* DoubleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258C32C7E7996007AA143 /* DoubleField.swift */; };
-		2E9258C62C7E79AD007AA143 /* DateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258C52C7E79AD007AA143 /* DateField.swift */; };
-		2E9258C82C7E79C5007AA143 /* NullField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258C72C7E79C5007AA143 /* NullField.swift */; };
-		2E9258CA2C7E79DE007AA143 /* OtherField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258C92C7E79DE007AA143 /* OtherField.swift */; };
-		2E9258CC2C7FBCF6007AA143 /* FeatureInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258CB2C7FBCF6007AA143 /* FeatureInfoView.swift */; };
-		2E9258CE2C7FDD7B007AA143 /* GeometryLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9258CD2C7FDD7B007AA143 /* GeometryLocationView.swift */; };
-		2E9F909F2C3765C800171176 /* MicroGISApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F909E2C3765C800171176 /* MicroGISApp.swift */; };
-		2E9F90A12C3765C800171176 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90A02C3765C800171176 /* Persistence.swift */; };
-		2E9F90A62C3765C800171176 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90A52C3765C800171176 /* ContentView.swift */; };
-		2E9F90A82C3765CB00171176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E9F90A72C3765CB00171176 /* Assets.xcassets */; };
-		2E9F90AC2C3765CB00171176 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E9F90AB2C3765CB00171176 /* Preview Assets.xcassets */; };
-		2E9F90CD2C377A3900171176 /* FeatureCollection-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */; };
-		2E9F90CE2C377A3900171176 /* Geometry-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */; };
-		2E9F90CF2C377A3900171176 /* Feature-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569DB2BCF129700964F85 /* Feature-Extension.swift */; };
-		2E9F90D22C377A3900171176 /* NSManagedObjectID-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */; };
-		2E9F90D52C377A4800171176 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */; };
-		2E9F90D62C377A5000171176 /* MicroGISError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */; };
-		2E9F90D72C377A5500171176 /* GeometriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */; };
-		2E9F90DC2C377A6F00171176 /* FeatureCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */; };
-		2E9F90DD2C377A7300171176 /* StylesheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9F90922C36498700171176 /* StylesheetView.swift */; };
-		2E9F90DE2C377A7900171176 /* CustomLoadingTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */; };
-		2E9F90DF2C377A7900171176 /* GeoObjectMKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */; };
-		2E9F90E02C377A7900171176 /* MRMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D6B2BF9744F0044F557 /* MRMap.swift */; };
-		2E9F90E12C377A8600171176 /* Stylesheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */; };
-		2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */; };
-		2EB8DC482C45C3EA00DE4251 /* FeatureCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */; };
-		2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2EC443D42B322C4400244326 /* InfoPlist.strings */; };
-		2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */; };
-		2EF651B62C92584F001DCA4B /* MicroGIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EF651B42C92584F001DCA4B /* MicroGIS.xcdatamodeld */; };
+		2E3CAF6B2C9E5E0100B6EE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E3CAF6A2C9E5E0100B6EE57 /* Assets.xcassets */; };
+		2E3CAF6D2C9E605A00B6EE57 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2E3CAF6C2C9E605A00B6EE57 /* InfoPlist.strings */; };
+		2E3CAF932C9E60CE00B6EE57 /* GeometryLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF6F2C9E60CB00B6EE57 /* GeometryLocationView.swift */; };
+		2E3CAF942C9E60CE00B6EE57 /* DoubleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF702C9E60CB00B6EE57 /* DoubleField.swift */; };
+		2E3CAF952C9E60CE00B6EE57 /* StringField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF712C9E60CB00B6EE57 /* StringField.swift */; };
+		2E3CAF962C9E60CE00B6EE57 /* GeometriesTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF722C9E60CB00B6EE57 /* GeometriesTable.swift */; };
+		2E3CAF972C9E60CE00B6EE57 /* GeometriesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF732C9E60CB00B6EE57 /* GeometriesInfo.swift */; };
+		2E3CAF982C9E60CE00B6EE57 /* NullField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF742C9E60CB00B6EE57 /* NullField.swift */; };
+		2E3CAF992C9E60CE00B6EE57 /* IntField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF752C9E60CB00B6EE57 /* IntField.swift */; };
+		2E3CAF9A2C9E60CE00B6EE57 /* OtherField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF762C9E60CB00B6EE57 /* OtherField.swift */; };
+		2E3CAF9B2C9E60CE00B6EE57 /* BoolField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF772C9E60CB00B6EE57 /* BoolField.swift */; };
+		2E3CAF9C2C9E60CE00B6EE57 /* FeatureInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF782C9E60CB00B6EE57 /* FeatureInfoView.swift */; };
+		2E3CAF9D2C9E60CE00B6EE57 /* GeometryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF792C9E60CB00B6EE57 /* GeometryInfo.swift */; };
+		2E3CAF9E2C9E60CE00B6EE57 /* DateField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF7A2C9E60CB00B6EE57 /* DateField.swift */; };
+		2E3CAF9F2C9E60CE00B6EE57 /* JSONValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF7C2C9E60CC00B6EE57 /* JSONValueFormatter.swift */; };
+		2E3CAFA02C9E60CE00B6EE57 /* CoordinateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF7D2C9E60CC00B6EE57 /* CoordinateFormatter.swift */; };
+		2E3CAFA12C9E60CE00B6EE57 /* NSManagedObjectID-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF7F2C9E60CD00B6EE57 /* NSManagedObjectID-Extension.swift */; };
+		2E3CAFA22C9E60CE00B6EE57 /* MicroGIS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF802C9E60CD00B6EE57 /* MicroGIS.xcdatamodeld */; };
+		2E3CAFA32C9E60CE00B6EE57 /* Geometry-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF822C9E60CD00B6EE57 /* Geometry-Extension.swift */; };
+		2E3CAFA42C9E60CF00B6EE57 /* Feature-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF842C9E60CD00B6EE57 /* Feature-Extension.swift */; };
+		2E3CAFA52C9E60CF00B6EE57 /* FeatureProperty-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF852C9E60CD00B6EE57 /* FeatureProperty-Extension.swift */; };
+		2E3CAFA62C9E60CF00B6EE57 /* FeatureCollection-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF862C9E60CD00B6EE57 /* FeatureCollection-Extension.swift */; };
+		2E3CAFA72C9E60CF00B6EE57 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF872C9E60CD00B6EE57 /* MicroGISMKGeoJSONFeatureSource.swift */; };
+		2E3CAFA82C9E60CF00B6EE57 /* Stylesheet-Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF882C9E60CD00B6EE57 /* Stylesheet-Extension.swift */; };
+		2E3CAFA92C9E60CF00B6EE57 /* StylesheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF892C9E60CD00B6EE57 /* StylesheetView.swift */; };
+		2E3CAFAA2C9E60CF00B6EE57 /* FeatureCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF8B2C9E60CE00B6EE57 /* FeatureCollectionView.swift */; };
+		2E3CAFAB2C9E60CF00B6EE57 /* FeatureCollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF8C2C9E60CE00B6EE57 /* FeatureCollectionModel.swift */; };
+		2E3CAFAC2C9E60CF00B6EE57 /* CustomLoadingTileOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF8E2C9E60CE00B6EE57 /* CustomLoadingTileOverlay.swift */; };
+		2E3CAFAD2C9E60CF00B6EE57 /* GeoObjectMKBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF8F2C9E60CE00B6EE57 /* GeoObjectMKBridge.swift */; };
+		2E3CAFAE2C9E60CF00B6EE57 /* Stylesheet+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF912C9E60CE00B6EE57 /* Stylesheet+Extensions.swift */; };
+		2E3CAFAF2C9E60CF00B6EE57 /* MRMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E3CAF922C9E60CE00B6EE57 /* MRMap.swift */; };
+		2EFB973D2C9CFD0B00492954 /* MicroGISApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB973C2C9CFD0B00492954 /* MicroGISApp.swift */; };
+		2EFB973F2C9CFD0B00492954 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB973E2C9CFD0B00492954 /* Persistence.swift */; };
+		2EFB97442C9CFD0B00492954 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB97432C9CFD0B00492954 /* ContentView.swift */; };
+		2EFB974A2C9CFD1600492954 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EFB97492C9CFD1600492954 /* Preview Assets.xcassets */; };
+		2EFB97552C9CFD1700492954 /* MicroGISTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB97542C9CFD1700492954 /* MicroGISTests.swift */; };
+		2EFB975F2C9CFD1700492954 /* MicroGISUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB975E2C9CFD1700492954 /* MicroGISUITests.swift */; };
+		2EFB97612C9CFD1700492954 /* MicroGISUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFB97602C9CFD1700492954 /* MicroGISUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2EFB97512C9CFD1700492954 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2EFB97312C9CFD0A00492954 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2EFB97382C9CFD0B00492954;
+			remoteInfo = MicroGIS;
+		};
+		2EFB975B2C9CFD1700492954 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2EFB97312C9CFD0A00492954 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2EFB97382C9CFD0B00492954;
+			remoteInfo = MicroGIS;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		2E182EA52C73C90400DE51DE /* FeatureProperty-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FeatureProperty-Extension.swift"; sourceTree = "<group>"; };
-		2E6C56272C9A30A400B779E7 /* DeveloperSettings.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text; path = DeveloperSettings.xcconfig.example; sourceTree = "<group>"; };
-		2E6C56282C9A30A400B779E7 /* DeveloperSettings.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DeveloperSettings.xcconfig; sourceTree = "<group>"; };
-		2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stylesheet-Extension.swift"; sourceTree = "<group>"; };
-		2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryInfo.swift; sourceTree = "<group>"; };
-		2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionView.swift; sourceTree = "<group>"; };
-		2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Stylesheet+Extensions.swift"; sourceTree = "<group>"; };
-		2E8D9FCF2C9787ED00A65B0E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		2E9258BB2C7D4E26007AA143 /* GeometriesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometriesInfo.swift; sourceTree = "<group>"; };
-		2E9258BD2C7E5436007AA143 /* StringField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringField.swift; sourceTree = "<group>"; };
-		2E9258BF2C7E660D007AA143 /* BoolField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolField.swift; sourceTree = "<group>"; };
-		2E9258C12C7E7974007AA143 /* IntField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntField.swift; sourceTree = "<group>"; };
-		2E9258C32C7E7996007AA143 /* DoubleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleField.swift; sourceTree = "<group>"; };
-		2E9258C52C7E79AD007AA143 /* DateField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateField.swift; sourceTree = "<group>"; };
-		2E9258C72C7E79C5007AA143 /* NullField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NullField.swift; sourceTree = "<group>"; };
-		2E9258C92C7E79DE007AA143 /* OtherField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherField.swift; sourceTree = "<group>"; };
-		2E9258CB2C7FBCF6007AA143 /* FeatureInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureInfoView.swift; sourceTree = "<group>"; };
-		2E9258CD2C7FDD7B007AA143 /* GeometryLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryLocationView.swift; sourceTree = "<group>"; };
-		2E9F90922C36498700171176 /* StylesheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesheetView.swift; sourceTree = "<group>"; };
-		2E9F909C2C3765C700171176 /* MicroGIS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroGIS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		2E9F909E2C3765C800171176 /* MicroGISApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISApp.swift; sourceTree = "<group>"; };
-		2E9F90A02C3765C800171176 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		2E9F90A52C3765C800171176 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		2E9F90A72C3765CB00171176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2E9F90A92C3765CB00171176 /* MicroGIS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicroGIS.entitlements; sourceTree = "<group>"; };
-		2E9F90AB2C3765CB00171176 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2E9F90B52C3765CB00171176 /* MicroGISTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISTests.swift; sourceTree = "<group>"; };
-		2E9F90BF2C3765CB00171176 /* MicroGISUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITests.swift; sourceTree = "<group>"; };
-		2E9F90C12C3765CB00171176 /* MicroGISUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISError.swift; sourceTree = "<group>"; };
-		2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionModel.swift; sourceTree = "<group>"; };
-		2EC443D42B322C4400244326 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
-		2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
-		2ECB8D6B2BF9744F0044F557 /* MRMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
-		2ECCEB012A9436C4005785FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONValueFormatter.swift; sourceTree = "<group>"; };
-		2EF0D1192A9828740018E70D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicroGISMKGeoJSONFeatureSource.swift; sourceTree = "<group>"; };
-		2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectID-Extension.swift"; sourceTree = "<group>"; };
-		2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeatureCollection-Extension.swift"; sourceTree = "<group>"; };
-		2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry-Extension.swift"; sourceTree = "<group>"; };
-		2EF569DB2BCF129700964F85 /* Feature-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature-Extension.swift"; sourceTree = "<group>"; };
-		2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometriesTable.swift; sourceTree = "<group>"; };
-		2EF651B52C92584F001DCA4B /* MicroGIS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MicroGIS.xcdatamodel; sourceTree = "<group>"; };
-		2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTileOverlay.swift; sourceTree = "<group>"; };
-		2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectMKBridge.swift; sourceTree = "<group>"; };
+		2E3CAF662C9E5D2200B6EE57 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2E3CAF672C9E5D3100B6EE57 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		2E3CAF6A2C9E5E0100B6EE57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E3CAF6C2C9E605A00B6EE57 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		2E3CAF6F2C9E60CB00B6EE57 /* GeometryLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryLocationView.swift; sourceTree = "<group>"; };
+		2E3CAF702C9E60CB00B6EE57 /* DoubleField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoubleField.swift; sourceTree = "<group>"; };
+		2E3CAF712C9E60CB00B6EE57 /* StringField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringField.swift; sourceTree = "<group>"; };
+		2E3CAF722C9E60CB00B6EE57 /* GeometriesTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometriesTable.swift; sourceTree = "<group>"; };
+		2E3CAF732C9E60CB00B6EE57 /* GeometriesInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometriesInfo.swift; sourceTree = "<group>"; };
+		2E3CAF742C9E60CB00B6EE57 /* NullField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NullField.swift; sourceTree = "<group>"; };
+		2E3CAF752C9E60CB00B6EE57 /* IntField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntField.swift; sourceTree = "<group>"; };
+		2E3CAF762C9E60CB00B6EE57 /* OtherField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherField.swift; sourceTree = "<group>"; };
+		2E3CAF772C9E60CB00B6EE57 /* BoolField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoolField.swift; sourceTree = "<group>"; };
+		2E3CAF782C9E60CB00B6EE57 /* FeatureInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureInfoView.swift; sourceTree = "<group>"; };
+		2E3CAF792C9E60CB00B6EE57 /* GeometryInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryInfo.swift; sourceTree = "<group>"; };
+		2E3CAF7A2C9E60CB00B6EE57 /* DateField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateField.swift; sourceTree = "<group>"; };
+		2E3CAF7C2C9E60CC00B6EE57 /* JSONValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONValueFormatter.swift; sourceTree = "<group>"; };
+		2E3CAF7D2C9E60CC00B6EE57 /* CoordinateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinateFormatter.swift; sourceTree = "<group>"; };
+		2E3CAF7F2C9E60CD00B6EE57 /* NSManagedObjectID-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectID-Extension.swift"; sourceTree = "<group>"; };
+		2E3CAF812C9E60CD00B6EE57 /* MicroGIS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MicroGIS.xcdatamodel; sourceTree = "<group>"; };
+		2E3CAF822C9E60CD00B6EE57 /* Geometry-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Geometry-Extension.swift"; sourceTree = "<group>"; };
+		2E3CAF842C9E60CD00B6EE57 /* Feature-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Feature-Extension.swift"; sourceTree = "<group>"; };
+		2E3CAF852C9E60CD00B6EE57 /* FeatureProperty-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeatureProperty-Extension.swift"; sourceTree = "<group>"; };
+		2E3CAF862C9E60CD00B6EE57 /* FeatureCollection-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FeatureCollection-Extension.swift"; sourceTree = "<group>"; };
+		2E3CAF872C9E60CD00B6EE57 /* MicroGISMKGeoJSONFeatureSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MicroGISMKGeoJSONFeatureSource.swift; sourceTree = "<group>"; };
+		2E3CAF882C9E60CD00B6EE57 /* Stylesheet-Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stylesheet-Extension.swift"; sourceTree = "<group>"; };
+		2E3CAF892C9E60CD00B6EE57 /* StylesheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylesheetView.swift; sourceTree = "<group>"; };
+		2E3CAF8B2C9E60CE00B6EE57 /* FeatureCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCollectionView.swift; sourceTree = "<group>"; };
+		2E3CAF8C2C9E60CE00B6EE57 /* FeatureCollectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FeatureCollectionModel.swift; sourceTree = "<group>"; };
+		2E3CAF8E2C9E60CE00B6EE57 /* CustomLoadingTileOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoadingTileOverlay.swift; sourceTree = "<group>"; };
+		2E3CAF8F2C9E60CE00B6EE57 /* GeoObjectMKBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectMKBridge.swift; sourceTree = "<group>"; };
+		2E3CAF912C9E60CE00B6EE57 /* Stylesheet+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stylesheet+Extensions.swift"; sourceTree = "<group>"; };
+		2E3CAF922C9E60CE00B6EE57 /* MRMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
+		2EFB97392C9CFD0B00492954 /* MicroGIS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroGIS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EFB973C2C9CFD0B00492954 /* MicroGISApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISApp.swift; sourceTree = "<group>"; };
+		2EFB973E2C9CFD0B00492954 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		2EFB97432C9CFD0B00492954 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		2EFB97472C9CFD1600492954 /* MicroGIS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MicroGIS.entitlements; sourceTree = "<group>"; };
+		2EFB97492C9CFD1600492954 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2EFB974B2C9CFD1600492954 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EFB97502C9CFD1700492954 /* MicroGISTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicroGISTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EFB97542C9CFD1700492954 /* MicroGISTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISTests.swift; sourceTree = "<group>"; };
+		2EFB975A2C9CFD1700492954 /* MicroGISUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MicroGISUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EFB975E2C9CFD1700492954 /* MicroGISUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITests.swift; sourceTree = "<group>"; };
+		2EFB97602C9CFD1700492954 /* MicroGISUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2EFB976D2C9DF6D100492954 /* DevTeam.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DevTeam.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		2E9F90992C3765C700171176 /* Frameworks */ = {
+		2EFB97362C9CFD0B00492954 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EFB974D2C9CFD1700492954 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EFB97572C9CFD1700492954 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -105,208 +138,234 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2E6243392C27590D004218E9 /* Features */ = {
+		2E3CAF6E2C9E60CB00B6EE57 /* Display Geometries */ = {
 			isa = PBXGroup;
 			children = (
-				2EF569DB2BCF129700964F85 /* Feature-Extension.swift */,
-				2EF569D92BCF129700964F85 /* FeatureCollection-Extension.swift */,
-				2E182EA52C73C90400DE51DE /* FeatureProperty-Extension.swift */,
+				2E3CAF6F2C9E60CB00B6EE57 /* GeometryLocationView.swift */,
+				2E3CAF702C9E60CB00B6EE57 /* DoubleField.swift */,
+				2E3CAF712C9E60CB00B6EE57 /* StringField.swift */,
+				2E3CAF722C9E60CB00B6EE57 /* GeometriesTable.swift */,
+				2E3CAF732C9E60CB00B6EE57 /* GeometriesInfo.swift */,
+				2E3CAF742C9E60CB00B6EE57 /* NullField.swift */,
+				2E3CAF752C9E60CB00B6EE57 /* IntField.swift */,
+				2E3CAF762C9E60CB00B6EE57 /* OtherField.swift */,
+				2E3CAF772C9E60CB00B6EE57 /* BoolField.swift */,
+				2E3CAF782C9E60CB00B6EE57 /* FeatureInfoView.swift */,
+				2E3CAF792C9E60CB00B6EE57 /* GeometryInfo.swift */,
+				2E3CAF7A2C9E60CB00B6EE57 /* DateField.swift */,
 			);
-			path = Features;
+			path = "Display Geometries";
 			sourceTree = "<group>";
 		};
-		2E7C373D2C011151008D2B68 /* Formatters */ = {
+		2E3CAF7B2C9E60CC00B6EE57 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
-				2ECB8D692BF958970044F557 /* CoordinateFormatter.swift */,
-				2EDE3DD72C64413400A6B847 /* JSONValueFormatter.swift */,
+				2E3CAF7C2C9E60CC00B6EE57 /* JSONValueFormatter.swift */,
+				2E3CAF7D2C9E60CC00B6EE57 /* CoordinateFormatter.swift */,
 			);
 			path = Formatters;
 			sourceTree = "<group>";
 		};
-		2E9F90AA2C3765CB00171176 /* Preview Content */ = {
+		2E3CAF7E2C9E60CD00B6EE57 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2E9F90AB2C3765CB00171176 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		2E9F90B42C3765CB00171176 /* MicroGISTests */ = {
-			isa = PBXGroup;
-			children = (
-				2E9F90B52C3765CB00171176 /* MicroGISTests.swift */,
-			);
-			path = MicroGISTests;
-			sourceTree = "<group>";
-		};
-		2E9F90BE2C3765CB00171176 /* MicroGISUITests */ = {
-			isa = PBXGroup;
-			children = (
-				2E9F90BF2C3765CB00171176 /* MicroGISUITests.swift */,
-				2E9F90C12C3765CB00171176 /* MicroGISUITestsLaunchTests.swift */,
-			);
-			path = MicroGISUITests;
-			sourceTree = "<group>";
-		};
-		2EACC0352BE9528B00A7F91A /* xcconfig */ = {
-			isa = PBXGroup;
-			children = (
-				2E6C56282C9A30A400B779E7 /* DeveloperSettings.xcconfig */,
-				2E6C56272C9A30A400B779E7 /* DeveloperSettings.xcconfig.example */,
-			);
-			path = xcconfig;
-			sourceTree = "<group>";
-		};
-		2ECCEAE72A9436C0005785FA = {
-			isa = PBXGroup;
-			children = (
-				2EF0D1192A9828740018E70D /* README.md */,
-				2E8D9FCF2C9787ED00A65B0E /* LICENSE */,
-				2EACC0352BE9528B00A7F91A /* xcconfig */,
-				2ECCEAF22A9436C0005785FA /* MicroGIS */,
-				2E9F90B42C3765CB00171176 /* MicroGISTests */,
-				2E9F90BE2C3765CB00171176 /* MicroGISUITests */,
-				2ECCEAF12A9436C0005785FA /* Products */,
-				2EF33E642ADF0077004C750F /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		2ECCEAF12A9436C0005785FA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2E9F909C2C3765C700171176 /* MicroGIS.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		2ECCEAF22A9436C0005785FA /* MicroGIS */ = {
-			isa = PBXGroup;
-			children = (
-				2E9F90A72C3765CB00171176 /* Assets.xcassets */,
-				2ECCEB012A9436C4005785FA /* Info.plist */,
-				2EC443D42B322C4400244326 /* InfoPlist.strings */,
-				2E9F90A92C3765CB00171176 /* MicroGIS.entitlements */,
-				2E9F909E2C3765C800171176 /* MicroGISApp.swift */,
-				2E9F90A02C3765C800171176 /* Persistence.swift */,
-				2E9F90A52C3765C800171176 /* ContentView.swift */,
-				2EAA233C2B23DD7E00E5F653 /* MicroGISError.swift */,
-				2EF569D72BCF129700964F85 /* Model */,
-				2EE770192B2FBE1F00E67B56 /* Display Features */,
-				2EF5CE282C115077004F5F8E /* Display Geometries */,
-				2EE7701A2B2FBE5300E67B56 /* Map View */,
-				2E7C373D2C011151008D2B68 /* Formatters */,
-				2E9F90922C36498700171176 /* StylesheetView.swift */,
-				2E9F90AA2C3765CB00171176 /* Preview Content */,
-			);
-			path = MicroGIS;
-			sourceTree = "<group>";
-		};
-		2ED21C032C2E338900B739B3 /* Styles */ = {
-			isa = PBXGroup;
-			children = (
-				2E8304C72BEFE8A000E90FAA /* Stylesheet+Extensions.swift */,
-			);
-			path = Styles;
-			sourceTree = "<group>";
-		};
-		2EE770192B2FBE1F00E67B56 /* Display Features */ = {
-			isa = PBXGroup;
-			children = (
-				2E7C372F2BFEA30F008D2B68 /* FeatureCollectionView.swift */,
-				2EB8DC472C45C3EA00DE4251 /* FeatureCollectionModel.swift */,
-			);
-			path = "Display Features";
-			sourceTree = "<group>";
-		};
-		2EE7701A2B2FBE5300E67B56 /* Map View */ = {
-			isa = PBXGroup;
-			children = (
-				2ECB8D6B2BF9744F0044F557 /* MRMap.swift */,
-				2EFFD9622BD07F0500249DE1 /* GeoObjectMKBridge.swift */,
-				2EFFD94B2BCF3C5300249DE1 /* CustomLoadingTileOverlay.swift */,
-				2ED21C032C2E338900B739B3 /* Styles */,
-			);
-			path = "Map View";
-			sourceTree = "<group>";
-		};
-		2EF33E642ADF0077004C750F /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2EF569D72BCF129700964F85 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2EF651B42C92584F001DCA4B /* MicroGIS.xcdatamodeld */,
-				2EF569D82BCF129700964F85 /* NSManagedObjectID-Extension.swift */,
-				2EF569DA2BCF129700964F85 /* Geometry-Extension.swift */,
-				2E79D5792C3B4E6600D115FB /* Stylesheet-Extension.swift */,
-				2EF569D52BCF129600964F85 /* MicroGISMKGeoJSONFeatureSource.swift */,
-				2E6243392C27590D004218E9 /* Features */,
+				2E3CAF7F2C9E60CD00B6EE57 /* NSManagedObjectID-Extension.swift */,
+				2E3CAF802C9E60CD00B6EE57 /* MicroGIS.xcdatamodeld */,
+				2E3CAF822C9E60CD00B6EE57 /* Geometry-Extension.swift */,
+				2E3CAF832C9E60CD00B6EE57 /* Features */,
+				2E3CAF872C9E60CD00B6EE57 /* MicroGISMKGeoJSONFeatureSource.swift */,
+				2E3CAF882C9E60CD00B6EE57 /* Stylesheet-Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		2EF5CE282C115077004F5F8E /* Display Geometries */ = {
+		2E3CAF832C9E60CD00B6EE57 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				2E7A574E2C48CA8E00DA1C2F /* GeometryInfo.swift */,
-				2EF5CE292C11509A004F5F8E /* GeometriesTable.swift */,
-				2E9258BB2C7D4E26007AA143 /* GeometriesInfo.swift */,
-				2E9258BD2C7E5436007AA143 /* StringField.swift */,
-				2E9258BF2C7E660D007AA143 /* BoolField.swift */,
-				2E9258C12C7E7974007AA143 /* IntField.swift */,
-				2E9258C32C7E7996007AA143 /* DoubleField.swift */,
-				2E9258C52C7E79AD007AA143 /* DateField.swift */,
-				2E9258C72C7E79C5007AA143 /* NullField.swift */,
-				2E9258C92C7E79DE007AA143 /* OtherField.swift */,
-				2E9258CB2C7FBCF6007AA143 /* FeatureInfoView.swift */,
-				2E9258CD2C7FDD7B007AA143 /* GeometryLocationView.swift */,
+				2E3CAF842C9E60CD00B6EE57 /* Feature-Extension.swift */,
+				2E3CAF852C9E60CD00B6EE57 /* FeatureProperty-Extension.swift */,
+				2E3CAF862C9E60CD00B6EE57 /* FeatureCollection-Extension.swift */,
 			);
-			path = "Display Geometries";
+			path = Features;
+			sourceTree = "<group>";
+		};
+		2E3CAF8A2C9E60CE00B6EE57 /* Display Features */ = {
+			isa = PBXGroup;
+			children = (
+				2E3CAF8B2C9E60CE00B6EE57 /* FeatureCollectionView.swift */,
+				2E3CAF8C2C9E60CE00B6EE57 /* FeatureCollectionModel.swift */,
+			);
+			path = "Display Features";
+			sourceTree = "<group>";
+		};
+		2E3CAF8D2C9E60CE00B6EE57 /* Map View */ = {
+			isa = PBXGroup;
+			children = (
+				2E3CAF8E2C9E60CE00B6EE57 /* CustomLoadingTileOverlay.swift */,
+				2E3CAF8F2C9E60CE00B6EE57 /* GeoObjectMKBridge.swift */,
+				2E3CAF902C9E60CE00B6EE57 /* Styles */,
+				2E3CAF922C9E60CE00B6EE57 /* MRMap.swift */,
+			);
+			path = "Map View";
+			sourceTree = "<group>";
+		};
+		2E3CAF902C9E60CE00B6EE57 /* Styles */ = {
+			isa = PBXGroup;
+			children = (
+				2E3CAF912C9E60CE00B6EE57 /* Stylesheet+Extensions.swift */,
+			);
+			path = Styles;
+			sourceTree = "<group>";
+		};
+		2EFB97302C9CFD0A00492954 = {
+			isa = PBXGroup;
+			children = (
+				2E3CAF662C9E5D2200B6EE57 /* README.md */,
+				2E3CAF672C9E5D3100B6EE57 /* LICENSE */,
+				2EFB976D2C9DF6D100492954 /* DevTeam.xcconfig */,
+				2EFB973B2C9CFD0B00492954 /* MicroGIS */,
+				2EFB97532C9CFD1700492954 /* MicroGISTests */,
+				2EFB975D2C9CFD1700492954 /* MicroGISUITests */,
+				2EFB973A2C9CFD0B00492954 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2EFB973A2C9CFD0B00492954 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2EFB97392C9CFD0B00492954 /* MicroGIS.app */,
+				2EFB97502C9CFD1700492954 /* MicroGISTests.xctest */,
+				2EFB975A2C9CFD1700492954 /* MicroGISUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2EFB973B2C9CFD0B00492954 /* MicroGIS */ = {
+			isa = PBXGroup;
+			children = (
+				2EFB973C2C9CFD0B00492954 /* MicroGISApp.swift */,
+				2EFB973E2C9CFD0B00492954 /* Persistence.swift */,
+				2EFB97432C9CFD0B00492954 /* ContentView.swift */,
+				2E3CAF7E2C9E60CD00B6EE57 /* Model */,
+				2E3CAF8A2C9E60CE00B6EE57 /* Display Features */,
+				2E3CAF6E2C9E60CB00B6EE57 /* Display Geometries */,
+				2E3CAF7B2C9E60CC00B6EE57 /* Formatters */,
+				2E3CAF8D2C9E60CE00B6EE57 /* Map View */,
+				2E3CAF892C9E60CD00B6EE57 /* StylesheetView.swift */,
+				2E3CAF6A2C9E5E0100B6EE57 /* Assets.xcassets */,
+				2EFB97472C9CFD1600492954 /* MicroGIS.entitlements */,
+				2EFB974B2C9CFD1600492954 /* Info.plist */,
+				2E3CAF6C2C9E605A00B6EE57 /* InfoPlist.strings */,
+				2EFB97482C9CFD1600492954 /* Preview Content */,
+			);
+			path = MicroGIS;
+			sourceTree = "<group>";
+		};
+		2EFB97482C9CFD1600492954 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				2EFB97492C9CFD1600492954 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2EFB97532C9CFD1700492954 /* MicroGISTests */ = {
+			isa = PBXGroup;
+			children = (
+				2EFB97542C9CFD1700492954 /* MicroGISTests.swift */,
+			);
+			path = MicroGISTests;
+			sourceTree = "<group>";
+		};
+		2EFB975D2C9CFD1700492954 /* MicroGISUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2EFB975E2C9CFD1700492954 /* MicroGISUITests.swift */,
+				2EFB97602C9CFD1700492954 /* MicroGISUITestsLaunchTests.swift */,
+			);
+			path = MicroGISUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2E9F909B2C3765C700171176 /* MicroGIS */ = {
+		2EFB97382C9CFD0B00492954 /* MicroGIS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2E9F90C32C3765CC00171176 /* Build configuration list for PBXNativeTarget "MicroGIS" */;
+			buildConfigurationList = 2EFB97642C9CFD1700492954 /* Build configuration list for PBXNativeTarget "MicroGIS" */;
 			buildPhases = (
-				2E9F90982C3765C700171176 /* Sources */,
-				2E9F90992C3765C700171176 /* Frameworks */,
-				2E9F909A2C3765C700171176 /* Resources */,
+				2EFB97352C9CFD0B00492954 /* Sources */,
+				2EFB97362C9CFD0B00492954 /* Frameworks */,
+				2EFB97372C9CFD0B00492954 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MicroGIS;
-			packageProductDependencies = (
-			);
 			productName = MicroGIS;
-			productReference = 2E9F909C2C3765C700171176 /* MicroGIS.app */;
+			productReference = 2EFB97392C9CFD0B00492954 /* MicroGIS.app */;
 			productType = "com.apple.product-type.application";
+		};
+		2EFB974F2C9CFD1700492954 /* MicroGISTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2EFB97672C9CFD1700492954 /* Build configuration list for PBXNativeTarget "MicroGISTests" */;
+			buildPhases = (
+				2EFB974C2C9CFD1700492954 /* Sources */,
+				2EFB974D2C9CFD1700492954 /* Frameworks */,
+				2EFB974E2C9CFD1700492954 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2EFB97522C9CFD1700492954 /* PBXTargetDependency */,
+			);
+			name = MicroGISTests;
+			productName = MicroGISTests;
+			productReference = 2EFB97502C9CFD1700492954 /* MicroGISTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2EFB97592C9CFD1700492954 /* MicroGISUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2EFB976A2C9CFD1700492954 /* Build configuration list for PBXNativeTarget "MicroGISUITests" */;
+			buildPhases = (
+				2EFB97562C9CFD1700492954 /* Sources */,
+				2EFB97572C9CFD1700492954 /* Frameworks */,
+				2EFB97582C9CFD1700492954 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2EFB975C2C9CFD1700492954 /* PBXTargetDependency */,
+			);
+			name = MicroGISUITests;
+			productName = MicroGISUITests;
+			productReference = 2EFB975A2C9CFD1700492954 /* MicroGISUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		2ECCEAE82A9436C0005785FA /* Project object */ = {
+		2EFB97312C9CFD0A00492954 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
-					2E9F909B2C3765C700171176 = {
+					2EFB97382C9CFD0B00492954 = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					2EFB974F2C9CFD1700492954 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 2EFB97382C9CFD0B00492954;
+					};
+					2EFB97592C9CFD1700492954 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 2EFB97382C9CFD0B00492954;
 					};
 				};
 			};
-			buildConfigurationList = 2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "MicroGIS" */;
+			buildConfigurationList = 2EFB97342C9CFD0B00492954 /* Build configuration list for PBXProject "MicroGIS" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -314,107 +373,124 @@
 				en,
 				Base,
 			);
-			mainGroup = 2ECCEAE72A9436C0005785FA;
-			packageReferences = (
-			);
-			productRefGroup = 2ECCEAF12A9436C0005785FA /* Products */;
+			mainGroup = 2EFB97302C9CFD0A00492954;
+			productRefGroup = 2EFB973A2C9CFD0B00492954 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2E9F909B2C3765C700171176 /* MicroGIS */,
+				2EFB97382C9CFD0B00492954 /* MicroGIS */,
+				2EFB974F2C9CFD1700492954 /* MicroGISTests */,
+				2EFB97592C9CFD1700492954 /* MicroGISUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		2E9F909A2C3765C700171176 /* Resources */ = {
+		2EFB97372C9CFD0B00492954 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E9F90AC2C3765CB00171176 /* Preview Assets.xcassets in Resources */,
-				2ECF8C522C67514D003A76B6 /* InfoPlist.strings in Resources */,
-				2E9F90A82C3765CB00171176 /* Assets.xcassets in Resources */,
+				2EFB974A2C9CFD1600492954 /* Preview Assets.xcassets in Resources */,
+				2E3CAF6D2C9E605A00B6EE57 /* InfoPlist.strings in Resources */,
+				2E3CAF6B2C9E5E0100B6EE57 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EFB974E2C9CFD1700492954 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EFB97582C9CFD1700492954 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2E9F90982C3765C700171176 /* Sources */ = {
+		2EFB97352C9CFD0B00492954 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EB8DC482C45C3EA00DE4251 /* FeatureCollectionModel.swift in Sources */,
-				2E9F90D52C377A4800171176 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */,
-				2E9F909F2C3765C800171176 /* MicroGISApp.swift in Sources */,
-				2E9258C42C7E7996007AA143 /* DoubleField.swift in Sources */,
-				2E9258C02C7E660D007AA143 /* BoolField.swift in Sources */,
-				2E9F90D72C377A5500171176 /* GeometriesTable.swift in Sources */,
-				2E9F90CE2C377A3900171176 /* Geometry-Extension.swift in Sources */,
-				2E79D57B2C3B4E6600D115FB /* Stylesheet-Extension.swift in Sources */,
-				2EF651B62C92584F001DCA4B /* MicroGIS.xcdatamodeld in Sources */,
-				2E9F90E12C377A8600171176 /* Stylesheet+Extensions.swift in Sources */,
-				2E9F90DC2C377A6F00171176 /* FeatureCollectionView.swift in Sources */,
-				2E9F90DF2C377A7900171176 /* GeoObjectMKBridge.swift in Sources */,
-				2E9F90A12C3765C800171176 /* Persistence.swift in Sources */,
-				2E9F90D22C377A3900171176 /* NSManagedObjectID-Extension.swift in Sources */,
-				2E9F90DD2C377A7300171176 /* StylesheetView.swift in Sources */,
-				2E7A574F2C48CA8E00DA1C2F /* GeometryInfo.swift in Sources */,
-				2E9258C82C7E79C5007AA143 /* NullField.swift in Sources */,
-				2E9258CA2C7E79DE007AA143 /* OtherField.swift in Sources */,
-				2E9258BE2C7E5437007AA143 /* StringField.swift in Sources */,
-				2E9258C22C7E7974007AA143 /* IntField.swift in Sources */,
-				2E9258C62C7E79AD007AA143 /* DateField.swift in Sources */,
-				2E9F90CF2C377A3900171176 /* Feature-Extension.swift in Sources */,
-				2E9F90D62C377A5000171176 /* MicroGISError.swift in Sources */,
-				2E9258CE2C7FDD7B007AA143 /* GeometryLocationView.swift in Sources */,
-				2E9F90E22C377AB000171176 /* CoordinateFormatter.swift in Sources */,
-				2E9F90E02C377A7900171176 /* MRMap.swift in Sources */,
-				2E9F90DE2C377A7900171176 /* CustomLoadingTileOverlay.swift in Sources */,
-				2E9258BC2C7D4E26007AA143 /* GeometriesInfo.swift in Sources */,
-				2E9258CC2C7FBCF6007AA143 /* FeatureInfoView.swift in Sources */,
-				2EDE3DD92C64413400A6B847 /* JSONValueFormatter.swift in Sources */,
-				2E182EA62C73C90400DE51DE /* FeatureProperty-Extension.swift in Sources */,
-				2E9F90CD2C377A3900171176 /* FeatureCollection-Extension.swift in Sources */,
-				2E9F90A62C3765C800171176 /* ContentView.swift in Sources */,
+				2E3CAFA82C9E60CF00B6EE57 /* Stylesheet-Extension.swift in Sources */,
+				2E3CAFA32C9E60CE00B6EE57 /* Geometry-Extension.swift in Sources */,
+				2E3CAFA92C9E60CF00B6EE57 /* StylesheetView.swift in Sources */,
+				2E3CAFA12C9E60CE00B6EE57 /* NSManagedObjectID-Extension.swift in Sources */,
+				2EFB973D2C9CFD0B00492954 /* MicroGISApp.swift in Sources */,
+				2E3CAF9D2C9E60CE00B6EE57 /* GeometryInfo.swift in Sources */,
+				2E3CAF952C9E60CE00B6EE57 /* StringField.swift in Sources */,
+				2E3CAFA42C9E60CF00B6EE57 /* Feature-Extension.swift in Sources */,
+				2E3CAFAA2C9E60CF00B6EE57 /* FeatureCollectionView.swift in Sources */,
+				2E3CAFA02C9E60CE00B6EE57 /* CoordinateFormatter.swift in Sources */,
+				2EFB97442C9CFD0B00492954 /* ContentView.swift in Sources */,
+				2E3CAF962C9E60CE00B6EE57 /* GeometriesTable.swift in Sources */,
+				2E3CAFAF2C9E60CF00B6EE57 /* MRMap.swift in Sources */,
+				2E3CAFA62C9E60CF00B6EE57 /* FeatureCollection-Extension.swift in Sources */,
+				2E3CAFA52C9E60CF00B6EE57 /* FeatureProperty-Extension.swift in Sources */,
+				2E3CAF9C2C9E60CE00B6EE57 /* FeatureInfoView.swift in Sources */,
+				2E3CAFAB2C9E60CF00B6EE57 /* FeatureCollectionModel.swift in Sources */,
+				2E3CAF9A2C9E60CE00B6EE57 /* OtherField.swift in Sources */,
+				2E3CAFAD2C9E60CF00B6EE57 /* GeoObjectMKBridge.swift in Sources */,
+				2E3CAFA72C9E60CF00B6EE57 /* MicroGISMKGeoJSONFeatureSource.swift in Sources */,
+				2E3CAF992C9E60CE00B6EE57 /* IntField.swift in Sources */,
+				2E3CAF942C9E60CE00B6EE57 /* DoubleField.swift in Sources */,
+				2E3CAF972C9E60CE00B6EE57 /* GeometriesInfo.swift in Sources */,
+				2E3CAF982C9E60CE00B6EE57 /* NullField.swift in Sources */,
+				2E3CAF9E2C9E60CE00B6EE57 /* DateField.swift in Sources */,
+				2E3CAF9B2C9E60CE00B6EE57 /* BoolField.swift in Sources */,
+				2E3CAF932C9E60CE00B6EE57 /* GeometryLocationView.swift in Sources */,
+				2E3CAFAE2C9E60CF00B6EE57 /* Stylesheet+Extensions.swift in Sources */,
+				2EFB973F2C9CFD0B00492954 /* Persistence.swift in Sources */,
+				2E3CAFA22C9E60CE00B6EE57 /* MicroGIS.xcdatamodeld in Sources */,
+				2E3CAFAC2C9E60CF00B6EE57 /* CustomLoadingTileOverlay.swift in Sources */,
+				2E3CAF9F2C9E60CE00B6EE57 /* JSONValueFormatter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EFB974C2C9CFD1700492954 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EFB97552C9CFD1700492954 /* MicroGISTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2EFB97562C9CFD1700492954 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2EFB975F2C9CFD1700492954 /* MicroGISUITests.swift in Sources */,
+				2EFB97612C9CFD1700492954 /* MicroGISUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2EFB97522C9CFD1700492954 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2EFB97382C9CFD0B00492954 /* MicroGIS */;
+			targetProxy = 2EFB97512C9CFD1700492954 /* PBXContainerItemProxy */;
+		};
+		2EFB975C2C9CFD1700492954 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2EFB97382C9CFD0B00492954 /* MicroGIS */;
+			targetProxy = 2EFB975B2C9CFD1700492954 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		2E9F90C42C3765CC00171176 /* Debug */ = {
+		2EFB97622C9CFD1700492954 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2EFB976D2C9DF6D100492954 /* DevTeam.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2023, Michael Rockhold dba Rockhold Consulting, Inc.. All rights reserved.";
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-			};
-			name = Debug;
-		};
-		2E9F90C52C3765CC00171176 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2023, Michael Rockhold dba Rockhold Consulting, Inc.. All rights reserved.";
-				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator macosx";
-				SUPPORTS_MACCATALYST = NO;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-			};
-			name = Release;
-		};
-		2ECCEB032A9436C4005785FA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E6C56282C9A30A400B779E7 /* DeveloperSettings.xcconfig */;
-			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -443,16 +519,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MicroGIS/MicroGIS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_ASSET_PATHS = "\"MicroGIS/Preview Content\"";
-				ENABLE_HARDENED_RUNTIME = YES;
-				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
-				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -470,54 +538,23 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = MicroGIS;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "2023, Michael Rockhold dba Rockhold Consulting, Inc.. All rights reserved.";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
-				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
-				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.5;
-				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTS_MACCATALYST = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited) NO_TABLECOLUMNFOREACH";
-				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "NO_TABLECOLUMNFOREACH DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 16.6;
 			};
 			name = Debug;
 		};
-		2ECCEB042A9436C4005785FA /* Release */ = {
+		2EFB97632C9CFD1700492954 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E6C56282C9A30A400B779E7 /* DeveloperSettings.xcconfig */;
+			baseConfigurationReference = 2EFB976D2C9DF6D100492954 /* DevTeam.xcconfig */;
 			buildSettings = {
-				ALLOW_TARGET_PLATFORM_SPECIALIZATION = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -546,17 +583,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = MicroGIS/MicroGIS.entitlements;
-				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_ASSET_PATHS = "\"MicroGIS/Preview Content\"";
-				ENABLE_HARDENED_RUNTIME = YES;
-				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
@@ -567,11 +596,30 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = NO_TABLECOLUMNFOREACH;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		2EFB97652C9CFD1700492954 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MicroGIS/MicroGIS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MicroGIS/Preview Content\"";
+				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = MicroGIS;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
-				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				INFOPLIST_FILE = MicroGIS/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -582,43 +630,183 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = NO_TABLECOLUMNFOREACH;
-				SWIFT_COMPILATION_MODE = wholemodule;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,3";
-				TVOS_DEPLOYMENT_TARGET = 16.6;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2EFB97662C9CFD1700492954 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = MicroGIS/MicroGIS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"MicroGIS/Preview Content\"";
+				ENABLE_HARDENED_RUNTIME = YES;
+				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MicroGIS/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2EFB97682C9CFD1700492954 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MYU6NE7WY6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MicroGIS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MicroGIS";
+			};
+			name = Debug;
+		};
+		2EFB97692C9CFD1700492954 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MYU6NE7WY6;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MicroGIS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MicroGIS";
+			};
+			name = Release;
+		};
+		2EFB976B2C9CFD1700492954 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MicroGIS;
+			};
+			name = Debug;
+		};
+		2EFB976C2C9CFD1700492954 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MACOSX_DEPLOYMENT_TARGET = 13.7;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(ORGANIZATION_IDENTIFIER).$(PRODUCT_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MicroGIS;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2E9F90C32C3765CC00171176 /* Build configuration list for PBXNativeTarget "MicroGIS" */ = {
+		2EFB97342C9CFD0B00492954 /* Build configuration list for PBXProject "MicroGIS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2E9F90C42C3765CC00171176 /* Debug */,
-				2E9F90C52C3765CC00171176 /* Release */,
+				2EFB97622C9CFD1700492954 /* Debug */,
+				2EFB97632C9CFD1700492954 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2ECCEAEB2A9436C0005785FA /* Build configuration list for PBXProject "MicroGIS" */ = {
+		2EFB97642C9CFD1700492954 /* Build configuration list for PBXNativeTarget "MicroGIS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2ECCEB032A9436C4005785FA /* Debug */,
-				2ECCEB042A9436C4005785FA /* Release */,
+				2EFB97652C9CFD1700492954 /* Debug */,
+				2EFB97662C9CFD1700492954 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2EFB97672C9CFD1700492954 /* Build configuration list for PBXNativeTarget "MicroGISTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EFB97682C9CFD1700492954 /* Debug */,
+				2EFB97692C9CFD1700492954 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2EFB976A2C9CFD1700492954 /* Build configuration list for PBXNativeTarget "MicroGISUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EFB976B2C9CFD1700492954 /* Debug */,
+				2EFB976C2C9CFD1700492954 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -626,17 +814,17 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		2EF651B42C92584F001DCA4B /* MicroGIS.xcdatamodeld */ = {
+		2E3CAF802C9E60CD00B6EE57 /* MicroGIS.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				2EF651B52C92584F001DCA4B /* MicroGIS.xcdatamodel */,
+				2E3CAF812C9E60CD00B6EE57 /* MicroGIS.xcdatamodel */,
 			);
-			currentVersion = 2EF651B52C92584F001DCA4B /* MicroGIS.xcdatamodel */;
+			currentVersion = 2E3CAF812C9E60CD00B6EE57 /* MicroGIS.xcdatamodel */;
 			path = MicroGIS.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
 	};
-	rootObject = 2ECCEAE82A9436C0005785FA /* Project object */;
+	rootObject = 2EFB97312C9CFD0A00492954 /* Project object */;
 }
