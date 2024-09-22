@@ -155,7 +155,7 @@ public class MicroGISMKGeoJSONFeatureSource {
                                            name: fileURL.lastPathComponent)
 
         do {
-            fileURL.startAccessingSecurityScopedResource()
+            let _ = fileURL.startAccessingSecurityScopedResource()
             for topLevelGeoJSONObject in try MKGeoJSONDecoder().decode(try Data(contentsOf: fileURL)) {
 
                 switch topLevelGeoJSONObject {
