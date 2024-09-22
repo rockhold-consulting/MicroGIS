@@ -4,4 +4,7 @@
 //  Created by Michael Rockhold on 9/20/24.
 //
 
+// Used to construct the Product Bundle Identifier and the iCloud one
+ORGANIZATION_IDENTIFIER = org.appel-rockhold
+
 #include? "DevTeam-Local.xcconfig"
