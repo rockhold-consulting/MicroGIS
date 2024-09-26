@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2EFB97382C9CFD0B00492954"
-               BuildableName = "MicroGIS.app"
+               BuildableName = "ManyMaps.app"
                BlueprintName = "MicroGIS"
                ReferencedContainer = "container:MicroGIS.xcodeproj">
             </BuildableReference>
@@ -68,7 +68,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EFB97382C9CFD0B00492954"
-            BuildableName = "MicroGIS.app"
+            BuildableName = "ManyMaps.app"
             BlueprintName = "MicroGIS"
             ReferencedContainer = "container:MicroGIS.xcodeproj">
          </BuildableReference>
@@ -85,7 +85,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EFB97382C9CFD0B00492954"
-            BuildableName = "MicroGIS.app"
+            BuildableName = "ManyMaps.app"
             BlueprintName = "MicroGIS"
             ReferencedContainer = "container:MicroGIS.xcodeproj">
          </BuildableReference>

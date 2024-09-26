@@ -98,7 +98,7 @@
 		2E3CAF8F2C9E60CE00B6EE57 /* GeoObjectMKBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoObjectMKBridge.swift; sourceTree = "<group>"; };
 		2E3CAF912C9E60CE00B6EE57 /* Stylesheet+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Stylesheet+Extensions.swift"; sourceTree = "<group>"; };
 		2E3CAF922C9E60CE00B6EE57 /* MRMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MRMap.swift; sourceTree = "<group>"; };
-		2EFB97392C9CFD0B00492954 /* MicroGIS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MicroGIS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EFB97392C9CFD0B00492954 /* ManyMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ManyMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EFB973C2C9CFD0B00492954 /* MicroGISApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroGISApp.swift; sourceTree = "<group>"; };
 		2EFB973E2C9CFD0B00492954 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		2EFB97432C9CFD0B00492954 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 		2EFB973A2C9CFD0B00492954 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2EFB97392C9CFD0B00492954 /* MicroGIS.app */,
+				2EFB97392C9CFD0B00492954 /* ManyMaps.app */,
 				2EFB97502C9CFD1700492954 /* MicroGISTests.xctest */,
 				2EFB975A2C9CFD1700492954 /* MicroGISUITests.xctest */,
 			);
@@ -303,7 +303,7 @@
 			);
 			name = MicroGIS;
 			productName = MicroGIS;
-			productReference = 2EFB97392C9CFD0B00492954 /* MicroGIS.app */;
+			productReference = 2EFB97392C9CFD0B00492954 /* ManyMaps.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2EFB974F2C9CFD1700492954 /* MicroGISTests */ = {
@@ -636,8 +636,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.$(PRODUCT_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.$(TARGET_NAME)";
+				PRODUCT_NAME = ManyMaps;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -674,8 +674,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.$(PRODUCT_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.appel-rockhold.$(TARGET_NAME)";
+				PRODUCT_NAME = ManyMaps;
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
