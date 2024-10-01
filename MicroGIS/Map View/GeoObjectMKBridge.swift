@@ -90,7 +90,17 @@ extension Geometry {
     }
 
     func renderer(selected: Bool = false) -> MKOverlayRenderer? {
-        return self.feature?.collection?.currentStylesheet.renderer(for: self, selected: selected)
+
+        // TODO: did I have a good reason for Geometry not to implement Renderable?
+        guard let g = self as? Renderable else {
+            return nil
+        }
+
+        let r = g.makeRenderer()
+        if let ss = self.feature?.collection?.stylesheet {
+            ss.applyStyle(r, geometry: g, selected: selected)
+        }
+        return r
     }
 }
 

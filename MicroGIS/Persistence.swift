@@ -21,6 +21,7 @@
 //
 
 import CoreData
+import SwiftUI
 
 struct PersistenceController {
     static let shared = PersistenceController()
@@ -61,57 +62,26 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
-
-        let fr = NSFetchRequest<Stylesheet>(entityName: "Stylesheet")
-        if let results = try? container.viewContext.fetch(fr) {
-            if results.isEmpty {
-                container.viewContext.insert(Stylesheet(ctx: container.viewContext, name: "Default"))
-            }
-        } else {
-            fatalError()
-        }
-    }
-
-    func defaultStylesheet() -> Stylesheet {
-        let fr = NSFetchRequest<Stylesheet>(entityName: "Stylesheet")
-        fr.predicate = NSPredicate(format: "name == 'Default'")
-        if let results = try? container.viewContext.fetch(fr) {
-            if results.isEmpty {
-                fatalError()
-            } else {
-                return results[0]
-            }
-        } else {
-            fatalError()
-        }
     }
 
     func importFeaturesFile(url: URL) {
-
         let ext = url.pathExtension
         switch ext.uppercased() {
         case "GEOJSON":
-            let _ = MicroGISMKGeoJSONFeatureSource(importContext: self.container.viewContext).importFeatureCollection(from: url)
+            let ctx = self.container.newBackgroundContext()
+            let _ = MicroGISMKGeoJSONFeatureSource(importContext: ctx).importFeatureCollection(from: url)
+
+            do {
+                try ctx.save()
+            } catch {
+                // TODO: Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         default:
             break
         }
-        do {
-            try self.container.viewContext.save()
-        } catch {
-            // TODO: Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
     }
 
-}
-
-extension FeatureCollection {
-    var currentStylesheet: Stylesheet {
-        if self.stylesheet == nil {
-            self.stylesheet = PersistenceController.shared.defaultStylesheet()
-        }
-        return self.stylesheet!
-    }
 }

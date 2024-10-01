@@ -51,95 +51,114 @@ struct ContentView: View {
 
     @State private var selectedSidebarItems = Set<SidebarItem>()
 
-    @State private var importing = false
+    @State private var importerIsPresented = false
+    @State private var importingTask: Task<Void,any Error>? = nil
 
     var body: some View {
-        NavigationSplitView {
-            List(selection: $selectedSidebarItems) {
-                Section {
-                    ForEach(stylesheets.map({ s in
-                        SidebarItem.Stylesheet(s)
-                    }), id: \.self) { sbi in
-                        if case .Stylesheet(let stylesheet) = sbi {
-                            NavigationLink(value: stylesheet) {
-                                Label(stylesheet.name ?? "-", systemImage: "paintpalette")
+            NavigationSplitView {
+
+                VStack {
+                    List(selection: $selectedSidebarItems) {
+                        Section {
+                            ForEach(stylesheets.map({ s in
+                                SidebarItem.Stylesheet(s)
+                            }), id: \.self) { sbi in
+                                if case .Stylesheet(let stylesheet) = sbi {
+                                    NavigationLink(value: stylesheet) {
+                                        Label(stylesheet.name ?? "-", systemImage: "paintpalette")
+                                    }
+                                } else {
+                                    Text("stylesheet error")
+                                }
                             }
-                        } else {
-                            Text("stylesheet error")
-                        }
-                    }
-                } header: {
-                    Text("Style Rules")
-                }
+                            .onDelete(perform: deleteStyleSheet)
 
-                Section {
-                    ForEach(featureCollections.map({ fc in
-                        SidebarItem.FeatureCollection(fc)
-                    }), id: \.self) { sbi in
-                        if case .FeatureCollection(let featureCollection) = sbi {
-                            Label(featureCollection.name ?? "unnamed", systemImage:"rectangle.3.group")
-                        } else {
-                            Text("featureCollection error")
+                        } header: {
+                            Text("Style Rules")
+                        }
+
+                        Section {
+                            ForEach(featureCollections.map({ fc in
+                                SidebarItem.FeatureCollection(fc)
+                            }), id: \.self) { sbi in
+                                if case .FeatureCollection(let featureCollection) = sbi {
+                                    Label(featureCollection.name ?? "unnamed", systemImage:"rectangle.3.group")
+                                } else {
+                                    Text("featureCollection error")
+                                }
+                            }
+                            .onDelete(perform: deleteItems)
+                        } header: {
+                            Text("Feature Collections")
                         }
                     }
-                    .onDelete(perform: deleteItems)
-                } header: {
-                    Text("Feature Collections")
-                }
-            }
-            .toolbar {
+                    .toolbar {
 #if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            EditButton()
+                        }
 #endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Import Features", systemImage: "plus")
+                        ToolbarItem {
+                            Button(action: addItem) {
+                                Label("Import Features", systemImage: "plus")
+                            }
+                        }
+                    }
+                    .fileImporter(
+                        isPresented: $importerIsPresented,
+                        allowedContentTypes: [UTType(filenameExtension: "geojson", conformingTo: .json)!]
+                    ) { result in
+                        switch result {
+                        case .success(let file):
+                            importingTask = Task.detached {
+                                PersistenceController.shared.importFeaturesFile(url: file)
+                                try await Task.sleep(nanoseconds: UInt64(5 * Double(NSEC_PER_SEC)))
+                                await MainActor.run {
+                                    importingTask = nil
+                                }
+                            }
+                        case .failure(let error):
+                            // TODO: handle this error
+                            print(error.localizedDescription)
+                        }
+                    }
+
+                    if importingTask != nil {
+                        Spacer()
+                        Button("Cancel Importing") {
+                            print("this is cancelling")
+                            importingTask!.cancel()
+                        }.padding()
+                    }
+                }
+            } detail: {
+                switch selectedSidebarItems.count {
+                case 0:
+                    Text("Select a feature collection or stylesheet in the sidebar.")
+                case 1:
+                    switch selectedSidebarItems.first! {
+                    case .Stylesheet(let stylesheet):
+                        Text("Stylesheet \(stylesheet.name ?? "--")")
+
+                    case .FeatureCollection(let featureCollection):
+                        FeatureCollectionView(context: viewContext,
+                                              featureCollections: [featureCollection])
+                        .id(collectionsHash([featureCollection]))
+                    }
+                default:
+                    // if the sidebar-selection is all just FeatureCollection,
+                    // display all the features of each together
+                    let selectedFeatureCollections = allFeatureCollections(selectedSidebarItems)
+                    switch selectedFeatureCollections.count {
+                    case 0:
+                        Text("Multiple items selected.")
+                    default:
+                        FeatureCollectionView(context: viewContext,
+                                              featureCollections: selectedFeatureCollections)
+                        .id(collectionsHash(selectedFeatureCollections))
                     }
                 }
             }
-            .fileImporter(
-                isPresented: $importing,
-                allowedContentTypes: [UTType(filenameExtension: "geojson", conformingTo: .json)!]
-            ) { result in
-                switch result {
-                case .success(let file):
-                    // TODO: perform this in the background, while displaying the progress of the import in the status view.
-                    PersistenceController.shared.importFeaturesFile(url: file)
-                case .failure(let error):
-                    // TODO: handle this error
-                    print(error.localizedDescription)
-                }
-            }
-        } detail: {
-            switch selectedSidebarItems.count {
-            case 0:
-                Text("Select a feature collection or stylesheet in the sidebar.")
-            case 1:
-                switch selectedSidebarItems.first! {
-                case .Stylesheet(let stylesheet):
-                    Text("Stylesheet \(stylesheet.name ?? "--")")
-
-                case .FeatureCollection(let featureCollection):
-                    FeatureCollectionView(context: viewContext,
-                                          featureCollections: [featureCollection])
-                    .id(collectionsHash([featureCollection]))
-                }
-            default:
-                // if the sidebar-selection is all just FeatureCollection,
-                // display all the features of each together
-                let selectedFeatureCollections = allFeatureCollections(selectedSidebarItems)
-                switch selectedFeatureCollections.count {
-                case 0:
-                    Text("Multiple items selected.")
-                default:
-                    FeatureCollectionView(context: viewContext,
-                                          featureCollections: selectedFeatureCollections)
-                    .id(collectionsHash(selectedFeatureCollections))
-                }
-            }
-        }
     }
 
     private func collectionsHash(_ fcs: [FeatureCollection]) -> Int {
@@ -161,7 +180,21 @@ struct ContentView: View {
     }
 
     private func addItem() {
-        importing = true
+        importerIsPresented = true
+    }
+
+    private func deleteStyleSheet(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { stylesheets[$0] }.forEach(viewContext.delete)
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 
     private func deleteItems(offsets: IndexSet) {

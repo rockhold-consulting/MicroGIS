@@ -148,15 +148,15 @@ public class MicroGISMKGeoJSONFeatureSource {
             }
         }
 
-
+        if Task.isCancelled { return }
         let collection = FeatureCollection(ctx: importContext,
-                                           stylesheet: PersistenceController.shared.defaultStylesheet(),
                                            creationDate: .now,
                                            name: fileURL.lastPathComponent)
-
         do {
             let _ = fileURL.startAccessingSecurityScopedResource()
             for topLevelGeoJSONObject in try MKGeoJSONDecoder().decode(try Data(contentsOf: fileURL)) {
+
+                if Task.isCancelled { return }
 
                 switch topLevelGeoJSONObject {
 
@@ -169,11 +169,13 @@ public class MicroGISMKGeoJSONFeatureSource {
                     if let props = mkFeature.propertiesDictionary() {
                         for (k,v) in props {
                             feature.addToProperties(makeProperty(key: k, value: v))
+                            if Task.isCancelled { return }
                         }
                     }
                     for shape in mkFeature.geometry {
                         let g = createGeometry(from: shape)
                         feature.addToGeometries(g)
+                        if Task.isCancelled { return }
                     }
                     collection.addToFeatures(feature)
                     fileURL.stopAccessingSecurityScopedResource()

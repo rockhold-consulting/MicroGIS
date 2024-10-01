@@ -30,16 +30,7 @@ extension Stylesheet {
     typealias Kolor = UIColor
     #endif
 
-    func renderer(for geometry: Geometry, selected: Bool = false) -> MKOverlayRenderer? {
-        guard let g = geometry as? Renderable else {
-            return nil
-        }
-        let r = g.makeRenderer()
-        // TODO: dummy implementation
-        applyStyle(r, geometry: geometry, selected: selected)
-        return r
-    }
-
+    // TODO: replace this dummy implementation
     func applyStyle(_ overlayRenderer: MKOverlayRenderer, geometry: Geometry, selected: Bool) {
         switch overlayRenderer {
         case let r as MKPolylineRenderer: // handles both Polyline and GeodesicPolyline
