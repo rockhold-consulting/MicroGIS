@@ -34,6 +34,15 @@ enum SidebarItem: Hashable, Identifiable {
         }
     }
 
+    func delete(context: NSManagedObjectContext) {
+        switch self {
+        case .FeatureCollection(let fc):
+            context.delete(fc)
+        case .Stylesheet(let ss):
+            context.delete(ss)
+        }
+    }
+
     case Stylesheet(Stylesheet)
     case FeatureCollection(FeatureCollection)
 }
@@ -92,18 +101,29 @@ struct ContentView: View {
                             Text("Feature Collections")
                         }
                     }
+#if os(macOS)
+                    .keyboardShortcut(.delete, modifiers: [])
+                    .onDeleteCommand(perform: delete)
                     .toolbar {
-#if os(iOS)
-                        ToolbarItem(placement: .navigationBarTrailing) {
-                            EditButton()
-                        }
-#endif
                         ToolbarItem {
                             Button(action: addItem) {
                                 Label("Import Features", systemImage: "plus")
                             }
                         }
                     }
+#endif
+#if os(iOS)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarTrailing) {
+                            EditButton()
+                        }
+                        ToolbarItem {
+                            Button(action: addItem) {
+                                Label("Import Features", systemImage: "plus")
+                            }
+                        }
+                    }
+#endif
                     .fileImporter(
                         isPresented: $importerIsPresented,
                         allowedContentTypes: [UTType(filenameExtension: "geojson", conformingTo: .json)!]
@@ -128,6 +148,7 @@ struct ContentView: View {
                         Button("Cancel Importing") {
                             print("this is cancelling")
                             importingTask!.cancel()
+                            importingTask = nil
                         }.padding()
                     }
                 }
@@ -183,32 +204,36 @@ struct ContentView: View {
         importerIsPresented = true
     }
 
+    private func delete() {
+        selectedSidebarItems.forEach { item in
+            item.delete(context: viewContext)
+        }
+        saveContext()
+    }
+
     private func deleteStyleSheet(offsets: IndexSet) {
         withAnimation {
             offsets.map { stylesheets[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            saveContext()
         }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { featureCollections[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+            saveContext()
         }
+    }
+
+    private func saveContext() {
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+
     }
 }

@@ -178,9 +178,7 @@ extension MRMap {
 
          More information on this tile set is available at `https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/`.
          */
-//        private static let ShadedReliefTilePathTemplate = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS/tile/1.0.0/USGSShadedReliefOnly/default/default028mm/{z}/{y}/{x}"
-
-        private static let ShadedReliefTilePathTemplate = "https://tiles.openfreemap.org/planet/20240925_001001_pt/{z}/{y}/{x}"
+        private static let ShadedReliefTilePathTemplate = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSShadedReliefOnly/MapServer/WMTS/tile/1.0.0/USGSShadedReliefOnly/default/default028mm/{z}/{y}/{x}"
 
         var reliefTileOverlay: CustomLoadingTileOverlay!
 

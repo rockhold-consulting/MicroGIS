@@ -65,6 +65,7 @@ struct GeometryInfo: View {
 
             Section(header: Text("Feature Attributes")) {
                 Section {
+                    // TODO: turns out you can't be sure of this feature being non-nil; in fact the geometry itself may have been deleted....
                     ForEach([geometry.feature!]) {
                         FeatureInfoView(feature: $0, saver: doSave)
                     }

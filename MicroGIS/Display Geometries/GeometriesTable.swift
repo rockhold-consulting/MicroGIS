@@ -116,101 +116,102 @@ struct GeometriesTable: View {
     }
 
     var body: some View {
-//            List(geometries, selection: proxyBinding) { g in
-//
-//                HStack {
-//                    Image(systemName: g.iconSymbolName)
-//                        .frame(width: 20, alignment: .center)
-//
-//                    Text(g.shortName)
-//
-//                    Text(g.coordString)
-//                        .monospacedDigit()
-//
-//                    Text(g.featureShortName)
-//
+            List(geometries, selection: proxyBinding) { g in
+
+                HStack {
+                    Image(systemName: g.iconSymbolName)
+                        .frame(width: 20, alignment: .center)
+
+                    Text(g.shortName)
+
+                    Text(g.coordString)
+                        .monospacedDigit()
+
 //                    HStack {
 //                        ForEach(self.propertyColumns, id: \.self) { h in
+//                            Text(propertyColumnName(idx:0))
+//                            Text(propertyColumnValue(idx:0, geometry:g))
+//
 //                            Text(self.jsonValueFormatter.string(for: g.property[h]) ?? "-")
 //                                .frame(width: 140, alignment: .leading)
 //                            Divider()
 //                        }
 //                    }
-//
-//                }
-//        }
 
-        Table(geometries.sorted(using: sortOrder),
-              selection: proxyBinding,
-              sortOrder: $sortOrder) {
-            TableColumn(" ", value: \.rawShapeCode) { g in
-                Image(systemName: g.iconSymbolName)
-                    .frame(width: 20, alignment: .center)
-            }
-            .width(20)
-
-            TableColumn("ObjID", value: \.shortName) { g in
-                Text(g.shortName)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .layoutPriority(1)
-            }
-            .width(60)
-            .leading_alignment()
-
-            TableColumn("Latitude", value: \.centerLatitude) { g in
-                Text(g.centerLatitude, format: .number.precision(Decimal.FormatStyle.Configuration.Precision.fractionLength(0..<9)))
-                    .monospacedDigit()
-            }
-            .width(100)
-
-            TableColumn("Longitude", value: \.centerLongitude) { g in
-                Text(g.centerLongitude, format: .number.precision(Decimal.FormatStyle.Configuration.Precision.fractionLength(0..<9)))
-                    .monospacedDigit()
-            }
-            .width(100)
-
-
-#if  NO_TABLECOLUMNFOREACH
-
-            TableColumn(Text(propertyColumnName(idx:0))) { g in
-                Text(propertyColumnValue(idx:0, geometry:g))
-            }
-            .width(min: 0, max: propertyColumnWidth(idx: 0))
-
-            TableColumn(Text(propertyColumnName(idx:1))) { g in
-                Text(propertyColumnValue(idx:1, geometry:g))
-            }
-            .width(min: 0, max: propertyColumnWidth(idx: 1))
-
-            TableColumn(Text(propertyColumnName(idx:2))) { g in
-                Text(propertyColumnValue(idx:2, geometry:g))
-            }
-            .width(min: 0, max: propertyColumnWidth(idx: 2))
-
-            TableColumn(Text(propertyColumnName(idx:3))) { g in
-                Text(propertyColumnValue(idx:3, geometry:g))
-            }
-            .width(min: 0, max: propertyColumnWidth(idx: 3))
-
-            TableColumn(Text(propertyColumnName(idx:4))) { g in
-                Text(propertyColumnValue(idx:4, geometry:g))
-            }
-            .width(min: 0, max: propertyColumnWidth(idx: 4))
-
-            TableColumn(Text(propertyColumnName(idx:5))) { g in
-                Text(propertyColumnValue(idx:5, geometry:g))
-            }
-            .width(min: 0, max: propertyColumnWidth(idx: 5))
-#else
-            TableColumnForEach(self.columns) { col in
-                TableColumn(col) { (g: Geometry) in
-                    Text(g.property[col] ?? "")
                 }
-                .width(60)
-                .trailing_alignment()
-            }
-#endif
         }
+
+//        Table(geometries.sorted(using: sortOrder),
+//              selection: proxyBinding,
+//              sortOrder: $sortOrder) {
+//            TableColumn(" ", value: \.rawShapeCode) { g in
+//                Image(systemName: g.iconSymbolName)
+//                    .frame(width: 20, alignment: .center)
+//            }
+//            .width(20)
+//
+//            TableColumn("ObjID", value: \.shortName) { g in
+//                Text(g.shortName)
+//                    .frame(maxWidth: .infinity, alignment: .leading)
+//                    .layoutPriority(1)
+//            }
+//            .width(60)
+//            .leading_alignment()
+//
+//            TableColumn("Latitude", value: \.centerLatitude) { g in
+//                Text(g.centerLatitude, format: .number.precision(Decimal.FormatStyle.Configuration.Precision.fractionLength(0..<9)))
+//                    .monospacedDigit()
+//            }
+//            .width(100)
+//
+//            TableColumn("Longitude", value: \.centerLongitude) { g in
+//                Text(g.centerLongitude, format: .number.precision(Decimal.FormatStyle.Configuration.Precision.fractionLength(0..<9)))
+//                    .monospacedDigit()
+//            }
+//            .width(100)
+//
+//
+//#if  NO_TABLECOLUMNFOREACH
+//
+//            TableColumn(Text(propertyColumnName(idx:0))) { g in
+//                Text(propertyColumnValue(idx:0, geometry:g))
+//            }
+//            .width(min: 0, max: propertyColumnWidth(idx: 0))
+//
+//            TableColumn(Text(propertyColumnName(idx:1))) { g in
+//                Text(propertyColumnValue(idx:1, geometry:g))
+//            }
+//            .width(min: 0, max: propertyColumnWidth(idx: 1))
+//
+//            TableColumn(Text(propertyColumnName(idx:2))) { g in
+//                Text(propertyColumnValue(idx:2, geometry:g))
+//            }
+//            .width(min: 0, max: propertyColumnWidth(idx: 2))
+//
+//            TableColumn(Text(propertyColumnName(idx:3))) { g in
+//                Text(propertyColumnValue(idx:3, geometry:g))
+//            }
+//            .width(min: 0, max: propertyColumnWidth(idx: 3))
+//
+//            TableColumn(Text(propertyColumnName(idx:4))) { g in
+//                Text(propertyColumnValue(idx:4, geometry:g))
+//            }
+//            .width(min: 0, max: propertyColumnWidth(idx: 4))
+//
+//            TableColumn(Text(propertyColumnName(idx:5))) { g in
+//                Text(propertyColumnValue(idx:5, geometry:g))
+//            }
+//            .width(min: 0, max: propertyColumnWidth(idx: 5))
+//#else
+//            TableColumnForEach(self.columns) { col in
+//                TableColumn(col) { (g: Geometry) in
+//                    Text(g.property[col] ?? "")
+//                }
+//                .width(60)
+//                .trailing_alignment()
+//            }
+//#endif
+//        }
     }
 
     func propertyColumnName(idx: Int) -> String {
