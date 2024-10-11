@@ -48,10 +48,12 @@ extension MKPolygon: MultiCoordinate {
 }
 
 extension MGPolyline {
-    convenience init(with mkPolyline: MKPolyline, 
+    convenience init(with mkPolyline: MKPolyline,
+                     isGeodesic: Bool,
                      context: NSManagedObjectContext) {
         self.init(context: context,
-                  multipointThing:  mkPolyline)
+                  multipointThing: mkPolyline)
+        self.isGeodesic = isGeodesic
     }
 }
 
@@ -77,7 +79,7 @@ extension MGMultiPolyline {
     convenience init(with mkMultiPolyline: MKMultiPolyline, context: NSManagedObjectContext) {
         self.init(context: context,
                   center: mkMultiPolyline.coordinate,
-                  polylines: mkMultiPolyline.polylines.map { MGPolyline(with: $0, context: context)})
+                  polylines: mkMultiPolyline.polylines.map { MGPolyline(with: $0, isGeodesic: false, context: context)})
     }
 }
 
@@ -209,7 +211,7 @@ extension MicroGISMKGeoJSONFeatureSource {
             return self.make(polyline: overlay)
 
         case let overlay as MKGeodesicPolyline:
-            return self.make(geodesicPolyline: overlay)
+            return self.make(polyline: overlay,  isGeodesic: true)
 
         case let overlay as MKPolygon:
             return self.make(polygon: overlay)
@@ -249,12 +251,8 @@ extension MicroGISMKGeoJSONFeatureSource {
         // overlay.boundingMapRect
     }
 
-    func make(polyline: MKPolyline) -> MGPolyline {
-        return MGPolyline(with: polyline, context: importContext)
-    }
-
-    func make(geodesicPolyline: MKGeodesicPolyline) -> MGGeodesicPolyline {
-        return MGGeodesicPolyline(with: geodesicPolyline, context: importContext)
+    func make(polyline: MKPolyline, isGeodesic: Bool = false) -> MGPolyline {
+        return MGPolyline(with: polyline, isGeodesic: isGeodesic, context: importContext)
     }
 
     func make(polygon: MKPolygon) -> MGPolygon {

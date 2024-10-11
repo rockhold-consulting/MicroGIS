@@ -30,9 +30,6 @@ import CoreData
 import Cocoa
 import AppKit
 typealias BaseViewRepresentable = NSViewRepresentable
-func kitImage(symbolName: String, accessibilityDescription: String) -> NSImage {
-    return NSImage(systemSymbolName: symbolName, accessibilityDescription: accessibilityDescription) ?? NSImage(systemSymbolName: "exclamationmark.triangle", accessibilityDescription: "uh oh")!
-}
 typealias MGGestureRecognizer = NSGestureRecognizer
 typealias MGGestureRecognizerDelegate = NSGestureRecognizerDelegate
 typealias MGEvent = NSEvent
@@ -40,9 +37,6 @@ typealias MGEvent = NSEvent
 #elseif os(iOS)
 import UIKit
 typealias BaseViewRepresentable = UIViewRepresentable
-func kitImage(symbolName: String, accessibilityDescription: String) -> UIImage {
-    return UIImage(systemName: symbolName) ?? UIImage(systemName: "exclamationmark.triangle")!
-}
 typealias MGGestureRecognizer = UIGestureRecognizer
 typealias MGGestureRecognizerDelegate = UIGestureRecognizerDelegate
 typealias MGEvent = UIEvent
@@ -68,6 +62,56 @@ extension Geometry: MKAnnotation, MKOverlay {
     public var subtitle: String? { return nil }
 }
 
+protocol MRMapAnnotationViewHitHandler {
+    func hit(annotationView: MRMapAnnotationView, commandIsDown: Bool)
+}
+
+@objc class MRMapAnnotationView: MKAnnotationView, MGGestureRecognizerDelegate {
+
+    // TODO: rethink this?
+    static var reuseIdentifier = "\(NSStringFromClass(MGPoint.self)).GeoPointReuseIdentifier"
+    static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
+
+    var hitHandler: MRMapAnnotationViewHitHandler?
+
+    override init(annotation: MKAnnotation?, reuseIdentifier: String?) {
+        super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        self.canShowCallout = false
+        let gr = HitGestureRecognizer(target: self, action: #selector(handleClick))
+        gr.delegate = self
+        self.addGestureRecognizer(gr)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    #if os(macOS)
+    @MainActor
+    @objc func gestureRecognizer(
+        _ gestureRecognizer: MGGestureRecognizer,
+        shouldAttemptToRecognizeWith event: MGEvent
+    ) -> Bool {
+        if let hitGestureRecognizer = gestureRecognizer as? HitGestureRecognizer {
+            hitGestureRecognizer.commandIsDown = event.modifierFlags.contains(.command)
+        }
+        return true
+    }
+    #endif
+
+    @objc func handleClick(gestureRecognizer: HitGestureRecognizer) {
+        hitHandler?.hit(annotationView: self, commandIsDown: gestureRecognizer.commandIsDown)
+    }
+
+    var geometry: MGPoint? {
+        return self.annotation as? MGPoint
+    }
+
+    func setHitHandler(_ hitHandler: MRMapAnnotationViewHitHandler) -> MRMapAnnotationView {
+        self.hitHandler = hitHandler
+        return self
+    }
+}
 
 struct MRMap: BaseViewRepresentable {
 
@@ -111,10 +155,54 @@ extension MRMap {
         var mrMap: MRMap!
         var previousSelection = Set<Geometry>()
 
+        var selectionFlasher: Timer!
+
         init(mrMap: MRMap) {
             self.mrMap = mrMap
+
             super.init()
             NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: mrMap.managedObjectContext)
+
+            selectionFlasher = Timer.scheduledTimer(withTimeInterval: 0.6, repeats: true) { [weak self] timer in
+                guard let mv = self?.mapView else {
+                    return
+                }
+
+                mrMap.selection.forEach { g in
+                    if let av = mv.view(for: g) {
+
+                        let sz = av.image!.size
+                        #if os(macOS)
+                        if sz.width != 35 {
+                            av.image = NSImage(cgImage: (av.image?.cgImage(forProposedRect: nil, context: nil, hints: nil))!, size: NSSize(width: 35, height: 35))
+                        } else {
+                            av.image = NSImage(cgImage: (av.image?.cgImage(forProposedRect: nil, context: nil, hints: nil))!, size: NSSize(width: 25, height: 25))
+                        }
+                        #endif
+                        #if os(iOS)
+                        var config: UIImage.SymbolConfiguration
+                        if sz.width != 35 {
+                            config = UIImage.SymbolConfiguration(pointSize: 35)
+                        } else {
+                            config = UIImage.SymbolConfiguration(pointSize: 25)
+                        }
+                        av.image = UIImage(cgImage: av.image!.cgImage!).withConfiguration(config)
+
+                        #endif
+
+                    } else if let r = mv.renderer(for: g) as? MKOverlayPathRenderer {
+
+                        let lineWidth = r.lineWidth
+                        if lineWidth != 5.0 {
+                            r.lineWidth = 5.0
+                        } else {
+                            r.lineWidth = 4.0
+                        }
+                        r.setNeedsDisplay()
+                    }
+                }
+            }
+
         }
 
         weak var mapView: MKMapView? = nil {
@@ -182,189 +270,50 @@ extension MRMap {
 
         var reliefTileOverlay: CustomLoadingTileOverlay!
 
-        static let geoPointReuseIdentifier = "\(NSStringFromClass(Geometry.self)).GeoPointReuseIdentifier"
-        static let clusterAnnotationReuseIdentifier = MKMapViewDefaultClusterAnnotationViewReuseIdentifier
-
-        static let annotationImage = kitImage(symbolName: "mappin.circle",
-                                             accessibilityDescription: "Map pin inside a circle")
-        static let selectedAnnotationImage = kitImage(symbolName: "mappin.circle.fill",
-                                             accessibilityDescription: "Selected Map pin inside a circle")
-
-        static let clusterAnnotationImage = kitImage(symbolName: "seal",
-                                                    accessibilityDescription: "star-like shape")
-
 
         private func registerMapAnnotationViews() {
-            mapView?.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.geoPointReuseIdentifier)
-            mapView?.register(MKAnnotationView.self, forAnnotationViewWithReuseIdentifier: Self.clusterAnnotationReuseIdentifier)
+            mapView?.register(MRMapAnnotationView.self, forAnnotationViewWithReuseIdentifier: MRMapAnnotationView.reuseIdentifier)
+            mapView?.register(MRMapAnnotationView.self, forAnnotationViewWithReuseIdentifier: MRMapAnnotationView.clusterAnnotationReuseIdentifier)
         }
 
-        func loadOverlays(annotations: [MKAnnotation], overlays: [MKOverlay]) {
-            guard let mp = mapView else { return }
-            if !annotations.isEmpty {
-                mp.addAnnotations(annotations)
-            }
-            if !overlays.isEmpty {
-                mp.addOverlays(overlays, level: .aboveRoads)
-            }
-        }
-
-        func unloadOverlays() {
-            guard let mp = mapView else { return }
-            let overlays = mp.overlays.filter({ overlay in
-                return !(overlay is CustomLoadingTileOverlay)
-            })
-            mp.removeAnnotations(mp.annotations)
-            mp.removeOverlays(overlays)
+        private func renderer(for renderable: (any Renderable)?) -> MKOverlayPathRenderer? {
+            return renderable?.makeRenderer(isSelected: isSelected(renderable))
         }
 
         @objc func managedObjectContextObjectsDidChange(notification: NSNotification) {
             guard let userInfo = notification.userInfo,
-                  let view = mapView else {
+                  let _ = mapView else {
                 return
             }
 
             // BUGBUG: restrict scope of the geometries we're interested in to just those in current featureCollection
-            if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-                handle(mapView: view, inserts: inserts.compactMap({ $0 as? Geometry }))
-            }
-            if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
-                handle(mapView: view, updates: updates.compactMap({ $0 as? Geometry }))
-            }
-            if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
-                handle(mapView: view, deletes: deletes.compactMap({ $0 as? Geometry }))
-            }
-        }
+            let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> ?? []
+            let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> ?? []
 
-        func handle(mapView: MKMapView, updates: [Geometry]) {
-            updates.forEach { geometry in
-                if let r = geometry.renderer(selected: isSelected(geometry)) {
-                    r.setNeedsDisplay()
-                } else {
-                    self.refreshAnnotation(geometry: geometry)
-                }
-            }
-        }
-
-        func handle(mapView: MKMapView, inserts: [Geometry]) {
-            guard inserts.count > 0 else { return }
-            var annotations = [MKAnnotation]()
-            var overlays = [MKOverlay]()
-
-            inserts.forEach { (g: Geometry) in
-                if g.isPoint {
-                    annotations.append(g)
-                } else {
-                    overlays.append(g)
-                }
-            }
-            Task { [annotations, overlays] in
-                await MainActor.run {
-                    loadOverlays(annotations: annotations, overlays: overlays)
-                }
-            }
-        }
-
-        func handle(mapView: MKMapView, deletes: [Geometry]) {
-
-            func annotation(with geometry: Geometry) -> MKAnnotation? {
-                if let ann = mapView.annotations.first(where: { annotation in
-                    guard let g = annotation as? Geometry else { return false }
-                    return g == geometry
-                }) {
-                    return ann
-                }
-                return nil
+            if !inserts.isEmpty && !deletes.isEmpty {
+                update(mrMap: mrMap)
             }
 
-            func overlay(with geometry: Geometry) -> MKOverlay? {
-                if let ovr = mapView.overlays.first(where: { overlay in
-                    guard let g = overlay as? Geometry else { return false }
-                    return g == geometry
-                }) {
-                    return ovr
-                }
-                return nil
-            }
-
-            var annotations = [MKAnnotation]()
-            var overlays = [MKOverlay]()
-
-            deletes.forEach { g in
-                if g.isPoint {
-                    if let ann = annotation(with: g) {
-                        annotations.append(ann)
+            if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, !updates.isEmpty {
+                updates.compactMap({ $0 as? Geometry }).forEach { geometry in
+                    if let r = renderer(for: geometry as? (any Renderable)) {
+                        r.setNeedsDisplay()
+                    } else {
+                        self.refreshAnnotation(geometry: geometry)
                     }
-                } else {
-                    if let ovr = overlay(with: g) {
-                        overlays.append(ovr)
-                    }
-                }
-            }
-
-            Task { [overlays, annotations] in
-                await MainActor.run {
-                    mapView.removeOverlays(overlays)
-                    mapView.removeAnnotations(annotations)
                 }
             }
         }
     }
 }
 
-extension MKAnnotationView {
-    func setClusteringIdentifier(id: String) -> MKAnnotationView {
-        self.clusteringIdentifier = id
-        return self
-    }
-
-    func setStyle(for annotation: Geometry, selected: Bool) -> MKAnnotationView {
-
-        //            pointAnnotationView.canShowCallout = true
-
-        // Provide the annotation view's image.
-        //            let image = #imageLiteral(resourceName: "flag")
-        self.image = selected ? MRMap.MapCoordinator.selectedAnnotationImage : MRMap.MapCoordinator.annotationImage
-        self.setSelected(selected, animated: true)
-
-        //            // Provide the left image icon for the annotation.
-        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
-
-        // Offset the flag annotation so that the flag pole rests on the map coordinate.
-        //            let offset = CGPoint(x: image.size.width / 2, y: -(image.size.height / 2) )
-        //            pointAnnotationView.centerOffset = offset
-
-        return self
-    }
-
-    func setStyle(forCluster annotation: MKClusterAnnotation) -> MKAnnotationView {
-
-        //            pointAnnotationView.canShowCallout = true
-
-        let pointCount = annotation.memberAnnotations.count
-        self.image = kitImage(symbolName: "\(pointCount).circle", accessibilityDescription: "encircled number")
-
-        //            // Provide the left image icon for the annotation.
-        //            pointAnnotationView.leftCalloutAccessoryView = UIImageView(image: #imageLiteral(resourceName: "sf_icon"))
-
-        return self
-    }
-}
-
-extension MRMap.MapCoordinator: MKMapViewDelegate {
-
-    func createOverlays(from geometries: [Geometry]) -> ([MKAnnotation], [MKOverlay]) {
-        var annotations = [MKAnnotation]()
-        var overlays = [MKOverlay]()
-        geometries.forEach { geometry in
-            if geometry.isPoint {
-                annotations.append(geometry)
-            } else {
-                overlays.append(geometry)
-            }
+extension MRMap.MapCoordinator: MKMapViewDelegate, MRMapAnnotationViewHitHandler {
+    func hit(annotationView: MRMapAnnotationView, commandIsDown: Bool) {
+        if let g = annotationView.annotation as? Geometry {
+            objectTapped(geometry: g, continueSelection: commandIsDown)
         }
-        return (annotations, overlays)
     }
+    
 
     func update(mrMap: MRMap) {
         self.mrMap = mrMap
@@ -374,19 +323,38 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
         previousSelection.removeAll()
         previousSelection.formUnion(mrMap.selection)
 
-        let (annotations, overlays) = createOverlays(from: mrMap.geometries)
+        let existingAnnotations = mapView!.annotations.filter( { $0 is Geometry }) as! [Geometry]
+        let existingOverlays = mapView!.overlays.filter( { $0 is Geometry }) as! [Geometry]
 
-        Task { [annotations, overlays] in
+        let oldset = Set(existingAnnotations)
+        let newset = Set(mrMap.geometries.filter { $0 is MGPoint })
+        let toRemove = oldset.subtracting(newset)
+        let toAdd = newset.subtracting(oldset)
+
+        let oldOverlaySet = Set(existingOverlays)
+        let newOverlaySet = Set(mrMap.geometries.filter { !($0 is MGPoint) })
+        let overlaysToRemove = oldOverlaySet.subtracting(newOverlaySet)
+        let overlaysToAdd = newOverlaySet.subtracting(oldOverlaySet)
+
+        Task { [toChange, toRemove, toAdd, overlaysToRemove, overlaysToAdd] in
             await MainActor.run {
-                unloadOverlays()
-                loadOverlays(annotations: annotations, overlays: overlays)
+                mapView?.addOverlays(Array<Geometry>(overlaysToAdd), level: .aboveRoads)
+                mapView?.addAnnotations(Array<Geometry>(toAdd))
+
+                mapView?.removeOverlays(Array<Geometry>(overlaysToRemove))
+                mapView?.removeAnnotations(Array<Geometry>(toRemove))
+
+                self.rerender(changeSet: toChange)
 
                 if mrMap.selection.count == 1 {
                     self.flyToSelection(mrMap.selection.first!)
                 }
-                self.rerender(changeSet: toChange)
             }
         }
+    }
+
+    func clicked(annotationView: MRMapAnnotationView) {
+        print("annotationView")
     }
 
     func objectTapped(geometry: Geometry,
@@ -402,11 +370,10 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
     }
 
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-
         switch overlay {
-        case let geometry as Geometry:
-            return geometry.renderer(selected: isSelected(geometry))
-            ?? MKOverlayRenderer(overlay: overlay)
+
+        case let mgOverlay as any Renderable:
+            return mgOverlay.makeRenderer(isSelected: isSelected(mgOverlay as Geometry))
 
         case let overlay as MKTileOverlay:
             return MKTileOverlayRenderer(tileOverlay: overlay)
@@ -415,6 +382,7 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
             return MKOverlayRenderer(overlay: overlay)
         }
     }
+
 
     func mapView(_ mapView: MKMapView,
                  viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -425,41 +393,27 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
             // not an annotation view we wish to customize yet.
             return nil
 
-        case let g as Geometry: // Probably a .shape is GeoPoint
-            return mapView.dequeueReusableAnnotationView(withIdentifier: Self.geoPointReuseIdentifier, for: annotation)
-                .setClusteringIdentifier(id: "pointcluster") // TODO: this is _very_ temporary
-                .setStyle(for: g,
-                          selected: isSelected(g))
+        case let g as MGPoint: // Probably a .shape is GeoPoint
+            let decorator = MGPointDecorator(point: g, isSelected: isSelected(g))
+            return decorator.decorate(view: (mapView.dequeueReusableAnnotationView(withIdentifier: MRMapAnnotationView.reuseIdentifier, for: annotation) as! MRMapAnnotationView))
+                .setHitHandler(self)
 
         case let clusterAnnotation as MKClusterAnnotation:
-            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: Self.clusterAnnotationReuseIdentifier,
-                                                                       for: annotation)
-            return annotationView.setStyle(forCluster: clusterAnnotation)
+            let decorator = MGClusterDecorator(annotation: clusterAnnotation)
+            return decorator.decorate(view: (mapView.dequeueReusableAnnotationView(withIdentifier: MRMapAnnotationView.clusterAnnotationReuseIdentifier,
+                                                                                   for: annotation) as! MRMapAnnotationView))
 
         default:
+            print("unknown annotation")
             return nil
         }
     }
 
-    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("did SELECT an annotation")
-    }
-
-    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        print("did DESELECT an annotation")
-    }
-
     func refreshAnnotation(geometry: Geometry) {
-        guard let ann = mapView?.annotations.first(where: { annotation in
-            guard let g = annotation as? Geometry else { return false }
-            return g == geometry
-        }) else {
-            return
-        }
         Task {
             await MainActor.run {
-                mapView?.removeAnnotation(ann)
-                mapView?.addAnnotation(ann)
+                mapView?.removeAnnotation(geometry)
+                mapView?.addAnnotation(geometry)
             }
         }
     }
@@ -467,11 +421,13 @@ extension MRMap.MapCoordinator: MKMapViewDelegate {
     @MainActor
     func rerender(changeSet: Set<Geometry>) {
         changeSet.forEach { geometry in
-            let selected = isSelected(geometry)
-            if let r = geometry.renderer(selected: selected) {
-                r.setNeedsDisplay()
+            if geometry is MGPoint {
+                mapView?.removeAnnotation(geometry)
+                mapView?.addAnnotation(geometry)
+//                self.refreshAnnotation(geometry: geometry)
             } else {
-                self.refreshAnnotation(geometry: geometry)
+                mapView?.removeOverlay(geometry)
+                mapView?.addOverlay(geometry)
             }
         }
     }
@@ -498,6 +454,8 @@ extension MRMap.MapCoordinator: MGGestureRecognizerDelegate {
 
     @objc func handleClick(gestureRecognizer: MGGestureRecognizer) {
 
+        typealias GPV = (geometry: Geometry, path: CGPath, viewPoint: CGPoint)
+
         guard let hitGestureRecognizer = gestureRecognizer as? HitGestureRecognizer else {
             return
         }
@@ -512,31 +470,42 @@ extension MRMap.MapCoordinator: MGGestureRecognizerDelegate {
         // that path.
         // Finally, use cgpath operations to determine whether this point is
         // inside that generated path.
-        mapView?.overlays.compactMap { (overlay: MKOverlay) in
+        let clickedOn: [Geometry]? = mapView?.overlays.compactMap { (overlay: MKOverlay) in
             return overlay as? Geometry
         }
         .compactMap { (geometry: Geometry) in
-            let renderer = geometry.renderer(selected: self.isSelected(geometry)) as? MKOverlayPathRenderer
+            let renderer = renderer(for: geometry as? (any Renderable))
             guard let path = renderer?.path,
                   let  viewPoint = renderer?.point(for: mapPoint) else { return nil }
 
-            return (geometry, path, viewPoint)
+            return GPV(geometry:geometry, path: path, viewPoint:viewPoint)
         }
         .map { (geometry: Geometry, path: CGPath, viewPoint: CGPoint) in
             // If the geometry is a LineString, turn the path from a sequence of line segments
             // into a thin polygon
             // TODO: use the current zoom level to adjust the width of the thin polygon appropriately
-            return geometry.isPolylineish
-            ? (geometry, path.copy(strokingWithWidth: 500, lineCap: .round, lineJoin: .round, miterLimit: 0), viewPoint)
-            : (geometry, path, viewPoint)
+            let p = geometry.isPolylineish
+            ? path.copy(strokingWithWidth: 500, lineCap: .round, lineJoin: .round, miterLimit: 0)
+            : path
+
+            return GPV(geometry:geometry, path: p, viewPoint:viewPoint)
         }
-        .compactMap { (geometry: Geometry, path: CGPath, viewPoint: CGPoint) in
-            guard path.contains(viewPoint) else { return nil }
-            return geometry
+        .compactMap { gpv in
+            guard gpv.path.contains(gpv.viewPoint) else { return nil }
+            return gpv.geometry
         }
-        .forEach { (geometry: Geometry) in
-            objectTapped(geometry: geometry,
-                         continueSelection: hitGestureRecognizer.commandIsDown)
+
+        if let co = clickedOn {
+            if co.isEmpty {
+                clearSelection()
+            } else {
+                co.forEach { (geometry: Geometry) in
+                    objectTapped(geometry: geometry,
+                                 continueSelection: hitGestureRecognizer.commandIsDown)
+                }
+            }
+        } else {
+            clearSelection()
         }
     }
 }

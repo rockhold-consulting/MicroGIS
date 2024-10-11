@@ -125,16 +125,11 @@ public class MGMultipoint: Geometry {
     }
 }
 
+
 @objc(MGPolyline)
 public class MGPolyline: MGMultipoint {
     public override class var shapeCode: GeoShapeType { get { .Polyline }}
     public override class var iconName: String { "lines.measurement.horizontal" }
-}
-
-@objc(MGGeodesicPolyline)
-public class MGGeodesicPolyline: MGPolyline {
-    public override class var shapeCode: GeoShapeType { get { .GeodesicPolyline }}
-    public override class var iconName: String { "wifi" }
 }
 
 @objc(MGPolygon)
@@ -156,8 +151,8 @@ public class MGMultiPolygon: Geometry {
     public override class var iconName: String { "platter.2.filled.ipad.landscape" }
 
     public convenience init(context:NSManagedObjectContext,
-                center: CLLocationCoordinate2D,
-                polygons: [MGPolygon]) {
+                            center: CLLocationCoordinate2D,
+                            polygons: [MGPolygon]) {
         self.init(context: context, center: center)
         self.addToPolygons(NSSet(array: polygons))
     }

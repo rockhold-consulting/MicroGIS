@@ -18,6 +18,7 @@
         <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeatureCollection" inverseName="features" inverseEntity="FeatureCollection"/>
         <relationship name="geometries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Geometry" inverseName="feature" inverseEntity="Geometry"/>
         <relationship name="properties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeatureProperty" inverseName="feature" inverseEntity="FeatureProperty"/>
+        <relationship name="styleRules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StyleRule" inverseName="feature" inverseEntity="StyleRule"/>
     </entity>
     <entity name="FeatureCollection" representedClassName="FeatureCollection" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -27,6 +28,7 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="thumbnailImageData" optional="YES" attributeType="Binary"/>
         <relationship name="features" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Feature" inverseName="collection" inverseEntity="Feature"/>
+        <relationship name="styleRules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StyleRule" inverseName="collection" inverseEntity="StyleRule"/>
         <relationship name="stylesheet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stylesheet" inverseName="collections" inverseEntity="Stylesheet"/>
     </entity>
     <entity name="FeatureProperty" representedClassName="FeatureProperty" isAbstract="YES" syncable="YES" codeGenerationType="class">
@@ -45,7 +47,6 @@
     <entity name="MGCircle" representedClassName="MGCircle" parentEntity="Geometry" syncable="YES" codeGenerationType="category">
         <attribute name="radius" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="MGGeodesicPolyline" representedClassName="MGGeodesicPolyline" parentEntity="MGPolyline" syncable="YES" codeGenerationType="category"/>
     <entity name="MGMultipoint" representedClassName="MGMultipoint" isAbstract="YES" parentEntity="Geometry" syncable="YES" codeGenerationType="category">
         <attribute name="pointCount" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="pointData" optional="YES" attributeType="Binary"/>
@@ -63,11 +64,16 @@
         <relationship name="multiPolygon" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MGMultiPolygon" inverseName="polygons" inverseEntity="MGMultiPolygon"/>
     </entity>
     <entity name="MGPolyline" representedClassName="MGPolyline" parentEntity="MGMultipoint" syncable="YES" codeGenerationType="category">
+        <attribute name="isGeodesic" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <relationship name="multiPolyline" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MGMultiPolyline" inverseName="polylines" inverseEntity="MGMultiPolyline"/>
     </entity>
     <entity name="NullFeatureProperty" representedClassName="NullFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class"/>
     <entity name="StringFeatureProperty" representedClassName="StringFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
         <attribute name="value" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="StyleRule" representedClassName="StyleRule" syncable="YES" codeGenerationType="class">
+        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeatureCollection" inverseName="styleRules" inverseEntity="FeatureCollection"/>
+        <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feature" inverseName="styleRules" inverseEntity="Feature"/>
     </entity>
     <entity name="Stylesheet" representedClassName="Stylesheet" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>

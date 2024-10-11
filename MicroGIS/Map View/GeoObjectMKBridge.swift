@@ -39,44 +39,6 @@ extension CLLocationCoordinate2D {
     }
 }
 
-protocol Renderable where Self:Geometry {
-    func makeRenderer() -> MKOverlayPathRenderer
-}
-
-extension MGPolyline: Renderable {
-    func makeRenderer() -> MKOverlayPathRenderer {
-        if self is MGGeodesicPolyline {
-            return MKPolylineRenderer(polyline: MKGeodesicPolyline(from: self))
-        } else {
-            return MKPolylineRenderer(polyline: MKPolyline(from: self))
-        }
-    }
-}
-
-extension MGCircle: Renderable {
-    @objc func makeRenderer() -> MKOverlayPathRenderer {
-        return MKCircleRenderer(circle: MKCircle(center: self.center, radius: self.radius))
-    }
-}
-
-extension MGPolygon: Renderable {
-    func makeRenderer() -> MKOverlayPathRenderer {
-        return MKPolygonRenderer(polygon: MKPolygon(from: self))
-    }
-}
-
-extension MGMultiPolyline: Renderable {
-    func makeRenderer() -> MKOverlayPathRenderer {
-        return MKMultiPolylineRenderer(multiPolyline: MKMultiPolyline(from: self))
-    }
-}
-
-extension MGMultiPolygon: Renderable {
-    func makeRenderer() -> MKOverlayPathRenderer {
-        return MKMultiPolygonRenderer(multiPolygon: MKMultiPolygon(from: self))
-    }
-}
-
 extension Geometry {
 
     public var center: CLLocationCoordinate2D {
@@ -89,19 +51,14 @@ extension Geometry {
         }
     }
 
-    func renderer(selected: Bool = false) -> MKOverlayRenderer? {
-
-        // TODO: did I have a good reason for Geometry not to implement Renderable?
-        guard let g = self as? Renderable else {
-            return nil
-        }
-
-        let r = g.makeRenderer()
-        if let ss = self.feature?.collection?.stylesheet {
-            ss.applyStyle(r, geometry: g, selected: selected)
-        }
-        return r
-    }
+//    func renderer(selected: Bool = false) -> MKOverlayRenderer? {
+//
+//        let r = makeRenderer()
+//        if let ss = self.feature?.collection?.stylesheet {
+//            ss.applyStyle(r, geometry: g, selected: selected)
+//        }
+//        return r
+//    }
 }
 
 extension MKPolyline {
@@ -118,19 +75,19 @@ extension MKPolyline {
   }
 }
 
-extension MKGeodesicPolyline {
-    convenience init(fromGeodesic polyline: MGPolyline) {
-        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
-                                                           count: Int(polyline.pointCount))
-
-        locationCoordinates.withUnsafeMutableBufferPointer { b in
-            _ = polyline.pointData?.copyBytes(to: b,
-                                              from: CLLocationCoordinate2D.bufferRange(for: polyline.pointCount))
-        }
-        self.init(coordinates: locationCoordinates,
-                  count: Int(polyline.pointCount))
-    }
-}
+//extension MKGeodesicPolyline {
+//    convenience init(fromGeodesic polyline: MGPolyline) {
+//        var locationCoordinates = [CLLocationCoordinate2D](repeating: CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0),
+//                                                           count: Int(polyline.pointCount))
+//
+//        locationCoordinates.withUnsafeMutableBufferPointer { b in
+//            _ = polyline.pointData?.copyBytes(to: b,
+//                                              from: CLLocationCoordinate2D.bufferRange(for: polyline.pointCount))
+//        }
+//        self.init(coordinates: locationCoordinates,
+//                  count: Int(polyline.pointCount))
+//    }
+//}
 
 extension MKPolygon {
     convenience init(from mgPolygon: MGPolygon) {
@@ -154,6 +111,12 @@ extension MKPolygon {
                       count:locationCoordinates.count,
                       interiorPolygons:innerPolygons)
         }
+    }
+}
+
+extension MKCircle {
+    convenience init(from geoShape: MGCircle) {
+        self.init(center: geoShape.center, radius: geoShape.radius)
     }
 }
 
