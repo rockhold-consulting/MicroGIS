@@ -29,7 +29,7 @@ struct FeatureCollectionView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
 
-    @State private var selection = Set<Geometry>()
+    @State private var geometrySelection = Set<Geometry>()
 
     @StateObject private var viewModel: FeatureCollectionModel
 
@@ -42,7 +42,7 @@ struct FeatureCollectionView: View {
         switch horizontalSizeClass {
         case .compact:
             TabView {
-                MRMap(geometries: viewModel.geometries, selection: $selection)
+                MRMap(geometries: viewModel.geometries, selection: $geometrySelection)
                     .tabItem {
                         Image(systemName: "map.circle")
                         Text("Map")
@@ -51,7 +51,7 @@ struct FeatureCollectionView: View {
 
                 GeometriesTable(geometries: viewModel.geometries,
                                 columns: viewModel.columns,
-                                selection: $selection)
+                                selection: $geometrySelection)
                     .searchable(text: $viewModel.searchText)
                     .tabItem {
                         Image(systemName: "list.bullet.circle")
@@ -59,7 +59,7 @@ struct FeatureCollectionView: View {
                     }
                     .tag(3)
 
-                switch selection.count {
+                switch geometrySelection.count {
                 case 0:
                     Text("Select geometries in the table or the map.")
                         .padding(20)
@@ -69,7 +69,7 @@ struct FeatureCollectionView: View {
                         }
                         .tag(0)
                 case 1:
-                    GeometryInfo(geometry: selection.first!)
+                    GeometryInfo(geometry: geometrySelection.first!)
                         .tabItem {
                             Image(systemName: "square.and.pencil")
                             Text("Details")
@@ -87,15 +87,14 @@ struct FeatureCollectionView: View {
             }
         case .regular:
             HStack {
-                VStack {
-                    MRMap(geometries: viewModel.geometries, selection: $selection)
+                MRMap(geometries: viewModel.geometries, selection: $geometrySelection)
 
-                    GeometriesInfo(geometries: selection)
+                VStack {
+                    GeometriesTable(geometries: viewModel.geometries,
+                                    columns: viewModel.columns,
+                                    selection: $geometrySelection)
+                    GeometriesInfo(geometries: geometrySelection)
                 }
-                GeometriesTable(geometries: viewModel.geometries,
-                                columns: viewModel.columns,
-                                selection: $selection)
-                .frame(width: 240)
             }
             .searchable(text: $viewModel.searchText)
         case .none:

@@ -43,10 +43,6 @@ struct GeometryInfo: View {
     @Environment(\.managedObjectContext) private var viewContext
     let geometry: Geometry
 
-    init(geometry: Geometry) {
-        self.geometry = geometry
-    }
-
     private func doSave() {
         do {
             try viewContext.save()

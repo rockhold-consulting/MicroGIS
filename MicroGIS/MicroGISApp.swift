@@ -28,7 +28,7 @@ struct MicroGISApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
         #if os(macOS)
