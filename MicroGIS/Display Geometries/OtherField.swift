@@ -26,7 +26,6 @@ struct OtherField: View {
     @State private var value: String
     private let featureProperty: FeatureProperty
     private let submitter: ()->Void
-    private static let jsonValueFormatter = JSONValueFormatter()
 
     init(featureProperty: FeatureProperty, submitter: @escaping ()->Void) {
         // TODO: implement this for real; display the JSON code, use a formatter to enforce correctness of modifications

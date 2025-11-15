@@ -23,30 +23,57 @@
 import SwiftUI
 
 struct GeometriesInfo: View {
-    let geometries: Set<Geometry>
-
+    let geometriesViewModel: GeometriesViewModel
+    
     var body: some View {
-        switch geometries.count {
-        case 0:
-            Text("Select geometries in the table or the map.")
-                .padding(20)
-
-            Spacer()
-
-        case 1:
-#if os(macOS)
-            ScrollView {
-                GeometryInfo(geometry: geometries.first!)
+        #if false
+        Section(header: Text("Location")) {
+            ForEach([geometry]) { g in // this loop is a hack, because I don't really understand the view update lifecycle, or when state is invalidated, or something
+                GeometryLocationView(geometry: g, saver: viewContext.saveIfNeeded)
             }
-            .padding(20)
-#else
-            GeometryInfo(geometry: geometries.first!)
-#endif
-
-        default:
-            Text("multiple (\(geometries.count)) geometries selected")
-                .padding(20)
-            Spacer()
         }
+
+        Section(header: Text("Feature Attributes")) {
+            Section {
+                // TODO: turns out you can't be sure of this feature being non-nil; in fact the geometry itself may have been deleted....
+                ForEach([geometry.feature!]) {
+                    FeatureInfoView(feature: $0, saver: {})
+                }
+            }
+        }
+        
+        Section(header: Text("Properties")) {
+            Section {
+                ForEach(geometry.featureProperties.sorted(by: { e1, e2 in
+                    return e1.key! < e2.key!
+                }), id:\.self) { fp in
+                    switch fp {
+                    case let sfp as StringFeatureProperty:
+                        StringField(stringFeatureProperty: sfp, submitter: viewContext.saveIfNeeded)
+                        
+                    case let bfp as BoolFeatureProperty:
+                        BoolField(boolFeatureProperty: bfp, submitter: viewContext.saveIfNeeded)
+                        
+                    case let ifp as IntFeatureProperty:
+                        IntField(intFeatureProperty: ifp, submitter: viewContext.saveIfNeeded)
+                        
+                    case let dfp as DoubleFeatureProperty:
+                        DoubleField(doubleFeatureProperty: dfp, submitter: viewContext.saveIfNeeded)
+                        
+                    case let dtfp as DateFeatureProperty:
+                        DateField(dateFeatureProperty: dtfp, submitter: viewContext.saveIfNeeded)
+                        
+                    case let nfp as NullFeatureProperty:
+                        NullField(nullFeatureProperty: nfp, submitter: {})
+                        
+                    default:
+                        OtherField(featureProperty: fp, submitter: {})
+                    }
+                }
+            }
+        }
+        #endif
+        
+        Text("GEOMETRIESINFO multiple (\(geometriesViewModel.geometryItems.count)) geometries selected")
     }
 }

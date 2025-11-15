@@ -8,17 +8,6 @@
 import Foundation
 import MapKit
 
-#if os(macOS)
-import Cocoa
-import AppKit
-typealias KitImage = NSImage
-typealias Kolor = NSColor
-#elseif os(iOS)
-import UIKit
-typealias KitImage = UIImage
-typealias Kolor = UIColor
-#endif
-
 protocol AnnotationDecorator {
     func decorate(view: MRMapAnnotationView) -> MRMapAnnotationView
 }
@@ -112,20 +101,41 @@ public class MGDecorator {
         self._geometry = geometry
         self._renderer = renderer
         self.isSelected = isSelected
-
-        self.apply(styleRules: StyleRule.defaults)
-
-        self.apply(styleRules: geometry.feature?.collection?.styleRules)
-
-        self.apply(styleRules: geometry.feature?.styleRules)
+        
+        self.apply(styles: Stylesheet.defaultStyles())
+        self.apply(styles: geometry.feature?.collection?.stylesheet?.styles())
+        self.apply(styles: geometry.feature?.stylesheet?.styles())
+        self.apply(styles: geometry.stylesheet?.styles())
+        
+        self.applySelection()
     }
 
-    private func apply(styleRules: NSSet?) {
-        self.apply(styleRules: (styleRules as? Set<StyleRule>) ?? Set<StyleRule>())
+    func apply(styles: [Style]?) {
+        guard let r = _renderer as? MKOverlayPathRenderer, let ss = styles else {
+            return
+        }
+        for s in ss {
+            if s.predicate?.evaluate(with: self._geometry) ?? true { // apply the style if the predicate evals to true, or if it's nil
+                // TODO: handle marker symbols
+                // markersize, markerSymbol, markerColor
+                
+                r.strokeColor = Kolor(red: CGFloat(s.strokeColor.0) / 255.0,
+                                      green: CGFloat(s.strokeColor.1) / 255.0,
+                                      blue: CGFloat(s.strokeColor.2) / 255.0,
+                                      alpha: CGFloat(s.strokeOpacity))
+                r.fillColor = Kolor(red: CGFloat(s.fillColor.0) / 255.0,
+                                      green: CGFloat(s.fillColor.1) / 255.0,
+                                      blue: CGFloat(s.fillColor.2) / 255.0,
+                                      alpha: CGFloat(s.fillOpacity))
+                
+                r.lineWidth = CGFloat(s.strokeWidth)
+            }
+        }
     }
-    func apply(styleRules: Set<StyleRule>) {
-        // just handle selection in the base case
-        if isSelected, let r = _renderer as? MKOverlayPathRenderer {
+    
+    func applySelection() {
+        // TODO: selection
+        if let r = _renderer as? MKOverlayPathRenderer, isSelected {
             r.strokeColor = Kolor.black
         }
     }
@@ -212,13 +222,6 @@ class MGPolylineDecorator: MGDecorator {
 
     var geometry: MGPolyline { return self._geometry as! MGPolyline }
     var renderer: MKPolylineRenderer { return self._renderer as! MKPolylineRenderer }
-
-    override func apply(styleRules: Set<StyleRule>) {
-        // TODO: remove temporary hard-coded style
-        renderer.strokeColor = Kolor.green
-        renderer.lineWidth = 4.0
-        super.apply(styleRules: styleRules)
-    }
 }
 
 class MGPolygonDecorator: MGDecorator {
@@ -232,14 +235,6 @@ class MGPolygonDecorator: MGDecorator {
 
     var geometry: MGPolygon { return self._geometry as! MGPolygon }
     var renderer: MKPolygonRenderer { return self._renderer as! MKPolygonRenderer }
-
-    override func apply(styleRules: Set<StyleRule>) {
-        // TODO: remove temporary hard-coded style
-        renderer.fillColor = Kolor.green
-        renderer.strokeColor = Kolor.green
-        renderer.lineWidth = 4.0
-        super.apply(styleRules: styleRules)
-    }
 }
 
 class MGCircleDecorator: MGDecorator {
@@ -252,14 +247,6 @@ class MGCircleDecorator: MGDecorator {
 
     var geometry: MGCircle { return self._geometry as! MGCircle }
     var renderer: MKCircleRenderer { return self._renderer as! MKCircleRenderer }
-
-    override func apply(styleRules: Set<StyleRule>) {
-        // TODO: remove temporary hard-coded style
-        renderer.fillColor = Kolor.green
-        renderer.strokeColor = Kolor.green
-        renderer.lineWidth = 4.0
-        super.apply(styleRules: styleRules)
-    }
 }
 
 class MGMultiPolylineDecorator: MGDecorator {
@@ -272,14 +259,6 @@ class MGMultiPolylineDecorator: MGDecorator {
 
     var geometry: MGMultiPolyline { return self._geometry as! MGMultiPolyline }
     var renderer: MKMultiPolylineRenderer { return self._renderer as! MKMultiPolylineRenderer }
-
-    override func apply(styleRules: Set<StyleRule>) {
-        // TODO: remove temporary hard-coded style
-        renderer.fillColor = Kolor.green
-        renderer.strokeColor = Kolor.green
-        renderer.lineWidth = 4.0
-        super.apply(styleRules: styleRules)
-    }
 }
 
 class MGMultiPolygonDecorator: MGDecorator {
@@ -290,14 +269,10 @@ class MGMultiPolygonDecorator: MGDecorator {
                    isSelected: isSelected)
     }
 
-    var geometry: MGMultiPolygon { return self._geometry as! MGMultiPolygon }
-    var renderer: MKMultiPolygonRenderer { return self._renderer as! MKMultiPolygonRenderer }
-
-    override func apply(styleRules: Set<StyleRule>) {
-        // TODO: remove temporary hard-coded style
-        renderer.fillColor = Kolor.green
-        renderer.strokeColor = Kolor.green
-        renderer.lineWidth = 4.0
-        super.apply(styleRules: styleRules)
+    var geometry: MGMultiPolygon {
+        return self._geometry as! MGMultiPolygon
+    }
+    var renderer: MKMultiPolygonRenderer {
+        return self._renderer as! MKMultiPolygonRenderer
     }
 }

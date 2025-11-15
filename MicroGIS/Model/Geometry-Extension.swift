@@ -36,7 +36,7 @@ public protocol MultiCoordinate {
 public typealias GeometryID = NSManagedObjectID
 
 @objc(Geometry)
-public class Geometry: NSManagedObject {
+public class Geometry: StylesheetOwner {
 
     public enum GeoShapeType: Int16, Codable {
         case Invalid = 0

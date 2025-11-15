@@ -116,8 +116,8 @@ protocol MRMapAnnotationViewHitHandler {
 struct MRMap: BaseViewRepresentable {
 
     @Environment(\.managedObjectContext) var managedObjectContext
-    let geometries: [Geometry]
-    @Binding var selection: Set<Geometry>
+    let geometries: [GeometryItem]
+    @Binding var selection: Set<GeometryItem.ID>
 
     typealias Coordinator = MapCoordinator
 
@@ -130,6 +130,10 @@ struct MRMap: BaseViewRepresentable {
         view.delegate = context.coordinator
         context.coordinator.mapView = view
         return view
+    }
+
+    private func geometry(with geometryItemID: GeometryItem.ID) -> Geometry {
+        managedObjectContext.geometry(for: geometryItemID)
     }
 
 #if os(macOS)
@@ -153,7 +157,7 @@ extension MRMap {
 
     class MapCoordinator: NSObject {
         var mrMap: MRMap!
-        var previousSelection = Set<Geometry>()
+        var previousSelection = Set<GeometryItem.ID>()
 
         var selectionFlasher: Timer!
 
@@ -168,8 +172,11 @@ extension MRMap {
                     return
                 }
 
-                mrMap.selection.forEach { g in
-                    if let av = mv.view(for: g) {
+                mrMap.selection.forEach { geometryItemID in
+                    guard let geometry = self?.mrMap.geometry(with: geometryItemID) else {
+                        return
+                    }
+                    if let av = mv.view(for: geometry) {
 
                         let sz = av.image!.size
                         #if os(macOS)
@@ -190,7 +197,7 @@ extension MRMap {
 
                         #endif
 
-                    } else if let r = mv.renderer(for: g) as? MKOverlayPathRenderer {
+                    } else if let r = mv.renderer(for: geometry) as? MKOverlayPathRenderer {
 
                         let lineWidth = r.lineWidth
                         if lineWidth != 5.0 {
@@ -204,7 +211,7 @@ extension MRMap {
             }
 
         }
-
+        
         weak var mapView: MKMapView? = nil {
             didSet {
                 if let mv = mapView {
@@ -307,6 +314,16 @@ extension MRMap {
     }
 }
 
+extension MKMapView {
+    func geometryAnnotationIDs() -> Set<GeometryItem.ID> {
+        Set((self.annotations.filter({ $0 is Geometry }) as! [Geometry]).map(\.objectID))
+    }
+    
+    func geometryOverlayIDs() -> Set<GeometryItem.ID> {
+        Set((self.overlays.filter({ $0 is Geometry }) as! [Geometry]).map(\.objectID))
+    }
+}
+                                 
 extension MRMap.MapCoordinator: MKMapViewDelegate, MRMapAnnotationViewHitHandler {
     func hit(annotationView: MRMapAnnotationView, commandIsDown: Bool) {
         if let g = annotationView.annotation as? Geometry {
@@ -323,26 +340,25 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, MRMapAnnotationViewHitHandler
         previousSelection.removeAll()
         previousSelection.formUnion(mrMap.selection)
 
-        let existingAnnotations = mapView!.annotations.filter( { $0 is Geometry }) as! [Geometry]
-        let existingOverlays = mapView!.overlays.filter( { $0 is Geometry }) as! [Geometry]
+        let existingAnnotationsSet = mapView!.geometryAnnotationIDs()
+        let existingOverlaySet = mapView!.geometryOverlayIDs()
 
-        let oldset = Set(existingAnnotations)
-        let newset = Set(mrMap.geometries.filter { $0 is MGPoint })
-        let toRemove = oldset.subtracting(newset)
-        let toAdd = newset.subtracting(oldset)
+        let newAnnotationsSet = Set(mrMap.geometries.filter { $0.geometry is MGPoint }.map(\.id))
+        let newOverlaySet = Set(mrMap.geometries.filter { !($0.geometry is MGPoint) }.map(\.id))
 
-        let oldOverlaySet = Set(existingOverlays)
-        let newOverlaySet = Set(mrMap.geometries.filter { !($0 is MGPoint) })
-        let overlaysToRemove = oldOverlaySet.subtracting(newOverlaySet)
-        let overlaysToAdd = newOverlaySet.subtracting(oldOverlaySet)
+        let annotationsToRemove = existingAnnotationsSet.subtracting(newAnnotationsSet).map { self.mrMap.geometry(with: $0) }
+        let annotationsToAdd = newAnnotationsSet.subtracting(existingAnnotationsSet).map { self.mrMap.geometry(with: $0) }
 
-        Task { [toChange, toRemove, toAdd, overlaysToRemove, overlaysToAdd] in
+        let overlaysToRemove = existingOverlaySet.subtracting(newOverlaySet).map { self.mrMap.geometry(with: $0) }
+        let overlaysToAdd = newOverlaySet.subtracting(existingOverlaySet).map { self.mrMap.geometry(with: $0) }
+
+        Task { [toChange, annotationsToRemove, annotationsToAdd, overlaysToRemove, overlaysToAdd] in
             await MainActor.run {
-                mapView?.addOverlays(Array<Geometry>(overlaysToAdd), level: .aboveRoads)
-                mapView?.addAnnotations(Array<Geometry>(toAdd))
+                mapView?.addOverlays(overlaysToAdd, level: .aboveRoads)
+                mapView?.addAnnotations(annotationsToAdd)
 
-                mapView?.removeOverlays(Array<Geometry>(overlaysToRemove))
-                mapView?.removeAnnotations(Array<Geometry>(toRemove))
+                mapView?.removeOverlays(overlaysToRemove)
+                mapView?.removeAnnotations(annotationsToRemove)
 
                 self.rerender(changeSet: toChange)
 
@@ -419,8 +435,9 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, MRMapAnnotationViewHitHandler
     }
 
     @MainActor
-    func rerender(changeSet: Set<Geometry>) {
-        changeSet.forEach { geometry in
+    func rerender(changeSet: Set<GeometryItem.ID>) {
+        changeSet.forEach { id in
+            let geometry: Geometry = self.mrMap.geometry(with: id)
             if geometry is MGPoint {
                 mapView?.removeAnnotation(geometry)
                 mapView?.addAnnotation(geometry)
@@ -432,7 +449,8 @@ extension MRMap.MapCoordinator: MKMapViewDelegate, MRMapAnnotationViewHitHandler
         }
     }
 
-    func flyToSelection(_ geometry:  Geometry) {
+    func flyToSelection(_ geometryID:  GeometryItem.ID) {
+        let geometry = self.mrMap.geometry(with: geometryID)
         mapView?.setCenter(geometry.center, animated: true)
     }
 }
@@ -514,7 +532,7 @@ extension MRMap.MapCoordinator {
 
     func isSelected(_ geometry: Geometry?) -> Bool {
         guard let g = geometry else { return false }
-        return mrMap.selection.contains(g)
+        return mrMap.selection.contains(g.objectID)
     }
 
     func clearSelection() {
@@ -523,12 +541,12 @@ extension MRMap.MapCoordinator {
 
     func select(_ geometry: Geometry?) {
         guard let g = geometry else { return }
-        mrMap.selection.insert(g)
+        mrMap.selection.insert(g.objectID)
     }
 
     func deselect(_ geometry: Geometry?) {
         guard let g = geometry else { return }
-        mrMap.selection.remove(g)
+        mrMap.selection.remove(g.objectID)
     }
 }
 

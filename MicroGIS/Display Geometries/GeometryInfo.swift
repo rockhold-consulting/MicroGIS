@@ -21,6 +21,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 extension Geometry {
     var featureID: String {
@@ -39,23 +40,24 @@ extension Geometry {
     }
 }
 
+extension NSManagedObjectContext {
+    func saveIfNeeded() {
+        if hasChanges {
+            try! save()
+        }
+    }
+}
+
 struct GeometryInfo: View {
     @Environment(\.managedObjectContext) private var viewContext
     let geometry: Geometry
 
-    private func doSave() {
-        do {
-            try viewContext.save()
-        } catch {
-            fatalError()
-        }
-    }
-
     var body: some View {
         Form {
+
             Section(header: Text("Location")) {
                 ForEach([geometry]) { g in // this loop is a hack, because I don't really understand the view update lifecycle, or when state is invalidated, or something
-                    GeometryLocationView(geometry: g, saver: doSave)
+                    GeometryLocationView(geometry: g, saver: viewContext.saveIfNeeded)
                 }
             }
 
@@ -63,39 +65,40 @@ struct GeometryInfo: View {
                 Section {
                     // TODO: turns out you can't be sure of this feature being non-nil; in fact the geometry itself may have been deleted....
                     ForEach([geometry.feature!]) {
-                        FeatureInfoView(feature: $0, saver: doSave)
+                        FeatureInfoView(feature: $0, saver: {})
                     }
                 }
-                Section(header: Text("Properties")) {
+            }
+            Section(header: Text("Properties")) {
+                Section {
                     ForEach(geometry.featureProperties.sorted(by: { e1, e2 in
                         return e1.key! < e2.key!
                     }), id:\.self) { fp in
                         switch fp {
                         case let sfp as StringFeatureProperty:
-                            StringField(stringFeatureProperty: sfp, submitter: doSave)
-
+                            StringField(stringFeatureProperty: sfp, submitter: viewContext.saveIfNeeded)
+                            
                         case let bfp as BoolFeatureProperty:
-                            BoolField(boolFeatureProperty: bfp, submitter: doSave)
-
+                            BoolField(boolFeatureProperty: bfp, submitter: viewContext.saveIfNeeded)
+                            
                         case let ifp as IntFeatureProperty:
-                            IntField(intFeatureProperty: ifp, submitter: doSave)
-
+                            IntField(intFeatureProperty: ifp, submitter: viewContext.saveIfNeeded)
+                            
                         case let dfp as DoubleFeatureProperty:
-                            DoubleField(doubleFeatureProperty: dfp, submitter: doSave)
-
+                            DoubleField(doubleFeatureProperty: dfp, submitter: viewContext.saveIfNeeded)
+                            
                         case let dtfp as DateFeatureProperty:
-                            DateField(dateFeatureProperty: dtfp, submitter: doSave)
-
+                            DateField(dateFeatureProperty: dtfp, submitter: viewContext.saveIfNeeded)
+                            
                         case let nfp as NullFeatureProperty:
                             NullField(nullFeatureProperty: nfp, submitter: {})
-
+                            
                         default:
                             OtherField(featureProperty: fp, submitter: {})
                         }
                     }
                 }
             }
-
         }
     }
 }

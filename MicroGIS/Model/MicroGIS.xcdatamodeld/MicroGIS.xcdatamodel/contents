@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22H123" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24C101" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="BlobFeatureProperty" representedClassName="BlobFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
         <attribute name="value" optional="YES" attributeType="Binary"/>
     </entity>
@@ -12,15 +12,14 @@
     <entity name="DoubleFeatureProperty" representedClassName="DoubleFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
         <attribute name="value" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
     </entity>
-    <entity name="Feature" representedClassName="Feature" syncable="YES" codeGenerationType="class">
+    <entity name="Feature" representedClassName="Feature" parentEntity="StylesheetOwner" syncable="YES" codeGenerationType="class">
         <attribute name="featureID" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeatureCollection" inverseName="features" inverseEntity="FeatureCollection"/>
         <relationship name="geometries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Geometry" inverseName="feature" inverseEntity="Geometry"/>
         <relationship name="properties" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="FeatureProperty" inverseName="feature" inverseEntity="FeatureProperty"/>
-        <relationship name="styleRules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StyleRule" inverseName="feature" inverseEntity="StyleRule"/>
     </entity>
-    <entity name="FeatureCollection" representedClassName="FeatureCollection" syncable="YES" codeGenerationType="class">
+    <entity name="FeatureCollection" representedClassName="FeatureCollection" parentEntity="StylesheetOwner" syncable="YES" codeGenerationType="class">
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="favorited" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
         <attribute name="modificationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -28,14 +27,12 @@
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="thumbnailImageData" optional="YES" attributeType="Binary"/>
         <relationship name="features" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Feature" inverseName="collection" inverseEntity="Feature"/>
-        <relationship name="styleRules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StyleRule" inverseName="collection" inverseEntity="StyleRule"/>
-        <relationship name="stylesheet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stylesheet" inverseName="collections" inverseEntity="Stylesheet"/>
     </entity>
     <entity name="FeatureProperty" representedClassName="FeatureProperty" isAbstract="YES" syncable="YES" codeGenerationType="class">
         <attribute name="key" optional="YES" attributeType="String"/>
         <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feature" inverseName="properties" inverseEntity="Feature"/>
     </entity>
-    <entity name="Geometry" representedClassName="Geometry" isAbstract="YES" syncable="YES" codeGenerationType="category">
+    <entity name="Geometry" representedClassName="Geometry" isAbstract="YES" parentEntity="StylesheetOwner" syncable="YES" codeGenerationType="category">
         <attribute name="centerLatitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="centerLongitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="rawShapeCode" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="8" defaultValueString="0" usesScalarValueType="YES"/>
@@ -71,12 +68,11 @@
     <entity name="StringFeatureProperty" representedClassName="StringFeatureProperty" parentEntity="FeatureProperty" syncable="YES" codeGenerationType="class">
         <attribute name="value" optional="YES" attributeType="String"/>
     </entity>
-    <entity name="StyleRule" representedClassName="StyleRule" syncable="YES" codeGenerationType="class">
-        <relationship name="collection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeatureCollection" inverseName="styleRules" inverseEntity="FeatureCollection"/>
-        <relationship name="feature" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Feature" inverseName="styleRules" inverseEntity="Feature"/>
-    </entity>
     <entity name="Stylesheet" representedClassName="Stylesheet" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="collections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FeatureCollection" inverseName="stylesheet" inverseEntity="FeatureCollection"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StylesheetOwner" inverseName="stylesheet" inverseEntity="StylesheetOwner"/>
+    </entity>
+    <entity name="StylesheetOwner" representedClassName="StylesheetOwner" isAbstract="YES" syncable="YES" codeGenerationType="class">
+        <relationship name="stylesheet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Stylesheet" inverseName="owner" inverseEntity="Stylesheet"/>
     </entity>
 </model>

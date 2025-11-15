@@ -29,7 +29,7 @@ struct FeatureCollectionView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass) private var verticalSizeClass
 
-    @State private var geometrySelection = Set<Geometry>()
+    @State private var geometrySelection = Set<GeometryItem.ID>()
 
     @StateObject private var viewModel: FeatureCollectionModel
 
@@ -69,7 +69,7 @@ struct FeatureCollectionView: View {
                         }
                         .tag(0)
                 case 1:
-                    GeometryInfo(geometry: geometrySelection.first!)
+                    GeometryInfo(geometry: viewModel.geometry(from: geometrySelection.first!))
                         .tabItem {
                             Image(systemName: "square.and.pencil")
                             Text("Details")
@@ -93,7 +93,8 @@ struct FeatureCollectionView: View {
                     GeometriesTable(geometries: viewModel.geometries,
                                     columns: viewModel.columns,
                                     selection: $geometrySelection)
-                    GeometriesInfo(geometries: geometrySelection)
+                    GeometriesInfo(geometriesViewModel: GeometriesViewModel(geometryItems: viewModel.geometries(from: geometrySelection).map { GeometryItem(geometry: $0) },
+                                                                            properties: viewModel.columns))
                 }
             }
             .searchable(text: $viewModel.searchText)

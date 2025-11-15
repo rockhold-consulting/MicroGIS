@@ -50,7 +50,7 @@ class FeatureCollectionModel: Hashable, ObservableObject {
         }
     }
 
-    @Published var geometries = [Geometry]()
+    @Published var geometries = [GeometryItem]()
     @Published var columns = [String]()
 
 
@@ -75,9 +75,19 @@ class FeatureCollectionModel: Hashable, ObservableObject {
         }
         .sorted(using: .localizedStandard)
 
-        self.geometries = gg
+        self.geometries = gg.map { g in
+            GeometryItem(geometry: g)
+        }
     }
 
+    func geometry(from itemID: NSManagedObjectID) -> Geometry {
+        return context.object(with: itemID) as! Geometry
+    }
+    
+    func geometries(from itemIDSet: Set<NSManagedObjectID>) -> [Geometry] {
+        return itemIDSet.compactMap { self.geometry(from: $0) }
+    }
+    
     private func buildPredicate() -> NSPredicate {
 
         var predicates = [NSPredicate]()
@@ -107,7 +117,9 @@ class FeatureCollectionModel: Hashable, ObservableObject {
     func hash(into hasher: inout Hasher) {
         hasher.combine(baseGeometriesPredicate)
         hasher.combine(context)
-        hasher.combine(geometries)
+        hasher.combine(geometries.map { g in
+            g.geometry
+        })
         hasher.combine(searchText)
     }
 }

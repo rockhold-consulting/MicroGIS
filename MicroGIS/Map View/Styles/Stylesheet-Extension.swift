@@ -28,4 +28,13 @@ extension Stylesheet {
         self.init(context: ctx)
         self.name = name
     }
+    
+    static func defaultStyles() -> [Style] {
+        return [Style.defaultStyle()]
+    }
+    
+    func styles() -> [Style]? {
+        // TODO: turn nsdata from managed object into array of style objects
+        return nil
+    }
 }
